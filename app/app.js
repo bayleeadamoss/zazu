@@ -13,7 +13,8 @@ zazu.addPlugin(calculatorPlugin);
 // Eh?
 const input = jQuery('#query');
 const resultsView = new View(jQuery('#results'));
-input.on('keyup', () => {
+
+input.focus().on('keyup', () => {
   zazu.search(input.val(), (promises) => {
     resultsView.clear();
     promises.forEach((promise) => {
