@@ -3,58 +3,58 @@
 // It doesn't have any windows which you can see on screen, but we can open
 // window from here.
 
-import { app, BrowserWindow } from 'electron';
-import devHelper from './vendor/electron_boilerplate/dev_helper';
-import windowStateKeeper from './vendor/electron_boilerplate/window_state';
-import globalShortcut from 'global-shortcut';
+import { app, BrowserWindow } from 'electron'
+import devHelper from './vendor/electron_boilerplate/dev_helper'
+import windowStateKeeper from './vendor/electron_boilerplate/window_state'
+import globalShortcut from 'global-shortcut'
+import path from 'path'
 
 // Special module holding environment variables which you declared
 // in config/env_xxx.json file.
-import env from './env';
+import env from './env'
 
-var mainWindow;
+var mainWindow
 
 // Preserver of the window size and position between app launches.
 const mainWindowState = windowStateKeeper('main', {
-    width: 1000,
-    height: 600
-});
+  width: 1000,
+  height: 600,
+})
 
 app.on('ready', () => {
+  mainWindow = new BrowserWindow({
+    x: mainWindowState.x,
+    y: mainWindowState.y,
+    width: mainWindowState.width,
+    height: mainWindowState.height,
+    show: false,
+  })
 
-    mainWindow = new BrowserWindow({
-        x: mainWindowState.x,
-        y: mainWindowState.y,
-        width: mainWindowState.width,
-        height: mainWindowState.height,
-        show: false,
-    });
-
-    globalShortcut.register('ctrl+x', () => {
-        if (mainWindow.isVisible()) {
-            mainWindow.hide();
-        } else {
-            mainWindow.show();
-        }
-    });
-
-    if (mainWindowState.isMaximized) {
-        mainWindow.maximize();
+  globalShortcut.register('ctrl+x', () => {
+    if (mainWindow.isVisible()) {
+      mainWindow.hide()
+    } else {
+      mainWindow.show()
     }
+  })
 
-    mainWindow.loadURL('file://' + __dirname + '/app.html');
+  if (mainWindowState.isMaximized) {
+    mainWindow.maximize()
+  }
 
-    if (env.name !== 'production') {
-        devHelper.setDevMenu();
-        mainWindow.openDevTools();
-    }
+  mainWindow.loadURL(path.join('file://', __dirname, '/app.html'))
 
-    mainWindow.on('close', () => {
-        mainWindowState.saveState(mainWindow);
-    });
-});
+  if (env.name !== 'production') {
+    devHelper.setDevMenu()
+    mainWindow.openDevTools()
+  }
+
+  mainWindow.on('close', () => {
+    mainWindowState.saveState(mainWindow)
+  })
+})
 
 app.on('window-all-closed', () => {
-    globalShortcut.unregisterAll();
-    app.quit();
-});
+  globalShortcut.unregisterAll()
+  app.quit()
+})

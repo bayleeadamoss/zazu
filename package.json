@@ -4,6 +4,10 @@
     "chai": "^3.5.0",
     "electron-mocha": "^1.0.0",
     "electron-prebuilt": "^0.36.0",
+    "eslint": "2.3.0",
+    "eslint-config-standard": "5.1.0",
+    "eslint-plugin-promise": "1.1.0",
+    "eslint-plugin-standard": "1.3.2",
     "fs-jetpack": "^0.7.0",
     "gulp": "^3.9.0",
     "gulp-batch": "^1.0.5",
@@ -27,8 +31,9 @@
     "build": "gulp build",
     "release": "gulp release --env=production",
     "start": "gulp start",
-    "pretest": "gulp build --env=test",
+    "pretest": "gulp build --env=test && npm run lint",
     "test": "electron-mocha build",
+    "lint": "eslint .",
     "install-native": "node ./tasks/install_native_module"
   }
 }

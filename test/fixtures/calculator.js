@@ -1,9 +1,9 @@
-'use strict';
+'use strict'
 
 module.exports = {
-  name: "Calculator",
+  name: 'Calculator',
   blocks: {
     input: [],
-    output: []
-  }
+    output: [],
+  },
 }

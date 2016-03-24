@@ -1,5 +1,5 @@
-import { spawn } from 'child_process';
-import cuid from 'cuid';
+import { spawn } from 'child_process'
+import cuid from 'cuid'
 
 /**
  * Runs a script without any prefix.
@@ -19,46 +19,46 @@ import cuid from 'cuid';
  *   type: "RootScript",
  *   script: "node findApps.js {query}",
  *   respondsTo: (input) => {
- *     return input.match(/[a-z]/i);
+ *     return input.match(/[a-z]/i)
  *   },
  *   connections: [2],
  * }
  * ~~~
  */
 export default class RootScript {
-  constructor(data) {
-    this.id = data.id || cuid();
-    this.script = data.script;
-    this.respondsTo = data.respondsTo;
-    this.connections = data.connections;
+  constructor (data) {
+    this.id = data.id || cuid()
+    this.script = data.script
+    this.respondsTo = data.respondsTo
+    this.connections = data.connections
   }
 
-  call(input) {
-    const command = this.script.split(' ')[0];
+  call (input) {
+    const command = this.script.split(' ')[0]
     const args = this.script
       .replace('{query}', input)
       .split(' ')
-      .slice(1);
+      .slice(1)
     const cmd = spawn(command, args, {
-      cwd: './plugins/calculator' // TODO: Remove hardcoded path
-    });
+      cwd: './plugins/calculator', // TODO: Remove hardcoded path
+    })
 
     return new Promise((resolve, reject) => {
-      let output = '';
-      let error = '';
+      let output = ''
+      let error = ''
 
       cmd.stdout.on('data', (data) => {
-        output += data;
-      });
+        output += data
+      })
 
       cmd.stderr.on('data', (data) => {
-        error += data;
-      });
+        error += data
+      })
 
       cmd.on('close', (code) => {
-        if (code === 0) { resolve(JSON.parse(output)); }
-        if (code !== 0) { reject(error); }
-      });
-    });
+        if (code === 0) { resolve(JSON.parse(output)) }
+        if (code !== 0) { reject(error) }
+      })
+    })
   }
 }

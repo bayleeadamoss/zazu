@@ -1,5 +1,5 @@
-import RootScript from './rootScript';
+import RootScript from './rootScript'
 
 export default {
   RootScript,
-};
+}
