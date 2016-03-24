@@ -12,7 +12,10 @@
     "gulp-util": "^3.0.6",
     "gulp-watch": "^4.3.5",
     "q": "^1.4.1",
+    "rewire": "^2.5.1",
     "rollup": "^0.25.4",
+    "sinon": "^1.17.3",
+    "sinon-chai": "^2.8.0",
     "yargs": "^4.2.0"
   },
   "optionalDependencies": {

@@ -6,6 +6,7 @@
 import { app, BrowserWindow } from 'electron';
 import devHelper from './vendor/electron_boilerplate/dev_helper';
 import windowStateKeeper from './vendor/electron_boilerplate/window_state';
+import globalShortcut from 'global-shortcut';
 
 // Special module holding environment variables which you declared
 // in config/env_xxx.json file.
@@ -14,18 +15,27 @@ import env from './env';
 var mainWindow;
 
 // Preserver of the window size and position between app launches.
-var mainWindowState = windowStateKeeper('main', {
+const mainWindowState = windowStateKeeper('main', {
     width: 1000,
     height: 600
 });
 
-app.on('ready', function () {
+app.on('ready', () => {
 
     mainWindow = new BrowserWindow({
         x: mainWindowState.x,
         y: mainWindowState.y,
         width: mainWindowState.width,
-        height: mainWindowState.height
+        height: mainWindowState.height,
+        show: false,
+    });
+
+    globalShortcut.register('ctrl+x', () => {
+        if (mainWindow.isVisible()) {
+            mainWindow.hide();
+        } else {
+            mainWindow.show();
+        }
     });
 
     if (mainWindowState.isMaximized) {
@@ -39,11 +49,12 @@ app.on('ready', function () {
         mainWindow.openDevTools();
     }
 
-    mainWindow.on('close', function () {
+    mainWindow.on('close', () => {
         mainWindowState.saveState(mainWindow);
     });
 });
 
-app.on('window-all-closed', function () {
+app.on('window-all-closed', () => {
+    globalShortcut.unregisterAll();
     app.quit();
 });

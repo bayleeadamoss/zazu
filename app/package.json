@@ -1,13 +1,14 @@
 {
-  "name": "electron-boilerplate",
-  "productName": "Electron Boilerplate",
-  "identifier": "com.example.electron-boilerplate",
-  "description": "Starter for your Electron application. Out of the box ready for serious stuff.",
+  "name": "Zazu",
+  "productName": "Zazu",
+  "identifier": "com.tinytacoteam.zazu",
+  "description": "A cross platform productivity application.",
   "version": "0.1.0",
-  "author": "Mr Gumby",
-  "copyright": "© 2016, your company here",
+  "author": "Blaine Schmeisser",
   "main": "background.js",
   "dependencies": {
-    "fs-jetpack": "^0.7.0"
+    "cuid": "^1.3.8",
+    "fs-jetpack": "^0.7.0",
+    "jquery": "^2.2.2"
   }
 }

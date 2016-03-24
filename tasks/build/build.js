@@ -110,6 +110,9 @@ gulp.task('watch', function () {
     watch('app/**/*.js', batch(function (events, done) {
         gulp.start('bundle-watch', done);
     }));
+    watch('test/**/*.js', batch(function (events, done) {
+        gulp.start('bundle-watch', done);
+    }));
     watch(paths.copyFromAppDir, { cwd: 'app' }, batch(function (events, done) {
         gulp.start('copy-watch', done);
     }));
