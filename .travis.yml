@@ -1,7 +1,29 @@
-language: node_js
-
-node_js:
-  - "node"
-
-before_script:
-  - export DISPLAY=:99.0; sh -e /etc/init.d/xvfb start
+language: cpp
+env:
+  - NODE_VERSION="node"
+os:
+  - linux
+  - osx
+matrix:
+  fast_finish: true
+before_install:
+  - if [ $TRAVIS_OS_NAME == "linux" ]; then
+      export DISPLAY=:99.0; sh -e /etc/init.d/xvfb start;
+    fi
+  - git clone https://github.com/creationix/nvm.git /tmp/.nvm; source /tmp/.nvm/nvm.sh;
+    nvm install $NODE_VERSION; nvm use --delete-prefix $NODE_VERSION;
+install:
+  - npm install
+script:
+  - npm run release
+  - npm test
+deploy:
+  provider: releases
+  api_key:
+    secure: HEfYcAouyX91uODkoSOGbOZvhou42LgF+9ajDUADFJBh52G6DLAbKnYbpkgol2cmp6BIFCO0v9O7Pb2glTBbQHI2kqGFBv4KZh5gmQjQ8e/SszhnDJoqm9QsetSbx9becaeA1K4B0x7hyozndanVF4fCB7HnCctSWuiQIW8Y0tWL8TJx1ZQjnOz6LxS2a9hmmoV6NATc0E3959Q5gIp89yHnTz29mkkjAXB2xnUIl2CtjcBBU0/zEO0L/D7bbf1GEo6nh3k0VQMIfNDwVP5bMukAs+sk8ld6R0n3U+eGCnrtGhcuYRR0H6peiZCCWCM+RdH0PkBYUfo/rsP4At/qbW5QLFuVRhtXuQrkE5JTXIHJx+qaH/ZcWPwzh/Y1YiQlj1vOUDzXFz6kdLSus1BQkXgP9vSFH41A2EzV9FGxZQACGwKStnQzVjmG95flgc2NQT/hG+OCX4h3vCC572wE5Tz+dycuVg1KIjLstobOhcQ+29wPaSXJ4d7gwxVROrxH6tzfwzDcjEeyoSwXKJh0+mET6SkpCe/d4mzwsD/h4sKL9Jkul4jufJpFYS7z1Vc90RDspZeF4ZCD0HdNMVI8Tz0l2oJ7IakpjYz+oHSsWwuI8sUP1T7ciq3jc59W18AjmfP9xCu77jFQFLuA4D+pq95oqLQktwcgZnqLJHCiyfQ=
+  file: "releases/*"
+  file_glob: true
+  skip_cleanup: true
+  on:
+    tags: true
+    repo: tinytacoteam/zazu
