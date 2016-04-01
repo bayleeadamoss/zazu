@@ -2,6 +2,9 @@ import sinon from 'sinon'
 import chai, { expect } from 'chai'
 import sinonChai from 'sinon-chai'
 import Plugin from '../app/plugin'
+import mockFs from 'mock-fs'
+import mockRequire from 'mock-require'
+import path from 'path'
 
 chai.use(sinonChai)
 
@@ -16,8 +19,56 @@ const blockFactory = (responds, connections) => {
 }
 
 describe('Plugin', () => {
-  const path = '../test/fixtures/calculator.js'
-  const plugin = new Plugin(path)
+  const plugin = new Plugin('tinytacoteam/calculator', '/tmp')
+
+  describe('downloadPlugin', () => {
+    beforeEach(() => {
+      plugin.clone = sinon.stub()
+      mockRequire(path.join(plugin.path, 'zazu.js'), {
+        blocks: {
+          input: [],
+          output: [],
+        },
+      })
+    })
+
+    afterEach(() => {
+      mockFs.restore()
+      mockRequire.stop()
+    })
+
+    describe('when the plugin exists', () => {
+      beforeEach(() => {
+        mockFs({
+          '/tmp/tinytacoteam/calculator': {
+            'zazu.js': '',
+          },
+        }, {createCwd: false, createTmp: false})
+        plugin.downloadPlugin()
+      })
+
+      it('does not download', () => {
+        expect(plugin.clone).to.not.be.called
+      })
+    })
+
+    describe('when the plugin does not exist', () => {
+      beforeEach(() => {
+        mockFs({
+          '/tmp': {},
+        }, {createCwd: false, createTmp: false})
+        plugin.downloadPlugin()
+      })
+
+      afterEach(() => {
+        mockFs.restore()
+      })
+
+      it('downloads when its not found', () => {
+        expect(plugin.clone).to.be.calledOnce
+      })
+    })
+  })
 
   describe('respondsTo', () => {
     it('says false when no blocks provided', () => {

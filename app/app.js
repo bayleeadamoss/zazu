@@ -2,13 +2,8 @@ import jQuery from 'jQuery'
 
 import Zazu from './zazu'
 import View from './view'
-import Plugin from './plugin'
 
 const zazu = new Zazu()
-
-// Handled by manager
-const calculatorPlugin = new Plugin('../plugins/calculator/zazu')
-zazu.addPlugin(calculatorPlugin)
 
 // Eh?
 const input = jQuery('#query')

@@ -1,4 +1,5 @@
 import cuid from 'cuid'
+import electron from 'electron'
 
 /**
  * Copies the input `value` to the top of the clipboard.
@@ -15,8 +16,7 @@ import cuid from 'cuid'
 export default class CopyToClipboard {
   constructor (data) {
     this.id = data && data.id || cuid()
-    this.connections = []
-    this.clipboard = require('electron').clipboard
+    this.clipboard = electron.clipboard
   }
 
   call (state) {

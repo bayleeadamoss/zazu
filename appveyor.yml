@@ -1,0 +1,30 @@
+environment:
+  nodejs_version: "5"
+
+install:
+  - ps: Install-Product node $env:nodejs_version
+  - ps: $env:Path += ";C:\Program Files (x86)\NSIS"
+  - choco install nsis -pre
+  - npm install
+
+test_script:
+  - node --version
+  - npm --version
+  - npm run release
+  - npm test
+
+artifacts:
+  - path: releases\*.exe
+    name: ZazuWin
+
+deploy:
+  provider: GitHub
+  auth_token:
+    secure: D1pIgsEHQWzKjrC6oPRnPYwLjz8PEkKBuhc9Vs1uR+UZuCa0cFDFw2bfhWyPQEdY
+  artifact: ZazuWin
+  draft: false
+  prerelease: false
+  on:
+    appveyor_repo_tag: true
+
+build: off
