@@ -18,7 +18,7 @@ describe('Configuration', () => {
     mockRequire.stop()
   })
 
-  describe('loadFile', () => {
+  describe('load', () => {
     describe('given no configuration file', () => {
       beforeEach(() => {
         mockFs({
@@ -27,7 +27,7 @@ describe('Configuration', () => {
           },
         })
         expect(jetpack.exists(configuration.profilePath)).to.be.false
-        configuration.loadFile()
+        configuration.load()
       })
 
       it('creates zazurc file', () => {
@@ -43,7 +43,7 @@ describe('Configuration', () => {
         }
         mockFs(fs, {createCwd: false, createTmp: false})
         expect(jetpack.exists(configuration.profilePath)).to.be.okay
-        configuration.loadFile()
+        configuration.load()
       })
 
       it('loads configuration file', () => {

@@ -1,11 +1,40 @@
-import Input from './plugin/input/index'
-import Output from './plugin/output/index'
+import Input from './blocks/input/index'
+import Output from './blocks/output/index'
+import clone from 'git-clone'
+import path from 'path'
+import jetpack from 'fs-jetpack'
+import notification from './lib/notification'
 
 export default class Plugin {
-  constructor (path) {
-    this.plugin = require(path)
+  constructor (url, dir) {
+    this.path = path.join(dir, url)
     this.inputs = []
     this.outputs = []
+    this.loaded = false
+    this.url = url
+    this.clone = clone
+  }
+
+  downloadPlugin () {
+    if (jetpack.exists(this.path)) {
+      this.loadPlugin()
+    } else {
+      this.clone(`https://github.com/${this.url}`, this.path, { shallow: true }, (error) => {
+        if (error) {
+          notification.push({
+            title: 'Plugin failed',
+            message: `Plugin '${this.url}' failed to load.`,
+          })
+        } else {
+          this.loadPlugin()
+        }
+      })
+    }
+  }
+
+  loadPlugin () {
+    this.plugin = require(path.join(this.path, 'zazu.js'))
+    this.loaded = true
 
     this.plugin.blocks.input.forEach((input) => {
       this.addInput(new Input[input.type](input))

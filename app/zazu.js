@@ -1,7 +1,14 @@
+import Plugin from './plugin'
+import configuration from './configuration'
+
 export default class Zazu {
   constructor () {
-    this.settings = {}
-    this.plugins = []
+    configuration.load()
+    this.plugins = configuration.plugins.map((gitUrl) => {
+      const plugin = new Plugin(gitUrl, configuration.pluginDir)
+      plugin.downloadPlugin()
+      return plugin
+    })
   }
 
   search (input, callback) {
@@ -13,16 +20,4 @@ export default class Zazu {
     })
     callback(responses)
   }
-
-  addSetting (name, value) {
-    this.settings[name] = value
-  }
-
-  addPlugin (pluginObj) {
-    this.plugins.push(pluginObj)
-  }
-
-  addSource () {}
-  installPlugin () {}
-  isPluginInstalled () {}
 }

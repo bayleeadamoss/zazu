@@ -4,12 +4,13 @@ import path from 'path'
 class Configuration {
   constructor () {
     this.profilePath = path.join(require('os').homedir(), '.zazurc.js')
+    this.pluginDir = path.join(require('os').homedir(), '.zazu/plugins/')
     this.plugins = []
     this.theme = ''
     this.hotkey = ''
   }
 
-  loadFile () {
+  load () {
     if (!jetpack.exists(this.profilePath)) {
       jetpack.copy('./templates/zazurc.js', this.profilePath, {
         overwrite: false,
