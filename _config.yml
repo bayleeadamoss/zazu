@@ -5,11 +5,10 @@ description: >
   Write an awesome description for your new site here. You can edit this
   line in _config.yml. It will appear in your document head meta (for
   Google search results) and in your feed.xml site description.
-url: "https://github.com/tinytacoteam/zazu"
+url: "http://zazuapp.org"
 fixedNav: 'true' # true or false
 theme: mint # teal, purple, green, blue, orange, purple, grey
-baseurl: '/zazu'
-iconurl: '/zazu/images/package-icons/'
+baseurl: 'http://zazuapp.org'
 branch: gh-pages
 collections:
   tutorials:
