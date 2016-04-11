@@ -2,8 +2,13 @@ import jQuery from 'jQuery'
 
 import Zazu from './zazu'
 import View from './view'
+import insertCss from 'insert-css'
 
 const zazu = new Zazu()
+
+zazu.loadTheme().then((plugin) => {
+  insertCss(plugin.css)
+})
 
 // Eh?
 const input = jQuery('#query')

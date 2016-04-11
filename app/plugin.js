@@ -1,47 +1,31 @@
 import Input from './blocks/input/index'
 import Output from './blocks/output/index'
-import clone from 'git-clone'
-import path from 'path'
-import jetpack from 'fs-jetpack'
 import notification from './lib/notification'
+import Package from './package'
 
-export default class Plugin {
+export default class Plugin extends Package {
   constructor (url, dir) {
-    this.path = path.join(dir, url)
+    super(url, dir)
     this.inputs = []
     this.outputs = []
     this.loaded = false
-    this.url = url
-    this.clone = clone
   }
 
-  downloadPlugin () {
-    if (jetpack.exists(this.path)) {
-      this.loadPlugin()
-    } else {
-      this.clone(`https://github.com/${this.url}`, this.path, { shallow: true }, (error) => {
-        if (error) {
-          notification.push({
-            title: 'Plugin failed',
-            message: `Plugin '${this.url}' failed to load.`,
-          })
-        } else {
-          this.loadPlugin()
-        }
+  load () {
+    return super.load().then((plugin) => {
+      this.loaded = true
+      plugin.blocks.input.forEach((input) => {
+        this.addInput(new Input[input.type](input))
       })
-    }
-  }
 
-  loadPlugin () {
-    this.plugin = require(path.join(this.path, 'zazu.js'))
-    this.loaded = true
-
-    this.plugin.blocks.input.forEach((input) => {
-      this.addInput(new Input[input.type](input))
-    })
-
-    this.plugin.blocks.output.forEach((output) => {
-      this.addOutput(new Output[output.type](output))
+      plugin.blocks.output.forEach((output) => {
+        this.addOutput(new Output[output.type](output))
+      })
+    }).catch((errorMessage) => {
+      notification.push({
+        title: 'Plugin failed',
+        message: errorMessage,
+      })
     })
   }
 
@@ -54,6 +38,7 @@ export default class Plugin {
   }
 
   respondsTo (inputText) {
+    if (!this.loaded) { return }
     return this.inputs.find((input) => {
       return input.respondsTo(inputText)
     })

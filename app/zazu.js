@@ -1,4 +1,5 @@
 import Plugin from './plugin'
+import Theme from './theme'
 import configuration from './configuration'
 
 export default class Zazu {
@@ -6,9 +7,14 @@ export default class Zazu {
     configuration.load()
     this.plugins = configuration.plugins.map((gitUrl) => {
       const plugin = new Plugin(gitUrl, configuration.pluginDir)
-      plugin.downloadPlugin()
+      plugin.load()
       return plugin
     })
+  }
+
+  loadTheme () {
+    const theme = new Theme(configuration.theme, configuration.pluginDir)
+    return theme.load()
   }
 
   search (input, callback) {
