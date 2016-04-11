@@ -31,6 +31,7 @@ export default class RootScript {
     this.script = data.script
     this.respondsTo = data.respondsTo
     this.connections = data.connections
+    this.cwd = data.cwd
   }
 
   call (input) {
@@ -40,7 +41,7 @@ export default class RootScript {
       .split(' ')
       .slice(1)
     const cmd = spawn(command, args, {
-      cwd: './plugins/calculator', // TODO: Remove hardcoded path
+      cwd: this.cwd,
     })
 
     return new Promise((resolve, reject) => {

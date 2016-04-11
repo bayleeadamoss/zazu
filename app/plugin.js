@@ -15,6 +15,7 @@ export default class Plugin extends Package {
     return super.load().then((plugin) => {
       this.loaded = true
       plugin.blocks.input.forEach((input) => {
+        input.cwd = this.path
         this.addInput(new Input[input.type](input))
       })
 
