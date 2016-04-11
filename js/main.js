@@ -1,7 +1,9 @@
+/**
+ * Finds all the headers that can link to themselves and make them clickable.
+ */
 jQuery(document).ready(function() {
-  jQuery('.c-article__main.sidebar').find('h1, h2, h3, h4, h5, h6').each(function() {
+  jQuery('.c-article__main.sidebar').find('h2, h3').filter('[id]').each(function() {
     var el = $(this);
-    if (!el.attr('id')) { return; }
     el.html('<a href="#' + el.attr('id') + '">' + el.text() + '</a>');
   });
 });

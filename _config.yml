@@ -16,8 +16,7 @@ collections:
     output: true
     permalink: /tutorials/:path/
   packages:
-    output: no
-    permalink: /packages/:path/
+    output: false
   documentation:
     output: true
     permalink: /documentation/:path/
