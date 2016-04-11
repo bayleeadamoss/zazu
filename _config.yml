@@ -1,0 +1,37 @@
+# Site settings
+title: Blaine Schmeisser
+email: blainesch@gmail.com
+description: >
+  Write an awesome description for your new site here. You can edit this
+  line in _config.yml. It will appear in your document head meta (for
+  Google search results) and in your feed.xml site description.
+url: "https://github.com/tinytacoteam/zazu"
+fixedNav: 'true' # true or false
+theme: mint # teal, purple, green, blue, orange, purple, grey
+baseurl: '/material-jekyll-theme'
+iconurl: '/material-jekyll-theme/images/package-icons/'
+branch: gh-pages
+collections:
+  tutorials:
+    output: true
+    permalink: /tutorials/:path/
+  packages:
+    output: no
+    permalink: /packages/:path/
+  documentation:
+    output: true
+    permalink: /documentation/:path/
+
+# Social
+twitterUsername:
+dribbbleUsername:
+codepenUsername:
+githubUsername: tinytacoteam
+
+# Build settings
+permalink: /:year/:month/:title
+markdown: kramdown
+include: [_pages, _tutorials, _packages, _documentation]
+exclude: [_site, CHANGELOG.md, LICENSE, README.md]
+sass:
+  style: compressed

@@ -1,0 +1,28 @@
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+.c-header {
+  padding-top: 14.1rem; // 75px
+  padding-bottom: 7.5rem; // 75px
+  padding-right: 2.5rem;
+  padding-left: 2.5rem;
+  background: $t-theme;
+}
+
+.c-header__title {
+  position: relative;
+  @include ff--mono(500);
+  @include fs--title;
+  color: $c__white;
+
+  &:after {
+    margin-left: .5rem;
+    color: rgba(#fff, .5);
+    content: '¬';
+  }
+
+  span {
+    color: rgba(#fff, .5);
+  }
+}

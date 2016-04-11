@@ -1,0 +1,52 @@
+/* ==========================================================================
+   Variables
+   ========================================================================== */
+
+// Colors
+$c__red: #F44336;
+$c__pink: #E91E63;
+$c__purple: #9C27B0;
+$c__deep-purple: #673AB7;
+$c__indigo: #3F51B5;
+$c__blue: #2196F3;
+$c__light-blue: #03A9F4;
+$c__cyan: #00BCD4;
+$c__teal: #009688;
+$c__green: #4CAF50;
+$c__light-green: #8BC34A;
+$c__lime: #CDDC39;
+$c__yellow: #FFEB3B;
+$c__amber: #FFC107;
+$c__orange: #FF9800;
+$c__deep-orange: #FF5722;
+$c__brown: #795548;
+$c__grey: #9E9E9E;
+$c__light-grey: #FAFAFA;
+$c__blue-grey: #607D8B;
+$c__black: #000000;
+$c__white: #ffffff;
+$c__mint: #5CC7B2;
+
+// Theme
+$t-theme: $c__mint;
+
+// Bootstrap grid variables
+$screen-xs:                  480px; // Extra small screen / phone
+$screen-xs-min:              $screen-xs;
+$screen-phone:               $screen-xs-min;
+
+$screen-sm:                  768px; // Small screen / tablet
+$screen-sm-min:              $screen-sm;
+$screen-tablet:              $screen-sm-min;
+
+$screen-md:                  992px; // Medium screen / desktop
+$screen-md-min:              $screen-md;
+$screen-desktop:             $screen-md-min;
+
+$screen-lg:                  1200px; // Large screen / wide desktop
+$screen-lg-min:              $screen-lg;
+$screen-lg-desktop:          $screen-lg-min;
+
+$screen-xs-max:              ($screen-sm-min - 1);
+$screen-sm-max:              ($screen-md-min - 1);
+$screen-md-max:              ($screen-lg-min - 1);

@@ -1,0 +1,21 @@
+---
+layout: page
+title: Packages
+permalink: /packages/
+---
+<!--
+<div class="filter">
+    <h2>Filter</h2>
+    <p><input type="q"></p>
+</div>
+-->
+
+{% for package in site.packages %}
+    {% if package.top %}
+        <a class="package {{ package.type }}" href="https://github.com/{{ package.githuburl }}">
+            <img src="{{ package.image | prepend: site.iconurl }}" alt="{{ package.title }} Logo" />
+            <h2>{{ package.title }}</h2>
+            <p>{{ package.description }}</p>
+        </a>
+    {% endif %}
+{% endfor %}
