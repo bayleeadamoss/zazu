@@ -1,4 +1,5 @@
 import jQuery from 'jQuery'
+import { remote } from 'electron'
 
 import Zazu from './zazu'
 import View from './view'
@@ -14,7 +15,11 @@ zazu.loadTheme().then((plugin) => {
 const input = jQuery('#query')
 const resultsView = new View(jQuery('#results'))
 
-input.focus().on('keyup', () => {
+remote.getCurrentWindow().on('show', () => {
+  input.focus()
+})
+
+input.on('keyup', () => {
   zazu.search(input.val(), (promises) => {
     resultsView.clear()
     promises.forEach((promise) => {
