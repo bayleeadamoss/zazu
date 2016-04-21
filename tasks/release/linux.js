@@ -20,11 +20,11 @@ var init = function () {
   tmpDir = projectDir.dir('./tmp', { empty: true })
   releasesDir = projectDir.dir('./releases')
   manifest = projectDir.read('app/package.json', 'json')
-  packName = manifest.name + '_' + manifest.version
+  packName = utils.getReleasePackageName(manifest)
   packDir = tmpDir.dir(packName)
   readyAppDir = packDir.cwd('opt', manifest.name)
 
-  return Q()
+  return new Q()
 }
 
 var copyRuntime = function () {
@@ -44,7 +44,7 @@ var packageBuiltApp = function () {
 }
 
 var finalize = function () {
-  // Create .desktop file from the template
+    // Create .desktop file from the template
   var desktop = projectDir.read('resources/linux/app.desktop')
   desktop = utils.replace(desktop, {
     name: manifest.name,
@@ -58,7 +58,7 @@ var finalize = function () {
   // Copy icon
   projectDir.copy('resources/icon.png', readyAppDir.path('icon.png'))
 
-  return Q()
+  return new Q()
 }
 
 var renameApp = function () {
@@ -68,15 +68,15 @@ var renameApp = function () {
 var packToDebFile = function () {
   var deferred = Q.defer()
 
-  var debFileName = packName + '_amd64.deb'
+  var debFileName = packName + '.deb'
   var debPath = releasesDir.path(debFileName)
 
-  gulpUtil.log('Creating DEB package...')
+  gulpUtil.log('Creating DEB package... (' + debFileName + ')')
 
-  // Counting size of the app in KiB
+    // Counting size of the app in KiB
   var appSize = Math.round(readyAppDir.inspectTree('.').size / 1024)
 
-  // Preparing debian control file
+    // Preparing debian control file
   var control = projectDir.read('resources/linux/DEBIAN/control')
   control = utils.replace(control, {
     name: manifest.name,
@@ -87,18 +87,18 @@ var packToDebFile = function () {
   })
   packDir.write('DEBIAN/control', control)
 
-  // Build the package...
+    // Build the package...
   childProcess.exec('fakeroot dpkg-deb -Zxz --build ' + packDir.path().replace(/\s/g, '\\ ') + ' ' + debPath.replace(/\s/g, '\\ '),
-    function (error, stdout, stderr) {
-      if (error || stderr) {
-        console.log('ERROR while building DEB package:')
-        console.log(error)
-        console.log(stderr)
-      } else {
-        gulpUtil.log('DEB package ready!', debPath)
-      }
-      deferred.resolve()
-    })
+        function (error, stdout, stderr) {
+          if (error || stderr) {
+            console.log('ERROR while building DEB package:')
+            console.log(error)
+            console.log(stderr)
+          } else {
+            gulpUtil.log('DEB package ready!', debPath)
+          }
+          deferred.resolve()
+        })
 
   return deferred.promise
 }
@@ -109,11 +109,11 @@ var cleanClutter = function () {
 
 module.exports = function () {
   return init()
-    .then(copyRuntime)
-    .then(packageBuiltApp)
-    .then(finalize)
-    .then(renameApp)
-    .then(packToDebFile)
-    .then(cleanClutter)
-    .catch(console.error)
+        .then(copyRuntime)
+        .then(packageBuiltApp)
+        .then(finalize)
+        .then(renameApp)
+        .then(packToDebFile)
+        .then(cleanClutter)
+        .catch(console.error)
 }

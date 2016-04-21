@@ -3,30 +3,29 @@
 // It doesn't have any windows which you can see on screen, but we can open
 // window from here.
 
-import { app, BrowserWindow } from 'electron'
-import devHelper from './vendor/electron_boilerplate/dev_helper'
-import windowStateKeeper from './vendor/electron_boilerplate/window_state'
+import { app, Menu } from 'electron'
 import globalShortcut from 'global-shortcut'
 import path from 'path'
 
-// Special module holding environment variables which you declared
-// in config/env_xxx.json file.
+import { devMenuTemplate } from './helpers/dev_menu_template'
+import { editMenuTemplate } from './helpers/edit_menu_template'
+import createWindow from './helpers/window'
 import env from './env'
 
-var mainWindow
+var setApplicationMenu = function () {
+  var menus = [editMenuTemplate]
+  if (env.name !== 'production') {
+    menus.push(devMenuTemplate)
+  }
+  Menu.setApplicationMenu(Menu.buildFromTemplate(menus))
+}
 
-// Preserver of the window size and position between app launches.
-const mainWindowState = windowStateKeeper('main', {
-  width: 1000,
-  height: 600,
-})
+app.on('ready', function () {
+  setApplicationMenu()
 
-app.on('ready', () => {
-  mainWindow = new BrowserWindow({
-    x: mainWindowState.x,
-    y: mainWindowState.y,
-    width: mainWindowState.width,
-    height: mainWindowState.height,
+  var mainWindow = createWindow('main', {
+    width: 1000,
+    height: 600,
     show: false,
   })
 
@@ -38,23 +37,9 @@ app.on('ready', () => {
     }
   })
 
-  if (mainWindowState.isMaximized) {
-    mainWindow.maximize()
-  }
-
   mainWindow.loadURL(path.join('file://', __dirname, '/app.html'))
-
-  if (env.name !== 'production') {
-    devHelper.setDevMenu()
-    mainWindow.openDevTools()
-  }
-
-  mainWindow.on('close', () => {
-    mainWindowState.saveState(mainWindow)
-  })
 })
 
-app.on('window-all-closed', () => {
-  globalShortcut.unregisterAll()
+app.on('window-all-closed', function () {
   app.quit()
 })

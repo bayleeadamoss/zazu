@@ -20,7 +20,7 @@ var init = function () {
   manifest = projectDir.read('app/package.json', 'json')
   readyAppDir = tmpDir.cwd(manifest.name)
 
-  return Q()
+  return new Q()
 }
 
 var copyRuntime = function () {
@@ -48,7 +48,7 @@ var finalize = function () {
 
   projectDir.copy('resources/windows/icon.ico', readyAppDir.path('icon.ico'))
 
-  // Replace Electron icon for your own.
+    // Replace Electron icon for your own.
   var rcedit = require('rcedit')
   rcedit(readyAppDir.path('electron.exe'), {
     'icon': projectDir.path('resources/windows/icon.ico'),
@@ -76,7 +76,7 @@ var renameApp = function () {
 var createInstaller = function () {
   var deferred = Q.defer()
 
-  var finalPackageName = manifest.name + '_' + manifest.version + '.exe'
+  var finalPackageName = utils.getReleasePackageName(manifest) + '.exe'
   var installScript = projectDir.read('resources/windows/installer.nsi')
 
   installScript = utils.replace(installScript, {
@@ -92,9 +92,9 @@ var createInstaller = function () {
   })
   tmpDir.write('installer.nsi', installScript)
 
-  gulpUtil.log('Building installer with NSIS...')
+  gulpUtil.log('Building installer with NSIS... (' + finalPackageName + ')')
 
-  // Remove destination file if already exists.
+    // Remove destination file if already exists.
   releasesDir.remove(finalPackageName)
 
   // Note: NSIS have to be added to PATH (environment variables).
@@ -124,12 +124,12 @@ var cleanClutter = function () {
 
 module.exports = function () {
   return init()
-    .then(copyRuntime)
-    .then(cleanupRuntime)
-    .then(packageBuiltApp)
-    .then(finalize)
-    .then(renameApp)
-    .then(createInstaller)
-    .then(cleanClutter)
-    .catch(console.error)
+        .then(copyRuntime)
+        .then(cleanupRuntime)
+        .then(packageBuiltApp)
+        .then(finalize)
+        .then(renameApp)
+        .then(createInstaller)
+        .then(cleanClutter)
+        .catch(console.error)
 }
