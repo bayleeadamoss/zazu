@@ -18,8 +18,6 @@
     "gulp-util": "^3.0.6",
     "gulp-watch": "^4.3.5",
     "husky": "^0.11.4",
-    "mock-fs": "^3.8.0",
-    "mock-require": "^1.2.1",
     "q": "^1.4.1",
     "rewire": "^2.5.1",
     "rollup": "^0.25.4",
