@@ -1,31 +1,20 @@
 import { expect } from 'chai'
 import configuration from '../app/configuration'
-import mockFs from 'mock-fs'
 import jetpack from 'fs-jetpack'
-import mockRequire from 'mock-require'
+import os from 'os'
+import path from 'path'
 
 describe('Configuration', () => {
   beforeEach(() => {
-    mockRequire(configuration.profilePath, {
-      hotkey: 'alt+space',
-      theme: 'tinytacoteam/dark-purple',
-      plugins: ['abc'],
-    })
-  })
-
-  afterEach(() => {
-    mockFs.restore()
-    mockRequire.stop()
+    const base = path.join(os.tmpdir(), String(Math.random()))
+    configuration.profilePath = path.join(base, '.zazurc.js')
+    configuration.pluginDir = path.join(base, '.zazu/plugins/')
+    jetpack.remove(configuration.profilePath)
   })
 
   describe('load', () => {
     describe('given no configuration file', () => {
       beforeEach(() => {
-        mockFs({
-          'templates': {
-            'zazurc.js': '',
-          },
-        })
         expect(jetpack.exists(configuration.profilePath)).to.be.false
         configuration.load()
       })
@@ -37,11 +26,11 @@ describe('Configuration', () => {
 
     describe('given a configuration file', () => {
       beforeEach(() => {
-        const fs = {}
-        fs[require('os').homedir()] = {
-          '.zazurc.js': '',
-        }
-        mockFs(fs, {createCwd: false, createTmp: false})
+        jetpack.write(configuration.profilePath, 'module.exports = ' + JSON.stringify({
+          hotkey: 'alt+space',
+          theme: 'tinytacoteam/dark-purple',
+          plugins: ['abc'],
+        }))
         expect(jetpack.exists(configuration.profilePath)).to.be.okay
         configuration.load()
       })

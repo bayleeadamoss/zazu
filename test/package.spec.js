@@ -2,37 +2,25 @@ import sinon from 'sinon'
 import chai, { expect } from 'chai'
 import sinonChai from 'sinon-chai'
 import Package from '../app/package'
-import mockFs from 'mock-fs'
-import mockRequire from 'mock-require'
 import path from 'path'
+import os from 'os'
+import jetpack from 'fs-jetpack'
 
 chai.use(sinonChai)
 
 describe('Package', () => {
-  const calculator = new Package('tinytacoteam/calculator', '/tmp')
+  const base = path.join(os.tmpdir(), String(Math.random()))
+  const calculator = new Package('tinytacoteam/calculator', base)
   describe('download', () => {
     beforeEach(() => {
       calculator.clone = sinon.stub()
-      mockRequire(path.join(calculator.path, 'zazu.js'), {
-        blocks: {
-          input: [],
-          output: [],
-        },
-      })
-    })
-
-    afterEach(() => {
-      mockFs.restore()
-      mockRequire.stop()
+      jetpack.remove(calculator.path)
     })
 
     describe('when the package exists', () => {
       beforeEach(() => {
-        mockFs({
-          '/tmp/tinytacoteam/calculator': {
-            'zazu.js': '',
-          },
-        }, {createCwd: false, createTmp: false})
+        jetpack.write(calculator.path, 'test')
+        expect(jetpack.exists(calculator.path)).to.be.truthy
         calculator.download()
       })
 
@@ -43,14 +31,8 @@ describe('Package', () => {
 
     describe('when the package does not exist', () => {
       beforeEach(() => {
-        mockFs({
-          '/tmp': {},
-        }, {createCwd: false, createTmp: false})
+        expect(jetpack.exists(calculator.path)).to.be.false
         calculator.download()
-      })
-
-      afterEach(() => {
-        mockFs.restore()
       })
 
       it('downloads when its not found', () => {
