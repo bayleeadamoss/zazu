@@ -1,5 +1,8 @@
 import Theme from './theme'
 import configuration from './configuration'
+import Style from './components/style'
+import Search from './components/search'
+import Results from './components/results'
 
 import React from 'react'
 
@@ -25,10 +28,10 @@ const Zazu = React.createClass({
     setTimeout(() => {
       this.setState({
         results: [
-          { value: 'Blaine' },
-          { value: 'Jared' },
-          { value: 'Adam' },
-          { value: 'Micah' },
+          { name: 'Blaine' },
+          { name: 'Jared' },
+          { name: 'Adam' },
+          { name: 'Micah' },
         ],
       })
     }, 1000)
@@ -41,23 +44,20 @@ const Zazu = React.createClass({
     })
   },
 
+  handleAction () {
+    alert('yes')
+  },
+
   render () {
     return (
       <div>
-        <style>
-          { this.state.theme.css }
-        </style>
-        <input
-          type='text'
+        <Style css={this.state.theme.css} />
+        <Search
           onChange={this.handleChange}
           value={this.state.query} />
-        <ul>
-          {this.state.results.map((item) => {
-            return (
-              <li onclick={() => { this.action(item) } }>{item.value}</li>
-            )
-          })}
-        </ul>
+        <Results
+          values={this.state.results}
+          onClick={this.handleAction} />
       </div>
     )
   },
