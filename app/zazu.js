@@ -10,7 +10,8 @@ const Zazu = React.createClass({
 
   getInitialState () {
     return {
-      theme: '',
+      query: '',
+      theme: { css: '' },
       results: [],
     }
   },

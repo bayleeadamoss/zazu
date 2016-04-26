@@ -1,8 +1,9 @@
-import React, { PropTypes}  from 'react'
+import { PropTypes } from 'react'
 
 import Result from './result'
 
 const Results = ({values, onClick}) => {
+  debugger
   return (
     <ul>
       { values.map((value, i) => {
@@ -13,7 +14,8 @@ const Results = ({values, onClick}) => {
 }
 
 Results.propTypes = {
-  value: PropTypes.arrayOf(PropTypes.object).isRequired,
+  values: PropTypes.array.isRequired,
+  onClick: PropTypes.func.isRequired,
 }
 
 export default Results
