@@ -1,9 +1,15 @@
 import React from 'react'
 
-export default ({css}) => {
+const Style = ({css}) => {
   return (
     <style>
       { css }
     </style>
   )
 }
+
+Style.propTypes = {
+  css: React.PropTypes.string.isRequired,
+}
+
+export default Style

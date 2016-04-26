@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default ({ value, onChange }) => {
+const Search = ({ value, onChange }) => {
   return (
     <input
       type='text'
@@ -8,3 +8,10 @@ export default ({ value, onChange }) => {
       value={value} />
   )
 }
+
+Search.propTypes = {
+  value: React.PropTypes.string.isRequired,
+  onChange: React.PropTypes.func.isRequired,
+}
+
+export default Search
