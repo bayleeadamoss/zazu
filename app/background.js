@@ -9,7 +9,7 @@ import path from 'path'
 
 import { devMenuTemplate } from './helpers/dev_menu_template'
 import { editMenuTemplate } from './helpers/edit_menu_template'
-import createWindow from './helpers/window'
+import { windowHelper } from './helpers/window'
 import env from './env'
 
 var setApplicationMenu = function () {
@@ -23,10 +23,11 @@ var setApplicationMenu = function () {
 app.on('ready', function () {
   setApplicationMenu()
 
-  var mainWindow = createWindow('main', {
-    width: 1000,
-    height: 600,
+  var mainWindow = windowHelper({
+    width: 600,
+    height: 400,
     show: false,
+    frame: false,
   })
 
   globalShortcut.register('ctrl+x', () => {

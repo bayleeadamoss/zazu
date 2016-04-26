@@ -30,12 +30,39 @@ const Zazu = React.createClass({
       this.setState({
         results: [
           { name: 'Blaine' },
+        ],
+      })
+    }, 2000)
+
+    setTimeout(() => {
+      this.setState({
+        results: [
+          { name: 'Blaine' },
+          { name: 'Jared' },
+        ],
+      })
+    }, 4000)
+
+    setTimeout(() => {
+      this.setState({
+        results: [
+          { name: 'Blaine' },
+          { name: 'Jared' },
+          { name: 'Adam' },
+        ],
+      })
+    }, 6000)
+
+    setTimeout(() => {
+      this.setState({
+        results: [
+          { name: 'Blaine' },
           { name: 'Jared' },
           { name: 'Adam' },
           { name: 'Micah' },
         ],
       })
-    }, 1000)
+    }, 8000)
   },
 
   handleChange (event) {
