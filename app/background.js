@@ -3,7 +3,7 @@
 // It doesn't have any windows which you can see on screen, but we can open
 // window from here.
 
-import { app, Menu } from 'electron'
+import { app, Menu, ipcMain } from 'electron'
 import globalShortcut from 'global-shortcut'
 import path from 'path'
 
@@ -29,6 +29,10 @@ app.on('ready', function () {
     show: false,
     frame: false,
   })
+
+  ipcMain.on('exception', function(_, error) {
+    console.log(error);
+  });
 
   globalShortcut.register('ctrl+x', () => {
     if (mainWindow.isVisible()) {
