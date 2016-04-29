@@ -1,29 +1,65 @@
-import Plugin from './plugin'
 import Theme from './theme'
 import configuration from './configuration'
+import Style from './components/style'
+import Search from './components/search'
+import Results from './components/results'
 
-export default class Zazu {
-  constructor () {
+import React from 'react'
+
+const Zazu = React.createClass({
+
+  getInitialState () {
+    return {
+      query: '',
+      theme: { css: '' },
+      results: [
+        { name: 'Blaine' },
+        { name: 'Jared' },
+        { name: 'Adam' },
+        { name: 'Micah' },
+      ],
+    }
+  },
+
+  componentDidMount () {
     configuration.load()
-    this.plugins = configuration.plugins.map((gitUrl) => {
-      const plugin = new Plugin(gitUrl, configuration.pluginDir)
-      plugin.load()
-      return plugin
-    })
-  }
 
-  loadTheme () {
     const theme = new Theme(configuration.theme, configuration.pluginDir)
-    return theme.load()
-  }
-
-  search (input, callback) {
-    let responses = []
-    this.plugins.forEach((plugin) => {
-      if (plugin.respondsTo(input)) {
-        responses = responses.concat(plugin.search(input))
-      }
+    theme.load().then((theme) => {
+      this.setState({
+        theme,
+      })
     })
-    callback(responses)
-  }
-}
+  },
+
+  handleQueryChange (event) {
+    const query = event.target.value
+    this.setState({
+      query,
+    })
+  },
+
+  handleResultAction (result) {
+    console.log('hello', result.name)
+    this.setState({
+      results: [],
+    })
+  },
+
+  render () {
+    return (
+      <div>
+        <Style css={this.state.theme.css} />
+        <Search
+          onChange={this.handleQueryChange}
+          value={this.state.query} />
+        <Results
+          values={this.state.results}
+          onClick={this.handleResultAction} />
+      </div>
+    )
+  },
+
+})
+
+export default Zazu

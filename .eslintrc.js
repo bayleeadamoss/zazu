@@ -1,6 +1,15 @@
 module.exports = {
-    "extends": "standard",
+    "extends": ["standard", "plugin:react/recommended"],
     "rules": { "comma-dangle": [2, "always-multiline"] },
+    "plugins": [ "react" ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "globals": {
+        "Mousetrap": true
+    },
     "env": {
         "browser": true,
         "node": true,

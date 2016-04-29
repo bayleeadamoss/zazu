@@ -1,31 +1,20 @@
-import jQuery from 'jQuery'
-import { remote } from 'electron'
+import { remote, ipcRenderer } from 'electron'
+import ReactDOM from 'react-dom'
+import React from 'react'
 
 import Zazu from './zazu'
-import View from './view'
-import insertCss from 'insert-css'
 
-const zazu = new Zazu()
+window.onerror = function (e) {
+  ipcRenderer.send('exception', e)
+}
 
-zazu.loadTheme().then((plugin) => {
-  insertCss(plugin.css)
-})
-
-// Eh?
-const input = jQuery('#query')
-const resultsView = new View(jQuery('#results'))
-
+// smell
 remote.getCurrentWindow().on('show', () => {
-  input.focus()
+  const input = document.getElementsByTagName('input')[0]
+  input && input.focus()
 })
 
-input.on('keyup', () => {
-  zazu.search(input.val(), (promises) => {
-    resultsView.clear()
-    promises.forEach((promise) => {
-      promise.then((results) => {
-        resultsView.add(results)
-      })
-    })
-  })
-})
+ReactDOM.render(
+  <Zazu />,
+  document.getElementById('zazu')
+)

@@ -12,7 +12,9 @@
     "git-clone": "^0.1.0",
     "insert-css": "^0.2.0",
     "jquery": "^2.2.2",
-    "node-notifier": "^4.5.0"
+    "node-notifier": "^4.5.0",
+    "react": "^15.0.1",
+    "react-dom": "^15.0.1"
   },
   "packageNameTemplate": "{{name}}-v{{version}}-{{platform}}-{{arch}}",
   "osx": {
