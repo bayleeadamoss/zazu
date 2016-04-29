@@ -29,8 +29,16 @@ app.on('ready', function () {
   var mainWindow = windowHelper({
     width: 600,
     height: 400,
+    maxHeight: 400,
     show: false,
     frame: false,
+    resizable: false,
+    minimizable: false,
+    maximizable: false,
+    closable: false,
+    alwaysOnTop: true,
+    fullscreenable: false,
+    title: 'Zazu',
   })
 
   // mainWindow.webContents.toggleDevTools();
@@ -43,6 +51,20 @@ app.on('ready', function () {
     mainWindow.hide()
   })
 
+  mainWindow.on('blur', () => {
+    mainWindow.hide()
+  })
+
+  mainWindow.on('show', () => {
+    globalShortcut.register('esc', () => {
+      mainWindow.hide()
+    })
+  })
+
+  mainWindow.on('hide', () => {
+    globalShortcut.unregister('esc')
+  })
+
   globalShortcut.register(configuration.hotkey, () => {
     if (mainWindow.isVisible()) {
       mainWindow.hide()
@@ -51,13 +73,13 @@ app.on('ready', function () {
     }
   })
 
-  globalShortcut.register('esc', () => {
-    mainWindow.hide()
-  })
-
   mainWindow.loadURL(path.join('file://', __dirname, '/app.html'))
 })
 
-app.on('window-all-closed', function () {
+app.on('will-quit', () => {
+  globalShortcut.unregisterAll()
+})
+
+app.on('window-all-closed', () => {
   app.quit()
 })

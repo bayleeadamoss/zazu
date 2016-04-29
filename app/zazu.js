@@ -13,12 +13,7 @@ const Zazu = React.createClass({
     return {
       query: '',
       theme: { css: '' },
-      results: [
-        { name: 'Blaine' },
-        { name: 'Jared' },
-        { name: 'Adam' },
-        { name: 'Micah' },
-      ],
+      results: [],
     }
   },
 

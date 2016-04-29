@@ -22,7 +22,6 @@ export const windowHelper = (options) => {
     const y = mainWindow.getBounds().y
     const screenHeight = electronScreen.getPrimaryDisplay().workAreaSize.height
     return Math.min(
-      defaultSize.height,
       screenHeight - y,
       mainContentHeight
     )
@@ -32,11 +31,13 @@ export const windowHelper = (options) => {
   let currentHeight = defaultSize.height
 
   mainWindow.webContents.on('did-finish-load', () => {
-    setInterval(() => {
+    const updateHeight = () => {
+      if (!mainWindow.isVisible) { return }
       mainWindow.webContents.executeJavaScript('document.body.children[0].offsetHeight', (mainContentHeight) => {
         resize(determineHeight(mainContentHeight))
       })
-    }, 500)
+    }
+    setInterval(updateHeight, 500)
   })
 
   return mainWindow
