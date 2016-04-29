@@ -15,11 +15,15 @@ const Search = React.createClass({
     this.props.handleQueryChange(query)
   },
 
+  setReference (input) {
+    this.input = input
+  },
+
   render () {
-    const { onChange, value } = this.props
+    const { value } = this.props
     return (
       <input
-        ref={(ref) => this.input = ref}
+        ref={this.setReference}
         type='text'
         onChange={this.handleQueryChange}
         value={value} />

@@ -50,7 +50,7 @@ const Results = React.createClass({
       this.moveDown()
     })
     Mousetrap.bind('enter', () => {
-      handleResultActions(values[activeIndex])
+      handleResultAction(values[activeIndex])
     })
   },
 

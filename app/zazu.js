@@ -47,10 +47,6 @@ const Zazu = React.createClass({
   handleResultAction (result) {
     console.log('hello', result.name)
     ipcRenderer.send('hideWindow')
-    return
-    this.setState({
-      results: [],
-    })
   },
 
   render () {
