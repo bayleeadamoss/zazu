@@ -11,6 +11,7 @@ import { devMenuTemplate } from './helpers/dev_menu_template'
 import { editMenuTemplate } from './helpers/edit_menu_template'
 import { windowHelper } from './helpers/window'
 import env from './env'
+import configuration from './configuration'
 
 var setApplicationMenu = function () {
   var menus = [editMenuTemplate]
@@ -30,18 +31,26 @@ app.on('ready', function () {
     frame: false,
   })
 
-  ipcMain.on('exception', (_, error) => {
-    console.log(error)
-  })
-
   // mainWindow.webContents.toggleDevTools();
 
-  globalShortcut.register('ctrl+x', () => {
+  ipcMain.on('message', (_, message) => {
+    console.log('message:', message)
+  })
+
+  ipcMain.on('hideWindow', (_, error) => {
+    mainWindow.hide()
+  })
+
+  globalShortcut.register(configuration.hotkey, () => {
     if (mainWindow.isVisible()) {
       mainWindow.hide()
     } else {
       mainWindow.show()
     }
+  })
+
+  globalShortcut.register('esc', () => {
+    mainWindow.hide()
   })
 
   mainWindow.loadURL(path.join('file://', __dirname, '/app.html'))

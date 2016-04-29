@@ -5,7 +5,7 @@ import Result from './result'
 const Results = React.createClass({
   propTypes: {
     values: PropTypes.array.isRequired,
-    onClick: PropTypes.func.isRequired,
+    handleResultAction: PropTypes.func.isRequired,
   },
 
   getInitialState () {
@@ -14,37 +14,49 @@ const Results = React.createClass({
     }
   },
 
-  componentDidMount: () => {
+  moveUp () {
+    const { activeIndex } = this.state
+    const { values } = this.props
+    const prevIndex = activeIndex - 1
+
+    if (prevIndex < 0) {
+      const lastIndex = values.length - 1
+      this.activate(values[lastIndex])
+    } else {
+      this.activate(values[prevIndex])
+    }
+  },
+
+  moveDown () {
+    const { activeIndex } = this.state
+    const { values } = this.props
+    const nextIndex = activeIndex + 1
+
+    if (nextIndex >= values.length) {
+      this.activate(values[0])
+    } else {
+      this.activate(values[nextIndex])
+    }
+  },
+
+  componentDidMount () {
+    const { activeIndex } = this.state
+    const { values, handleResultAction } = this.props
+
     Mousetrap.bind(['ctrl+p', 'up'], () => {
-      if (this.state.activeIndex === 0) {
-        this.setState({
-          activeIndex: this.props.values.length - 1,
-        })
-      } else {
-        this.setState({
-          activeIndex: this.state.activeIndex - 1,
-        })
-      }
-    })
-    Mousetrap.bind(['enter'], () => {
-      this.props.onClick(this.props.values[this.state.activeIndex])
+      this.moveUp()
     })
     Mousetrap.bind(['ctrl+n', 'down'], () => {
-      if (this.state.activeIndex + 0 >= this.props.values.length) {
-        this.setState({
-          activeIndex: 0,
-        })
-      } else {
-        this.setState({
-          activeIndex: this.state.activeIndex + 1,
-        })
-      }
+      this.moveDown()
+    })
+    Mousetrap.bind('enter', () => {
+      handleResultActions(values[activeIndex])
     })
   },
 
   componentWillUnmount: () => {
-    Mousetrap.unbind('command+p')
-    Mousetrap.unbind('command+n')
+    Mousetrap.unbind('ctrl+p')
+    Mousetrap.unbind('ctrl+n')
     Mousetrap.unbind('up')
     Mousetrap.unbind('down')
     Mousetrap.unbind('enter')
@@ -61,7 +73,7 @@ const Results = React.createClass({
 
   render () {
     const { activeIndex } = this.state
-    const { values, onClick } = this.props
+    const { values, handleResultAction } = this.props
     return (
       <ul>
         { values.map((value, i) => {
@@ -69,7 +81,7 @@ const Results = React.createClass({
             active={i === activeIndex}
             activate={this.activate}
             value={value}
-            onClick={onClick}
+            onClick={handleResultAction}
             key={i} />
         }) }
       </ul>

@@ -4,6 +4,7 @@ import Style from './components/style'
 import Search from './components/search'
 import Results from './components/results'
 
+import { remote, ipcRenderer } from 'electron'
 import React from 'react'
 
 const Zazu = React.createClass({
@@ -22,18 +23,22 @@ const Zazu = React.createClass({
   },
 
   componentDidMount () {
-    configuration.load()
-
     const theme = new Theme(configuration.theme, configuration.pluginDir)
     theme.load().then((theme) => {
       this.setState({
         theme,
       })
     })
+
+    remote.getCurrentWindow().on('show', () => {
+      this.setState({
+        query: '',
+        results: [],
+      })
+    })
   },
 
-  handleQueryChange (event) {
-    const query = event.target.value
+  handleQueryChange (query) {
     this.setState({
       query,
     })
@@ -41,6 +46,8 @@ const Zazu = React.createClass({
 
   handleResultAction (result) {
     console.log('hello', result.name)
+    ipcRenderer.send('hideWindow')
+    return
     this.setState({
       results: [],
     })
@@ -51,11 +58,11 @@ const Zazu = React.createClass({
       <div>
         <Style css={this.state.theme.css} />
         <Search
-          onChange={this.handleQueryChange}
+          handleQueryChange={this.handleQueryChange}
           value={this.state.query} />
         <Results
           values={this.state.results}
-          onClick={this.handleResultAction} />
+          handleResultAction={this.handleResultAction} />
       </div>
     )
   },
