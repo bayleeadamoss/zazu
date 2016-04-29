@@ -12,7 +12,12 @@ const Zazu = React.createClass({
     return {
       query: '',
       theme: { css: '' },
-      results: [],
+      results: [
+        { name: 'Blaine' },
+        { name: 'Jared' },
+        { name: 'Adam' },
+        { name: 'Micah' },
+      ],
     }
   },
 
@@ -25,55 +30,20 @@ const Zazu = React.createClass({
         theme,
       })
     })
-
-    setTimeout(() => {
-      this.setState({
-        results: [
-          { name: 'Blaine' },
-        ],
-      })
-    }, 2000)
-
-    setTimeout(() => {
-      this.setState({
-        results: [
-          { name: 'Blaine' },
-          { name: 'Jared' },
-        ],
-      })
-    }, 4000)
-
-    setTimeout(() => {
-      this.setState({
-        results: [
-          { name: 'Blaine' },
-          { name: 'Jared' },
-          { name: 'Adam' },
-        ],
-      })
-    }, 6000)
-
-    setTimeout(() => {
-      this.setState({
-        results: [
-          { name: 'Blaine' },
-          { name: 'Jared' },
-          { name: 'Adam' },
-          { name: 'Micah' },
-        ],
-      })
-    }, 8000)
   },
 
-  handleChange (event) {
+  handleQueryChange (event) {
     const query = event.target.value
     this.setState({
       query,
     })
   },
 
-  handleAction () {
-    alert('yes')
+  handleResultAction (result) {
+    console.log('hello', result.name)
+    this.setState({
+      results: [],
+    })
   },
 
   render () {
@@ -81,11 +51,11 @@ const Zazu = React.createClass({
       <div>
         <Style css={this.state.theme.css} />
         <Search
-          onChange={this.handleChange}
+          onChange={this.handleQueryChange}
           value={this.state.query} />
         <Results
           values={this.state.results}
-          onClick={this.handleAction} />
+          onClick={this.handleResultAction} />
       </div>
     )
   },

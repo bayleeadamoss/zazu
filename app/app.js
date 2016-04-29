@@ -4,8 +4,8 @@ import React from 'react'
 
 import Zazu from './zazu'
 
-window.onerror = function(e) {
-  ipcRenderer.send('exception', e);
+window.onerror = function (e) {
+  ipcRenderer.send('exception', e)
 }
 
 // smell

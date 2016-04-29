@@ -30,9 +30,11 @@ app.on('ready', function () {
     frame: false,
   })
 
-  ipcMain.on('exception', function(_, error) {
-    console.log(error);
-  });
+  ipcMain.on('exception', (_, error) => {
+    console.log(error)
+  })
+
+  // mainWindow.webContents.toggleDevTools();
 
   globalShortcut.register('ctrl+x', () => {
     if (mainWindow.isVisible()) {

@@ -7,6 +7,9 @@ module.exports = {
             "jsx": true
         }
     },
+    "globals": {
+        "Mousetrap": true
+    },
     "env": {
         "browser": true,
         "node": true,
