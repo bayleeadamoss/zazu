@@ -8,10 +8,9 @@ class Configuration {
     this.plugins = []
     this.theme = ''
     this.hotkey = ''
-    this.reload()
   }
 
-  reload () {
+  load () {
     if (!jetpack.exists(this.profilePath)) {
       jetpack.copy('./templates/zazurc.js', this.profilePath, {
         overwrite: false,

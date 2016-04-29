@@ -13,6 +13,8 @@ import { windowHelper } from './helpers/window'
 import env from './env'
 import configuration from './configuration'
 
+configuration.load()
+
 var setApplicationMenu = function () {
   var menus = [editMenuTemplate]
   if (env.name !== 'production') {
