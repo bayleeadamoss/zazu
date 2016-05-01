@@ -1,4 +1,6 @@
 import React, { PropTypes } from 'react'
+import { ipcRenderer } from 'electron'
+import Mousetrap from 'mousetrap'
 
 import Result from './result'
 
@@ -52,14 +54,13 @@ const Results = React.createClass({
     Mousetrap.bind('enter', () => {
       handleResultAction(values[activeIndex])
     })
+    Mousetrap.bind('esc', () => {
+      ipcRenderer.send('hideWindow')
+    })
   },
 
   componentWillUnmount: () => {
-    Mousetrap.unbind('ctrl+p')
-    Mousetrap.unbind('ctrl+n')
-    Mousetrap.unbind('up')
-    Mousetrap.unbind('down')
-    Mousetrap.unbind('enter')
+    Mousetrap.reset()
   },
 
   activate (item) {

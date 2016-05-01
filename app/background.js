@@ -55,16 +55,6 @@ app.on('ready', function () {
     mainWindow.hide()
   })
 
-  mainWindow.on('show', () => {
-    globalShortcut.register('esc', () => {
-      mainWindow.hide()
-    })
-  })
-
-  mainWindow.on('hide', () => {
-    globalShortcut.unregister('esc')
-  })
-
   globalShortcut.register(configuration.hotkey, () => {
     if (mainWindow.isVisible()) {
       mainWindow.hide()
