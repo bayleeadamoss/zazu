@@ -23,6 +23,7 @@ const Search = React.createClass({
     const { value } = this.props
     return (
       <input
+        className='mousetrap'
         ref={this.setReference}
         type='text'
         onChange={this.handleQueryChange}

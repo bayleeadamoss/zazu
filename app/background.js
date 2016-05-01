@@ -81,5 +81,6 @@ app.on('will-quit', () => {
 })
 
 app.on('window-all-closed', () => {
+  globalShortcut.unregisterAll()
   app.quit()
 })
