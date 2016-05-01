@@ -18,7 +18,7 @@ export var devMenuTemplate = {
     label: 'Quit',
     accelerator: 'CmdOrCtrl+Q',
     click: function () {
-      app.quit()
+      app.exit(0)
     },
   }],
 }
