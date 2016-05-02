@@ -11,16 +11,19 @@ class Configuration {
   }
 
   load () {
-    if (!jetpack.exists(this.profilePath)) {
-      jetpack.copy('./templates/zazurc.js', this.profilePath, {
-        overwrite: false,
-      })
-    }
+    return new Promise((resolve, reject) => {
+      if (!jetpack.exists(this.profilePath)) {
+        jetpack.copy('./templates/zazurc.js', this.profilePath, {
+          overwrite: false,
+        })
+      }
 
-    const data = require(this.profilePath)
-    this.plugins = data.plugins
-    this.theme = data.theme
-    this.hotkey = data.hotkey
+      const data = require(this.profilePath)
+      this.plugins = data.plugins
+      this.theme = data.theme
+      this.hotkey = data.hotkey
+      resolve()
+    })
   }
 }
 

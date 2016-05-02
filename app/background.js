@@ -13,8 +13,6 @@ import { windowHelper } from './helpers/window'
 import env from './env'
 import configuration from './configuration'
 
-configuration.load()
-
 var setApplicationMenu = function () {
   var menus = [editMenuTemplate]
   if (env.name !== 'production') {
@@ -52,15 +50,17 @@ app.on('ready', function () {
   })
 
   mainWindow.on('blur', () => {
-    mainWindow.hide()
+    // mainWindow.hide()
   })
 
-  globalShortcut.register(configuration.hotkey, () => {
-    if (mainWindow.isVisible()) {
-      mainWindow.hide()
-    } else {
-      mainWindow.show()
-    }
+  configuration.load().then(() => {
+    globalShortcut.register(configuration.hotkey, () => {
+      if (mainWindow.isVisible()) {
+        mainWindow.hide()
+      } else {
+        mainWindow.show()
+      }
+    })
   })
 
   mainWindow.loadURL(path.join('file://', __dirname, '/app.html'))

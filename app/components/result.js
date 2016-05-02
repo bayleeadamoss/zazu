@@ -24,7 +24,8 @@ const Result = React.createClass({
         onClick={this.click}
         onMouseOver={this.activate}
         className={active ? 'active' : 'inactive'}>
-        { value.name }
+        <h2>{ value.title }</h2>
+        <h3>{ value.subtitle }</h3>
       </li>
     )
   },

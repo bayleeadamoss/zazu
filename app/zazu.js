@@ -3,6 +3,7 @@ import configuration from './configuration'
 import Style from './components/style'
 import Search from './components/search'
 import Results from './components/results'
+import PluginStore from './store/pluginStore'
 
 import { remote, ipcRenderer } from 'electron'
 import React from 'react'
@@ -27,6 +28,8 @@ const Zazu = React.createClass({
       })
     })
 
+    PluginStore.addChangeListener(this.updateResults)
+
     remote.getCurrentWindow().on('show', () => {
       this.setState({
         query: '',
@@ -35,7 +38,19 @@ const Zazu = React.createClass({
     })
   },
 
+  componentWillUnmount () {
+    PluginStore.removeChangeListener(this.updateResults)
+  },
+
+  updateResults () {
+    console.log('updating results', PluginStore.results)
+    this.setState({
+      results: PluginStore.results,
+    })
+  },
+
   handleQueryChange (query) {
+    PluginStore.setQuery(query)
     this.setState({
       query,
     })
