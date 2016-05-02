@@ -19,7 +19,7 @@ about the author, and entry points to the plugin.
 
 A complete example might look like:
 
-{% highlight json %}
+{% highlight javascript %}
 module.exports = {
   name: 'Calculator',
   author: 'Tiny Taco Team',
@@ -53,7 +53,7 @@ module.exports = {
 
 To break this up, let's start with the meta information:
 
-{% highlight json %}
+{% highlight javascript %}
 module.exports = {
   name: 'Calculator',
   author: 'Tiny Taco Team',
@@ -68,7 +68,7 @@ module.exports = {
 In this example we have information about who created the plugin and ways to
 discover the repo and the website.
 
-{% highlight json %}
+{% highlight javascript %}
 module.exports = {
   // rest of plugin
   blocks: {
@@ -113,7 +113,7 @@ Lastly we have another item in the object called `connections`, this array
 contains the block ids that will get executed after the user has clicked on one
 of the results your plugin has provided.
 
-{% highlight json %}
+{% highlight javascript %}
 module.exports = {
   // rest of plugin
   blocks: {
