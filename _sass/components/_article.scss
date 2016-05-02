@@ -92,6 +92,15 @@ $header-height: 66px;
     }
   }
 
+  p {
+    margin: 20px 0;
+  }
+
+  figure.highlight {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
   blockquote {
     margin-left: -2.5rem;
     width: calc(100% + 5rem);
