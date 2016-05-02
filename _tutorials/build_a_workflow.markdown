@@ -8,8 +8,8 @@ title: How to Build a Workflow
 
 ## What is a plugin?
 
-A plugin is a script that integrates with Zazu and leverages the [blocks](blocks) to
-provide functionality to the user via the Zazu interface.
+A plugin is a script that integrates with Zazu and leverages the [blocks](http://zazuapp.org/documentation/blocks/)
+to provide functionality to the user via the Zazu interface.
 
 ## Getting started
 
@@ -89,9 +89,9 @@ module.exports = {
 }
 {% endhighlight %}
 
-This input block is listed as a [Root Script](rootScript) block, which allows
-you to accept any input without any prefixes. This is great for a calculator,
-so they only have to enter the equation into Zazu.
+This input block is listed as a [Root Script](http://zazuapp.org/documentation/blocks/#root-script)
+block, which allows you to accept any input without any prefixes. This is great
+for a calculator, so they only have to enter the equation into Zazu.
 
 You can see we give the block an `id`. This is so we can reference it later in
 the plugin. If you don't give it any `id`, a unique `id` will be provided for
@@ -130,6 +130,3 @@ module.exports = {
 The last block is a much simpler block. This output block takes input and copies
 it to the clipboard. It contains an `id` since we reference it earlier in the
 Root Script block earlier in the tutorial.
-
-[blocks]: /documentation/blocks/
-[rootScript]: /documentation/blocks/#root-script
