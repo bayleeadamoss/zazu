@@ -12,10 +12,10 @@ title:  "Blocks"
 
 Blocks are the foundation of workflows. Each one represents a step to be completed.
 
+### Root Script
+
+This allows you to execute your script without any input prefixes.
+
 ### Copy To Clipboard
 
-{% highlight ruby %}
-def foo
-  puts 'foo'
-end
-{% endhighlight %}
+This block will copy the given input to the clipboard.
