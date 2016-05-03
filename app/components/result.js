@@ -24,6 +24,7 @@ const Result = React.createClass({
         onClick={this.click}
         onMouseOver={this.activate}
         className={active ? 'active' : 'inactive'}>
+        <img src={ value.icon } alt='' />
         <h2>{ value.title }</h2>
         <h3>{ value.subtitle }</h3>
       </li>

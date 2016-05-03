@@ -1,3 +1,5 @@
+import path from 'path'
+
 import Input from './blocks/input/index'
 import Output from './blocks/output/index'
 import notification from './lib/notification'
@@ -14,6 +16,7 @@ export default class Plugin extends Package {
   load () {
     return super.load().then((plugin) => {
       this.loaded = true
+      this.plugin = plugin
       plugin.blocks.input.forEach((input) => {
         input.cwd = this.path
         this.addInput(new Input[input.type](input))
@@ -64,6 +67,7 @@ export default class Plugin extends Package {
       if (input.respondsTo(inputText)) {
         responsePromises.push(input.call(inputText).then((results) => {
           return results.map((result) => {
+            result.icon = result.icon || path.join(this.path, this.plugin.icon)
             result.blockId = input.id
             result.next = this.next.bind(this, result)
             return result
