@@ -38,6 +38,7 @@ var packageBuiltApp = function () {
 
   asar.createPackageWithOptions(projectDir.path('build'), finalAppDir.path('Contents/Resources/app.asar'), {
     dot: true,
+    unpack: projectDir.path('build/node_modules/node-notifier/vendor/**'),
   }, function () {
     deferred.resolve()
   })
