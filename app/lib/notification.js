@@ -1,5 +1,4 @@
 import notifier from 'node-notifier'
-import $ from 'jquery'
 
 class Notification {
   constructor () {
@@ -15,7 +14,7 @@ class Notification {
   }
 
   _notification (data, callback) {
-    const options = $.extend({}, data, { wait: true })
+    const options = Object.assign({}, data, { wait: true })
     return () => {
       callback()
       this.active = true
