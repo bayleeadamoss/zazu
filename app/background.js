@@ -50,7 +50,7 @@ app.on('ready', function () {
   })
 
   mainWindow.on('blur', () => {
-    // mainWindow.hide()
+    mainWindow.hide()
   })
 
   configuration.load().then(() => {
