@@ -1,0 +1,47 @@
+/* ==========================================================================
+   Archives
+   ========================================================================== */
+
+.c-archives {
+  margin-bottom: 10rem;
+}
+
+.c-archives__year {
+  margin-bottom: 2.5rem;
+  @include fs--heading-1;
+}
+
+.c-archives__list {
+  margin-bottom: 2.5rem;
+  list-style: none;
+}
+
+.c-archives__item {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+  border-top: 1px solid #EFF1F3;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+
+  h3 {
+    @include fs--body;
+  }
+
+  p {
+    @include fs--body;
+    color: #515862;
+  }
+}

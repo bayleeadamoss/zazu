@@ -1,0 +1,110 @@
+/* ==========================================================================
+   Article
+   ========================================================================== */
+$sidebar-width: 200px;
+$header-height: 66px;
+
+.c-article {
+
+}
+
+.c-article__main {
+  max-width: 76rem; // 760px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-top: 7.5rem;
+  padding-bottom: 7.5rem;
+  padding-right: 2.5rem;
+  padding-left: 2.5rem;
+  @include fs--body;
+  @include clearfix;
+
+  > * {
+    margin-bottom: 1.8rem;
+    color: rgba($c__black, .7);
+  }
+
+  a:not(.c-btn) {
+    text-decoration: underline;
+  }
+
+  &.sidebar {
+    h2, h3 {
+      border-bottom: 1px solid #ddd;
+      position: relative;
+
+      a {
+        text-decoration: none !important;
+
+        &:before {
+          margin-left: -22px;
+          margin-right: 8px;
+          opacity: .3;
+          content: "\f0c1";
+          transition: .3s ease;
+          font: normal normal normal 14px/1 FontAwesome;
+        }
+      }
+
+      &:hover a:before {
+        opacity: .6;
+      }
+    }
+
+    #markdown-toc {
+      a {
+        transition: .3s ease;
+
+        &:hover {
+          color: darken($t-theme, 10%);
+        }
+      }
+    }
+
+    @media screen and (max-width: $screen-md-max) {
+      #markdown-toc {
+        margin-left: 20px;
+      }
+      h2, h3 {
+        padding-top: $header-height + 10px;
+        margin: 0 0 25px;
+      }
+    }
+
+    @media screen and (min-width: $screen-md) {
+      #markdown-toc {
+        position: absolute;
+        top: 0;
+        padding-top: $header-height + 10px;
+        left: -$sidebar-width;
+      }
+
+      .content {
+        margin-left: $sidebar-width;
+        position: relative;
+        margin-top: -$header-height + 10px;
+
+        h2, h3 {
+          padding-top: $header-height + 10px;
+          margin: 0 0 25px;
+        }
+      }
+    }
+  }
+
+  p {
+    margin: 20px 0;
+  }
+
+  figure.highlight {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  blockquote {
+    margin-left: -2.5rem;
+    width: calc(100% + 5rem);
+    padding: 2.5rem;
+    background: $c__light-grey;
+  }
+}

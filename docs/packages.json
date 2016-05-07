@@ -1,0 +1,17 @@
+---
+layout: null
+---
+{
+  "packages": [
+    {% for package in site.packages %}
+      {
+        "top": {{ package.top }},
+        "type": "{{ package.type }}",
+        "title": "{{ package.title }}",
+        "image": "{{ package.image }}",
+        "githuburl": "{{ package.githuburl }}",
+        "description": "{{ package.description }}"
+      }{% if forloop.last == false %},{% endif %}
+    {% endfor %}
+  ]
+}

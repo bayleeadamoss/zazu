@@ -1,0 +1,17 @@
+.c-social {
+  padding: 7.5rem; // 75px
+  background: #fff;
+}
+
+.c-social__list {
+  max-width: 76rem; // 760px
+  margin-right: auto;
+  margin-left: auto;
+  list-style: none;
+}
+
+.c-social__title {
+  @include ff--mono(500);
+  @include fs--heading-2;
+  color: rgba(#000, .5);
+}

@@ -1,0 +1,16 @@
+a.fork {
+  display: none;
+}
+@media screen and (min-width: $screen-sm) {
+  a.fork {
+    display: inline;
+
+    img {
+      position: fixed;
+      z-index: 999;
+      top: 0;
+      right: 0;
+      border: 0;
+    }
+  }
+}
