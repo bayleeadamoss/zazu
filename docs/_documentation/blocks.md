@@ -16,6 +16,9 @@ Blocks are the foundation of workflows. Each one represents a step to be complet
 
 This allows you to execute your script without any input prefixes.
 
+Variables defined in the [configuration](/documentation/configuration/) will be used as
+environment variables in the script call.
+
 ### Copy To Clipboard
 
 This block will copy the given input to the clipboard.

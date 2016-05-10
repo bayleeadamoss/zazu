@@ -4,8 +4,8 @@ import jetpack from 'fs-jetpack'
 import path from 'path'
 
 export default class Theme extends Package {
-  constructor (url, dir) {
-    super(url, dir)
+  constructor (url) {
+    super(url)
     this.loaded = false
   }
 

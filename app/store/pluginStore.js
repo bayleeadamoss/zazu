@@ -11,10 +11,15 @@ class PluginStore extends EventEmitter {
     this.query = ''
     this.results = []
     configuration.load().then(() => {
-      this.plugins = configuration.plugins.map((gitUrl) => {
-        const plugin = new Plugin(gitUrl, configuration.pluginDir)
-        plugin.load()
-        return plugin
+      this.plugins = configuration.plugins.map((plugin) => {
+        let pluginObj
+        if (typeof plugin === 'object') {
+          pluginObj = new Plugin(plugin.name, plugin.variables)
+        } else {
+          pluginObj = new Plugin(plugin)
+        }
+        pluginObj.load()
+        return pluginObj
       })
     })
   }
