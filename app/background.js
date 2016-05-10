@@ -3,7 +3,7 @@
 // It doesn't have any windows which you can see on screen, but we can open
 // window from here.
 
-import { app, Menu, ipcMain } from 'electron'
+import { app, Menu, ipcMain, dialog, shell } from 'electron'
 import globalShortcut from 'global-shortcut'
 import path from 'path'
 
@@ -12,6 +12,7 @@ import { editMenuTemplate } from './helpers/edit_menu_template'
 import { windowHelper } from './helpers/window'
 import env from './env'
 import configuration from './configuration'
+import Update from './lib/update'
 
 var setApplicationMenu = function () {
   var menus = [editMenuTemplate]
@@ -24,7 +25,7 @@ var setApplicationMenu = function () {
 app.on('ready', function () {
   setApplicationMenu()
 
-  var mainWindow = windowHelper({
+  let mainWindow = windowHelper({
     width: 600,
     height: 400,
     maxHeight: 400,
@@ -37,6 +38,24 @@ app.on('ready', function () {
     alwaysOnTop: true,
     fullscreenable: false,
     title: 'Zazu',
+  })
+
+  const update = new Update()
+  update.needsUpdate().then((newerVersion) => {
+    if (!newerVersion) { return }
+    dialog.showMessageBox({
+      type: 'question',
+      buttons: ['Ignore', 'Download'],
+      defaultId: 1,
+      cancelId: 0,
+      title: 'Newer version available!',
+      message: `Zazu ${newerVersion} is available for download!`,
+      detail: 'Click download to get the newest version of Zazu!',
+    }, (response) => {
+      if (response === 1) {
+        shell.openExternal('http://zazuapp.org/')
+      }
+    })
   })
 
   // mainWindow.webContents.toggleDevTools();
