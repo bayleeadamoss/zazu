@@ -4,9 +4,13 @@ import cuid from 'cuid'
 /**
  * Runs a script without any prefix.
  *
+ * Variables defined in the plugin definition will be used as environment
+ * variables in the script call.
+ *
  * ## Attributes
  *
- * - `script`: Required. The command line script to run.
+ * - `script`: Required. The command line script to run. By default `{query}`
+ *             will be replaced with the user input.
  * - `connections`: Required. The block ids next in the workflow.
  * - `respondsTo`: Required. A preliminary function to determine if this plugin
  *                 can handle the given input or not.
@@ -34,7 +38,7 @@ export default class RootScript {
     this.cwd = data.cwd
   }
 
-  call (input) {
+  call (input, env = {}) {
     const command = this.script.split(' ')[0]
     const args = this.script
       .replace('{query}', input)
@@ -42,6 +46,7 @@ export default class RootScript {
       .slice(1)
     const cmd = spawn(command, args, {
       cwd: this.cwd,
+      env: Object.assign({}, process.env, env),
     })
 
     return new Promise((resolve, reject) => {

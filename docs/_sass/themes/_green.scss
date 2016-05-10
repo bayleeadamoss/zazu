@@ -1,0 +1,19 @@
+/* ==========================================================================
+   Green Theme
+   ========================================================================== */
+
+.t-green {
+
+  .c-navigation,
+  .c-header {
+    background: $c__green;
+  }
+
+  .c-article__main a:not(.c-btn) {
+    color: $c__green;
+  }
+
+  .c-footer a {
+    color: $c__green;
+  }
+}

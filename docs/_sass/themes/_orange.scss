@@ -1,0 +1,19 @@
+/* ==========================================================================
+   Grey Theme
+   ========================================================================== */
+
+.t-orange {
+
+  .c-navigation,
+  .c-header {
+    background: $c__deep-orange;
+  }
+
+  .c-article__main a:not(.c-btn) {
+    color: $c__deep-orange;
+  }
+
+  .c-footer a {
+    color: $c__deep-orange;
+  }
+}

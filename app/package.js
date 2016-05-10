@@ -2,9 +2,11 @@ import clone from 'git-clone'
 import path from 'path'
 import jetpack from 'fs-jetpack'
 
+import configuration from './configuration'
+
 export default class Package {
-  constructor (url, dir) {
-    this.path = path.join(dir, url)
+  constructor (url) {
+    this.path = path.join(configuration.pluginDir, url)
     this.url = url
     this.clone = clone
   }

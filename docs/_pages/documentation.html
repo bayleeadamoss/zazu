@@ -1,0 +1,15 @@
+---
+layout: page
+title: Documentation
+permalink: /documentation/
+---
+
+{% for documentation in site.documentation %}
+    <h2>
+        <i class="fa {{ documentation.icon }}"></i>
+        <a href="{{ documentation.url | prepend: site.baseurl }}">
+            {{ documentation.title }}
+        </a>
+    </h2>
+    <p>{{ documentation.description }}</p>
+{% endfor %}
