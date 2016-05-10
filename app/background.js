@@ -14,6 +14,8 @@ import env from './env'
 import configuration from './configuration'
 import Update from './lib/update'
 
+let mainWindow
+
 var setApplicationMenu = function () {
   var menus = [editMenuTemplate]
   if (env.name !== 'production') {
@@ -22,10 +24,21 @@ var setApplicationMenu = function () {
   Menu.setApplicationMenu(Menu.buildFromTemplate(menus))
 }
 
+const shouldQuit = app.makeSingleInstance((commandLine, workingDirectory) => {
+  if (mainWindow) {
+    mainWindow.show()
+    mainWindow.focus()
+  }
+})
+
+if (shouldQuit) {
+  app.quit()
+}
+
 app.on('ready', function () {
   setApplicationMenu()
 
-  let mainWindow = windowHelper({
+  mainWindow = windowHelper({
     width: 600,
     height: 400,
     maxHeight: 400,
