@@ -1,11 +1,9 @@
 # Site settings
-title: Blaine Schmeisser
-email: blainesch@gmail.com
+title: Zazu App
 description: >
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
-url: "http://zazuapp.org"
+  Zazu is a new open source productivity app, that allows developers to be in the
+  drivers seat. Unlike other solutions, there is no built in integrations, so
+  every plugin has the full scope of what Zazu has to offer.
 fixedNav: 'true' # true or false
 theme: mint # teal, purple, green, blue, orange, purple, grey
 baseurl: 'http://zazuapp.org'
