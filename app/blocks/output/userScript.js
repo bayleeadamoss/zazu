@@ -1,21 +1,21 @@
-import { spawn } from 'child_process'
 import cuid from 'cuid'
+import { spawn } from 'child_process'
 
-export default class RootScript {
+import Template from '../../lib/template'
+
+export default class UserScript {
   constructor (data) {
-    this.id = data.id || cuid()
+    this.id = data && data.id || cuid()
     this.script = data.script
-    this.respondsTo = data.respondsTo
-    this.connections = data.connections
     this.cwd = data.cwd
   }
 
-  call (input, env = {}) {
+  call (state, env = {}) {
     const command = this.script.split(' ')[0]
-    const args = this.script
-      .replace('{query}', input)
-      .split(' ')
-      .slice(1)
+    const args = Template.compile(this.script, {
+      value: state.value,
+    }).split(' ').slice(1)
+    console.log({command, args})
     const cmd = spawn(command, args, {
       cwd: this.cwd,
       env: Object.assign({}, process.env, env),
@@ -34,7 +34,8 @@ export default class RootScript {
       })
 
       cmd.on('close', (code) => {
-        if (code === 0) { resolve(JSON.parse(output)) }
+        console.log({output, error})
+        if (code === 0) { resolve(output) }
         if (code !== 0) { reject(error) }
       })
     })

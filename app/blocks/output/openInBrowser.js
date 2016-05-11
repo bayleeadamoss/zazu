@@ -1,17 +1,16 @@
 import cuid from 'cuid'
-import electron from 'electron'
+import { shell } from 'electron'
 
 import Template from '../../lib/template'
 
-export default class CopyToClipboard {
+export default class OpenInBrowser {
   constructor (data) {
     this.id = data && data.id || cuid()
-    this.clipboard = electron.clipboard
-    this.text = data.text
+    this.url = data.url
   }
 
   call (state) {
-    this.clipboard.writeText(Template.compile(this.text, {
+    shell.openExternal(Template.compile(this.url, {
       value: String(state.value),
     }))
     state.next()

@@ -42,9 +42,6 @@ const Results = React.createClass({
   },
 
   componentDidMount () {
-    const { activeIndex } = this.state
-    const { values, handleResultAction } = this.props
-
     Mousetrap.bind(['ctrl+p', 'up'], () => {
       this.moveUp()
     })
@@ -52,6 +49,8 @@ const Results = React.createClass({
       this.moveDown()
     })
     Mousetrap.bind('enter', () => {
+      const { activeIndex } = this.state
+      const { values, handleResultAction } = this.props
       handleResultAction(values[activeIndex])
     })
     Mousetrap.bind('esc', () => {

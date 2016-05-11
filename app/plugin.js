@@ -24,6 +24,7 @@ export default class Plugin extends Package {
       })
 
       plugin.blocks.output.forEach((output) => {
+        output.cwd = this.path
         this.addOutput(new Output[output.type](output))
       })
     }).catch((errorMessage) => {
