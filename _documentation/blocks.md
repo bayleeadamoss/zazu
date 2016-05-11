@@ -68,7 +68,7 @@ a script, or copy something to your clipboard.
 Most of the special attributes allow you to use a variable `{value}` which will
 be replaced with the current value of the result being passed around.
 
-~~~ javascript
+{% highlight javascript %}
 module.exports = {
   blocks: {
     output: [
@@ -76,7 +76,7 @@ module.exports = {
     ]
   }
 };
-~~~
+{% endhighlight %}
 
 ### Copy To Clipboard
 
@@ -84,13 +84,13 @@ This block will copy the given input to the clipboard.
 
 * `text` - *String* Text to be copied to the clipboard.
 
-~~~ javascript
+{% highlight javascript %}
 {
   id: 2,
   type: 'CopyToClipboard',
   text: '{value}',
 }
-~~~
+{% endhighlight %}
 
 ### Open In Browser
 
@@ -98,13 +98,13 @@ Open up the value in the users default Browser.
 
 * `url` - *String* URL of the page you wish to open.
 
-~~~ javascript
+{% highlight javascript %}
 {
   id: 3,
   type: 'OpenInBrowser',
   url: '{value}',
 }
-~~~
+{% endhighlight %}
 
 ### Send Notification
 
@@ -113,14 +113,14 @@ Give the user a notification with a title and a message.
 * `title` - *String* Title of the notification.
 * `message` - *String* Message of the notification.
 
-~~~ javascript
+{% highlight javascript %}
 {
   id: 4,
   type: 'SendNotification',
   title: 'Hello world',
   message: '{value}',
 }
-~~~
+{% endhighlight %}
 
 ### User Script
 
@@ -131,10 +131,10 @@ the state.
 
 * `script` - *String* The shell command to run to return the results.
 
-~~~ javascript
+{% highlight javascript %}
 {
   id: 5,
   type: 'UserScript',
   script: 'ruby output.rb {value}',
 }
-~~~
+{% endhighlight %}
