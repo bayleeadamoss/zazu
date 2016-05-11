@@ -66,7 +66,8 @@ module.exports = {
       name: 'tinytacoteam/calculator',
       variables: {
         OFFSET: 10,
-      }
+      },
+    },
   ],
 }
 {% endhighlight %}
