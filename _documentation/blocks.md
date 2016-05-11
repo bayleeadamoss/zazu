@@ -65,6 +65,9 @@ environment variables in the script call.
 Output blocks happen after an input block, these can do several things like call
 a script, or copy something to your clipboard.
 
+Most of the special attributes allow you to use a variable `{value}` which will
+be replaced with the current value of the result being passed around.
+
 ~~~ javascript
 module.exports = {
   blocks: {
@@ -79,10 +82,13 @@ module.exports = {
 
 This block will copy the given input to the clipboard.
 
+* `text` - *String* Text to be copied to the clipboard.
+
 ~~~ javascript
 {
   id: 2,
   type: 'CopyToClipboard',
+  text: '{value}',
 }
 ~~~
 
@@ -90,17 +96,19 @@ This block will copy the given input to the clipboard.
 
 Open up the value in the users default Browser.
 
+* `url` - *String* URL of the page you wish to open.
+
 ~~~ javascript
 {
   id: 3,
   type: 'OpenInBrowser',
+  url: '{value}',
 }
 ~~~
 
 ### Send Notification
 
-Give the user a notification with a title and a message. The special `{value}`
-can be used to represent the current value being passed to the block.
+Give the user a notification with a title and a message.
 
 * `title` - *String* Title of the notification.
 * `message` - *String* Message of the notification.
@@ -116,8 +124,7 @@ can be used to represent the current value being passed to the block.
 
 ### User Script
 
-For those more unique actions, you can run any script you need. The special
-`{value}` can be used to represent the current value being passed to the block.
+For those more unique actions, you can run any script you need.
 
 Variables will be passed as environment variables, but this plugin cannot mutate
 the state.
