@@ -26,7 +26,7 @@ descriptions.
 Input blocks are blocks that are the entry points to your plugin. These usually
 return results to be displayed in Zazu.
 
-~~~ javascript
+{% highlight javascript %}
 module.exports = {
   blocks: {
     input: [
@@ -34,7 +34,7 @@ module.exports = {
     ]
   }
 };
-~~~
+{% endhighlight %}
 
 ### Root Script
 
@@ -46,7 +46,7 @@ environment variables in the script call.
 * `respondsTo` - *Function* Filter input so your plugin doesn't run after each keystroke
 * `script` - *String* The shell command to run to return the results.
 
-~~~ javascript
+{% highlight javascript %}
 {
   id: 1,
   type: 'RootScript',
@@ -58,7 +58,7 @@ environment variables in the script call.
   script: 'node calculator.js {query}',
   connections: [2],
 }
-~~~
+{% endhighlight %}
 
 ## Output Blocks
 
