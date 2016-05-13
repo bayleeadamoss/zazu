@@ -43,7 +43,6 @@ const Zazu = React.createClass({
   },
 
   updateResults () {
-    console.log('updating results', PluginStore.results)
     this.setState({
       results: PluginStore.results,
     })
@@ -57,7 +56,7 @@ const Zazu = React.createClass({
   },
 
   handleResultAction (result) {
-    console.log('hello', result.name)
+    result.next()
     ipcRenderer.send('hideWindow')
   },
 

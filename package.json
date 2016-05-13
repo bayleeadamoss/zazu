@@ -39,7 +39,7 @@
     "release": "gulp release --env=production",
     "start": "gulp start",
     "pretest": "gulp build --env=test",
-    "test": "electron-mocha --compilers js:babel-register test",
+    "test": "electron-mocha --recursive --compilers js:babel-register test",
     "lint": "eslint .",
     "install-native": "node ./tasks/install_native_module",
     "docs:publish": "gh-pages -d docs"
