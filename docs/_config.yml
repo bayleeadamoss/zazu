@@ -8,6 +8,7 @@ fixedNav: 'true' # true or false
 theme: mint # teal, purple, green, blue, orange, purple, grey
 siteurl: 'http://zazuapp.org'
 branch: gh-pages
+
 collections:
   tutorials:
     output: true
@@ -17,6 +18,11 @@ collections:
   documentation:
     output: true
     permalink: /documentation/:path/
+
+gems:
+  - jekyll-github-metadata
+  - kramdown
+  - rouge
 
 # Social
 twitterUsername:
@@ -28,6 +34,6 @@ githubUsername: tinytacoteam
 permalink: /:year/:month/:title
 markdown: kramdown
 include: [_pages, _tutorials, _packages, _documentation]
-exclude: [_site, CHANGELOG.md, LICENSE, README.md]
+exclude: [vendor, _site, CHANGELOG.md, LICENSE, README.md]
 sass:
   style: compressed

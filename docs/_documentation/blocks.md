@@ -15,7 +15,7 @@ Blocks are the foundation of workflows. Each one represents a step to be complet
 All blocks can have the following properties:
 
 * `id` - *Int* The id of the block, used to help make connections.
-* `connections` - *Int[]* Blocks to execute if one of the results are actioned.
+* `connections` - *Int[]* Blocks to execute if one of the results are chosen.
 * `type` - *String* The name of the block you wish to use.
 
 Each unique block type can have it's own properties, listed below with their

@@ -1,0 +1,27 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    addressable (2.4.0)
+    faraday (0.9.2)
+      multipart-post (>= 1.2, < 3)
+    jekyll-github-metadata (1.11.1)
+      octokit (~> 4.0)
+    kramdown (1.11.1)
+    multipart-post (2.0.0)
+    octokit (4.3.0)
+      sawyer (~> 0.7.0, >= 0.5.3)
+    rouge (1.10.1)
+    sawyer (0.7.0)
+      addressable (>= 2.3.5, < 2.5)
+      faraday (~> 0.8, < 0.10)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  jekyll-github-metadata
+  kramdown
+  rouge
+
+BUNDLED WITH
+   1.10.6

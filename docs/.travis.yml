@@ -1,0 +1,19 @@
+language: ruby
+
+rvm:
+  - 2.2
+
+cache: bundler
+
+branches:
+  only:
+    - gh-pages
+
+before_install:
+  - npm install -g markdown-spellcheck
+  - gem install jekyll html-proofer
+
+script:
+  - mdspell -nar --en-us "**/*.md" '!**/vendor/**/*.md'
+  - jekyll build
+  - htmlproofer ./_site

@@ -30,7 +30,7 @@ to you!
 
 ### Theme
 
-This in the format of a short GitHub url. For example `tinytacoteam/dark-theme`
+This in the format of a short GitHub URL. For example `tinytacoteam/dark-theme`
 would translate to `https://github.com/tinytacoteam/dark-theme`.
 
 There are a [few themes](/packages) we created that you can pick from, feel free
@@ -38,8 +38,8 @@ to fork them and make your own.
 
 ### Plugins
 
-Plugins can be in either of two formats. The first is the short Github url
-forma for example `tinytacoteam/dark-theme` would translate to
+Plugins can be in either of two formats. The first is the short GitHub URL
+format for example `tinytacoteam/dark-theme` would translate to
 `https://github.com/tinytacoteam/dark-theme`.
 
 {% highlight javascript %}
