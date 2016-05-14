@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html class="t-mint" lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>How to Build a Workflow</title>
+  <meta name="description" content="">
+
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,400italic,700|Roboto+Mono:400,500' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="http://zazuapp.org/css/main.css">
+  <link rel="canonical" href="http://zazuapp.org/tutorials/build_a_workflow/">
+  <link rel="alternate" type="application/rss+xml" title="Zazu App" href="http://zazuapp.org/feed.xml">
+
+  <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+  <script src="http://zazuapp.org/js/main.js"></script>
+  <!--
+    Material Jekyll Theme Provided By:
+    https://github.com/alexcarpenter/material-jekyll-theme
+  -->
+</head>
+
+  <body>
+    <a class="fork" href="https://github.com/tinytacoteam/zazu">
+  <img src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png">
+</a>
+
+    <nav class="c-navigation is-fixed">
+  <div class="c-navigation__container u-container">
+    <a class="c-navigation__item " href="/">Home</a>
+    <a class="c-navigation__item " href="/tutorials/">Tutorials</a>
+    <a class="c-navigation__item " href="/documentation/">Docs</a>
+    <a class="c-navigation__item " href="/packages/">Packages</a>
+  </div>
+</nav>
+
+
+    <article class="c-article">
+  <header class="c-header c-article__header">
+    <div class="u-container">
+      <h1 class="c-header__title">How to Build a Workflow</h1>
+    </div>
+  </header>
+
+  
+  <div class="additionalInformation">
+    <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+      <a href="http://zazuapp.org/" title="Home" itemprop="url">
+        <span itemprop="title">Home</span>
+      </a> &gt;
+    </span>
+    
+      
+        <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+          <a href="http://zazuapp.org/tutorials" title="Tutorials" itemprop="url">
+            <span itemprop="title">Tutorials</span>
+          </a> &gt;
+        </span>
+      
+      
+      
+    
+    <span>How to Build a Workflow</span>
+  </div>
+
+
+
+  <div class="c-article__main sidebar">
+    <div class="content">
+      <ul id="markdown-toc">
+  <li><a href="#what-is-a-plugin" id="markdown-toc-what-is-a-plugin">What is a plugin?</a></li>
+  <li><a href="#getting-started" id="markdown-toc-getting-started">Getting started</a></li>
+</ul>
+
+<h2 id="what-is-a-plugin">What is a plugin?</h2>
+
+<p>A plugin is a script that integrates with Zazu and leverages the <a href="http://zazuapp.org/documentation/blocks/">blocks</a>
+to provide functionality to the user via the Zazu interface.</p>
+
+<h2 id="getting-started">Getting started</h2>
+
+<p>The first thing you want to do is create a <code class="highlighter-rouge">.zazu.js</code> in the root of your
+project. This file tells Zazu how to use your project. It contains information
+about the author, and entry points to the plugin.</p>
+
+<p>A complete example might look like:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="s1">'Calculator'</span><span class="p">,</span>
+  <span class="na">author</span><span class="p">:</span> <span class="s1">'Tiny Taco Team'</span><span class="p">,</span>
+  <span class="na">description</span><span class="p">:</span> <span class="s1">'Calculate stuff.'</span><span class="p">,</span>
+  <span class="na">icon</span><span class="p">:</span> <span class="s1">'icon.png'</span><span class="p">,</span>
+  <span class="na">homepage</span><span class="p">:</span> <span class="s1">'https://github.com/tinytacoteam/calculator'</span><span class="p">,</span>
+  <span class="na">git</span><span class="p">:</span> <span class="s1">'git@github.com:tinytacoteam/calculator.git'</span><span class="p">,</span>
+  <span class="na">blocks</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">input</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="na">type</span><span class="p">:</span> <span class="s1">'RootScript'</span><span class="p">,</span>
+        <span class="na">respondsTo</span><span class="p">:</span> <span class="p">(</span><span class="nx">input</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+          <span class="kr">const</span> <span class="nx">hasEquation</span> <span class="o">=</span> <span class="nx">input</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^</span><span class="se">[\d\.\(\)\+\-</span><span class="sr">*</span><span class="se">\/\s]</span><span class="sr">+$/</span><span class="p">)</span>
+          <span class="kr">const</span> <span class="nx">hasNumbers</span> <span class="o">=</span> <span class="nx">input</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/</span><span class="se">\d</span><span class="sr">/</span><span class="p">)</span>
+          <span class="k">return</span> <span class="nx">hasEquation</span> <span class="o">&amp;&amp;</span> <span class="nx">hasNumbers</span>
+        <span class="p">},</span>
+        <span class="na">script</span><span class="p">:</span> <span class="s1">'node calculator.js {query}'</span><span class="p">,</span>
+        <span class="na">connections</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+      <span class="p">},</span>
+    <span class="p">],</span>
+    <span class="na">output</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="na">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="na">type</span><span class="p">:</span> <span class="s1">'CopyToClipboard'</span><span class="p">,</span>
+      <span class="p">},</span>
+    <span class="p">],</span>
+  <span class="p">},</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>To break this up, let’s start with the meta information:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="s1">'Calculator'</span><span class="p">,</span>
+  <span class="na">author</span><span class="p">:</span> <span class="s1">'Tiny Taco Team'</span><span class="p">,</span>
+  <span class="na">description</span><span class="p">:</span> <span class="s1">'Calculate stuff.'</span><span class="p">,</span>
+  <span class="na">icon</span><span class="p">:</span> <span class="s1">'icon.png'</span><span class="p">,</span>
+  <span class="na">homepage</span><span class="p">:</span> <span class="s1">'https://github.com/tinytacoteam/calculator'</span><span class="p">,</span>
+  <span class="na">git</span><span class="p">:</span> <span class="s1">'git@github.com:tinytacoteam/calculator.git'</span><span class="p">,</span>
+  <span class="c1">// Rest of plugin</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>In this example we have information about who created the plugin and ways to
+discover the repo and the website.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="c1">// rest of plugin</span>
+  <span class="na">blocks</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">input</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="na">type</span><span class="p">:</span> <span class="s1">'RootScript'</span><span class="p">,</span>
+        <span class="na">respondsTo</span><span class="p">:</span> <span class="p">(</span><span class="nx">input</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+          <span class="kr">const</span> <span class="nx">hasEquation</span> <span class="o">=</span> <span class="nx">input</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^</span><span class="se">[\d\.\(\)\+\-</span><span class="sr">*</span><span class="se">\/\s]</span><span class="sr">+$/</span><span class="p">)</span>
+          <span class="kr">const</span> <span class="nx">hasNumbers</span> <span class="o">=</span> <span class="nx">input</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/</span><span class="se">\d</span><span class="sr">/</span><span class="p">)</span>
+          <span class="k">return</span> <span class="nx">hasEquation</span> <span class="o">&amp;&amp;</span> <span class="nx">hasNumbers</span>
+        <span class="p">},</span>
+        <span class="na">script</span><span class="p">:</span> <span class="s1">'node calculator.js {query}'</span><span class="p">,</span>
+        <span class="na">connections</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>This input block is listed as a <a href="http://zazuapp.org/documentation/blocks/#root-script">Root Script</a>
+block, which allows you to accept any input without any prefixes. This is great
+for a calculator, so they only have to enter the equation into Zazu.</p>
+
+<p>You can see we give the block an <code class="highlighter-rouge">id</code>. This is so we can reference it later in
+the plugin. If you don’t give it any <code class="highlighter-rouge">id</code>, a unique <code class="highlighter-rouge">id</code> will be provided for
+it.</p>
+
+<p>The next section <code class="highlighter-rouge">respondsTo</code> is unique to the block type. Since there is no
+prefix, we give you the option of limiting the numbers of requests to your
+plugin. On a given session a user could send lots of requests, as they keep
+typing. Here you can provide a criteria for if you want to see the request at
+all.</p>
+
+<p>Once the plugin has decided you want to proceed to your real plugin, it uses
+it’s plugin specific <code class="highlighter-rouge">script</code> to start your script up. You can see we are going
+to be using a <a href="https://nodejs.org/">node</a> script, but you can use any language
+you like. I’m also using a special <code class="highlighter-rouge"><span class="p">{</span><span class="err">query</span><span class="p">}</span></code> which will be interpolated with the
+query the user has typed.</p>
+
+<p>Lastly we have another item in the object called <code class="highlighter-rouge">connections</code>, this array
+contains the block ids that will get executed after the user has clicked on one
+of the results your plugin has provided.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="c1">// rest of plugin</span>
+  <span class="na">blocks</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">output</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="na">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="na">type</span><span class="p">:</span> <span class="s1">'CopyToClipboard'</span><span class="p">,</span>
+      <span class="p">},</span>
+    <span class="p">],</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>The last block is a much simpler block. This output block takes input and copies
+it to the clipboard. It contains an <code class="highlighter-rouge">id</code> since we reference it earlier in the
+Root Script block earlier in the tutorial.</p>
+
+    </div>
+  </div>
+</article>
+
+
+    <footer class="c-footer">
+  <div class="u-container c-footer__container">
+    <p>
+        <a href="https://creativecommons.org/licenses/by/4.0/"><img src="https://licensebuttons.net/l/by/4.0/88x31.png" alt="Creative Commons Attribution 4.0" width="88" height="31"></a>
+    </p>
+    <p>
+      See a typo? Feel free to
+      <a href="https://github.com/tinytacoteam/zazu/blob/gh-pages/_tutorials/build_a_workflow.markdown">edit this page</a>!
+    </p>
+    <p>
+      
+      <a href="https://github.com/tinytacoteam">Github</a>
+      
+      
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

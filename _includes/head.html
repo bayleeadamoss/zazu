@@ -9,12 +9,12 @@
   <link href='https://fonts.googleapis.com/css?family=Roboto:400,400italic,700|Roboto+Mono:400,500' rel='stylesheet' type='text/css'>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
-  <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl }}">
-  <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl }}">
+  <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.siteurl }}">
+  <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.siteurl }}">
+  <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.siteurl }}">
 
   <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
-  <script src="{{ "/js/main.js" | prepend: site.baseurl }}"></script>
+  <script src="{{ "/js/main.js" | prepend: site.siteurl }}"></script>
   <!--
     Material Jekyll Theme Provided By:
     https://github.com/alexcarpenter/material-jekyll-theme

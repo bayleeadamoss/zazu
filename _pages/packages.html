@@ -13,7 +13,7 @@ permalink: /packages/
 {% for package in site.packages %}
     {% if package.top %}
         <a class="package {{ package.type }}" href="https://github.com/{{ package.githuburl }}">
-            <img src="{{ package.image | prepend: site.baseurl }}" alt="{{ package.title }} Logo" />
+            <img src="{{ package.image }}" alt="{{ package.title }} Logo" />
             <h2>{{ package.title }}</h2>
             <p>{{ package.description }}</p>
         </a>

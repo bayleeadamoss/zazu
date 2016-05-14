@@ -7,7 +7,7 @@ permalink: /documentation/
 {% for documentation in site.documentation %}
     <h2>
         <i class="fa {{ documentation.icon }}"></i>
-        <a href="{{ documentation.url | prepend: site.baseurl }}">
+        <a href="{{ documentation.url }}">
             {{ documentation.title }}
         </a>
     </h2>

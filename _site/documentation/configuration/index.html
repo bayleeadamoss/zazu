@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html class="t-mint" lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Configuration</title>
+  <meta name="description" content="">
+
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,400italic,700|Roboto+Mono:400,500' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="http://zazuapp.org/css/main.css">
+  <link rel="canonical" href="http://zazuapp.org/documentation/configuration/">
+  <link rel="alternate" type="application/rss+xml" title="Zazu App" href="http://zazuapp.org/feed.xml">
+
+  <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+  <script src="http://zazuapp.org/js/main.js"></script>
+  <!--
+    Material Jekyll Theme Provided By:
+    https://github.com/alexcarpenter/material-jekyll-theme
+  -->
+</head>
+
+  <body>
+    <a class="fork" href="https://github.com/tinytacoteam/zazu">
+  <img src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png">
+</a>
+
+    <nav class="c-navigation is-fixed">
+  <div class="c-navigation__container u-container">
+    <a class="c-navigation__item " href="/">Home</a>
+    <a class="c-navigation__item " href="/tutorials/">Tutorials</a>
+    <a class="c-navigation__item " href="/documentation/">Docs</a>
+    <a class="c-navigation__item " href="/packages/">Packages</a>
+  </div>
+</nav>
+
+
+    <article class="c-article">
+  <header class="c-header c-article__header">
+    <div class="u-container">
+      <h1 class="c-header__title">Configuration</h1>
+    </div>
+  </header>
+
+  
+  <div class="additionalInformation">
+    <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+      <a href="http://zazuapp.org/" title="Home" itemprop="url">
+        <span itemprop="title">Home</span>
+      </a> &gt;
+    </span>
+    
+      
+      
+      
+        <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+          <a href="http://zazuapp.org/documentation" title="Documentation" itemprop="url">
+            <span itemprop="title">Documentation</span>
+          </a> &gt;
+        </span>
+      
+    
+    <span>Configuration</span>
+  </div>
+
+
+
+  <div class="c-article__main sidebar">
+    <div class="content">
+      <ul id="markdown-toc">
+  <li><a href="#configuration" id="markdown-toc-configuration">Configuration</a>    <ul>
+      <li><a href="#hotkey" id="markdown-toc-hotkey">Hotkey</a></li>
+      <li><a href="#theme" id="markdown-toc-theme">Theme</a></li>
+      <li><a href="#plugins" id="markdown-toc-plugins">Plugins</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="configuration">Configuration</h2>
+
+<p>Currently only a JavaScript format is supported. Here is an example of the basic
+usage.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'hotkey'</span><span class="p">:</span> <span class="s1">'alt+space'</span><span class="p">,</span>
+  <span class="s1">'theme'</span><span class="p">:</span> <span class="s1">'tinytacoteam/dark-theme'</span><span class="p">,</span>
+  <span class="s1">'plugins'</span><span class="p">:</span> <span class="p">[],</span>
+<span class="p">}</span></code></pre></figure>
+
+<h3 id="hotkey">Hotkey</h3>
+
+<p>This can be any <a href="https://github.com/electron/electron/blob/master/docs/api/accelerator.md">keyboard
+accelerator</a>
+you can think of. We recommend using <code class="highlighter-rouge">alt+space</code> or <code class="highlighter-rouge">Command+space</code>, but it’s up
+to you!</p>
+
+<h3 id="theme">Theme</h3>
+
+<p>This in the format of a short GitHub url. For example <code class="highlighter-rouge">tinytacoteam/dark-theme</code>
+would translate to <code class="highlighter-rouge">https://github.com/tinytacoteam/dark-theme</code>.</p>
+
+<p>There are a <a href="/packages">few themes</a> we created that you can pick from, feel free
+to fork them and make your own.</p>
+
+<h3 id="plugins">Plugins</h3>
+
+<p>Plugins can be in either of two formats. The first is the short Github url
+forma for example <code class="highlighter-rouge">tinytacoteam/dark-theme</code> would translate to
+<code class="highlighter-rouge">https://github.com/tinytacoteam/dark-theme</code>.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="c1">// ...</span>
+  <span class="s1">'plugins'</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s1">'tinytacoteam/calculator'</span><span class="p">,</span>
+  <span class="p">],</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>The second format is an object syntax that allows you to add custom variables.
+These variables will be applied differently based on which
+<a href="/documentation/blocks/">blocks</a> the plugin is using.</p>
+
+<p>Variables <em>ARE</em> case sensitive, check with individual plugins for what variables
+you can use to configure it’s behavior.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="c1">// ...</span>
+  <span class="s1">'plugins'</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="na">name</span><span class="p">:</span> <span class="s1">'tinytacoteam/calculator'</span><span class="p">,</span>
+      <span class="na">variables</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">OFFSET</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+      <span class="p">},</span>
+    <span class="p">},</span>
+  <span class="p">],</span>
+<span class="p">}</span></code></pre></figure>
+
+
+
+    </div>
+  </div>
+</article>
+
+
+    <footer class="c-footer">
+  <div class="u-container c-footer__container">
+    <p>
+        <a href="https://creativecommons.org/licenses/by/4.0/"><img src="https://licensebuttons.net/l/by/4.0/88x31.png" alt="Creative Commons Attribution 4.0" width="88" height="31"></a>
+    </p>
+    <p>
+      See a typo? Feel free to
+      <a href="https://github.com/tinytacoteam/zazu/blob/gh-pages/_documentation/configuration.md">edit this page</a>!
+    </p>
+    <p>
+      
+      <a href="https://github.com/tinytacoteam">Github</a>
+      
+      
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>
