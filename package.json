@@ -42,6 +42,6 @@
     "test": "electron-mocha --recursive --compilers js:babel-register test",
     "lint": "eslint .",
     "install-native": "node ./tasks/install_native_module",
-    "docs:publish": "gh-pages -d docs"
+    "docs:publish": "gh-pages -t -d docs"
   }
 }
