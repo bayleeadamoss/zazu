@@ -6,7 +6,7 @@ permalink: /tutorials/
 <ul class="c-archives__list">
 {% for tutorial in site.tutorials  %}
     <li class="c-archives__item">
-        <h3><a href="{{ tutorial.url | prepend: site.baseurl }}">{{ tutorial.title }}</a></h3>
+        <h3><a href="{{ tutorial.url }}">{{ tutorial.title }}</a></h3>
         <p>{{ tutorial.date | date: "%b %-d, %Y" }}</p>
     </li>
 {% endfor %}

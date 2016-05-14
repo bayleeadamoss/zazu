@@ -6,7 +6,7 @@ description: >
   every plugin has the full scope of what Zazu has to offer.
 fixedNav: 'true' # true or false
 theme: mint # teal, purple, green, blue, orange, purple, grey
-baseurl: 'http://zazuapp.org'
+siteurl: 'http://zazuapp.org'
 branch: gh-pages
 collections:
   tutorials:
