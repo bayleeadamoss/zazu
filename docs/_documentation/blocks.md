@@ -14,9 +14,9 @@ Blocks are the foundation of workflows. Each one represents a step to be complet
 
 All blocks can have the following properties:
 
-* `id` - *Int* The id of the block, used to help make connections.
-* `connections` - *Int[]* Blocks to execute if one of the results are chosen.
-* `type` - *String* The name of the block you wish to use.
+* `id` *int*: Unique identifier of the block, used to help make connections.
+* `connections` *int[]*: Blocks to execute if one of the results are chosen.
+* `type` *string*: The name of the block you wish to use.
 
 Each unique block type can have it's own properties, listed below with their
 descriptions.
@@ -43,8 +43,8 @@ This allows you to execute your script without any input prefixes.
 Variables defined in the [configuration](/documentation/configuration/) will be used as
 environment variables in the script call.
 
-* `respondsTo` - *Function* Filter input so your plugin doesn't run after each keystroke
-* `script` - *String* Shell command that returns results
+* `respondsTo` *function*: Filter input so your plugin doesn't run after each keystroke
+* `script` *string*: Shell command that returns results
 
 {% highlight javascript %}
 {
@@ -67,10 +67,10 @@ This allows you to execute your script with a prefix.
 Variables defined in the [configuration](/documentation/configuration/) will be used as
 environment variables in the script call.
 
-* `prefix` - *String* Prefix to be used before user input. 
-* `space` - *Boolean* If a space should be between the Prefix and the user input.
-* `args` - *String* Specifies if you want arguments. Possibles values are `Required`, `Optional` and `None`.
-* `script` - *String* Shell command that returns results
+* `prefix` *string*: Prefix to be used before user input. 
+* `space` *boolean*: If a space should be between the Prefix and the user input.
+* `args` *string*: Specifies if you want arguments. Possibles values are `Required`, `Optional` and `None`.
+* `script` *string*: Shell command that returns results
 
 {% highlight javascript %}
 {
@@ -106,7 +106,7 @@ module.exports = {
 
 This block will copy the given input to the clipboard.
 
-* `text` - *String* Text to be copied to the clipboard.
+* `text` *string*: Text to be copied to the clipboard.
 
 {% highlight javascript %}
 {
@@ -120,7 +120,7 @@ This block will copy the given input to the clipboard.
 
 Open up the value in the users default Browser.
 
-* `url` - *String* URL of the page you wish to open.
+* `url` *string*: URL of the page you wish to open.
 
 {% highlight javascript %}
 {
@@ -134,8 +134,8 @@ Open up the value in the users default Browser.
 
 Give the user a notification with a title and a message.
 
-* `title` - *String* Title of the notification.
-* `message` - *String* Message of the notification.
+* `title` *string*: Title of the notification.
+* `message` *string*: Message of the notification.
 
 {% highlight javascript %}
 {
@@ -153,7 +153,7 @@ For those more unique actions, you can run any script you need.
 Variables will be passed as environment variables, but this plugin cannot mutate
 the state.
 
-* `script` - *String* The shell command to run to return the results.
+* `script` *string*: The shell command to run to return the results.
 
 {% highlight javascript %}
 {

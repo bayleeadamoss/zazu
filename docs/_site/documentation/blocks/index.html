@@ -11,12 +11,12 @@
   <link href='https://fonts.googleapis.com/css?family=Roboto:400,400italic,700|Roboto+Mono:400,500' rel='stylesheet' type='text/css'>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="http://zazuapp.org/css/main.css">
+  <link rel="stylesheet" href="/css/main.css">
   <link rel="canonical" href="http://zazuapp.org/documentation/blocks/">
   <link rel="alternate" type="application/rss+xml" title="Zazu App" href="http://zazuapp.org/feed.xml">
 
   <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
-  <script src="http://zazuapp.org/js/main.js"></script>
+  <script src="/js/main.js"></script>
   <!--
     Material Jekyll Theme Provided By:
     https://github.com/alexcarpenter/material-jekyll-theme
@@ -93,9 +93,9 @@
 <p>All blocks can have the following properties:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">id</code> - <em>Int</em> The id of the block, used to help make connections.</li>
-  <li><code class="highlighter-rouge">connections</code> - <em>Int[]</em> Blocks to execute if one of the results are chosen.</li>
-  <li><code class="highlighter-rouge">type</code> - <em>String</em> The name of the block you wish to use.</li>
+  <li><code class="highlighter-rouge">id</code> <em>int</em>: Unique identifier of the block, used to help make connections.</li>
+  <li><code class="highlighter-rouge">connections</code> <em>int[]</em>: Blocks to execute if one of the results are chosen.</li>
+  <li><code class="highlighter-rouge">type</code> <em>string</em>: The name of the block you wish to use.</li>
 </ul>
 
 <p>Each unique block type can have it’s own properties, listed below with their
@@ -122,8 +122,8 @@ return results to be displayed in Zazu.</p>
 environment variables in the script call.</p>
 
 <ul>
-  <li><code class="highlighter-rouge">respondsTo</code> - <em>Function</em> Filter input so your plugin doesn’t run after each keystroke</li>
-  <li><code class="highlighter-rouge">script</code> - <em>String</em> Shell command that returns results</li>
+  <li><code class="highlighter-rouge">respondsTo</code> <em>function</em>: Filter input so your plugin doesn’t run after each keystroke</li>
+  <li><code class="highlighter-rouge">script</code> <em>string</em>: Shell command that returns results</li>
 </ul>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
@@ -146,10 +146,10 @@ environment variables in the script call.</p>
 environment variables in the script call.</p>
 
 <ul>
-  <li><code class="highlighter-rouge">prefix</code> - <em>String</em> Prefix to be used before user input.</li>
-  <li><code class="highlighter-rouge">space</code> - <em>Boolean</em> If a space should be between the Prefix and the user input.</li>
-  <li><code class="highlighter-rouge">args</code> - <em>String</em> Specifies if you want arguments. Possibles values are <code class="highlighter-rouge">Required</code>, <code class="highlighter-rouge">Optional</code> and <code class="highlighter-rouge">None</code>.</li>
-  <li><code class="highlighter-rouge">script</code> - <em>String</em> Shell command that returns results</li>
+  <li><code class="highlighter-rouge">prefix</code> <em>string</em>: Prefix to be used before user input.</li>
+  <li><code class="highlighter-rouge">space</code> <em>boolean</em>: If a space should be between the Prefix and the user input.</li>
+  <li><code class="highlighter-rouge">args</code> <em>string</em>: Specifies if you want arguments. Possibles values are <code class="highlighter-rouge">Required</code>, <code class="highlighter-rouge">Optional</code> and <code class="highlighter-rouge">None</code>.</li>
+  <li><code class="highlighter-rouge">script</code> <em>string</em>: Shell command that returns results</li>
 </ul>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
@@ -183,7 +183,7 @@ be replaced with the current value of the result being passed around.</p>
 <p>This block will copy the given input to the clipboard.</p>
 
 <ul>
-  <li><code class="highlighter-rouge">text</code> - <em>String</em> Text to be copied to the clipboard.</li>
+  <li><code class="highlighter-rouge">text</code> <em>string</em>: Text to be copied to the clipboard.</li>
 </ul>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
@@ -197,7 +197,7 @@ be replaced with the current value of the result being passed around.</p>
 <p>Open up the value in the users default Browser.</p>
 
 <ul>
-  <li><code class="highlighter-rouge">url</code> - <em>String</em> URL of the page you wish to open.</li>
+  <li><code class="highlighter-rouge">url</code> <em>string</em>: URL of the page you wish to open.</li>
 </ul>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
@@ -211,8 +211,8 @@ be replaced with the current value of the result being passed around.</p>
 <p>Give the user a notification with a title and a message.</p>
 
 <ul>
-  <li><code class="highlighter-rouge">title</code> - <em>String</em> Title of the notification.</li>
-  <li><code class="highlighter-rouge">message</code> - <em>String</em> Message of the notification.</li>
+  <li><code class="highlighter-rouge">title</code> <em>string</em>: Title of the notification.</li>
+  <li><code class="highlighter-rouge">message</code> <em>string</em>: Message of the notification.</li>
 </ul>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
@@ -230,7 +230,7 @@ be replaced with the current value of the result being passed around.</p>
 the state.</p>
 
 <ul>
-  <li><code class="highlighter-rouge">script</code> - <em>String</em> The shell command to run to return the results.</li>
+  <li><code class="highlighter-rouge">script</code> <em>string</em>: The shell command to run to return the results.</li>
 </ul>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
