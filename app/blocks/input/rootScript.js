@@ -1,4 +1,6 @@
-import { spawn } from 'child_process'
+import Process from '../../lib/process'
+import Template from '../../lib/template'
+
 import cuid from 'cuid'
 
 export default class RootScript {
@@ -10,33 +12,16 @@ export default class RootScript {
     this.cwd = data.cwd
   }
 
-  call (input, env = {}) {
-    const command = this.script.split(' ')[0]
-    const args = this.script
-      .replace('{query}', input)
-      .split(' ')
-      .slice(1)
-    const cmd = spawn(command, args, {
-      cwd: this.cwd,
-      env: Object.assign({}, process.env, env),
+  call (query, env = {}) {
+    const script = Template.compile(this.script, {
+      query,
     })
 
-    return new Promise((resolve, reject) => {
-      let output = ''
-      let error = ''
-
-      cmd.stdout.on('data', (data) => {
-        output += data
-      })
-
-      cmd.stderr.on('data', (data) => {
-        error += data
-      })
-
-      cmd.on('close', (code) => {
-        if (code === 0) { resolve(JSON.parse(output)) }
-        if (code !== 0) { reject(error) }
-      })
+    return Process.execute(script, {
+      cwd: this.cwd,
+      env: Object.assign({}, process.env, env),
+    }).then((results) => {
+      return JSON.parse(results)
     })
   }
 }

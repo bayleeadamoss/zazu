@@ -44,7 +44,7 @@ Variables defined in the [configuration](/documentation/configuration/) will be 
 environment variables in the script call.
 
 * `respondsTo` - *Function* Filter input so your plugin doesn't run after each keystroke
-* `script` - *String* The shell command to run to return the results.
+* `script` - *String* Shell command that returns results
 
 {% highlight javascript %}
 {
@@ -55,6 +55,30 @@ environment variables in the script call.
     const hasNumbers = input.match(/\d/)
     return hasEquation && hasNumbers
   },
+  script: 'node calculator.js {query}',
+  connections: [2],
+}
+{% endhighlight %}
+
+### Prefix Script
+
+This allows you to execute your script with a prefix.
+
+Variables defined in the [configuration](/documentation/configuration/) will be used as
+environment variables in the script call.
+
+* `prefix` - *String* Prefix to be used before user input. 
+* `space` - *Boolean* If a space should be between the Prefix and the user input.
+* `args` - *String* Specifies if you want arguments. Possibles values are `Required`, `Optional` and `None`.
+* `script` - *String* Shell command that returns results
+
+{% highlight javascript %}
+{
+  id: 1,
+  type: 'PrefixScript',
+  prefix: 'calc',
+  space: true,
+  args: 'Required',
   script: 'node calculator.js {query}',
   connections: [2],
 }
