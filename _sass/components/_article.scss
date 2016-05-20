@@ -94,6 +94,13 @@ $header-height: 66px;
 
   ul {
     margin-left: 20px;
+    font-family: monospace;
+    li code:first-child {
+      font-weight: bold;
+      + em {
+        color: #692;
+      }
+    }
   }
 
   p {
