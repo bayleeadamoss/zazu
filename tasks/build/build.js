@@ -2,7 +2,6 @@
 
 var pathUtil = require('path');
 var gulp = require('gulp');
-var less = require('gulp-less');
 var watch = require('gulp-watch');
 var batch = require('gulp-batch');
 var plumber = require('gulp-plumber');
@@ -46,17 +45,6 @@ var bundleTask = function () {
 gulp.task('bundle', ['clean'], bundleTask);
 gulp.task('bundle-watch', bundleTask);
 
-
-var lessTask = function () {
-    return gulp.src('app/stylesheets/main.less')
-        .pipe(plumber())
-        .pipe(less())
-        .pipe(gulp.dest(destDir.path('stylesheets')));
-};
-gulp.task('less', ['clean'], lessTask);
-gulp.task('less-watch', lessTask);
-
-
 gulp.task('finalize', ['clean', 'copy'], function () {
     var manifest = srcDir.read('package.json', 'json');
 
@@ -89,10 +77,7 @@ gulp.task('watch', function () {
     watch('./node_modules/**', { cwd: 'app' }, batch(function (events, done) {
         gulp.start('copy-watch', done);
     }));
-    watch('app/**/*.less', batch(function (events, done) {
-        gulp.start('less-watch', done);
-    }));
 });
 
 
-gulp.task('build', ['bundle', 'less', 'copy', 'finalize']);
+gulp.task('build', ['bundle', 'copy', 'finalize']);
