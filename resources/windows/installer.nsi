@@ -99,7 +99,7 @@ Section "Install"
 
     SetOutPath $INSTDIR
 
-    ; Include all files from /build directory
+    ; Include all files from /app directory
     File /r "${src}\*"
 
     ; Create start menu shortcut
