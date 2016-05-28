@@ -1,9 +1,9 @@
-import notification from './lib/notification'
-import Package from './package'
-import jetpack from 'fs-jetpack'
-import path from 'path'
+const notification = require('./lib/notification')
+const Package = require('./package')
+const jetpack = require('fs-jetpack')
+const path = require('path')
 
-export default class Theme extends Package {
+class Theme extends Package {
   constructor (url) {
     super(url)
     this.loaded = false
@@ -21,3 +21,5 @@ export default class Theme extends Package {
     })
   }
 }
+
+module.exports = Theme

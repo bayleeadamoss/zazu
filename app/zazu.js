@@ -1,12 +1,12 @@
-import Theme from './theme'
-import configuration from './configuration'
-import Style from './components/style'
-import Search from './components/search'
-import Results from './components/results'
-import PluginStore from './store/pluginStore'
+const Theme = require('./theme')
+const configuration = require('./configuration')
+const Style = require('./components/style')
+const Search = require('./components/search')
+const Results = require('./components/results')
+const PluginStore = require('./store/pluginStore')
 
-import { remote, ipcRenderer } from 'electron'
-import React from 'react'
+const { remote, ipcRenderer } = require('electron')
+const React = require('react')
 
 const Zazu = React.createClass({
 
@@ -76,4 +76,4 @@ const Zazu = React.createClass({
 
 })
 
-export default Zazu
+module.exports = Zazu

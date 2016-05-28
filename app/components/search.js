@@ -1,4 +1,4 @@
-import React from 'react'
+const React = require('react')
 
 const Search = React.createClass({
   propTypes: {
@@ -32,4 +32,4 @@ const Search = React.createClass({
   },
 })
 
-export default Search
+module.exports = Search

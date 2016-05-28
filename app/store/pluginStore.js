@@ -1,7 +1,7 @@
-import EventEmitter from 'events'
+const EventEmitter = require('events')
 
-import configuration from '../configuration'
-import Plugin from '../plugin'
+const configuration = require('../configuration')
+const Plugin = require('../plugin')
 
 const CHANGE_EVENT = 'change'
 
@@ -55,4 +55,4 @@ class PluginStore extends EventEmitter {
 }
 
 var pluginStore = new PluginStore()
-export default pluginStore
+module.exports = pluginStore

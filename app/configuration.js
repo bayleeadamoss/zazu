@@ -1,5 +1,5 @@
-import jetpack from 'fs-jetpack'
-import path from 'path'
+const jetpack = require('fs-jetpack')
+const path = require('path')
 
 class Configuration {
   constructor () {
@@ -29,4 +29,4 @@ class Configuration {
 
 const configuration = new Configuration()
 
-export default configuration
+module.exports = configuration

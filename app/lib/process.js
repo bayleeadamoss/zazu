@@ -1,6 +1,6 @@
-import { spawn } from 'child_process'
+const { spawn } = require('child_process')
 
-export default class Process {
+class Process {
   static execute (script, options = {}) {
     script = script.split(' ')
     const command = script[0]
@@ -25,3 +25,5 @@ export default class Process {
     })
   }
 }
+
+module.exports = Process

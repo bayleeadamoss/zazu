@@ -1,8 +1,10 @@
-import React, { PropTypes } from 'react'
-import { ipcRenderer } from 'electron'
-import Mousetrap from 'mousetrap'
+const React = require('react')
+const { ipcRenderer } = require('electron')
+const Mousetrap = require('mousetrap')
 
-import Result from './result'
+const Result = require('./result')
+
+const { PropTypes } = React
 
 const Results = React.createClass({
   propTypes: {
@@ -90,4 +92,4 @@ const Results = React.createClass({
 
 })
 
-export default Results
+module.exports = Results

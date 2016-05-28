@@ -1,9 +1,9 @@
-import cuid from 'cuid'
-import { shell } from 'electron'
+const cuid = require('cuid')
+const { shell } = require('electron')
 
-import Template from '../../lib/template'
+const Template = require('../../lib/template')
 
-export default class OpenInBrowser {
+class OpenInBrowser {
   constructor (data) {
     this.id = data && data.id || cuid()
     this.url = data.url
@@ -16,3 +16,5 @@ export default class OpenInBrowser {
     state.next()
   }
 }
+
+module.exports = OpenInBrowser

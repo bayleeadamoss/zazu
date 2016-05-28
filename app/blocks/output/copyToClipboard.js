@@ -1,9 +1,9 @@
-import cuid from 'cuid'
-import electron from 'electron'
+const cuid = require('cuid')
+const electron = require('electron')
 
-import Template from '../../lib/template'
+const Template = require('../../lib/template')
 
-export default class CopyToClipboard {
+class CopyToClipboard {
   constructor (data) {
     this.id = data && data.id || cuid()
     this.clipboard = electron.clipboard
@@ -17,3 +17,5 @@ export default class CopyToClipboard {
     state.next()
   }
 }
+
+module.exports = CopyToClipboard

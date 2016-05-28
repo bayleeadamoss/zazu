@@ -3,9 +3,9 @@
 // Can be used for more than one window, just construct many
 // instances of it and give each different name.
 
-import { BrowserWindow } from 'electron'
+const { BrowserWindow } = require('electron')
 
-export const windowHelper = (options) => {
+const windowHelper = (options) => {
   const defaultSize = {
     width: options.width,
     height: options.height,
@@ -32,4 +32,8 @@ export const windowHelper = (options) => {
   })
 
   return mainWindow
+}
+
+module.exports = {
+  windowHelper,
 }

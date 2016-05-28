@@ -1,6 +1,6 @@
 // Simple module exposes environment variables to rest of the code.
 
-import jetpack from 'fs-jetpack'
+const jetpack = require('fs-jetpack')
 
 var app
 if (process.type === 'renderer') {
@@ -12,4 +12,4 @@ var appDir = jetpack.cwd(app.getAppPath())
 
 var manifest = appDir.read('package.json', 'json')
 
-export default manifest.env
+module.exports = manifest.env

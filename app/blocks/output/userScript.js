@@ -1,9 +1,9 @@
-import cuid from 'cuid'
+const cuid = require('cuid')
 
-import Process from '../../lib/process'
-import Template from '../../lib/template'
+const Process = require('../../lib/process')
+const Template = require('../../lib/template')
 
-export default class UserScript {
+class UserScript {
   constructor (data) {
     this.id = data && data.id || cuid()
     this.script = data.script
@@ -21,3 +21,5 @@ export default class UserScript {
     })
   }
 }
+
+module.exports = UserScript

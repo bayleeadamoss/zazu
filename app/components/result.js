@@ -1,4 +1,4 @@
-import React from 'react'
+const React = require('react')
 
 const Result = React.createClass({
 
@@ -32,4 +32,4 @@ const Result = React.createClass({
   },
 })
 
-export default Result
+module.exports = Result

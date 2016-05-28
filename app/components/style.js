@@ -1,4 +1,4 @@
-import React from 'react'
+const React = require('react')
 
 const Style = ({css}) => {
   return (
@@ -12,4 +12,4 @@ Style.propTypes = {
   css: React.PropTypes.string.isRequired,
 }
 
-export default Style
+module.exports = Style
