@@ -4,6 +4,6 @@ const React = require('react')
 const Zazu = require('./zazu')
 
 ReactDOM.render(
-  <Zazu />,
+  React.createElement(Zazu),
   document.getElementById('zazu')
 )

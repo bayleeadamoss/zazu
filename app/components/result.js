@@ -19,15 +19,16 @@ const Result = React.createClass({
 
   render () {
     const { active, value } = this.props
-    return (
-      <li
-        onClick={this.click}
-        onMouseOver={this.activate}
-        className={active ? 'active' : 'inactive'}>
-        <img src={ value.icon } alt='' />
-        <h2>{ value.title }</h2>
-        <h3>{ value.subtitle }</h3>
-      </li>
+    return React.createElement(
+      'li',
+      {
+        onClick: this.click,
+        onMouseOver: this.activate,
+        className: active ? 'active' : 'inactive',
+      },
+      React.createElement('img', { src: value.icon, alt: '' }),
+      React.createElement('h2', null, value.title),
+      React.createElement('h3', null, value.subtitle)
     )
   },
 })

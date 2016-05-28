@@ -61,16 +61,18 @@ const Zazu = React.createClass({
   },
 
   render () {
-    return (
-      <div>
-        <Style css={this.state.theme.css} />
-        <Search
-          handleQueryChange={this.handleQueryChange}
-          value={this.state.query} />
-        <Results
-          values={this.state.results}
-          handleResultAction={this.handleResultAction} />
-      </div>
+    return React.createElement(
+      'div',
+      null,
+      React.createElement(Style, { css: this.state.theme.css }),
+      React.createElement(Search, {
+        handleQueryChange: this.handleQueryChange,
+        value: this.state.query,
+      }),
+      React.createElement(Results, {
+        values: this.state.results,
+        handleResultAction: this.handleResultAction,
+      })
     )
   },
 

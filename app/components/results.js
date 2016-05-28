@@ -76,17 +76,18 @@ const Results = React.createClass({
   render () {
     const { activeIndex } = this.state
     const { values, handleResultAction } = this.props
-    return (
-      <ul>
-        { values.map((value, i) => {
-          return <Result
-            active={i === activeIndex}
-            activate={this.activate}
-            value={value}
-            onClick={handleResultAction}
-            key={i} />
-        }) }
-      </ul>
+    return React.createElement(
+      'ul',
+      null,
+      values.map((value, i) => {
+        return React.createElement(Result, {
+          active: i === activeIndex,
+          activate: this.activate,
+          value: value,
+          onClick: handleResultAction,
+          key: i,
+        })
+      })
     )
   },
 

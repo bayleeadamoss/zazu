@@ -1,10 +1,10 @@
 const React = require('react')
 
 const Style = ({css}) => {
-  return (
-    <style>
-      { css }
-    </style>
+  return React.createElement(
+    'style',
+    null,
+    css
   )
 }
 
