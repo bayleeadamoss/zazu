@@ -11,9 +11,9 @@ branches:
 
 before_install:
   - npm install -g markdown-spellcheck
-  - gem install jekyll html-proofer
+  - gem install html-proofer
 
 script:
-  - mdspell -nar --en-us "**/*.md" '!**/vendor/**/*.md'
-  - jekyll build
+  - mdspell -nar --en-us "**/*.md" "!**/vendor/**/*.md"
+  - bundle exec jekyll build
   - htmlproofer ./_site
