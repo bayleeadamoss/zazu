@@ -34,6 +34,8 @@
     "test": "electron-mocha --recursive test",
     "lint": "eslint .",
     "install-native": "node ./tasks/install_native_module",
+    "predocs:publish": "echo currentCommitSha: $(git rev-parse HEAD) >> docs/_config.yml",
+    "postdocs:publish": "sed -i '' '/currentCommitSha/d' ./docs/_config.yml",
     "docs:publish": "gh-pages -t -d docs"
   }
 }
