@@ -12,8 +12,8 @@ This is a sample tutorial page.
 
 ## Code Snippet
 
-{% highlight ruby %}
+~~~ ruby
 def foo
   puts 'foo'
 end
-{% endhighlight %}
+~~~~

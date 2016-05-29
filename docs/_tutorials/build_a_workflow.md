@@ -19,7 +19,7 @@ about the author, and entry points to the plugin.
 
 A complete example might look like:
 
-{% highlight javascript %}
+~~~ javascript
 module.exports = {
   name: 'Calculator',
   author: 'Tiny Taco Team',
@@ -49,11 +49,11 @@ module.exports = {
     ],
   },
 }
-{% endhighlight %}
+~~~~
 
 To break this up, let's start with the meta information:
 
-{% highlight javascript %}
+~~~ javascript
 module.exports = {
   name: 'Calculator',
   author: 'Tiny Taco Team',
@@ -63,12 +63,12 @@ module.exports = {
   git: 'git@github.com:tinytacoteam/calculator.git',
   // Rest of plugin
 }
-{% endhighlight %}
+~~~~
 
 In this example we have information about who created the plugin and ways to
 discover the repo and the website.
 
-{% highlight javascript %}
+~~~ javascript
 module.exports = {
   // rest of plugin
   blocks: {
@@ -87,7 +87,7 @@ module.exports = {
     ]
   }
 }
-{% endhighlight %}
+~~~~
 
 This input block is listed as a [Root Script](http://zazuapp.org/documentation/blocks/#root-script)
 block, which allows you to accept any input without any prefixes. This is great
@@ -113,7 +113,7 @@ Lastly we have another item in the object called `connections`, this array
 contains the block ids that will get executed after the user has clicked on one
 of the results your plugin has provided.
 
-{% highlight javascript %}
+~~~ javascript
 module.exports = {
   // rest of plugin
   blocks: {
@@ -125,7 +125,7 @@ module.exports = {
     ],
   }
 }
-{% endhighlight %}
+~~~~
 
 The last block is a much simpler block. This output block takes input and copies
 it to the clipboard. It contains an `id` since we reference it earlier in the
