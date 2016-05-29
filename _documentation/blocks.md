@@ -73,7 +73,7 @@ environment variables in the script call.
 * `script` *string*: Shell command that returns results
 
 ~~~ javascript
-{
+[{
   id: 1,
   type: 'PrefixScript',
   prefix: 'calc',
@@ -81,7 +81,7 @@ environment variables in the script call.
   args: 'Required',
   script: 'node calculator.js {query}',
   connections: [2],
-}
+}]
 ~~~~
 
 ## Output Blocks
@@ -109,11 +109,11 @@ This block will copy the given input to the clipboard.
 * `text` *string*: Text to be copied to the clipboard.
 
 ~~~ javascript
-{
+[{
   id: 2,
   type: 'CopyToClipboard',
   text: '{value}',
-}
+}]
 ~~~~
 
 ### Open In Browser
@@ -123,11 +123,11 @@ Open up the value in the users default Browser.
 * `url` *string*: URL of the page you wish to open.
 
 ~~~ javascript
-{
+[{
   id: 3,
   type: 'OpenInBrowser',
   url: '{value}',
-}
+}]
 ~~~~
 
 ### Send Notification
@@ -138,12 +138,12 @@ Give the user a notification with a title and a message.
 * `message` *string*: Message of the notification.
 
 ~~~ javascript
-{
+[{
   id: 4,
   type: 'SendNotification',
   title: 'Hello world',
   message: '{value}',
-}
+}]
 ~~~~
 
 ### User Script
@@ -156,9 +156,9 @@ the state.
 * `script` *string*: The shell command to run to return the results.
 
 ~~~ javascript
-{
+[{
   id: 5,
   type: 'UserScript',
   script: 'ruby output.rb {value}',
-}
+}]
 ~~~~

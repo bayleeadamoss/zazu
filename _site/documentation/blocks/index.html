@@ -158,15 +158,15 @@ environment variables in the script call.</p>
   <li><code class="highlighter-rouge">script</code> <em>string</em>: Shell command that returns results</li>
 </ul>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">{</span>
-  <span class="nl">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-  <span class="nx">type</span><span class="err">:</span> <span class="s1">'PrefixScript'</span><span class="p">,</span>
-  <span class="nx">prefix</span><span class="err">:</span> <span class="s1">'calc'</span><span class="p">,</span>
-  <span class="nx">space</span><span class="err">:</span> <span class="kc">true</span><span class="p">,</span>
-  <span class="nx">args</span><span class="err">:</span> <span class="s1">'Required'</span><span class="p">,</span>
-  <span class="nx">script</span><span class="err">:</span> <span class="s1">'node calculator.js {query}'</span><span class="p">,</span>
-  <span class="nx">connections</span><span class="err">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span>
-<span class="p">}</span>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
+  <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">type</span><span class="p">:</span> <span class="s1">'PrefixScript'</span><span class="p">,</span>
+  <span class="na">prefix</span><span class="p">:</span> <span class="s1">'calc'</span><span class="p">,</span>
+  <span class="na">space</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="na">args</span><span class="p">:</span> <span class="s1">'Required'</span><span class="p">,</span>
+  <span class="na">script</span><span class="p">:</span> <span class="s1">'node calculator.js {query}'</span><span class="p">,</span>
+  <span class="na">connections</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+<span class="p">}]</span>
 </code></pre>
 </div>
 
@@ -196,11 +196,11 @@ be replaced with the current value of the result being passed around.</p>
   <li><code class="highlighter-rouge">text</code> <em>string</em>: Text to be copied to the clipboard.</li>
 </ul>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">{</span>
-  <span class="nl">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-  <span class="nx">type</span><span class="err">:</span> <span class="s1">'CopyToClipboard'</span><span class="p">,</span>
-  <span class="nx">text</span><span class="err">:</span> <span class="s1">'{value}'</span><span class="p">,</span>
-<span class="p">}</span>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
+  <span class="na">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="na">type</span><span class="p">:</span> <span class="s1">'CopyToClipboard'</span><span class="p">,</span>
+  <span class="na">text</span><span class="p">:</span> <span class="s1">'{value}'</span><span class="p">,</span>
+<span class="p">}]</span>
 </code></pre>
 </div>
 
@@ -212,11 +212,11 @@ be replaced with the current value of the result being passed around.</p>
   <li><code class="highlighter-rouge">url</code> <em>string</em>: URL of the page you wish to open.</li>
 </ul>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">{</span>
-  <span class="nl">id</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-  <span class="nx">type</span><span class="err">:</span> <span class="s1">'OpenInBrowser'</span><span class="p">,</span>
-  <span class="nx">url</span><span class="err">:</span> <span class="s1">'{value}'</span><span class="p">,</span>
-<span class="p">}</span>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
+  <span class="na">id</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+  <span class="na">type</span><span class="p">:</span> <span class="s1">'OpenInBrowser'</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s1">'{value}'</span><span class="p">,</span>
+<span class="p">}]</span>
 </code></pre>
 </div>
 
@@ -229,12 +229,12 @@ be replaced with the current value of the result being passed around.</p>
   <li><code class="highlighter-rouge">message</code> <em>string</em>: Message of the notification.</li>
 </ul>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">{</span>
-  <span class="nl">id</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-  <span class="nx">type</span><span class="err">:</span> <span class="s1">'SendNotification'</span><span class="p">,</span>
-  <span class="nx">title</span><span class="err">:</span> <span class="s1">'Hello world'</span><span class="p">,</span>
-  <span class="nx">message</span><span class="err">:</span> <span class="s1">'{value}'</span><span class="p">,</span>
-<span class="p">}</span>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
+  <span class="na">id</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+  <span class="na">type</span><span class="p">:</span> <span class="s1">'SendNotification'</span><span class="p">,</span>
+  <span class="na">title</span><span class="p">:</span> <span class="s1">'Hello world'</span><span class="p">,</span>
+  <span class="na">message</span><span class="p">:</span> <span class="s1">'{value}'</span><span class="p">,</span>
+<span class="p">}]</span>
 </code></pre>
 </div>
 
@@ -249,11 +249,11 @@ the state.</p>
   <li><code class="highlighter-rouge">script</code> <em>string</em>: The shell command to run to return the results.</li>
 </ul>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">{</span>
-  <span class="nl">id</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-  <span class="nx">type</span><span class="err">:</span> <span class="s1">'UserScript'</span><span class="p">,</span>
-  <span class="nx">script</span><span class="err">:</span> <span class="s1">'ruby output.rb {value}'</span><span class="p">,</span>
-<span class="p">}</span>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
+  <span class="na">id</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+  <span class="na">type</span><span class="p">:</span> <span class="s1">'UserScript'</span><span class="p">,</span>
+  <span class="na">script</span><span class="p">:</span> <span class="s1">'ruby output.rb {value}'</span><span class="p">,</span>
+<span class="p">}]</span>
 </code></pre>
 </div>
 
