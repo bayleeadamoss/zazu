@@ -1,4 +1,4 @@
-const Radio = React.createClass({
+var Radio = React.createClass({
   propTypes: {
     name: React.PropTypes.string.isRequired,
     value: React.PropTypes.string.isRequired,
@@ -6,12 +6,12 @@ const Radio = React.createClass({
     handleUpdate: React.PropTypes.func.isRequired,
   },
 
-  updateValue (event) {
+  updateValue: function (event) {
     this.props.handleUpdate(event.target.value)
   },
 
-  render () {
-    const { name, value, label } = this.props
+  render: function () {
+    var { name, value, label } = this.props
     return React.createElement(
       'div',
       { className: 'form-element' },
@@ -31,7 +31,7 @@ const Radio = React.createClass({
   }
 })
 
-const Comment = React.createClass({
+var Comment = React.createClass({
   propTypes: {
     name: React.PropTypes.string.isRequired,
     placeholder: React.PropTypes.string.isRequired,
@@ -39,12 +39,12 @@ const Comment = React.createClass({
     handleUpdate: React.PropTypes.func.isRequired,
   },
 
-  updateValue (event) {
+  updateValue: function (event) {
     this.props.handleUpdate(event.target.value)
   },
 
-  render () {
-    const { name, placeholder, label } = this.props
+  render: function () {
+    var { name, placeholder, label } = this.props
     return React.createElement(
       'div',
       { className: name },
@@ -62,17 +62,17 @@ const Comment = React.createClass({
   }
 })
 
-const Form = React.createClass({
+var Form = React.createClass({
   propTypes: {
     onSubmitComplete: React.PropTypes.func.isRequired,
   },
-  getInitialState () {
+  getInitialState: function () {
     return {
       isUseful: null,
       comment: null,
     }
   },
-  handleSubmit () {
+  handleSubmit: function () {
     if (this.state.isUseful) {
       window.newrelic.addPageAction('feedback', {
         isUseful: this.state.isUseful,
@@ -81,17 +81,17 @@ const Form = React.createClass({
       this.props.onSubmitComplete()
     }
   },
-  handleCommentUpdate (value) {
+  handleCommentUpdate: function (value) {
     this.setState({
       comment: value,
     })
   },
-  handleUsefulFeedback (value) {
+  handleUsefulFeedback: function (value) {
     this.setState({
       isUseful: value,
     })
   },
-  render () {
+  render: function () {
     return React.createElement(
       'div',
       null,
@@ -139,8 +139,8 @@ const Form = React.createClass({
   }
 })
 
-const ThankYou = React.createClass({
-  render () {
+var ThankYou = React.createClass({
+  render: function () {
     return React.createElement('div', { className: 'thankyou' }, React.createElement(
       'h2',
       null,
@@ -149,18 +149,18 @@ const ThankYou = React.createClass({
   }
 })
 
-const Feedback = React.createClass({
-  getInitialState () {
+var Feedback = React.createClass({
+  getInitialState: function () {
     return {
       completed: false,
     }
   },
-  handleSubmit () {
+  handleSubmit: function () {
     this.setState({
       completed: true,
     })
   },
-  render () {
+  render: function () {
     return this.state.completed ? (
       React.createElement(ThankYou)
     ) : (
