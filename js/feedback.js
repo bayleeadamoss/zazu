@@ -162,9 +162,6 @@ var Feedback = React.createClass({
     }
   },
   handleSubmit: function () {
-    this.setState({
-      completed: true,
-    })
   },
   render: function () {
     return this.state.completed ? (
