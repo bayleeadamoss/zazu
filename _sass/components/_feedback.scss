@@ -1,0 +1,63 @@
+#feedback {
+  background: lighten($t-theme, 40%);
+  border-bottom: 1px solid lighten($t-theme, 25%);
+  padding: 10px;
+
+  .main, .extra, .thankyou {
+    max-width: 76rem;
+    margin-right: auto;
+    margin-left: auto;
+    clear: both;
+  }
+  label, textarea, button {
+    font-size: 150%;
+  }
+  label {
+    padding-left: 5px;
+  }
+  .main {
+    height: 100px;
+    h2 {
+      line-height: 50px;
+    }
+    .form-element {
+      float: left;
+      padding-right: 15px;
+      line-height: 50px;
+    }
+    button {
+      background: $t-theme;
+      padding: 5px 10px;
+      border: 0;
+      color: #fff;
+      border-radius: 5px;
+      height: 30px;
+      font-weight: bold;
+      cursor:pointer;
+      cursor:hand;
+      &:hover {
+        background: darken($t-theme, 10%);
+      }
+    }
+    @media screen and (min-width: $screen-md-min) {
+      height: 50px;
+      h2 {
+        float: left;
+        display: inline;
+        padding-right: 15px;
+        line-height: 50px;
+      }
+    }
+  }
+  .extra {
+    label {
+      display: block;
+    }
+    textarea {
+      max-width: 70rem;
+      width: 90%;
+      height: 125px;
+      padding: 5px;
+    }
+  }
+}

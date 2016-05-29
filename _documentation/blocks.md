@@ -26,7 +26,7 @@ descriptions.
 Input blocks are blocks that are the entry points to your plugin. These usually
 return results to be displayed in Zazu.
 
-{% highlight javascript %}
+~~~ javascript
 module.exports = {
   blocks: {
     input: [
@@ -34,7 +34,7 @@ module.exports = {
     ]
   }
 };
-{% endhighlight %}
+~~~
 
 ### Root Script
 
@@ -46,8 +46,8 @@ environment variables in the script call.
 * `respondsTo` *function*: Filter input so your plugin doesn't run after each keystroke
 * `script` *string*: Shell command that returns results
 
-{% highlight javascript %}
-{
+~~~ javascript
+[{
   id: 1,
   type: 'RootScript',
   respondsTo: (input) => {
@@ -57,8 +57,8 @@ environment variables in the script call.
   },
   script: 'node calculator.js {query}',
   connections: [2],
-}
-{% endhighlight %}
+}]
+~~~
 
 ### Prefix Script
 
@@ -67,12 +67,12 @@ This allows you to execute your script with a prefix.
 Variables defined in the [configuration](/documentation/configuration/) will be used as
 environment variables in the script call.
 
-* `prefix` *string*: Prefix to be used before user input. 
+* `prefix` *string*: Prefix to be used before user input.
 * `space` *boolean*: If a space should be between the Prefix and the user input.
 * `args` *string*: Specifies if you want arguments. Possibles values are `Required`, `Optional` and `None`.
 * `script` *string*: Shell command that returns results
 
-{% highlight javascript %}
+~~~ javascript
 {
   id: 1,
   type: 'PrefixScript',
@@ -82,7 +82,7 @@ environment variables in the script call.
   script: 'node calculator.js {query}',
   connections: [2],
 }
-{% endhighlight %}
+~~~~
 
 ## Output Blocks
 
@@ -92,7 +92,7 @@ a script, or copy something to your clipboard.
 Most of the special attributes allow you to use a variable `{value}` which will
 be replaced with the current value of the result being passed around.
 
-{% highlight javascript %}
+~~~ javascript
 module.exports = {
   blocks: {
     output: [
@@ -100,7 +100,7 @@ module.exports = {
     ]
   }
 };
-{% endhighlight %}
+~~~~
 
 ### Copy To Clipboard
 
@@ -108,13 +108,13 @@ This block will copy the given input to the clipboard.
 
 * `text` *string*: Text to be copied to the clipboard.
 
-{% highlight javascript %}
+~~~ javascript
 {
   id: 2,
   type: 'CopyToClipboard',
   text: '{value}',
 }
-{% endhighlight %}
+~~~~
 
 ### Open In Browser
 
@@ -122,13 +122,13 @@ Open up the value in the users default Browser.
 
 * `url` *string*: URL of the page you wish to open.
 
-{% highlight javascript %}
+~~~ javascript
 {
   id: 3,
   type: 'OpenInBrowser',
   url: '{value}',
 }
-{% endhighlight %}
+~~~~
 
 ### Send Notification
 
@@ -137,14 +137,14 @@ Give the user a notification with a title and a message.
 * `title` *string*: Title of the notification.
 * `message` *string*: Message of the notification.
 
-{% highlight javascript %}
+~~~ javascript
 {
   id: 4,
   type: 'SendNotification',
   title: 'Hello world',
   message: '{value}',
 }
-{% endhighlight %}
+~~~~
 
 ### User Script
 
@@ -155,10 +155,10 @@ the state.
 
 * `script` *string*: The shell command to run to return the results.
 
-{% highlight javascript %}
+~~~ javascript
 {
   id: 5,
   type: 'UserScript',
   script: 'ruby output.rb {value}',
 }
-{% endhighlight %}
+~~~~

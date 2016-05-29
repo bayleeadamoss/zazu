@@ -13,13 +13,13 @@ title:  "Configuration"
 Currently only a JavaScript format is supported. Here is an example of the basic
 usage.
 
-{% highlight javascript %}
+~~~ javascript
 module.exports = {
   'hotkey': 'alt+space',
   'theme': 'tinytacoteam/dark-theme',
   'plugins': [],
 }
-{% endhighlight %}
+~~~~
 
 ### Hotkey
 
@@ -42,14 +42,14 @@ Plugins can be in either of two formats. The first is the short GitHub URL
 format for example `tinytacoteam/dark-theme` would translate to
 `https://github.com/tinytacoteam/dark-theme`.
 
-{% highlight javascript %}
+~~~ javascript
 module.exports = {
   // ...
   'plugins': [
     'tinytacoteam/calculator',
   ],
 }
-{% endhighlight %}
+~~~~
 
 The second format is an object syntax that allows you to add custom variables.
 These variables will be applied differently based on which
@@ -58,7 +58,7 @@ These variables will be applied differently based on which
 Variables *ARE* case sensitive, check with individual plugins for what variables
 you can use to configure it's behavior.
 
-{% highlight javascript %}
+~~~ javascript
 module.exports = {
   // ...
   'plugins': [
@@ -70,4 +70,4 @@ module.exports = {
     },
   ],
 }
-{% endhighlight %}
+~~~~
