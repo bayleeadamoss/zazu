@@ -11,7 +11,9 @@ var Radio = React.createClass({
   },
 
   render: function () {
-    var { name, value, label } = this.props
+    var name = this.props.name
+    var value = this.props.value
+    var label = this.props.label
     return React.createElement(
       'div',
       { className: 'form-element' },
@@ -44,7 +46,9 @@ var Comment = React.createClass({
   },
 
   render: function () {
-    var { name, placeholder, label } = this.props
+    var name = this.props.name
+    var placeholder = this.props.placeholder
+    var label = this.props.label
     return React.createElement(
       'div',
       { className: name },
