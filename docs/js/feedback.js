@@ -73,11 +73,13 @@ const Form = React.createClass({
     }
   },
   handleSubmit () {
-    window.newrelic.addPageAction('feedback', {
-      isUseful: this.state.isUseful,
-      comment: this.state.comment,
-    })
-    this.props.onSubmitComplete()
+    if (this.state.isUseful) {
+      window.newrelic.addPageAction('feedback', {
+        isUseful: this.state.isUseful,
+        comment: this.state.comment,
+      })
+      this.props.onSubmitComplete()
+    }
   },
   handleCommentUpdate (value) {
     this.setState({
