@@ -98,7 +98,11 @@ $header-height: 66px;
 
   ul {
     margin-left: 20px;
-    font-family: monospace;
+    font-size: 16px;
+    @include ff--mono(400);
+    a {
+      @include ff--sans-serif(400);
+    }
     li code:first-child {
       font-weight: bold;
       + em {
