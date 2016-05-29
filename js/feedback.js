@@ -56,7 +56,7 @@ var Comment = React.createClass({
       React.createElement('textarea', {
         id: name,
         onChange: this.updateValue,
-        placeholder
+        placeholder: placeholder,
       })
     )
   }
