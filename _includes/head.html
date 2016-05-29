@@ -8,6 +8,12 @@
   ;NREUM.info={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",licenseKey:"6a1ad6fb51",applicationID:"23931541",sa:1}
   </script>
 
+  <script>
+    window.zazudocs = {
+      commitSha: '{{ site.currentCommitSha }}',
+    }
+  </script>
+
   <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
   <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
 
