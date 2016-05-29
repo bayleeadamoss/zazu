@@ -1,6 +1,6 @@
-import { app, BrowserWindow } from 'electron'
+const { app, BrowserWindow } = require('electron')
 
-export var devMenuTemplate = {
+const devMenuTemplate = {
   label: 'Development',
   submenu: [{
     label: 'Reload',
@@ -21,4 +21,8 @@ export var devMenuTemplate = {
       app.exit(0)
     },
   }],
+}
+
+module.exports = {
+  devMenuTemplate,
 }

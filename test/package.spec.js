@@ -1,10 +1,12 @@
-import sinon from 'sinon'
-import chai, { expect } from 'chai'
-import sinonChai from 'sinon-chai'
-import Package from '../app/package'
-import path from 'path'
-import os from 'os'
-import jetpack from 'fs-jetpack'
+const sinon = require('sinon')
+const chai = require('chai')
+const sinonChai = require('sinon-chai')
+const Package = require('../app/package')
+const path = require('path')
+const os = require('os')
+const jetpack = require('fs-jetpack')
+
+const { expect } = chai
 
 chai.use(sinonChai)
 

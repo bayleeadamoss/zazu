@@ -1,10 +1,10 @@
-import clone from 'git-clone'
-import path from 'path'
-import jetpack from 'fs-jetpack'
+const clone = require('git-clone')
+const path = require('path')
+const jetpack = require('fs-jetpack')
 
-import configuration from './configuration'
+const configuration = require('./configuration')
 
-export default class Package {
+class Package {
   constructor (url) {
     this.path = path.join(configuration.pluginDir, url)
     this.url = url
@@ -32,3 +32,5 @@ export default class Package {
     })
   }
 }
+
+module.exports = Package

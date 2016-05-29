@@ -1,7 +1,9 @@
-import sinon from 'sinon'
-import chai, { expect } from 'chai'
-import sinonChai from 'sinon-chai'
-import Plugin from '../app/plugin'
+const sinon = require('sinon')
+const chai = require('chai')
+const sinonChai = require('sinon-chai')
+const Plugin = require('../app/plugin')
+
+const { expect } = chai
 
 chai.use(sinonChai)
 

@@ -3,16 +3,16 @@
 // It doesn't have any windows which you can see on screen, but we can open
 // window from here.
 
-import { app, Menu, ipcMain, dialog, shell } from 'electron'
-import globalShortcut from 'global-shortcut'
-import path from 'path'
+const { app, Menu, ipcMain, dialog, shell } = require('electron')
+const globalShortcut = require('global-shortcut')
+const path = require('path')
 
-import { devMenuTemplate } from './helpers/dev_menu_template'
-import { editMenuTemplate } from './helpers/edit_menu_template'
-import { windowHelper } from './helpers/window'
-import env from './env'
-import configuration from './configuration'
-import Update from './lib/update'
+const { devMenuTemplate } = require('./helpers/dev_menu_template')
+const { editMenuTemplate } = require('./helpers/edit_menu_template')
+const { windowHelper } = require('./helpers/window')
+const env = require('./env')
+const configuration = require('./configuration')
+const Update = require('./lib/update')
 
 let mainWindow
 

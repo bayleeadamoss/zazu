@@ -1,4 +1,4 @@
-import { app, Menu, BrowserWindow } from 'electron'
+const { app, Menu, BrowserWindow } = require('electron')
 
 var setDevMenu = function () {
     var devMenu = Menu.buildFromTemplate([{
@@ -26,6 +26,6 @@ var setDevMenu = function () {
     Menu.setApplicationMenu(devMenu)
 }
 
-export default {
+module.exports = {
     setDevMenu: setDevMenu,
 }

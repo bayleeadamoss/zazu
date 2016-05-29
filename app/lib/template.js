@@ -1,4 +1,4 @@
-export default class Template {
+class Template {
   static compile (text, variables) {
     return text.replace(/\{[^}]+\}/g, (item) => {
       const key = item.slice(1, -1)
@@ -6,3 +6,5 @@ export default class Template {
     })
   }
 }
+
+module.exports = Template

@@ -1,9 +1,9 @@
-import Process from '../../lib/process'
-import Template from '../../lib/template'
+const Process = require('../../lib/process')
+const Template = require('../../lib/template')
 
-import cuid from 'cuid'
+const cuid = require('cuid')
 
-export default class RootScript {
+class RootScript {
   constructor (data) {
     this.id = data.id || cuid()
     this.script = data.script
@@ -25,3 +25,5 @@ export default class RootScript {
     })
   }
 }
+
+module.exports = RootScript

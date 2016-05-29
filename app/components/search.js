@@ -1,4 +1,4 @@
-import React from 'react'
+const React = require('react')
 
 const Search = React.createClass({
   propTypes: {
@@ -21,15 +21,14 @@ const Search = React.createClass({
 
   render () {
     const { value } = this.props
-    return (
-      <input
-        className='mousetrap'
-        ref={this.setReference}
-        type='text'
-        onChange={this.handleQueryChange}
-        value={value} />
-    )
+    return React.createElement('input', {
+      className: 'mousetrap',
+      ref: this.setReference,
+      type: 'text',
+      onChange: this.handleQueryChange,
+      value: value,
+    })
   },
 })
 
-export default Search
+module.exports = Search

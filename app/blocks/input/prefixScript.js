@@ -1,9 +1,9 @@
-import cuid from 'cuid'
+const cuid = require('cuid')
 
-import Process from '../../lib/process'
-import Template from '../../lib/template'
+const Process = require('../../lib/process')
+const Template = require('../../lib/template')
 
-export default class PrefixScript {
+class PrefixScript {
   constructor (data) {
     this.id = data.id || cuid()
     this.cwd = data.cwd
@@ -47,3 +47,5 @@ export default class PrefixScript {
     })
   }
 }
+
+module.exports = PrefixScript

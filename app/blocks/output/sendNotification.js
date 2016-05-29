@@ -1,9 +1,9 @@
-import cuid from 'cuid'
-import notification from '../../lib/notification'
+const cuid = require('cuid')
+const notification = require('../../lib/notification')
 
-import Template from '../../lib/template'
+const Template = require('../../lib/template')
 
-export default class SendNotification {
+class SendNotification {
   constructor (data) {
     this.id = data && data.id || cuid()
     this.title = data.title
@@ -19,3 +19,5 @@ export default class SendNotification {
     state.next()
   }
 }
+
+module.exports = SendNotification

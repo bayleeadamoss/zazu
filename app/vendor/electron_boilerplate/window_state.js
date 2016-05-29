@@ -2,10 +2,10 @@
 // Can be used for more than one window, just construct many
 // instances of it and give each different name.
 
-import { app } from 'electron'
-import jetpack from 'fs-jetpack'
+const { app } = require('electron')
+const jetpack = require('fs-jetpack')
 
-export default function (name, defaults) {
+module.exports = function (name, defaults) {
 
     var userDataDir = jetpack.cwd(app.getPath('userData'))
     var stateStoreFile = 'window-state-' + name +'.json'

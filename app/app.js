@@ -1,9 +1,9 @@
-import ReactDOM from 'react-dom'
-import React from 'react'
+const ReactDOM = require('react-dom')
+const React = require('react')
 
-import Zazu from './zazu'
+const Zazu = require('./zazu')
 
 ReactDOM.render(
-  <Zazu />,
+  React.createElement(Zazu),
   document.getElementById('zazu')
 )

@@ -34,9 +34,9 @@ var copyRuntime = function () {
 var packageBuiltApp = function () {
   var deferred = Q.defer()
 
-  asar.createPackageWithOptions(projectDir.path('build'), readyAppDir.path('resources/app.asar'), {
+  asar.createPackageWithOptions(projectDir.path('app'), readyAppDir.path('resources/app.asar'), {
     dot: true,
-    unpack: projectDir.path('build/node_modules/node-notifier/vendor/**'),
+    unpack: projectDir.path('app/node_modules/node-notifier/vendor/**'),
   }, function () {
     deferred.resolve()
   })

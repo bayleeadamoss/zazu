@@ -1,4 +1,4 @@
-export var editMenuTemplate = {
+const editMenuTemplate = {
   label: 'Edit',
   submenu: [
     { label: 'Undo', accelerator: 'CmdOrCtrl+Z', selector: 'undo:' },
@@ -9,4 +9,8 @@ export var editMenuTemplate = {
     { label: 'Paste', accelerator: 'CmdOrCtrl+V', selector: 'paste:' },
     { label: 'Select All', accelerator: 'CmdOrCtrl+A', selector: 'selectAll:' },
   ],
+}
+
+module.exports = {
+  editMenuTemplate,
 }

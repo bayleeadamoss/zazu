@@ -1,12 +1,12 @@
-import Theme from './theme'
-import configuration from './configuration'
-import Style from './components/style'
-import Search from './components/search'
-import Results from './components/results'
-import PluginStore from './store/pluginStore'
+const Theme = require('./theme')
+const configuration = require('./configuration')
+const Style = require('./components/style')
+const Search = require('./components/search')
+const Results = require('./components/results')
+const PluginStore = require('./store/pluginStore')
 
-import { remote, ipcRenderer } from 'electron'
-import React from 'react'
+const { remote, ipcRenderer } = require('electron')
+const React = require('react')
 
 const Zazu = React.createClass({
 
@@ -61,19 +61,21 @@ const Zazu = React.createClass({
   },
 
   render () {
-    return (
-      <div>
-        <Style css={this.state.theme.css} />
-        <Search
-          handleQueryChange={this.handleQueryChange}
-          value={this.state.query} />
-        <Results
-          values={this.state.results}
-          handleResultAction={this.handleResultAction} />
-      </div>
+    return React.createElement(
+      'div',
+      null,
+      React.createElement(Style, { css: this.state.theme.css }),
+      React.createElement(Search, {
+        handleQueryChange: this.handleQueryChange,
+        value: this.state.query,
+      }),
+      React.createElement(Results, {
+        values: this.state.results,
+        handleResultAction: this.handleResultAction,
+      })
     )
   },
 
 })
 
-export default Zazu
+module.exports = Zazu

@@ -1,8 +1,10 @@
-import React, { PropTypes } from 'react'
-import { ipcRenderer } from 'electron'
-import Mousetrap from 'mousetrap'
+const React = require('react')
+const { ipcRenderer } = require('electron')
+const Mousetrap = require('mousetrap')
 
-import Result from './result'
+const Result = require('./result')
+
+const { PropTypes } = React
 
 const Results = React.createClass({
   propTypes: {
@@ -74,20 +76,21 @@ const Results = React.createClass({
   render () {
     const { activeIndex } = this.state
     const { values, handleResultAction } = this.props
-    return (
-      <ul>
-        { values.map((value, i) => {
-          return <Result
-            active={i === activeIndex}
-            activate={this.activate}
-            value={value}
-            onClick={handleResultAction}
-            key={i} />
-        }) }
-      </ul>
+    return React.createElement(
+      'ul',
+      null,
+      values.map((value, i) => {
+        return React.createElement(Result, {
+          active: i === activeIndex,
+          activate: this.activate,
+          value: value,
+          onClick: handleResultAction,
+          key: i,
+        })
+      })
     )
   },
 
 })
 
-export default Results
+module.exports = Results

@@ -1,7 +1,7 @@
-import RootScript from './rootScript'
-import PrefixScript from './prefixScript'
+const RootScript = require('./rootScript')
+const PrefixScript = require('./prefixScript')
 
-export default {
+module.exports = {
   RootScript,
   PrefixScript,
 }

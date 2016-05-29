@@ -1,11 +1,11 @@
-import path from 'path'
+const path = require('path')
 
-import Input from './blocks/input/index'
-import Output from './blocks/output/index'
-import notification from './lib/notification'
-import Package from './package'
+const Input = require('./blocks/input/index')
+const Output = require('./blocks/output/index')
+const notification = require('./lib/notification')
+const Package = require('./package')
 
-export default class Plugin extends Package {
+class Plugin extends Package {
   constructor (url, options = {}) {
     super(url)
     this.inputs = []
@@ -80,3 +80,5 @@ export default class Plugin extends Package {
     }, [])
   }
 }
+
+module.exports = Plugin

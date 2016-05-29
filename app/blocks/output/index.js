@@ -1,9 +1,9 @@
-import CopyToClipboard from './copyToClipboard'
-import OpenInBrowser from './openInBrowser'
-import SendNotification from './sendNotification'
-import UserScript from './userScript'
+const CopyToClipboard = require('./copyToClipboard')
+const OpenInBrowser = require('./openInBrowser')
+const SendNotification = require('./sendNotification')
+const UserScript = require('./userScript')
 
-export default {
+module.exports = {
   CopyToClipboard,
   OpenInBrowser,
   SendNotification,

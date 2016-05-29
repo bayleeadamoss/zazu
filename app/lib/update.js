@@ -1,8 +1,8 @@
-import semver from 'semver'
-import https from 'https'
-import { app } from 'electron'
+const semver = require('semver')
+const https = require('https')
+const { app } = require('electron')
 
-export default class Update {
+class Update {
 
   constructor () {
     this._latestVersion = null
@@ -41,3 +41,5 @@ export default class Update {
   }
 
 }
+
+module.exports = Update
