@@ -1,28 +1,28 @@
 {% if page.url != '/' %}
   <div class="additionalInformation">
     <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-      <a href="{{ "/" | prepend: site.siteurl }}" title="Home" itemprop="url">
+      <a href="/" title="Home" itemprop="url">
         <span itemprop="title">Home</span>
       </a> &gt;
     </span>
     {% if page.layout != 'page' and page.layout != 'default' %}
       {% if page.url contains '/tutorials/' %}
         <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-          <a href="{{ "/tutorials" | prepend: site.siteurl }}" title="Tutorials" itemprop="url">
+          <a href="/tutorials" title="Tutorials" itemprop="url">
             <span itemprop="title">Tutorials</span>
           </a> &gt;
         </span>
       {% endif %}
       {% if page.url contains '/packages/' %}
         <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-          <a href="{{ "/packages" | prepend: site.siteurl }}" title="Packages" itemprop="url">
+          <a href="/packages" title="Packages" itemprop="url">
             <span itemprop="title">Packages</span>
           </a> &gt;
         </span>
       {% endif %}
       {% if page.url contains '/documentation/' %}
         <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-          <a href="{{ "/documentation" | prepend: site.siteurl }}" title="Documentation" itemprop="url">
+          <a href="/documentation" title="Documentation" itemprop="url">
             <span itemprop="title">Documentation</span>
           </a> &gt;
         </span>
