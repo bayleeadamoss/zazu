@@ -81,6 +81,8 @@ var Form = React.createClass({
       window.newrelic.addPageAction('feedback', {
         isUseful: this.state.isUseful,
         comment: this.state.comment,
+        currentPath: window.location.pathname,
+        currentHash: window.location.hash,
       })
       this.props.onSubmitComplete()
     }
