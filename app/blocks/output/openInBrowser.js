@@ -1,11 +1,11 @@
-const cuid = require('cuid')
 const { shell } = require('electron')
 
 const Template = require('../../lib/template')
+const Block = require('../block')
 
-class OpenInBrowser {
+class OpenInBrowser extends Block {
   constructor (data) {
-    this.id = data && data.id || cuid()
+    super(data)
     this.url = data.url
   }
 

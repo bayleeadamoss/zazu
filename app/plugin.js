@@ -10,6 +10,7 @@ class Plugin extends Package {
     super(url)
     this.inputs = []
     this.outputs = []
+    this.blocksById = {}
     this.options = options
     this.loaded = false
   }
@@ -37,10 +38,12 @@ class Plugin extends Package {
 
   addInput (input) {
     this.inputs.push(input)
+    this.blocksById[input.id] = input
   }
 
-  addOutput (input) {
-    this.outputs.push(input)
+  addOutput (output) {
+    this.outputs.push(output)
+    this.blocksById[output.id] = output
   }
 
   respondsTo (inputText) {
@@ -51,16 +54,12 @@ class Plugin extends Package {
   }
 
   next (state) {
-    const previousBlock = this.inputs.find((input) => {
-      return input.id === state.blockId
-    })
-    if (!previousBlock) { return }
-    previousBlock.connections.forEach((nextBlockId) => {
-      const nextBlock = this.outputs.find((output) => {
-        return output.id === nextBlockId
-      })
-      state.blockId = nextBlockId
-      nextBlock.call(state)
+    const previousBlock = this.blocksById[state.blockId]
+    previousBlock.connections.forEach((blockId) => {
+      const nextBlock = this.blocksById[blockId]
+      const nextState = Object.assign({}, state, { blockId })
+      nextState.next = this.next.bind(this, nextState)
+      nextBlock.call(nextState)
     })
   }
 

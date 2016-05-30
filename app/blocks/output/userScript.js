@@ -1,11 +1,10 @@
-const cuid = require('cuid')
-
 const Process = require('../../lib/process')
 const Template = require('../../lib/template')
+const Block = require('../block')
 
-class UserScript {
+class UserScript extends Block {
   constructor (data) {
-    this.id = data && data.id || cuid()
+    super(data)
     this.script = data.script
     this.cwd = data.cwd
   }
@@ -18,6 +17,9 @@ class UserScript {
     return Process.execute(script, {
       cwd: this.cwd,
       env: Object.assign({}, process.env, env),
+    }).then((output) => {
+      state.value = output.trim()
+      state.next()
     })
   }
 }

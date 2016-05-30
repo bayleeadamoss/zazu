@@ -2,19 +2,19 @@ const sinon = require('sinon')
 const chai = require('chai')
 const sinonChai = require('sinon-chai')
 const Plugin = require('../app/plugin')
+const Block = require('../app/blocks/block')
 
 const { expect } = chai
 
 chai.use(sinonChai)
 
-let id = 0
 const blockFactory = (responds, connections) => {
-  return {
-    id: ++id,
-    respondsTo: sinon.stub().returns(responds),
-    call: sinon.stub(),
-    connections: connections || [],
-  }
+  const block = new Block({
+    type: 'noop',
+    connections,
+  })
+  sinon.spy(block, 'call')
+  return block
 }
 
 describe('Plugin', () => {
@@ -36,10 +36,17 @@ describe('Plugin', () => {
   })
 
   describe('next', () => {
+    beforeEach(() => {
+      plugin.inputs = []
+      plugin.outputs = []
+      plugin.blocksById = {}
+    })
+
     it('when an input has no links', () => {
       // Setup
-      plugin.outputs = [ blockFactory(true), blockFactory(true) ]
-      plugin.inputs = [ blockFactory(true) ]
+      plugin.addOutput(blockFactory(true))
+      plugin.addOutput(blockFactory(true))
+      plugin.addInput(blockFactory(true))
 
       // Execution
       let state = {blockId: plugin.inputs[0].id}
@@ -51,12 +58,11 @@ describe('Plugin', () => {
     })
     it('when an input has one link', () => {
       // Setup
-      plugin.outputs = [ blockFactory(true), blockFactory(true) ]
-      plugin.inputs = [
-        blockFactory(true, [
-          plugin.outputs[0].id,
-        ]),
-      ]
+      plugin.addOutput(blockFactory(true))
+      plugin.addOutput(blockFactory(true))
+      plugin.addInput(blockFactory(true, [
+        plugin.outputs[0].id,
+      ]))
 
       // Execution
       let state = {blockId: plugin.inputs[0].id}
@@ -68,13 +74,12 @@ describe('Plugin', () => {
     })
     it('when and input has two links', () => {
       // Setup
-      plugin.outputs = [ blockFactory(true), blockFactory(true) ]
-      plugin.inputs = [
-        blockFactory(true, [
-          plugin.outputs[0].id,
-          plugin.outputs[1].id,
-        ]),
-      ]
+      plugin.addOutput(blockFactory(true))
+      plugin.addOutput(blockFactory(true))
+      plugin.addInput(blockFactory(true, [
+        plugin.outputs[0].id,
+        plugin.outputs[1].id,
+      ]))
 
       // Execution
       let state = {blockId: plugin.inputs[0].id}
@@ -83,6 +88,27 @@ describe('Plugin', () => {
       // Assertion
       expect(plugin.outputs[0].call).to.have.been.calledOnce
       expect(plugin.outputs[1].call).to.have.been.calledOnce
+    })
+    it('works with deep output linking', () => {
+      // Setup
+      plugin.addOutput(blockFactory(true))
+      plugin.addOutput(blockFactory(true))
+      plugin.addOutput(blockFactory(true, [
+        plugin.outputs[0].id,
+      ]))
+      plugin.addInput(blockFactory(true, [
+        plugin.outputs[1].id,
+        plugin.outputs[2].id,
+      ]))
+
+      // Execution
+      let state = {blockId: plugin.inputs[0].id}
+      plugin.next(state)
+
+      // Assertion
+      expect(plugin.outputs[0].call).to.have.been.calledOnce
+      expect(plugin.outputs[1].call).to.have.been.calledOnce
+      expect(plugin.outputs[2].call).to.have.been.calledOnce
     })
   })
 })

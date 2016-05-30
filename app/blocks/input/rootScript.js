@@ -1,14 +1,12 @@
 const Process = require('../../lib/process')
 const Template = require('../../lib/template')
+const Block = require('../block')
 
-const cuid = require('cuid')
-
-class RootScript {
+class RootScript extends Block {
   constructor (data) {
-    this.id = data.id || cuid()
+    super(data)
     this.script = data.script
     this.respondsTo = data.respondsTo
-    this.connections = data.connections
     this.cwd = data.cwd
   }
 

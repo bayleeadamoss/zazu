@@ -1,17 +1,15 @@
-const cuid = require('cuid')
-
 const Process = require('../../lib/process')
 const Template = require('../../lib/template')
+const Block = require('../block')
 
-class PrefixScript {
+class PrefixScript extends Block {
   constructor (data) {
-    this.id = data.id || cuid()
+    super(data)
     this.cwd = data.cwd
     this.prefix = data.prefix
     this.space = data.space
     this.args = data.args
     this.script = data.script
-    this.connections = data.connections
   }
 
   respondsTo (input) { // cha cent
