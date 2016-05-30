@@ -66,7 +66,7 @@ class Plugin extends Package {
   search (inputText) { // TODO: high complexity
     return this.inputs.reduce((responsePromises, input) => {
       if (input.respondsTo(inputText)) {
-        responsePromises.push(input.call(inputText, this.options).then((results) => {
+        responsePromises.push(input.search(inputText, this.options).then((results) => {
           return results.map((result) => {
             result.icon = result.icon || path.join(this.path, this.plugin.icon)
             result.blockId = input.id

@@ -32,7 +32,6 @@ class PluginStore extends EventEmitter {
       if (!plugin.respondsTo(this.query)) { return }
       plugin.search(this.query).forEach((promise) => {
         promise.then((results) => {
-          console.log(query, this.query)
           if (query !== this.query) { return }
           this.results = this.results.concat(results)
           this.emitChange()

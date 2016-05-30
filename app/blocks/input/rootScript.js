@@ -1,8 +1,8 @@
 const Process = require('../../lib/process')
 const Template = require('../../lib/template')
-const Block = require('../block')
+const InputBlock = require('../inputBlock')
 
-class RootScript extends Block {
+class RootScript extends InputBlock {
   constructor (data) {
     super(data)
     this.script = data.script
@@ -10,7 +10,7 @@ class RootScript extends Block {
     this.cwd = data.cwd
   }
 
-  call (query, env = {}) {
+  search (query, env = {}) {
     const script = Template.compile(this.script, {
       query,
     })
