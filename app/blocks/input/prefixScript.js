@@ -14,9 +14,11 @@ class PrefixScript extends InputBlock {
 
   respondsTo (input) {
     var regex = ['^']
-    regex.push(this.prefix)
-    if (this.space) {
-      regex.push(' ')
+    if (!this.isScoped) {
+      regex.push(this.prefix)
+      if (this.space) {
+        regex.push(' ')
+      }
     }
     if (this.args.match(/^r/i)) {
       regex.push('(.+)')

@@ -29,11 +29,13 @@ class Plugin extends Package {
       this.plugin = plugin
       plugin.blocks.input.forEach((input) => {
         input.cwd = this.path
+        input.pluginId = this.id
         this.addInput(new Input[input.type](input))
       })
 
       plugin.blocks.output.forEach((output) => {
         output.cwd = this.path
+        output.pluginId = this.id
         this.addOutput(new Output[output.type](output))
       })
     }).catch((errorMessage) => {
