@@ -27,6 +27,37 @@ All blocks can have the following properties:
 Each unique block type can have it's own properties, listed below with their
 descriptions.
 
+## External Blocks
+
+External blocks are ways of accessing Zazu plugins without using the zazu search
+bar. These types of blocks are unique because they cannot be used as a connection.
+
+~~~ javascript
+module.exports = {
+  blocks: {
+    external: [
+      // trigger blocks
+    ]
+  }
+};
+~~~
+
+### Hotkey
+
+When a user hits a specific set of keys, it can activate an input or output
+block of your plugin.
+
+* `hotkey` *string*: Key combination to use. [[docs]](https://github.com/electron/electron/blob/master/docs/api/accelerator.md)
+
+~~~ javascript
+[{
+  id: 1,
+  type: 'Hotkey',
+  hotkey: 'cmd+shift+o',
+  connections: [2],
+}]
+~~~
+
 ## Input Blocks
 
 Input blocks are blocks that are the entry points to your plugin. These usually

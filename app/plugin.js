@@ -1,8 +1,9 @@
 const path = require('path')
 const cuid = require('cuid')
 
-const Input = require('./blocks/input/index')
-const Output = require('./blocks/output/index')
+const Input = require('./blocks/input')
+const Output = require('./blocks/output')
+const External = require('./blocks/external')
 const notification = require('./lib/notification')
 const globalEmitter = require('./lib/globalEmitter')
 const Process = require('./lib/process')
@@ -28,6 +29,10 @@ class Plugin extends Package {
     return super.load().then((plugin) => {
       this.loaded = true
       this.plugin = plugin
+      plugin.blocks.external.forEach((external) => {
+        this.addExternal(new External[external.type](external))
+      })
+
       plugin.blocks.input.forEach((input) => {
         input.cwd = this.path
         input.pluginId = this.id
@@ -43,6 +48,14 @@ class Plugin extends Package {
       notification.push({
         title: 'Plugin failed',
         message: errorMessage,
+      })
+    })
+  }
+
+  addExternal (external) {
+    external.on('actioned', () => {
+      this.next({
+        blockId: external.id,
       })
     })
   }

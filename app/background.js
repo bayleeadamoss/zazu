@@ -85,6 +85,14 @@ app.on('ready', function () {
     mainWindow.show()
   })
 
+  globalEmitter.on('registerHotkey', (accelerator) => {
+    if (!globalShortcut.isRegistered(accelerator)) {
+      globalShortcut.register(accelerator, () => {
+        globalEmitter.emit('triggerHotkey', accelerator)
+      })
+    }
+  })
+
   mainWindow.on('blur', () => {
     globalEmitter.emit('hideWindow')
   })
