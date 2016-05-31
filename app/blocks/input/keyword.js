@@ -9,7 +9,9 @@ class Keyword extends InputBlock {
   }
 
   respondsTo (input) {
-    return this.keyword.indexOf(input) !== -1 && input.length > 2
+    return this.active() &&
+      this.keyword.indexOf(input) !== -1 &&
+      input.length > 2
   }
 
   search (input, env = {}) {

@@ -1,18 +1,26 @@
 const path = require('path')
+const cuid = require('cuid')
 
 const Input = require('./blocks/input/index')
 const Output = require('./blocks/output/index')
 const notification = require('./lib/notification')
+const globalEmitter = require('./lib/globalEmitter')
 const Package = require('./package')
 
 class Plugin extends Package {
   constructor (url, options = {}) {
     super(url)
+    this.id = cuid()
     this.inputs = []
     this.outputs = []
     this.blocksById = {}
     this.options = options
     this.loaded = false
+
+    this.activeState = true
+    globalEmitter.on('showWindow', (pluginId, blockId) => {
+      this.activeState = !pluginId || this.id === pluginId
+    })
   }
 
   load () {
@@ -47,7 +55,7 @@ class Plugin extends Package {
   }
 
   respondsTo (inputText) {
-    if (!this.loaded) { return }
+    if (!this.loaded || !this.activeState) { return }
     return this.inputs.find((input) => {
       return input.respondsTo(inputText)
     })
@@ -63,7 +71,8 @@ class Plugin extends Package {
     })
   }
 
-  search (inputText) { // TODO: high complexity
+  search (inputText) {
+    if (!this.loaded || !this.activeState) { return [] }
     return this.inputs.reduce((responsePromises, input) => {
       if (input.respondsTo(inputText)) {
         responsePromises.push(input.search(inputText, this.options).then((results) => {

@@ -3,7 +3,7 @@
 // It doesn't have any windows which you can see on screen, but we can open
 // window from here.
 
-const { app, Menu, ipcMain, dialog, shell } = require('electron')
+const { app, Menu, dialog, shell } = require('electron')
 const globalShortcut = require('global-shortcut')
 const path = require('path')
 
@@ -13,6 +13,7 @@ const { windowHelper } = require('./helpers/window')
 const env = require('./env')
 const configuration = require('./configuration')
 const Update = require('./lib/update')
+const globalEmitter = require('./lib/globalEmitter')
 
 let mainWindow
 
@@ -26,8 +27,7 @@ var setApplicationMenu = function () {
 
 const shouldQuit = app.makeSingleInstance((commandLine, workingDirectory) => {
   if (mainWindow) {
-    mainWindow.show()
-    mainWindow.focus()
+    globalEmitter.emit('showWindow')
   }
 })
 
@@ -73,24 +73,28 @@ app.on('ready', function () {
 
   // mainWindow.webContents.toggleDevTools();
 
-  ipcMain.on('message', (_, message) => {
+  globalEmitter.on('message', (message) => {
     console.log('message:', message)
   })
 
-  ipcMain.on('hideWindow', (_, error) => {
+  globalEmitter.on('hideWindow', () => {
     mainWindow.hide()
   })
 
+  globalEmitter.on('showWindow', () => {
+    mainWindow.show()
+  })
+
   mainWindow.on('blur', () => {
-    mainWindow.hide()
+    globalEmitter.emit('hideWindow')
   })
 
   configuration.load().then(() => {
     globalShortcut.register(configuration.hotkey, () => {
       if (mainWindow.isVisible()) {
-        mainWindow.hide()
+        globalEmitter.emit('hideWindow')
       } else {
-        mainWindow.show()
+        globalEmitter.emit('showWindow')
       }
     })
   })

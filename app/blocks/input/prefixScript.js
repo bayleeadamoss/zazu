@@ -12,7 +12,7 @@ class PrefixScript extends InputBlock {
     this.script = data.script
   }
 
-  respondsTo (input) { // cha cent
+  respondsTo (input) {
     var regex = ['^']
     regex.push(this.prefix)
     if (this.space) {
@@ -24,7 +24,7 @@ class PrefixScript extends InputBlock {
       regex.push('(.*)')
     }
     regex.push('$')
-    return input.match(new RegExp(regex.join(''), 'i'))
+    return this.active() && input.match(new RegExp(regex.join(''), 'i'))
   }
 
   query (input) {

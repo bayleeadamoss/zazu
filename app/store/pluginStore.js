@@ -2,6 +2,7 @@ const EventEmitter = require('events')
 
 const configuration = require('../configuration')
 const Plugin = require('../plugin')
+const globalEmitter = require('../lib/globalEmitter')
 
 const CHANGE_EVENT = 'change'
 

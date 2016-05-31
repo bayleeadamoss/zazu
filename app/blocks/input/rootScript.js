@@ -6,8 +6,12 @@ class RootScript extends InputBlock {
   constructor (data) {
     super(data)
     this.script = data.script
-    this.respondsTo = data.respondsTo
+    this.userRespondsTo = data.respondsTo
     this.cwd = data.cwd
+  }
+
+  respondsTo (input) {
+    return this.active() && this.userRespondsTo(input)
   }
 
   search (query, env = {}) {
