@@ -5,6 +5,7 @@ const Input = require('./blocks/input/index')
 const Output = require('./blocks/output/index')
 const notification = require('./lib/notification')
 const globalEmitter = require('./lib/globalEmitter')
+const Process = require('./lib/process')
 const Package = require('./package')
 
 class Plugin extends Package {
