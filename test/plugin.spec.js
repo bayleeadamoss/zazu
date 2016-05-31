@@ -33,6 +33,15 @@ describe('Plugin', () => {
       plugin.inputs = [ blockFactory(true) ]
       expect(plugin.respondsTo('hello')).to.be.okay
     })
+    describe('when plugin is inactive', () => {
+      beforeEach(() => {
+        plugin.activeState = false
+      })
+      it('says true when a block responds to input', () => {
+        plugin.inputs = [ blockFactory(true) ]
+        expect(plugin.respondsTo('hello')).to.not.be.okay
+      })
+    })
   })
 
   describe('next', () => {

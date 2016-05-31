@@ -12,7 +12,7 @@ var prefixScript = new PrefixScript({
 
 describe('PrefixScript', () => {
   describe('query', () => {
-    describe('when spaces are allowed', () => {
+    describe('when spaces are required', () => {
       beforeEach(() => {
         prefixScript.space = true
       })
@@ -21,7 +21,7 @@ describe('PrefixScript', () => {
         expect(prefixScript.query('test data')).is.equal('data')
       })
     })
-    describe('when spaces arent allowed', () => {
+    describe('when spaces arent required', () => {
       beforeEach(() => {
         prefixScript.space = false
       })
@@ -87,6 +87,28 @@ describe('PrefixScript', () => {
       })
 
       it('fails with space and argument', () => {
+        expect(prefixScript.respondsTo('test data')).isNotOkay
+      })
+    })
+    describe('when scoped', () => {
+      beforeEach(() => {
+        prefixScript.isScoped = true
+        prefixScript.args = 'Required'
+        prefixScript.space = true
+      })
+
+      it('passes', () => {
+        expect(prefixScript.respondsTo('literally anything')).isOkay
+      })
+    })
+    describe('when not active', () => {
+      beforeEach(() => {
+        prefixScript.activeState = false
+        prefixScript.space = true
+        prefixScript.args = 'Required'
+      })
+
+      it('passes with space and argument', () => {
         expect(prefixScript.respondsTo('test data')).isNotOkay
       })
     })
