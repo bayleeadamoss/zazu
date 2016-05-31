@@ -10,13 +10,19 @@ title:  "Blocks"
 
 ## Blocks
 
-Blocks are the foundation of workflows. Each one represents a step to be completed. Along the way, each block passes a value from one block to the next, if they fork each block will get their own copy of the current value.
+Blocks are the foundation of Zazu plugins. Each one represents a step to be
+completed. Along the way, each block passes a value from one block to the next.
+If they fork, each block will get their own copy of the current value.
+
+Blocks link to other blocks via `connections`. Once a blocks gets executed,
+it's connections will get executed after. You can link to both output and input
+blocks.
 
 All blocks can have the following properties:
 
-* `id` *int*: Unique identifier of the block, used to help make connections.
+* `id` *int|string*: Unique identifier of the block, used to help make connections.
 * `connections` *int[]*: Blocks to execute if one of the results are chosen.
-* `type` *string*: The name of the block you wish to use.
+* `type` *string*: Name of the block you wish to use.
 
 Each unique block type can have it's own properties, listed below with their
 descriptions.
@@ -83,6 +89,27 @@ environment variables in the script call.
   connections: [2],
 }]
 ~~~~
+
+### Keyword
+
+Keyword blocks are a useful input block, if you don't need input from the user.
+Once a user types in part of your keyword, it will display as a result the user
+can click on.
+
+* `keyword` *string*: What the user input should match. Similar to the `value` in results.
+* `title` *string*: Title of the result that will be displayed, similar to results.
+* `subtitle` *string*: Subtitle of the result that will be displayed, similar to results.
+
+~~~ javascript
+[{
+  id: 1,
+  type: 'Keyword',
+  keyword: 'play',
+  title: 'Play Pandora',
+  subtitle: 'Click to play Pandora!',
+  connections: [2],
+}]
+~~~
 
 ## Output Blocks
 
