@@ -12,7 +12,7 @@ chai.use(sinonChai)
 
 describe('Package', () => {
   const base = path.join(os.tmpdir(), String(Math.random()))
-  const calculator = new Package('tinytacoteam/calculator', base)
+  const calculator = new Package('example/calculator', base)
   describe('download', () => {
     beforeEach(() => {
       calculator.clone = sinon.stub()
