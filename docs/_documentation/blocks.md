@@ -58,6 +58,29 @@ block of your plugin.
 }]
 ~~~
 
+### Service Script
+
+Often a plugin will need to run jobs in the background for things like indexing
+files or checking the active application. This block allows you to run your
+script on a set interval. Your service is not guaranteed to run on the given
+interval.
+
+The connections on this block will be ignored.
+
+Variables defined in the [configuration](/documentation/configuration/) will be
+used as environment variables in the script call.
+
+* `interval` *int*: Milliseconds between the time we run the script. Must be `>=100`.
+* `script` *string*: Command to be ran. The return value is ignored.
+
+~~~ javascript
+[{
+  id: 1,
+  type: 'ServiceScript',
+  script: 'node scanClipboard.js',
+}]
+~~~
+
 ## Input Blocks
 
 Input blocks are blocks that are the entry points to your plugin. These usually

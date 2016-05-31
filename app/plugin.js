@@ -6,7 +6,6 @@ const Output = require('./blocks/output')
 const External = require('./blocks/external')
 const notification = require('./lib/notification')
 const globalEmitter = require('./lib/globalEmitter')
-const Process = require('./lib/process')
 const Package = require('./package')
 
 class Plugin extends Package {
@@ -30,7 +29,9 @@ class Plugin extends Package {
       this.loaded = true
       this.plugin = plugin
       plugin.blocks.external.forEach((external) => {
-        this.addExternal(new External[external.type](external))
+        external.cwd = this.path
+        external.pluginId = this.id
+        this.addExternal(new External[external.type](external, this.options))
       })
 
       plugin.blocks.input.forEach((input) => {
