@@ -1,18 +1,20 @@
 const Process = require('../../lib/process')
 const Template = require('../../lib/template')
+const InputBlock = require('../inputBlock')
 
-const cuid = require('cuid')
-
-class RootScript {
+class RootScript extends InputBlock {
   constructor (data) {
-    this.id = data.id || cuid()
+    super(data)
     this.script = data.script
-    this.respondsTo = data.respondsTo
-    this.connections = data.connections
+    this.userRespondsTo = data.respondsTo
     this.cwd = data.cwd
   }
 
-  call (query, env = {}) {
+  respondsTo (input) {
+    return this.active() && this.userRespondsTo(input)
+  }
+
+  search (query, env = {}) {
     const script = Template.compile(this.script, {
       query,
     })

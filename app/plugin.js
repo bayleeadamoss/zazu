@@ -1,30 +1,48 @@
 const path = require('path')
+const cuid = require('cuid')
 
-const Input = require('./blocks/input/index')
-const Output = require('./blocks/output/index')
+const Input = require('./blocks/input')
+const Output = require('./blocks/output')
+const External = require('./blocks/external')
 const notification = require('./lib/notification')
+const globalEmitter = require('./lib/globalEmitter')
 const Package = require('./package')
 
 class Plugin extends Package {
   constructor (url, options = {}) {
     super(url)
+    this.id = cuid()
     this.inputs = []
     this.outputs = []
+    this.blocksById = {}
     this.options = options
     this.loaded = false
+
+    this.activeState = true
+    globalEmitter.on('showWindow', (pluginId, blockId) => {
+      this.activeState = !pluginId || this.id === pluginId
+    })
   }
 
   load () {
     return super.load().then((plugin) => {
       this.loaded = true
       this.plugin = plugin
+      plugin.blocks.external.forEach((external) => {
+        external.cwd = this.path
+        external.pluginId = this.id
+        this.addExternal(new External[external.type](external, this.options))
+      })
+
       plugin.blocks.input.forEach((input) => {
         input.cwd = this.path
+        input.pluginId = this.id
         this.addInput(new Input[input.type](input))
       })
 
       plugin.blocks.output.forEach((output) => {
         output.cwd = this.path
+        output.pluginId = this.id
         this.addOutput(new Output[output.type](output))
       })
     }).catch((errorMessage) => {
@@ -35,39 +53,46 @@ class Plugin extends Package {
     })
   }
 
-  addInput (input) {
-    this.inputs.push(input)
+  addExternal (external) {
+    external.on('actioned', () => {
+      this.next({
+        blockId: external.id,
+      })
+    })
   }
 
-  addOutput (input) {
-    this.outputs.push(input)
+  addInput (input) {
+    this.inputs.push(input)
+    this.blocksById[input.id] = input
+  }
+
+  addOutput (output) {
+    this.outputs.push(output)
+    this.blocksById[output.id] = output
   }
 
   respondsTo (inputText) {
-    if (!this.loaded) { return }
+    if (!this.loaded || !this.activeState) { return }
     return this.inputs.find((input) => {
       return input.respondsTo(inputText)
     })
   }
 
   next (state) {
-    const previousBlock = this.inputs.find((input) => {
-      return input.id === state.blockId
-    })
-    if (!previousBlock) { return }
-    previousBlock.connections.forEach((nextBlockId) => {
-      const nextBlock = this.outputs.find((output) => {
-        return output.id === nextBlockId
-      })
-      state.blockId = nextBlockId
-      nextBlock.call(state)
+    const previousBlock = this.blocksById[state.blockId]
+    previousBlock.connections.forEach((blockId) => {
+      const nextBlock = this.blocksById[blockId]
+      const nextState = Object.assign({}, state, { blockId })
+      nextState.next = this.next.bind(this, nextState)
+      nextBlock.call(nextState)
     })
   }
 
-  search (inputText) { // TODO: high complexity
+  search (inputText) {
+    if (!this.loaded || !this.activeState) { return [] }
     return this.inputs.reduce((responsePromises, input) => {
       if (input.respondsTo(inputText)) {
-        responsePromises.push(input.call(inputText, this.options).then((results) => {
+        responsePromises.push(input.search(inputText, this.options).then((results) => {
           return results.map((result) => {
             result.icon = result.icon || path.join(this.path, this.plugin.icon)
             result.blockId = input.id

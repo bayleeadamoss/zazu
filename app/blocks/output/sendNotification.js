@@ -1,11 +1,10 @@
-const cuid = require('cuid')
 const notification = require('../../lib/notification')
-
 const Template = require('../../lib/template')
+const Block = require('../block')
 
-class SendNotification {
+class SendNotification extends Block {
   constructor (data) {
-    this.id = data && data.id || cuid()
+    super(data)
     this.title = data.title
     this.message = data.message
   }

@@ -1,8 +1,8 @@
 const React = require('react')
-const { ipcRenderer } = require('electron')
 const Mousetrap = require('mousetrap')
 
 const Result = require('./result')
+const globalEmitter = require('../lib/globalEmitter')
 
 const { PropTypes } = React
 
@@ -44,10 +44,10 @@ const Results = React.createClass({
   },
 
   componentDidMount () {
-    Mousetrap.bind(['ctrl+p', 'up'], () => {
+    Mousetrap.bind(['ctrl+p', 'ctrl+j', 'up'], () => {
       this.moveUp()
     })
-    Mousetrap.bind(['ctrl+n', 'down'], () => {
+    Mousetrap.bind(['ctrl+n', 'ctrl+k', 'down'], () => {
       this.moveDown()
     })
     Mousetrap.bind('enter', () => {
@@ -56,7 +56,7 @@ const Results = React.createClass({
       handleResultAction(values[activeIndex])
     })
     Mousetrap.bind('esc', () => {
-      ipcRenderer.send('hideWindow')
+      globalEmitter.send('hideWindow')
     })
   },
 

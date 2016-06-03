@@ -1,12 +1,12 @@
+const React = require('react')
+
 const Theme = require('./theme')
 const configuration = require('./configuration')
 const Style = require('./components/style')
 const Search = require('./components/search')
 const Results = require('./components/results')
 const PluginStore = require('./store/pluginStore')
-
-const { remote, ipcRenderer } = require('electron')
-const React = require('react')
+const globalEmitter = require('./lib/globalEmitter')
 
 const Zazu = React.createClass({
 
@@ -30,7 +30,7 @@ const Zazu = React.createClass({
 
     PluginStore.addChangeListener(this.updateResults)
 
-    remote.getCurrentWindow().on('show', () => {
+    globalEmitter.on('showWindow', () => {
       this.setState({
         query: '',
         results: [],
@@ -57,7 +57,7 @@ const Zazu = React.createClass({
 
   handleResultAction (result) {
     result.next()
-    ipcRenderer.send('hideWindow')
+    globalEmitter.emit('hideWindow')
   },
 
   render () {

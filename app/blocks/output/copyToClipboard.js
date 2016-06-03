@@ -1,11 +1,11 @@
-const cuid = require('cuid')
 const electron = require('electron')
 
 const Template = require('../../lib/template')
+const Block = require('../block')
 
-class CopyToClipboard {
+class CopyToClipboard extends Block {
   constructor (data) {
-    this.id = data && data.id || cuid()
+    super(data)
     this.clipboard = electron.clipboard
     this.text = data.text
   }

@@ -1,24 +1,24 @@
-const cuid = require('cuid')
-
 const Process = require('../../lib/process')
 const Template = require('../../lib/template')
+const InputBlock = require('../inputBlock')
 
-class PrefixScript {
+class PrefixScript extends InputBlock {
   constructor (data) {
-    this.id = data.id || cuid()
+    super(data)
     this.cwd = data.cwd
     this.prefix = data.prefix
     this.space = data.space
     this.args = data.args
     this.script = data.script
-    this.connections = data.connections
   }
 
-  respondsTo (input) { // cha cent
+  respondsTo (input) {
     var regex = ['^']
-    regex.push(this.prefix)
-    if (this.space) {
-      regex.push(' ')
+    if (!this.isScoped) {
+      regex.push(this.prefix)
+      if (this.space) {
+        regex.push(' ')
+      }
     }
     if (this.args.match(/^r/i)) {
       regex.push('(.+)')
@@ -26,14 +26,14 @@ class PrefixScript {
       regex.push('(.*)')
     }
     regex.push('$')
-    return input.match(new RegExp(regex.join(''), 'i'))
+    return this.active() && input.match(new RegExp(regex.join(''), 'i'))
   }
 
   query (input) {
     return this.respondsTo(input)[1]
   }
 
-  call (input, env = {}) {
+  search (input, env = {}) {
     const query = this.query(input)
     const script = Template.compile(this.script, {
       query,
