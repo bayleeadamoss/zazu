@@ -1,6 +1,6 @@
 ---
 layout: sidebar-page
-title: How to Build a Workflow
+title: How to Build a Plugin
 ---
 
 * TOC
@@ -27,6 +27,7 @@ module.exports = {
   icon: 'icon.png',
   homepage: 'https://github.com/tinytacoteam/calculator',
   git: 'git@github.com:tinytacoteam/calculator.git',
+  install: 'npm install',
   blocks: {
     input: [
       {
@@ -61,12 +62,18 @@ module.exports = {
   icon: 'icon.png',
   homepage: 'https://github.com/tinytacoteam/calculator',
   git: 'git@github.com:tinytacoteam/calculator.git',
+  install: 'npm install',
   // Rest of plugin
 }
 ~~~~
 
 In this example we have information about who created the plugin and ways to
-discover the repo and the website.
+discover the repo and the website. There is also an `install` step that gets
+executed after your plugin is downloaded.
+
+
+We might also want to describe the [blocks](/documentation/blocks/) that make up
+the plugin.
 
 ~~~ javascript
 module.exports = {
@@ -89,7 +96,7 @@ module.exports = {
 }
 ~~~~
 
-This input block is listed as a [Root Script](http://zazuapp.org/documentation/blocks/#root-script)
+This input block is listed as a [Root Script](/documentation/blocks/#root-script)
 block, which allows you to accept any input without any prefixes. This is great
 for a calculator, so they only have to enter the equation into Zazu.
 

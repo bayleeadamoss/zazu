@@ -10,16 +10,76 @@ title:  "Blocks"
 
 ## Blocks
 
-Blocks are the foundation of workflows. Each one represents a step to be completed. Along the way, each block passes a value from one block to the next, if they fork each block will get their own copy of the current value.
+Blocks are the foundation of Zazu plugins. Each one represents a step to be
+completed. Along the way, each block passes a value from one block to the next.
+If they fork, each block will get their own copy of the current value.
+
+Blocks link to other blocks via `connections`. Once a blocks gets executed,
+it's connections will get executed after. You can link to both output and input
+blocks.
 
 All blocks can have the following properties:
 
-* `id` *int*: Unique identifier of the block, used to help make connections.
+* `id` *int|string*: Unique identifier of the block, used to help make connections.
 * `connections` *int[]*: Blocks to execute if one of the results are chosen.
-* `type` *string*: The name of the block you wish to use.
+* `type` *string*: Name of the block you wish to use.
 
 Each unique block type can have it's own properties, listed below with their
 descriptions.
+
+## External Blocks
+
+External blocks are ways of accessing Zazu plugins without using the zazu search
+bar. These types of blocks are unique because they cannot be used as a connection.
+
+~~~ javascript
+module.exports = {
+  blocks: {
+    external: [
+      // trigger blocks
+    ]
+  }
+};
+~~~
+
+### Hotkey
+
+When a user hits a specific set of keys, it can activate an input or output
+block of your plugin.
+
+* `hotkey` *string*: Key combination to use. [[docs]](https://github.com/electron/electron/blob/master/docs/api/accelerator.md)
+
+~~~ javascript
+[{
+  id: 1,
+  type: 'Hotkey',
+  hotkey: 'cmd+shift+o',
+  connections: [2],
+}]
+~~~
+
+### Service Script
+
+Often a plugin will need to run jobs in the background for things like indexing
+files or checking the active application. This block allows you to run your
+script on a set interval. Your service is not guaranteed to run on the given
+interval.
+
+The connections on this block will be ignored.
+
+Variables defined in the [configuration](/documentation/configuration/) will be
+used as environment variables in the script call.
+
+* `interval` *int*: Milliseconds between the time we run the script. Must be `>=100`.
+* `script` *string*: Command to be ran. The return value is ignored.
+
+~~~ javascript
+[{
+  id: 1,
+  type: 'ServiceScript',
+  script: 'node scanClipboard.js',
+}]
+~~~
 
 ## Input Blocks
 
@@ -83,6 +143,27 @@ environment variables in the script call.
   connections: [2],
 }]
 ~~~~
+
+### Keyword
+
+Keyword blocks are a useful input block, if you don't need input from the user.
+Once a user types in part of your keyword, it will display as a result the user
+can click on.
+
+* `keyword` *string*: What the user input should match. Similar to the `value` in results.
+* `title` *string*: Title of the result that will be displayed, similar to results.
+* `subtitle` *string*: Subtitle of the result that will be displayed, similar to results.
+
+~~~ javascript
+[{
+  id: 1,
+  type: 'Keyword',
+  keyword: 'play',
+  title: 'Play Pandora',
+  subtitle: 'Click to play Pandora!',
+  connections: [2],
+}]
+~~~
 
 ## Output Blocks
 
