@@ -56,7 +56,7 @@ const Results = React.createClass({
       handleResultAction(values[activeIndex])
     })
     Mousetrap.bind('esc', () => {
-      globalEmitter.send('hideWindow')
+      globalEmitter.emit('hideWindow')
     })
   },
 
