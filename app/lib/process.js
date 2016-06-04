@@ -6,9 +6,13 @@ Promise.config({
 })
 
 class Process {
-  static execute (script, options = {}) {
+  static execute (script, userOptions = {}) {
+    const options = Object.assign({}, {
+      cwd: process.cwd(),
+      env: process.env,
+    }, userOptions)
     return new Promise((resolve, reject, onCancel) => {
-      const cmd = exec(script, (error, stdout, stderr) => {
+      const cmd = exec(script, options, (error, stdout, stderr) => {
         if (error) {
           reject(stderr)
         } else {
