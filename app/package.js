@@ -14,7 +14,12 @@ class Package {
 
   load () {
     return this.download().then(() => {
-      return require(path.join(this.path, 'zazu.js'))
+      const plugin = require(path.join(this.path, 'zazu.js'))
+      plugin.blocks = plugin.blocks || {}
+      plugin.blocks.external = plugin.blocks.external || []
+      plugin.blocks.input = plugin.blocks.input || []
+      plugin.blocks.output = plugin.blocks.output || []
+      return plugin
     })
   }
 
