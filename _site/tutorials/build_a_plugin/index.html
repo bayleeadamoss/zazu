@@ -17,15 +17,14 @@
     }
   </script>
 
-  <title>Blocks</title>
-  <meta name="description" content="Zazu is a new open source productivity app, that allows developers to be in the drivers seat. Unlike other solutions, there is no built in integrations, so every plugin has the full scope of what Zazu has to offer.
-">
+  <title>How to Build a Plugin</title>
+  <meta name="description" content="">
 
   <link href='https://fonts.googleapis.com/css?family=Roboto:400,400italic,700|Roboto+Mono:400,500' rel='stylesheet' type='text/css'>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://zazuapp.org/_documentation/blocks">
+  <link rel="canonical" href="http://zazuapp.org/tutorials/build_a_plugin/">
   <link rel="alternate" type="application/rss+xml" title="Zazu App" href="http://zazuapp.org/feed.xml">
   <!--
     Material Jekyll Theme Provided By:
@@ -51,7 +50,7 @@
     <article class="c-article">
   <header class="c-header c-article__header">
     <div class="u-container">
-      <h1 class="c-header__title">Blocks</h1>
+      <h1 class="c-header__title">How to Build a Plugin</h1>
     </div>
   </header>
 
@@ -64,10 +63,16 @@
     </span>
     
       
+        <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+          <a href="/tutorials" title="Tutorials" itemprop="url">
+            <span itemprop="title">Tutorials</span>
+          </a> &gt;
+        </span>
+      
       
       
     
-    <span>Blocks</span>
+    <span>How to Build a Plugin</span>
   </div>
 
 
@@ -75,292 +80,140 @@
   <div class="c-article__main sidebar">
     <div class="content">
       <ul id="markdown-toc">
-  <li><a href="#blocks" id="markdown-toc-blocks">Blocks</a></li>
-  <li><a href="#external-blocks" id="markdown-toc-external-blocks">External Blocks</a>    <ul>
-      <li><a href="#hotkey" id="markdown-toc-hotkey">Hotkey</a></li>
-      <li><a href="#service-script" id="markdown-toc-service-script">Service Script</a></li>
-    </ul>
-  </li>
-  <li><a href="#input-blocks" id="markdown-toc-input-blocks">Input Blocks</a>    <ul>
-      <li><a href="#root-script" id="markdown-toc-root-script">Root Script</a></li>
-      <li><a href="#prefix-script" id="markdown-toc-prefix-script">Prefix Script</a></li>
-      <li><a href="#keyword" id="markdown-toc-keyword">Keyword</a></li>
-    </ul>
-  </li>
-  <li><a href="#output-blocks" id="markdown-toc-output-blocks">Output Blocks</a>    <ul>
-      <li><a href="#copy-to-clipboard" id="markdown-toc-copy-to-clipboard">Copy To Clipboard</a></li>
-      <li><a href="#open-in-browser" id="markdown-toc-open-in-browser">Open In Browser</a></li>
-      <li><a href="#send-notification" id="markdown-toc-send-notification">Send Notification</a></li>
-      <li><a href="#user-script" id="markdown-toc-user-script">User Script</a></li>
-    </ul>
-  </li>
+  <li><a href="#what-is-a-plugin" id="markdown-toc-what-is-a-plugin">What is a plugin?</a></li>
+  <li><a href="#getting-started" id="markdown-toc-getting-started">Getting started</a></li>
 </ul>
 
-<h2 id="blocks">Blocks</h2>
+<h2 id="what-is-a-plugin">What is a plugin?</h2>
 
-<p>Blocks are the foundation of Zazu plugins. Each one represents a step to be
-completed. Along the way, each block passes a value from one block to the next.
-If they fork, each block will get their own copy of the current value.</p>
+<p>A plugin is a script that integrates with Zazu and leverages the <a href="http://zazuapp.org/documentation/blocks/">blocks</a>
+to provide functionality to the user via the Zazu interface.</p>
 
-<p>Blocks link to other blocks via <code class="highlighter-rouge">connections</code>. Once a blocks gets executed,
-it’s connections will get executed after. You can link to both output and input
-blocks.</p>
+<h2 id="getting-started">Getting started</h2>
 
-<p>All blocks can have the following properties:</p>
+<p>The first thing you want to do is create a <code class="highlighter-rouge">.zazu.js</code> in the root of your
+project. This file tells Zazu how to use your project. It contains information
+about the author, and entry points to the plugin.</p>
 
-<ul>
-  <li>
-    <table>
-      <tbody>
-        <tr>
-          <td><code class="highlighter-rouge">id</code> *int</td>
-          <td>string*: Unique identifier of the block, used to help make connections.</td>
-        </tr>
-      </tbody>
-    </table>
-  </li>
-  <li><code class="highlighter-rouge">connections</code> <em>int[]</em>: Blocks to execute if one of the results are chosen.</li>
-  <li><code class="highlighter-rouge">type</code> <em>string</em>: Name of the block you wish to use.</li>
-</ul>
-
-<p>Each unique block type can have it’s own properties, listed below with their
-descriptions.</p>
-
-<h2 id="external-blocks">External Blocks</h2>
-
-<p>External blocks are ways of accessing Zazu plugins without using the zazu search
-bar. These types of blocks are unique because they cannot be used as a connection.</p>
+<p>A complete example might look like:</p>
 
 <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">blocks</span><span class="p">:</span> <span class="p">{</span>
-    <span class="na">external</span><span class="p">:</span> <span class="p">[</span>
-      <span class="c1">// trigger blocks</span>
-    <span class="p">]</span>
-  <span class="p">}</span>
-<span class="p">};</span>
-</code></pre>
-</div>
-
-<h3 id="hotkey">Hotkey</h3>
-
-<p>When a user hits a specific set of keys, it can activate an input or output
-block of your plugin.</p>
-
-<ul>
-  <li><code class="highlighter-rouge">hotkey</code> <em>string</em>: Key combination to use. <a href="https://github.com/electron/electron/blob/master/docs/api/accelerator.md">[docs]</a></li>
-</ul>
-
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
-  <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-  <span class="na">type</span><span class="p">:</span> <span class="s1">'Hotkey'</span><span class="p">,</span>
-  <span class="na">hotkey</span><span class="p">:</span> <span class="s1">'cmd+shift+o'</span><span class="p">,</span>
-  <span class="na">connections</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span>
-<span class="p">}]</span>
-</code></pre>
-</div>
-
-<h3 id="service-script">Service Script</h3>
-
-<p>Often a plugin will need to run jobs in the background for things like indexing
-files or checking the active application. This block allows you to run your
-script on a set interval. Your service is not guaranteed to run on the given
-interval.</p>
-
-<p>The connections on this block will be ignored.</p>
-
-<p>Variables defined in the <a href="/documentation/configuration/">configuration</a> will be
-used as environment variables in the script call.</p>
-
-<ul>
-  <li><code class="highlighter-rouge">interval</code> <em>int</em>: Milliseconds between the time we run the script. Must be <code class="highlighter-rouge">&gt;=100</code>.</li>
-  <li><code class="highlighter-rouge">script</code> <em>string</em>: Command to be ran. The return value is ignored.</li>
-</ul>
-
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
-  <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-  <span class="na">type</span><span class="p">:</span> <span class="s1">'ServiceScript'</span><span class="p">,</span>
-  <span class="na">script</span><span class="p">:</span> <span class="s1">'node scanClipboard.js'</span><span class="p">,</span>
-<span class="p">}]</span>
-</code></pre>
-</div>
-
-<h2 id="input-blocks">Input Blocks</h2>
-
-<p>Input blocks are blocks that are the entry points to your plugin. These usually
-return results to be displayed in Zazu.</p>
-
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="s1">'Calculator'</span><span class="p">,</span>
+  <span class="na">author</span><span class="p">:</span> <span class="s1">'Tiny Taco Team'</span><span class="p">,</span>
+  <span class="na">description</span><span class="p">:</span> <span class="s1">'Calculate stuff.'</span><span class="p">,</span>
+  <span class="na">icon</span><span class="p">:</span> <span class="s1">'icon.png'</span><span class="p">,</span>
+  <span class="na">homepage</span><span class="p">:</span> <span class="s1">'https://github.com/tinytacoteam/calculator'</span><span class="p">,</span>
+  <span class="na">git</span><span class="p">:</span> <span class="s1">'git@github.com:tinytacoteam/calculator.git'</span><span class="p">,</span>
+  <span class="na">install</span><span class="p">:</span> <span class="s1">'npm install'</span><span class="p">,</span>
   <span class="na">blocks</span><span class="p">:</span> <span class="p">{</span>
     <span class="na">input</span><span class="p">:</span> <span class="p">[</span>
-      <span class="c1">// input blocks</span>
-    <span class="p">]</span>
-  <span class="p">}</span>
-<span class="p">};</span>
-</code></pre>
-</div>
-
-<h3 id="root-script">Root Script</h3>
-
-<p>This allows you to execute your script without any input prefixes.</p>
-
-<p>Variables defined in the <a href="/documentation/configuration/">configuration</a> will be used as
-environment variables in the script call.</p>
-
-<ul>
-  <li><code class="highlighter-rouge">respondsTo</code> <em>function</em>: Filter input so your plugin doesn’t run after each keystroke</li>
-  <li><code class="highlighter-rouge">script</code> <em>string</em>: Shell command that returns results</li>
-</ul>
-
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
-  <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-  <span class="na">type</span><span class="p">:</span> <span class="s1">'RootScript'</span><span class="p">,</span>
-  <span class="na">respondsTo</span><span class="p">:</span> <span class="p">(</span><span class="nx">input</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="kr">const</span> <span class="nx">hasEquation</span> <span class="o">=</span> <span class="nx">input</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^</span><span class="se">[\d\.\(\)\+\-</span><span class="sr">*</span><span class="se">\/\s]</span><span class="sr">+$/</span><span class="p">)</span>
-    <span class="kr">const</span> <span class="nx">hasNumbers</span> <span class="o">=</span> <span class="nx">input</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/</span><span class="se">\d</span><span class="sr">/</span><span class="p">)</span>
-    <span class="k">return</span> <span class="nx">hasEquation</span> <span class="o">&amp;&amp;</span> <span class="nx">hasNumbers</span>
+      <span class="p">{</span>
+        <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="na">type</span><span class="p">:</span> <span class="s1">'RootScript'</span><span class="p">,</span>
+        <span class="na">respondsTo</span><span class="p">:</span> <span class="p">(</span><span class="nx">input</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+          <span class="kr">const</span> <span class="nx">hasEquation</span> <span class="o">=</span> <span class="nx">input</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^</span><span class="se">[\d\.\(\)\+\-</span><span class="sr">*</span><span class="se">\/\s]</span><span class="sr">+$/</span><span class="p">)</span>
+          <span class="kr">const</span> <span class="nx">hasNumbers</span> <span class="o">=</span> <span class="nx">input</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/</span><span class="se">\d</span><span class="sr">/</span><span class="p">)</span>
+          <span class="k">return</span> <span class="nx">hasEquation</span> <span class="o">&amp;&amp;</span> <span class="nx">hasNumbers</span>
+        <span class="p">},</span>
+        <span class="na">script</span><span class="p">:</span> <span class="s1">'node calculator.js {query}'</span><span class="p">,</span>
+        <span class="na">connections</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+      <span class="p">},</span>
+    <span class="p">],</span>
+    <span class="na">output</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="na">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="na">type</span><span class="p">:</span> <span class="s1">'CopyToClipboard'</span><span class="p">,</span>
+      <span class="p">},</span>
+    <span class="p">],</span>
   <span class="p">},</span>
-  <span class="na">script</span><span class="p">:</span> <span class="s1">'node calculator.js {query}'</span><span class="p">,</span>
-  <span class="na">connections</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span>
-<span class="p">}]</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
-<h3 id="prefix-script">Prefix Script</h3>
-
-<p>This allows you to execute your script with a prefix.</p>
-
-<p>Variables defined in the <a href="/documentation/configuration/">configuration</a> will be used as
-environment variables in the script call.</p>
-
-<ul>
-  <li><code class="highlighter-rouge">prefix</code> <em>string</em>: Prefix to be used before user input.</li>
-  <li><code class="highlighter-rouge">space</code> <em>boolean</em>: If a space should be between the Prefix and the user input.</li>
-  <li><code class="highlighter-rouge">args</code> <em>string</em>: Specifies if you want arguments. Possibles values are <code class="highlighter-rouge">Required</code>, <code class="highlighter-rouge">Optional</code> and <code class="highlighter-rouge">None</code>.</li>
-  <li><code class="highlighter-rouge">script</code> <em>string</em>: Shell command that returns results</li>
-</ul>
-
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
-  <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-  <span class="na">type</span><span class="p">:</span> <span class="s1">'PrefixScript'</span><span class="p">,</span>
-  <span class="na">prefix</span><span class="p">:</span> <span class="s1">'calc'</span><span class="p">,</span>
-  <span class="na">space</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-  <span class="na">args</span><span class="p">:</span> <span class="s1">'Required'</span><span class="p">,</span>
-  <span class="na">script</span><span class="p">:</span> <span class="s1">'node calculator.js {query}'</span><span class="p">,</span>
-  <span class="na">connections</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span>
-<span class="p">}]</span>
-</code></pre>
-</div>
-
-<h3 id="keyword">Keyword</h3>
-
-<p>Keyword blocks are a useful input block, if you don’t need input from the user.
-Once a user types in part of your keyword, it will display as a result the user
-can click on.</p>
-
-<ul>
-  <li><code class="highlighter-rouge">keyword</code> <em>string</em>: What the user input should match. Similar to the <code class="highlighter-rouge">value</code> in results.</li>
-  <li><code class="highlighter-rouge">title</code> <em>string</em>: Title of the result that will be displayed, similar to results.</li>
-  <li><code class="highlighter-rouge">subtitle</code> <em>string</em>: Subtitle of the result that will be displayed, similar to results.</li>
-</ul>
-
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
-  <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-  <span class="na">type</span><span class="p">:</span> <span class="s1">'Keyword'</span><span class="p">,</span>
-  <span class="na">keyword</span><span class="p">:</span> <span class="s1">'play'</span><span class="p">,</span>
-  <span class="na">title</span><span class="p">:</span> <span class="s1">'Play Pandora'</span><span class="p">,</span>
-  <span class="na">subtitle</span><span class="p">:</span> <span class="s1">'Click to play Pandora!'</span><span class="p">,</span>
-  <span class="na">connections</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span>
-<span class="p">}]</span>
-</code></pre>
-</div>
-
-<h2 id="output-blocks">Output Blocks</h2>
-
-<p>Output blocks happen after an input block, these can do several things like call
-a script, or copy something to your clipboard.</p>
-
-<p>Most of the special attributes allow you to use a variable <code class="highlighter-rouge"><span class="p">{</span><span class="err">value</span><span class="p">}</span></code> which will
-be replaced with the current value of the result being passed around.</p>
+<p>To break this up, let’s start with the meta information:</p>
 
 <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="s1">'Calculator'</span><span class="p">,</span>
+  <span class="na">author</span><span class="p">:</span> <span class="s1">'Tiny Taco Team'</span><span class="p">,</span>
+  <span class="na">description</span><span class="p">:</span> <span class="s1">'Calculate stuff.'</span><span class="p">,</span>
+  <span class="na">icon</span><span class="p">:</span> <span class="s1">'icon.png'</span><span class="p">,</span>
+  <span class="na">homepage</span><span class="p">:</span> <span class="s1">'https://github.com/tinytacoteam/calculator'</span><span class="p">,</span>
+  <span class="na">git</span><span class="p">:</span> <span class="s1">'git@github.com:tinytacoteam/calculator.git'</span><span class="p">,</span>
+  <span class="na">install</span><span class="p">:</span> <span class="s1">'npm install'</span><span class="p">,</span>
+  <span class="c1">// Rest of plugin</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>In this example we have information about who created the plugin and ways to
+discover the repo and the website. There is also an <code class="highlighter-rouge">install</code> step that gets
+executed after your plugin is downloaded.</p>
+
+<p>We might also want to describe the <a href="/documentation/blocks/">blocks</a> that make up
+the plugin.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="c1">// rest of plugin</span>
   <span class="na">blocks</span><span class="p">:</span> <span class="p">{</span>
-    <span class="na">output</span><span class="p">:</span> <span class="p">[</span>
-      <span class="c1">// output blocks</span>
+    <span class="na">input</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="na">type</span><span class="p">:</span> <span class="s1">'RootScript'</span><span class="p">,</span>
+        <span class="na">respondsTo</span><span class="p">:</span> <span class="p">(</span><span class="nx">input</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+          <span class="kr">const</span> <span class="nx">hasEquation</span> <span class="o">=</span> <span class="nx">input</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^</span><span class="se">[\d\.\(\)\+\-</span><span class="sr">*</span><span class="se">\/\s]</span><span class="sr">+$/</span><span class="p">)</span>
+          <span class="kr">const</span> <span class="nx">hasNumbers</span> <span class="o">=</span> <span class="nx">input</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/</span><span class="se">\d</span><span class="sr">/</span><span class="p">)</span>
+          <span class="k">return</span> <span class="nx">hasEquation</span> <span class="o">&amp;&amp;</span> <span class="nx">hasNumbers</span>
+        <span class="p">},</span>
+        <span class="na">script</span><span class="p">:</span> <span class="s1">'node calculator.js {query}'</span><span class="p">,</span>
+        <span class="na">connections</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+      <span class="p">}</span>
     <span class="p">]</span>
   <span class="p">}</span>
-<span class="p">};</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
-<h3 id="copy-to-clipboard">Copy To Clipboard</h3>
+<p>This input block is listed as a <a href="/documentation/blocks/#root-script">Root Script</a>
+block, which allows you to accept any input without any prefixes. This is great
+for a calculator, so they only have to enter the equation into Zazu.</p>
 
-<p>This block will copy the given input to the clipboard.</p>
+<p>You can see we give the block an <code class="highlighter-rouge">id</code>. This is so we can reference it later in
+the plugin. If you don’t give it any <code class="highlighter-rouge">id</code>, a unique <code class="highlighter-rouge">id</code> will be provided for
+it.</p>
 
-<ul>
-  <li><code class="highlighter-rouge">text</code> <em>string</em>: Text to be copied to the clipboard.</li>
-</ul>
+<p>The next section <code class="highlighter-rouge">respondsTo</code> is unique to the block type. Since there is no
+prefix, we give you the option of limiting the numbers of requests to your
+plugin. On a given session a user could send lots of requests, as they keep
+typing. Here you can provide a criteria for if you want to see the request at
+all.</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
-  <span class="na">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-  <span class="na">type</span><span class="p">:</span> <span class="s1">'CopyToClipboard'</span><span class="p">,</span>
-  <span class="na">text</span><span class="p">:</span> <span class="s1">'{value}'</span><span class="p">,</span>
-<span class="p">}]</span>
+<p>Once the plugin has decided you want to proceed to your real plugin, it uses
+it’s plugin specific <code class="highlighter-rouge">script</code> to start your script up. You can see we are going
+to be using a <a href="https://nodejs.org/">node</a> script, but you can use any language
+you like. I’m also using a special <code class="highlighter-rouge"><span class="p">{</span><span class="err">query</span><span class="p">}</span></code> which will be interpolated with the
+query the user has typed.</p>
+
+<p>Lastly we have another item in the object called <code class="highlighter-rouge">connections</code>, this array
+contains the block ids that will get executed after the user has clicked on one
+of the results your plugin has provided.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="c1">// rest of plugin</span>
+  <span class="na">blocks</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">output</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="na">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="na">type</span><span class="p">:</span> <span class="s1">'CopyToClipboard'</span><span class="p">,</span>
+      <span class="p">},</span>
+    <span class="p">],</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
-<h3 id="open-in-browser">Open In Browser</h3>
-
-<p>Open up the value in the users default Browser.</p>
-
-<ul>
-  <li><code class="highlighter-rouge">url</code> <em>string</em>: URL of the page you wish to open.</li>
-</ul>
-
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
-  <span class="na">id</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-  <span class="na">type</span><span class="p">:</span> <span class="s1">'OpenInBrowser'</span><span class="p">,</span>
-  <span class="na">url</span><span class="p">:</span> <span class="s1">'{value}'</span><span class="p">,</span>
-<span class="p">}]</span>
-</code></pre>
-</div>
-
-<h3 id="send-notification">Send Notification</h3>
-
-<p>Give the user a notification with a title and a message.</p>
-
-<ul>
-  <li><code class="highlighter-rouge">title</code> <em>string</em>: Title of the notification.</li>
-  <li><code class="highlighter-rouge">message</code> <em>string</em>: Message of the notification.</li>
-</ul>
-
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
-  <span class="na">id</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-  <span class="na">type</span><span class="p">:</span> <span class="s1">'SendNotification'</span><span class="p">,</span>
-  <span class="na">title</span><span class="p">:</span> <span class="s1">'Hello world'</span><span class="p">,</span>
-  <span class="na">message</span><span class="p">:</span> <span class="s1">'{value}'</span><span class="p">,</span>
-<span class="p">}]</span>
-</code></pre>
-</div>
-
-<h3 id="user-script">User Script</h3>
-
-<p>For those more unique actions, you can run any script you need.</p>
-
-<p>Variables will be passed as environment variables, but this plugin cannot mutate
-the state.</p>
-
-<ul>
-  <li><code class="highlighter-rouge">script</code> <em>string</em>: The shell command to run to return the results.</li>
-</ul>
-
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
-  <span class="na">id</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-  <span class="na">type</span><span class="p">:</span> <span class="s1">'UserScript'</span><span class="p">,</span>
-  <span class="na">script</span><span class="p">:</span> <span class="s1">'ruby output.rb {value}'</span><span class="p">,</span>
-<span class="p">}]</span>
-</code></pre>
-</div>
-
+<p>The last block is a much simpler block. This output block takes input and copies
+it to the clipboard. It contains an <code class="highlighter-rouge">id</code> since we reference it earlier in the
+Root Script block earlier in the tutorial.</p>
 
     </div>
   </div>
@@ -377,7 +230,7 @@ the state.</p>
     </p>
     <p>
       See a typo? Feel free to
-      <a href="https://github.com/tinytacoteam/zazu/blob/gh-pages/_documentation/blocks.md">edit this page</a>!
+      <a href="https://github.com/tinytacoteam/zazu/blob/gh-pages/_tutorials/build_a_plugin.md">edit this page</a>!
     </p>
     <p>
       

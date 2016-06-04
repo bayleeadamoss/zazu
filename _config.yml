@@ -37,4 +37,4 @@ include: [_pages, _tutorials, _packages, _documentation]
 exclude: [vendor, _site, CHANGELOG.md, LICENSE, README.md]
 sass:
   style: compressed
-currentCommitSha: 9acfa4b6bc43248b819d530378f6e9933dbe6db4
+currentCommitSha: 657c15a197e7e2df8445d7ca9b2eabe9943a36ad
