@@ -89,7 +89,6 @@ class Plugin extends Package {
   }
 
   search (inputText) {
-    if (!this.loaded || !this.activeState) { return [] }
     return this.inputs.reduce((responsePromises, input) => {
       if (input.respondsTo(inputText)) {
         responsePromises.push(input.search(inputText, this.options).then((results) => {

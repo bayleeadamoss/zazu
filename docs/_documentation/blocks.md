@@ -84,7 +84,8 @@ used as environment variables in the script call.
 ## Input Blocks
 
 Input blocks are blocks that are the entry points to your plugin. These usually
-return results to be displayed in Zazu.
+return results to be displayed in Zazu. If a search becomes stales, all input
+scripts should be able to handle a [`SIGKILL`](http://www.gnu.org/software/libc/manual/html_node/Termination-Signals.html)
 
 ~~~ javascript
 module.exports = {

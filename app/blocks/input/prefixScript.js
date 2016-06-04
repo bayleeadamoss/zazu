@@ -34,17 +34,21 @@ class PrefixScript extends InputBlock {
   }
 
   search (input, env = {}) {
+    if (this.lastProcess) {
+      this.lastProcess.cancel()
+    }
     const query = this.query(input)
     const script = Template.compile(this.script, {
       query,
     })
 
-    return Process.execute(script, {
+    this.lastProcess = Process.execute(script, {
       cwd: this.cwd,
       env: Object.assign({}, process.env, env),
     }).then((results) => {
       return JSON.parse(results)
     })
+    return this.lastProcess
   }
 }
 

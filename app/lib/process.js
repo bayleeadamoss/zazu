@@ -1,26 +1,23 @@
-const { spawn } = require('child_process')
+const Promise = require('bluebird')
+const { exec } = require('child_process')
+
+Promise.config({
+  cancellation: true,
+})
 
 class Process {
   static execute (script, options = {}) {
-    script = script.split(' ')
-    const command = script[0]
-    const args = script.slice(1)
-    const cmd = spawn(command, args, options)
-    return new Promise((resolve, reject) => {
-      let output = ''
-      let error = ''
-
-      cmd.stdout.on('data', (data) => {
-        output += data
+    return new Promise((resolve, reject, onCancel) => {
+      const cmd = exec(script, (error, stdout, stderr) => {
+        if (error) {
+          reject(stderr)
+        } else {
+          resolve(stdout)
+        }
       })
 
-      cmd.stderr.on('data', (data) => {
-        error += data
-      })
-
-      cmd.on('close', (code) => {
-        if (code === 0) { resolve(output) }
-        if (code !== 0) { reject(error) }
+      onCancel(() => {
+        cmd.kill('SIGKILL')
       })
     })
   }
