@@ -83,7 +83,6 @@ var Form = React.createClass({
         comment: this.state.comment,
         currentPath: window.location.pathname,
         currentHash: window.location.hash,
-        currentCommitSha: window.zazudocs.commitSha,
       })
       this.props.onSubmitComplete()
     }
