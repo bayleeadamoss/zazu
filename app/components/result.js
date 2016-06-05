@@ -28,7 +28,7 @@ const Result = React.createClass({
       },
       React.createElement('img', { src: value.icon, alt: '' }),
       React.createElement('h2', null, value.title),
-      React.createElement('h3', null, value.subtitle)
+      value.subtitle && React.createElement('h3', null, value.subtitle)
     )
   },
 })
