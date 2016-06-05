@@ -31,6 +31,7 @@ const Zazu = React.createClass({
     PluginStore.addChangeListener(this.updateResults)
 
     globalEmitter.on('showWindow', () => {
+      PluginStore.setQuery('')
       this.setState({
         query: '',
         results: [],
