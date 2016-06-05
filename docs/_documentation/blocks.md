@@ -20,7 +20,7 @@ blocks.
 
 All blocks can have the following properties:
 
-* `id` *int|string*: Unique identifier of the block, used to help make connections.
+* `id` *int\|string*: Unique identifier of the block, used to help make connections.
 * `connections` *int[]*: Blocks to execute if one of the results are chosen.
 * `type` *string*: Name of the block you wish to use.
 
