@@ -17,6 +17,25 @@ const Result = React.createClass({
     this.props.activate(this.props.value)
   },
 
+  componentDidUpdate () {
+    if (this.props.active) {
+      const list = this.el.parentElement
+      const listTop = list.offsetTop
+      const listHeight = list.offsetHeight
+      const elementTop = this.el.getBoundingClientRect().top - listTop
+      const elementBottom = elementTop + this.el.offsetHeight
+      if (listHeight < elementBottom) {
+        this.el.scrollIntoView(false)
+      } else if (elementTop < 0) {
+        this.el.scrollIntoView(true)
+      }
+    }
+  },
+
+  setReference (el) {
+    this.el = el
+  },
+
   render () {
     const { active, value } = this.props
     return React.createElement(
@@ -25,6 +44,7 @@ const Result = React.createClass({
         onClick: this.click,
         onMouseOver: this.activate,
         className: active ? 'active' : 'inactive',
+        ref: this.setReference,
       },
       React.createElement('img', { src: value.icon, alt: '' }),
       React.createElement('h2', null, value.title),
