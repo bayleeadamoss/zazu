@@ -20,6 +20,8 @@ class ServiceScript extends EventEmitter {
     this.setup()
   }
 
+  call () {}
+
   setup () {
     setTimeout(() => {
       this.handle()

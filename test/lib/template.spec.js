@@ -16,5 +16,18 @@ describe('Template', () => {
         last: 'taco',
       })).to.eq('tinytiny')
     })
+
+    it('replaces with empty strings', () => {
+      expect(Template.compile('{first}:{last}', {
+        first: 'tiny',
+        last: '',
+      })).to.eq('tiny:')
+    })
+
+    it('doesnt replace empty brackets', () => {
+      expect(Template.compile('{}:{first}', {
+        first: 'tiny',
+      })).to.eq('{}:tiny')
+    })
   })
 })

@@ -39,15 +39,15 @@ describe('PrefixScript', () => {
       })
 
       it('fails when input has no arguments', () => {
-        expect(prefixScript.respondsTo('test')).isNotOkay
+        expect(prefixScript.respondsTo('test')).to.not.be.ok
       })
 
       it('fails when input has no space', () => {
-        expect(prefixScript.respondsTo('testdata')).isNotOkay
+        expect(prefixScript.respondsTo('testdata')).to.not.be.ok
       })
 
       it('passes with space and argument', () => {
-        expect(prefixScript.respondsTo('test data')).isOkay
+        expect(prefixScript.respondsTo('test data')).to.be.ok
       })
     })
     describe('when arguments are optional and spaces are required', () => {
@@ -57,19 +57,19 @@ describe('PrefixScript', () => {
       })
 
       it('passes when input has a space and an argument', () => {
-        expect(prefixScript.respondsTo('test data')).isOkay
+        expect(prefixScript.respondsTo('test data')).to.be.ok
       })
 
       it('fails when input has no space and an argument', () => {
-        expect(prefixScript.respondsTo('testdata')).isNotOkay
+        expect(prefixScript.respondsTo('testdata')).to.not.be.ok
       })
 
       it('passes when input has space and no argument', () => {
-        expect(prefixScript.respondsTo('test ')).isOkay
+        expect(prefixScript.respondsTo('test ')).to.be.ok
       })
 
       it('passes when input has space and no argument', () => {
-        expect(prefixScript.respondsTo('test')).isNotOkay
+        expect(prefixScript.respondsTo('test')).to.not.be.ok
       })
     })
     describe('when no spaces or arguments are required', () => {
@@ -79,26 +79,30 @@ describe('PrefixScript', () => {
       })
 
       it('passes when input has no space', () => {
-        expect(prefixScript.respondsTo('test')).isOkay
+        expect(prefixScript.respondsTo('test')).to.be.ok
       })
 
       it('fails when input has an argument', () => {
-        expect(prefixScript.respondsTo('testdata')).isNotOkay
+        expect(prefixScript.respondsTo('testdata')).to.not.be.ok
       })
 
       it('fails with space and argument', () => {
-        expect(prefixScript.respondsTo('test data')).isNotOkay
+        expect(prefixScript.respondsTo('test data')).to.not.be.ok
       })
     })
     describe('when scoped', () => {
       beforeEach(() => {
         prefixScript.isScoped = true
-        prefixScript.args = 'Required'
+        prefixScript.args = 'Optional'
         prefixScript.space = true
       })
 
       it('passes', () => {
-        expect(prefixScript.respondsTo('literally anything')).isOkay
+        expect(prefixScript.respondsTo('literally anything')).to.be.ok
+      })
+
+      it('passes with no input', () => {
+        expect(prefixScript.respondsTo('')).to.be.ok
       })
     })
     describe('when not active', () => {
@@ -109,7 +113,7 @@ describe('PrefixScript', () => {
       })
 
       it('passes with space and argument', () => {
-        expect(prefixScript.respondsTo('test data')).isNotOkay
+        expect(prefixScript.respondsTo('test data')).to.not.be.ok
       })
     })
   })

@@ -54,6 +54,7 @@ class Plugin extends Package {
   }
 
   addExternal (external) {
+    this.blocksById[external.id] = external
     external.on('actioned', () => {
       this.next({
         blockId: external.id,

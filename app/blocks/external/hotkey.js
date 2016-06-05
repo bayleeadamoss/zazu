@@ -19,6 +19,8 @@ class Hotkey extends EventEmitter {
     })
   }
 
+  call () {}
+
   handle () {
     this.emit('actioned')
   }
