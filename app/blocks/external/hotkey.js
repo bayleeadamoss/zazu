@@ -4,12 +4,13 @@ const cuid = require('cuid')
 const globalEmitter = require('../../lib/globalEmitter')
 
 class Hotkey extends EventEmitter {
-  constructor (data) {
+  constructor (data, options) {
     super()
     this.type = data.type
     this.id = data.id || cuid()
+    this.name = data.name
     this.connections = data.connections || []
-    this.hotkey = data.hotkey
+    this.hotkey = options[this.name] ? options[this.name] : data.hotkey
 
     globalEmitter.emit('registerHotkey', this.hotkey)
     globalEmitter.on('triggerHotkey', (accelerator) => {

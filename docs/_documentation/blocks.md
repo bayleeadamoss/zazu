@@ -48,12 +48,14 @@ When a user hits a specific set of keys, it can activate an input or output
 block of your plugin.
 
 * `hotkey` *string*: Key combination to use. [[docs]](https://github.com/electron/electron/blob/master/docs/api/accelerator.md)
+* `name` *string*: Names allow hotkeys to be overwritten by the user.
 
 ~~~ javascript
 [{
   id: 1,
   type: 'Hotkey',
   hotkey: 'cmd+shift+o',
+  name: 'Inverse',
   connections: [2],
 }]
 ~~~
