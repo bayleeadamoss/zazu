@@ -26,18 +26,35 @@ class PluginStore extends EventEmitter {
 
   setQuery (query) {
     this.query = query
-    this.results = []
-    this.emitChange()
-    this.plugins.forEach((plugin) => {
-      if (!plugin.respondsTo(this.query)) { return }
-      plugin.search(this.query).forEach((promise) => {
-        promise.then((results) => {
-          if (query !== this.query) { return }
+    let first = true
+
+    const promises = this.plugins.filter((plugin) => {
+      return plugin.respondsTo(query)
+    }).reduce((memo, plugin) => {
+      return memo.concat(plugin.search(query))
+    }, [])
+
+    promises.forEach((promise) => {
+      promise.then((results) => {
+        if (query === this.query) {
+          if (first) {
+            first = false
+            this.clearResults()
+          }
           this.results = this.results.concat(results)
           this.emitChange()
-        })
+        }
       })
     })
+
+    if (promises.length === 0) {
+      this.clearResults()
+    }
+  }
+
+  clearResults () {
+    this.results = []
+    this.emitChange()
   }
 
   emitChange () {
