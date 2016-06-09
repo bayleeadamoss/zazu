@@ -1,5 +1,6 @@
 const path = require('path')
 const cuid = require('cuid')
+const jetpack = require('fs-jetpack')
 
 const Input = require('./blocks/input')
 const Output = require('./blocks/output')
@@ -28,6 +29,11 @@ class Plugin extends Package {
     return super.load().then((plugin) => {
       this.loaded = true
       this.plugin = plugin
+
+      if (plugin.stylesheet) {
+        plugin.css = jetpack.read(path.join(this.path, plugin.stylesheet))
+      }
+
       plugin.blocks.external.forEach((external) => {
         external.cwd = this.path
         external.pluginId = this.id
@@ -94,6 +100,7 @@ class Plugin extends Package {
       if (input.respondsTo(inputText)) {
         responsePromises.push(input.search(inputText, this.options).then((results) => {
           return results.map((result) => {
+            result.previewCss = this.plugin.css
             result.icon = result.icon || path.join(this.path, this.plugin.icon)
             result.blockId = input.id
             result.next = this.next.bind(this, result)

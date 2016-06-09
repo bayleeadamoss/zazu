@@ -2,6 +2,7 @@ const React = require('react')
 const Mousetrap = require('mousetrap')
 
 const Result = require('./result')
+const IFrame = require('./iframe')
 const globalEmitter = require('../lib/globalEmitter')
 
 const { PropTypes } = React
@@ -76,18 +77,35 @@ const Results = React.createClass({
   render () {
     const { activeIndex } = this.state
     const { values, handleResultAction } = this.props
+    if (values.length === 0) { return null }
     return React.createElement(
-      'ul',
-      null,
-      values.map((value, i) => {
-        return React.createElement(Result, {
-          active: i === activeIndex,
-          activate: this.activate,
-          value: value,
-          onClick: handleResultAction,
-          key: i,
+      'div',
+      { className: 'results' },
+      React.createElement(
+        'ul',
+        null,
+        values.map((result, i) => {
+          return React.createElement(Result, {
+            active: i === activeIndex,
+            activate: this.activate,
+            value: result,
+            onClick: handleResultAction,
+            key: i,
+          })
         })
-      })
+      ),
+      values.filter((result, i) => {
+        return i === activeIndex && result.preview
+      }).reduce((memo, result) => {
+        return React.createElement(
+          IFrame,
+          {
+            id: 'preview',
+            css: result.previewCss,
+            html: result.preview,
+          }
+        )
+      }, null)
     )
   },
 
