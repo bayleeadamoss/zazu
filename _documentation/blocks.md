@@ -20,7 +20,7 @@ blocks.
 
 All blocks can have the following properties:
 
-* `id` *int|string*: Unique identifier of the block, used to help make connections.
+* `id` *int\|string*: Unique identifier of the block, used to help make connections.
 * `connections` *int[]*: Blocks to execute if one of the results are chosen.
 * `type` *string*: Name of the block you wish to use.
 
@@ -48,12 +48,14 @@ When a user hits a specific set of keys, it can activate an input or output
 block of your plugin.
 
 * `hotkey` *string*: Key combination to use. [[docs]](https://github.com/electron/electron/blob/master/docs/api/accelerator.md)
+* `name` *string*: Names allow hotkeys to be overwritten by the user.
 
 ~~~ javascript
 [{
   id: 1,
   type: 'Hotkey',
   hotkey: 'cmd+shift+o',
+  name: 'Inverse',
   connections: [2],
 }]
 ~~~
@@ -84,7 +86,8 @@ used as environment variables in the script call.
 ## Input Blocks
 
 Input blocks are blocks that are the entry points to your plugin. These usually
-return results to be displayed in Zazu.
+return results to be displayed in Zazu. If a search becomes stales, all input
+scripts should be able to handle a [`SIGKILL`](http://www.gnu.org/software/libc/manual/html_node/Termination-Signals.html)
 
 ~~~ javascript
 module.exports = {
