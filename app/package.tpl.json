@@ -12,6 +12,7 @@
     "fs-jetpack": "^0.7.0",
     "git-clone": "^0.1.0",
     "mousetrap": "^1.5.3",
+    "nedb": "^1.8.0",
     "node-notifier": "^4.5.0",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",

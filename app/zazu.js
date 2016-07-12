@@ -7,6 +7,7 @@ const Search = require('./components/search')
 const Results = require('./components/results')
 const PluginStore = require('./store/pluginStore')
 const globalEmitter = require('./lib/globalEmitter')
+const ResultSorter = require('./lib/ResultSorter')
 
 const Zazu = React.createClass({
 
@@ -45,7 +46,7 @@ const Zazu = React.createClass({
 
   updateResults () {
     this.setState({
-      results: PluginStore.results,
+      results: new ResultSorter(PluginStore.results).sort(),
     })
   },
 
@@ -59,6 +60,10 @@ const Zazu = React.createClass({
   handleResultAction (result) {
     result.next()
     globalEmitter.emit('hideWindow')
+    ResultSorter.trackClick({
+      id: result.id,
+      pluginName: result.pluginName,
+    })
   },
 
   render () {

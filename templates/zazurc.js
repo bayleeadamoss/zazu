@@ -1,7 +1,7 @@
 module.exports = {
   'hotkey': 'alt+space',
-  'theme': 'tinytacoteam/light-theme',
+  'theme': 'tinytacoteam/zazu-light-theme',
   'plugins': [
-    'tinytacoteam/calculator',
+    'tinytacoteam/zazu-calculator',
   ],
 }
