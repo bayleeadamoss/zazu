@@ -1,12 +1,14 @@
 const { app, Menu, Tray, systemPreferences } = require('electron')
 const globalShortcut = require('global-shortcut')
 const path = require('path')
+const AutoLaunch = require('auto-launch')
 
 const { menuTemplate } = require('./helpers/menu_template')
 const { windowHelper } = require('./helpers/window')
 const configuration = require('./configuration')
 const Update = require('./lib/update')
 const globalEmitter = require('./lib/globalEmitter')
+const env = require('./env')
 
 let mainWindow, tray
 
@@ -22,6 +24,19 @@ const setApplicationMenu = () => {
 const checkForUpdate = () => {
   const update = new Update()
   update.check()
+}
+
+const addToStartup = () => {
+  if (env.name === 'production') {
+    const appLauncher = new AutoLaunch({
+      name: 'Zazu App',
+    })
+
+    appLauncher.isEnabled().then((enabled) => {
+      if (enabled) return
+      return appLauncher.enable()
+    })
+  }
 }
 
 const shouldQuit = app.makeSingleInstance((commandLine, workingDirectory) => {
@@ -53,6 +68,7 @@ app.on('ready', function () {
   })
 
   checkForUpdate()
+  addToStartup()
 
   // mainWindow.webContents.toggleDevTools();
 
