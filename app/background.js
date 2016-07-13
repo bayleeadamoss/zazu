@@ -1,9 +1,4 @@
-// This is main process of Electron, started as first thing when your
-// app starts. This script is running through entire life of your application.
-// It doesn't have any windows which you can see on screen, but we can open
-// window from here.
-
-const { app, Menu, dialog, shell, Tray, systemPreferences } = require('electron')
+const { app, Menu, Tray, systemPreferences } = require('electron')
 const globalShortcut = require('global-shortcut')
 const path = require('path')
 
@@ -24,24 +19,9 @@ const setApplicationMenu = () => {
   tray.setContextMenu(Menu.buildFromTemplate(menuTemplate))
 }
 
-const checkUpdate = () => {
+const checkForUpdate = () => {
   const update = new Update()
-  update.needsUpdate().then((newerVersion) => {
-    if (!newerVersion) { return }
-    dialog.showMessageBox({
-      type: 'question',
-      buttons: ['Ignore', 'Download'],
-      defaultId: 1,
-      cancelId: 0,
-      title: 'Newer version available!',
-      message: `Zazu ${newerVersion} is available for download!`,
-      detail: 'Click download to get the newest version of Zazu!',
-    }, (response) => {
-      if (response === 1) {
-        shell.openExternal('http://zazuapp.org/')
-      }
-    })
-  })
+  update.check()
 }
 
 const shouldQuit = app.makeSingleInstance((commandLine, workingDirectory) => {
@@ -72,7 +52,7 @@ app.on('ready', function () {
     title: 'Zazu',
   })
 
-  checkUpdate()
+  checkForUpdate()
 
   // mainWindow.webContents.toggleDevTools();
 

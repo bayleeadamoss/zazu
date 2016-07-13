@@ -1,6 +1,7 @@
 const { app, BrowserWindow } = require('electron')
 const env = require('../env.js')
 const globalEmitter = require('../lib/globalEmitter')
+const Update = require('../lib/update')
 
 const menuTemplate = [
   {
@@ -42,6 +43,14 @@ if (env.name !== 'production') {
     }],
   })
 }
+menuTemplate.push({type: 'separator'})
+menuTemplate.push({
+  label: 'Check for updates...',
+  click: () => {
+    const update = new Update()
+    update.check(true)
+  },
+})
 menuTemplate.push({type: 'separator'})
 menuTemplate.push({
   label: 'Quit',
