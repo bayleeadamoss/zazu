@@ -3,26 +3,45 @@
 // It doesn't have any windows which you can see on screen, but we can open
 // window from here.
 
-const { app, Menu, dialog, shell } = require('electron')
+const { app, Menu, dialog, shell, Tray, systemPreferences } = require('electron')
 const globalShortcut = require('global-shortcut')
 const path = require('path')
 
-const { devMenuTemplate } = require('./helpers/dev_menu_template')
-const { editMenuTemplate } = require('./helpers/edit_menu_template')
+const { menuTemplate } = require('./helpers/menu_template')
 const { windowHelper } = require('./helpers/window')
-const env = require('./env')
 const configuration = require('./configuration')
 const Update = require('./lib/update')
 const globalEmitter = require('./lib/globalEmitter')
 
-let mainWindow
+let mainWindow, tray
 
-var setApplicationMenu = function () {
-  var menus = [editMenuTemplate]
-  if (env.name !== 'production') {
-    menus.push(devMenuTemplate)
-  }
-  Menu.setApplicationMenu(Menu.buildFromTemplate(menus))
+const setApplicationMenu = () => {
+  if (app.dock) app.dock.hide()
+  const iconName = systemPreferences.isDarkMode() ? 'tray-icon-white.png' : 'tray-icon.png'
+  const iconPath = path.join(app.getAppPath(), 'images', iconName)
+  tray = new Tray(iconPath)
+  tray.setToolTip('Toggle Zazu')
+  tray.setContextMenu(Menu.buildFromTemplate(menuTemplate))
+}
+
+const checkUpdate = () => {
+  const update = new Update()
+  update.needsUpdate().then((newerVersion) => {
+    if (!newerVersion) { return }
+    dialog.showMessageBox({
+      type: 'question',
+      buttons: ['Ignore', 'Download'],
+      defaultId: 1,
+      cancelId: 0,
+      title: 'Newer version available!',
+      message: `Zazu ${newerVersion} is available for download!`,
+      detail: 'Click download to get the newest version of Zazu!',
+    }, (response) => {
+      if (response === 1) {
+        shell.openExternal('http://zazuapp.org/')
+      }
+    })
+  })
 }
 
 const shouldQuit = app.makeSingleInstance((commandLine, workingDirectory) => {
@@ -53,23 +72,7 @@ app.on('ready', function () {
     title: 'Zazu',
   })
 
-  const update = new Update()
-  update.needsUpdate().then((newerVersion) => {
-    if (!newerVersion) { return }
-    dialog.showMessageBox({
-      type: 'question',
-      buttons: ['Ignore', 'Download'],
-      defaultId: 1,
-      cancelId: 0,
-      title: 'Newer version available!',
-      message: `Zazu ${newerVersion} is available for download!`,
-      detail: 'Click download to get the newest version of Zazu!',
-    }, (response) => {
-      if (response === 1) {
-        shell.openExternal('http://zazuapp.org/')
-      }
-    })
-  })
+  checkUpdate()
 
   // mainWindow.webContents.toggleDevTools();
 
@@ -83,6 +86,10 @@ app.on('ready', function () {
 
   globalEmitter.on('showWindow', () => {
     mainWindow.show()
+  })
+
+  globalEmitter.on('toggleWindow', () => {
+    mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show()
   })
 
   globalEmitter.on('registerHotkey', (accelerator) => {
