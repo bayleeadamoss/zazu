@@ -1,5 +1,7 @@
 ## Zazu Documentation
 
+[![Join the chat at https://gitter.im/tinytacoteam/zazu](https://badges.gitter.im/tinytacoteam/zazu.svg)](https://gitter.im/tinytacoteam/zazu?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Travis Build Status](https://travis-ci.org/tinytacoteam/zazu.svg?branch=gh-pages)](https://travis-ci.org/tinytacoteam/zazu)
 
 Read through the great [Zazu Documentation](http://zazuapp.org)!
