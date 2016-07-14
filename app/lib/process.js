@@ -21,7 +21,7 @@ class Process {
       })
 
       onCancel(() => {
-        cmd.kill('SIGKILL')
+        cmd.kill('SIGINT')
       })
     })
   }

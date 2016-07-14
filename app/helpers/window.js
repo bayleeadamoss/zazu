@@ -4,6 +4,7 @@
 // instances of it and give each different name.
 
 const { BrowserWindow } = require('electron')
+const globalEmitter = require('../lib/globalEmitter')
 
 const windowHelper = (options) => {
   const defaultSize = {
@@ -28,7 +29,10 @@ const windowHelper = (options) => {
         resize(mainContentHeight)
       })
     }
-    setInterval(updateHeight, 500)
+    const id = setInterval(updateHeight, 500)
+    globalEmitter.on('kill_it', () => {
+      clearInterval(id)
+    })
   })
 
   return mainWindow

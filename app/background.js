@@ -84,6 +84,11 @@ app.on('ready', function () {
     mainWindow.show()
   })
 
+  globalEmitter.on('kill_it', () => {
+    mainWindow.close()
+    mainWindow.destroy()
+  })
+
   globalEmitter.on('toggleWindow', () => {
     mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show()
   })
@@ -111,6 +116,10 @@ app.on('ready', function () {
   })
 
   mainWindow.loadURL(path.join('file://', __dirname, '/app.html'))
+})
+
+app.on('before-quit', () => {
+  globalEmitter.emit('kill_it')
 })
 
 app.on('will-quit', () => {

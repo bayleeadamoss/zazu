@@ -1,5 +1,6 @@
 const EventEmitter = require('events')
 const cuid = require('cuid')
+const globalEmitter = require('../../lib/globalEmitter')
 
 const Process = require('../../lib/process')
 
@@ -24,7 +25,10 @@ class ServiceScript extends EventEmitter {
 
   setup () {
     setTimeout(() => {
-      this.handle()
+      let promise = this.handle()
+      globalEmitter.on('kill_it', () => {
+        promise.cancel()
+      })
     }, this.interval)
   }
 

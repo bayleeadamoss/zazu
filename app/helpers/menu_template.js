@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron')
+const { BrowserWindow } = require('electron')
 const env = require('../env.js')
 const globalEmitter = require('../lib/globalEmitter')
 const Update = require('../lib/update')
@@ -56,7 +56,7 @@ menuTemplate.push({
   label: 'Quit',
   accelerator: 'CmdOrCtrl+Q',
   click: () => {
-    app.exit(0)
+    globalEmitter.emit('kill_it')
   },
 })
 
