@@ -46,7 +46,18 @@ const Result = React.createClass({
         className: active ? 'active' : 'inactive',
         ref: this.setReference,
       },
-      React.createElement('img', { src: value.icon, alt: '' }),
+      value.icon.indexOf('fa-') === 0 ? (
+        React.createElement('i', {
+          className: 'icon fa ' + value.icon,
+          'aria-hidden': 'true',
+        })
+      ) : (
+        React.createElement('img', {
+          className: 'icon',
+          src: value.icon,
+          alt: '',
+        })
+      ),
       React.createElement('h2', null, value.title),
       value.subtitle && React.createElement('h3', null, value.subtitle)
     )
