@@ -30,7 +30,7 @@ const windowHelper = (options) => {
       })
     }
     const id = setInterval(updateHeight, 500)
-    globalEmitter.on('kill_it', () => {
+    globalEmitter.on('quitApp', () => {
       clearInterval(id)
     })
   })

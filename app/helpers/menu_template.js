@@ -56,7 +56,7 @@ menuTemplate.push({
   label: 'Quit',
   accelerator: 'CmdOrCtrl+Q',
   click: () => {
-    globalEmitter.emit('kill_it')
+    globalEmitter.emit('quitApp')
   },
 })
 

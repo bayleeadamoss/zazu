@@ -26,7 +26,7 @@ class ServiceScript extends EventEmitter {
   setup () {
     setTimeout(() => {
       let promise = this.handle()
-      globalEmitter.on('kill_it', () => {
+      globalEmitter.on('quitApp', () => {
         promise.cancel()
       })
     }, this.interval)

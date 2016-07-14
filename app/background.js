@@ -84,7 +84,7 @@ app.on('ready', function () {
     mainWindow.show()
   })
 
-  globalEmitter.on('kill_it', () => {
+  globalEmitter.on('quitApp', () => {
     mainWindow.close()
     mainWindow.destroy()
   })
@@ -119,7 +119,7 @@ app.on('ready', function () {
 })
 
 app.on('before-quit', () => {
-  globalEmitter.emit('kill_it')
+  globalEmitter.emit('quitApp')
 })
 
 app.on('will-quit', () => {
