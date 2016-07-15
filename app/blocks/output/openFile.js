@@ -1,4 +1,5 @@
 const { shell } = require('electron')
+const os = require('os')
 
 const Block = require('../block')
 
@@ -10,7 +11,8 @@ class OpenFile extends Block {
   }
 
   call (state, env = {}) {
-    shell.openItem(state.value)
+    const fullPath = state.value.replace(/^~/, os.homedir())
+    shell.openItem(fullPath)
     state.next()
   }
 }
