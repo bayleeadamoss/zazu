@@ -230,6 +230,28 @@ Give the user a notification with a title and a message.
 }]
 ~~~~
 
+### Open File
+
+To open a file in the default application.
+
+~~~ javascript
+[{
+  id: 5,
+  type: 'OpenFile',
+}]
+~~~~
+
+### Show File
+
+To show a file in it's folder.
+
+~~~ javascript
+[{
+  id: 6,
+  type: 'ShowFile',
+}]
+~~~~
+
 ### User Script
 
 For those more unique actions, you can run any script you need.
@@ -241,7 +263,7 @@ the state.
 
 ~~~ javascript
 [{
-  id: 5,
+  id: 7,
   type: 'UserScript',
   script: 'ruby output.rb {value}',
 }]
