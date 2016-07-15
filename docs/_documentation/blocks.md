@@ -80,6 +80,7 @@ used as environment variables in the script call.
   id: 1,
   type: 'ServiceScript',
   script: 'node scanClipboard.js',
+  interval: 30000,
 }]
 ~~~
 
