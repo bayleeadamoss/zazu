@@ -34,7 +34,7 @@ githubUsername: tinytacoteam
 permalink: /:year/:month/:title
 markdown: kramdown
 include: [_pages, _tutorials, _packages, _documentation]
-exclude: [vendor, _site, CHANGELOG.md, LICENSE, README.md]
+exclude: [vendor, _site, CHANGELOG.md, LICENSE, README.md, .ruby-version]
 sass:
   style: compressed
-currentCommitSha: bfc2ff23924d650a72e5cbc14e4829781d9ef361
+currentCommitSha: f765b7d6f514cc2ea6b01e76db1d7baecee19940

@@ -2,16 +2,16 @@
 layout: documentation
 description: "Getting started to configure your Zazu in your dotfiles."
 icon: "fa-sliders"
-title:  "Configuration"
+title:  "Personal Configuration"
 ---
 
 * TOC
 {:toc}
 
-## Configuration
+## Configuring Zazu
 
-Currently only a JavaScript format is supported. Here is an example of the basic
-usage.
+Your personal configuration lives in `~/.zazurc.js`. Here is an example of the
+basic usage.
 
 ~~~ javascript
 module.exports = {
@@ -30,7 +30,7 @@ to you!
 
 ### Theme
 
-This in the format of a short GitHub URL. For example `tinytacoteam/dark-theme`
+This in the format of a relative GitHub URL. For example `tinytacoteam/dark-theme`
 would translate to `https://github.com/tinytacoteam/dark-theme`.
 
 There are a [few themes](/packages) we created that you can pick from, feel free
