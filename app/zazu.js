@@ -7,7 +7,7 @@ const Search = require('./components/search')
 const Results = require('./components/results')
 const PluginStore = require('./store/pluginStore')
 const globalEmitter = require('./lib/globalEmitter')
-const ResultSorter = require('./lib/ResultSorter')
+const ResultSorter = require('./lib/resultSorter')
 
 const Zazu = React.createClass({
 
