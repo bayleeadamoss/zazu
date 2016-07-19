@@ -12,6 +12,13 @@ const menuTemplate = [
   },
   {type: 'separator'},
   {
+    label: 'About Zazu',
+    click () {
+      globalEmitter.emit('showAbout')
+    },
+  },
+  {type: 'separator'},
+  {
     label: 'Edit',
     submenu: [
       { label: 'Undo', accelerator: 'CmdOrCtrl+Z', selector: 'undo:' },

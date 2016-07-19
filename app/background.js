@@ -1,4 +1,4 @@
-const { app, Menu, Tray, systemPreferences } = require('electron')
+const { app, Menu, Tray, systemPreferences, BrowserWindow } = require('electron')
 const globalShortcut = require('global-shortcut')
 const path = require('path')
 const AutoLaunch = require('auto-launch')
@@ -10,7 +10,7 @@ const Update = require('./lib/update')
 const globalEmitter = require('./lib/globalEmitter')
 const env = require('./env')
 
-let mainWindow, tray
+let mainWindow, tray, aboutWindow
 
 const setApplicationMenu = () => {
   if (app.dock) app.dock.hide()
@@ -48,6 +48,16 @@ const shouldQuit = app.makeSingleInstance((commandLine, workingDirectory) => {
 if (shouldQuit) {
   app.quit()
 }
+
+globalEmitter.on('showAbout', (message) => {
+  aboutWindow = new BrowserWindow({
+    width: 200,
+    height: 200,
+    resizable: false,
+    title: 'About Zazu',
+  })
+  aboutWindow.loadURL(path.join('file://', __dirname, '/about.html'))
+})
 
 app.on('ready', function () {
   setApplicationMenu()
