@@ -1,16 +1,13 @@
-const EventEmitter = require('events')
-const cuid = require('cuid')
 const globalEmitter = require('../../lib/globalEmitter')
-
+const ExternalBlock = require('../externalBlock')
 const Process = require('../../lib/process')
 
-class ServiceScript extends EventEmitter {
-  constructor (data, env) {
-    super()
+class ServiceScript extends ExternalBlock {
+  constructor (data, options) {
+    super(data, options)
     this.cwd = data.cwd
-    this.env = env
+    this.options = options
     this.type = data.type
-    this.id = data.id || cuid()
     this.connections = []
 
     this.script = data.script
@@ -24,20 +21,25 @@ class ServiceScript extends EventEmitter {
   call () {}
 
   setup () {
+    this.log('Queueing Service', { interval: this.interval })
     setTimeout(() => {
       let promise = this.handle()
       globalEmitter.on('quitApp', () => {
+        this.warn('Killing service')
         promise.cancel()
       })
     }, this.interval)
   }
 
   handle () {
+    this.log('Executing Script', { script: this.script })
     return Process.execute(this.script, {
       cwd: this.cwd,
-      env: Object.assign({}, process.env, this.env),
+      env: Object.assign({}, process.env, this.options),
     }).then((results) => {
       this.setup()
+    }).catch((error) => {
+      this.error('Script failed', { script: this.script, error })
     })
   }
 }

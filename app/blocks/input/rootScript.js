@@ -11,7 +11,9 @@ class RootScript extends InputBlock {
   }
 
   respondsTo (input) {
-    return this.active() && this.userRespondsTo(input)
+    const respondsTo = this.active() && this.userRespondsTo(input)
+    this.log('Responds to input', { input, respondsTo })
+    return respondsTo
   }
 
   search (query, env = {}) {
@@ -22,11 +24,16 @@ class RootScript extends InputBlock {
       query,
     })
 
+    this.log('Executing Script', { script })
     this.lastProcess = Process.execute(script, {
       cwd: this.cwd,
       env: Object.assign({}, process.env, env),
     }).then((results) => {
-      return JSON.parse(results)
+      const parsed = JSON.parse(results)
+      this.log('Script results', { results: parsed })
+      return parsed
+    }).catch((error) => {
+      this.error('Script failed', { script, error })
     })
     return this.lastProcess
   }

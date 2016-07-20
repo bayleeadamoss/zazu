@@ -10,9 +10,11 @@ class OpenInBrowser extends Block {
   }
 
   call (state) {
-    shell.openExternal(Template.compile(this.url, {
+    const url = Template.compile(this.url, {
       value: String(state.value),
-    }))
+    })
+    this.log('Opening in browser', { url })
+    shell.openExternal(url)
     state.next()
   }
 }

@@ -1,5 +1,4 @@
 const path = require('path')
-const cuid = require('cuid')
 const jetpack = require('fs-jetpack')
 
 const Input = require('./blocks/input')
@@ -12,7 +11,7 @@ const Package = require('./package')
 class Plugin extends Package {
   constructor (url, options = {}) {
     super(url)
-    this.id = cuid()
+    this.id = url
     this.inputs = []
     this.outputs = []
     this.blocksById = {}

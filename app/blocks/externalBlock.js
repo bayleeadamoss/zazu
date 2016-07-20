@@ -1,13 +1,13 @@
+const EventEmitter = require('events')
 const cuid = require('cuid')
 
 const globalEmitter = require('../lib/globalEmitter')
 
-class Block {
-  constructor (data) {
+class ExternalBlock extends EventEmitter {
+  constructor (data, options) {
+    super()
     this.pluginId = data.pluginId
-    this.type = data.type
     this.id = data.id || cuid()
-    this.connections = data.connections || []
   }
 
   log (message, data) {
@@ -39,10 +39,6 @@ class Block {
       data,
     })
   }
-
-  call (state) {
-    state.next()
-  }
 }
 
-module.exports = Block
+module.exports = ExternalBlock

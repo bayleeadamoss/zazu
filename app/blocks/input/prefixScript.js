@@ -26,7 +26,9 @@ class PrefixScript extends InputBlock {
       regex.push('(.*)')
     }
     regex.push('$')
-    return this.active() && input.match(new RegExp(regex.join(''), 'i'))
+    const respondsTo = this.active() && input.match(new RegExp(regex.join(''), 'i'))
+    this.log('Responds to input', { input, respondsTo })
+    return respondsTo
   }
 
   query (input) {
@@ -35,6 +37,7 @@ class PrefixScript extends InputBlock {
 
   search (input, env = {}) {
     if (this.lastProcess) {
+      this.warn('Canceling last Script')
       this.lastProcess.cancel()
     }
     const query = this.query(input)
@@ -42,11 +45,16 @@ class PrefixScript extends InputBlock {
       query,
     })
 
+    this.log('Executing Script', { script })
     this.lastProcess = Process.execute(script, {
       cwd: this.cwd,
       env: Object.assign({}, process.env, env),
     }).then((results) => {
-      return JSON.parse(results)
+      const parsed = JSON.parse(results)
+      this.log('Script results', { results: parsed })
+      return parsed
+    }).catch((error) => {
+      this.error('Script failed', { script, error })
     })
     return this.lastProcess
   }

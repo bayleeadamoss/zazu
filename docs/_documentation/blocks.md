@@ -16,12 +16,13 @@ If they fork, each block will get their own copy of the current value.
 
 Blocks link to other blocks via `connections`. Once a blocks gets executed,
 it's connections will get executed after. You can link to both output and input
-blocks.
+blocks. All blocks have connections unless the block explicitly mentions
+otherwise.
 
 All blocks can have the following properties:
 
-* `id` *int\|string*: Unique identifier of the block, used to help make connections.
-* `connections` *int[]*: Blocks to execute if one of the results are chosen.
+* `id` *mixed*: Unique identifier of the block, used when creating connections.
+* `connections` *mixed[]*: Blocks to execute if one of the results are chosen.
 * `type` *string*: Name of the block you wish to use.
 
 Each unique block type can have it's own properties, listed below with their
@@ -52,11 +53,10 @@ block of your plugin.
 
 ~~~ javascript
 [{
-  id: 1,
   type: 'Hotkey',
   hotkey: 'cmd+shift+o',
   name: 'Inverse',
-  connections: [2],
+  connections: ['PlayPandora'],
 }]
 ~~~
 
@@ -67,7 +67,7 @@ files or checking the active application. This block allows you to run your
 script on a set interval. Your service is not guaranteed to run on the given
 interval.
 
-The connections on this block will be ignored.
+NOTICE: The connections on this block will be ignored.
 
 Variables defined in the [configuration](/documentation/configuration/) will be
 used as environment variables in the script call.
@@ -77,7 +77,6 @@ used as environment variables in the script call.
 
 ~~~ javascript
 [{
-  id: 1,
   type: 'ServiceScript',
   script: 'node scanClipboard.js',
   interval: 30000,
@@ -112,7 +111,7 @@ environment variables in the script call.
 
 ~~~ javascript
 [{
-  id: 1,
+  id: 'Calculator',
   type: 'RootScript',
   respondsTo: (input) => {
     const hasEquation = input.match(/^[\d\.\(\)\+\-*\/\s]+$/)
@@ -120,7 +119,7 @@ environment variables in the script call.
     return hasEquation && hasNumbers
   },
   script: 'node calculator.js {query}',
-  connections: [2],
+  connections: ['Mutate'],
 }]
 ~~~
 
@@ -138,13 +137,13 @@ environment variables in the script call.
 
 ~~~ javascript
 [{
-  id: 1,
+  id: 'Calculator',
   type: 'PrefixScript',
   prefix: 'calc',
   space: true,
   args: 'Required',
   script: 'node calculator.js {query}',
-  connections: [2],
+  connections: ['Mutate'],
 }]
 ~~~~
 
@@ -160,12 +159,12 @@ can click on.
 
 ~~~ javascript
 [{
-  id: 1,
+  id: 'Play',
   type: 'Keyword',
   keyword: 'play',
   title: 'Play Pandora',
   subtitle: 'Click to play Pandora!',
-  connections: [2],
+  connections: ['PlayPandora'],
 }]
 ~~~
 
@@ -195,7 +194,7 @@ This block will copy the given input to the clipboard.
 
 ~~~ javascript
 [{
-  id: 2,
+  id: 'Copy',
   type: 'CopyToClipboard',
   text: '{value}',
 }]
@@ -209,7 +208,7 @@ Open up the value in the users default Browser.
 
 ~~~ javascript
 [{
-  id: 3,
+  id: 'Link',
   type: 'OpenInBrowser',
   url: '{value}',
 }]
@@ -224,7 +223,7 @@ Give the user a notification with a title and a message.
 
 ~~~ javascript
 [{
-  id: 4,
+  id: 'Notify',
   type: 'SendNotification',
   title: 'Hello world',
   message: '{value}',
@@ -237,7 +236,7 @@ To open a file in the default application.
 
 ~~~ javascript
 [{
-  id: 5,
+  id: 'Open',
   type: 'OpenFile',
 }]
 ~~~~
@@ -248,7 +247,7 @@ To show a file in it's folder.
 
 ~~~ javascript
 [{
-  id: 6,
+  id: 'Show',
   type: 'ShowFile',
 }]
 ~~~~
@@ -264,8 +263,8 @@ the state.
 
 ~~~ javascript
 [{
-  id: 7,
+  id: 'PlayPandora',
   type: 'UserScript',
-  script: 'ruby output.rb {value}',
+  script: 'ruby playPandora.rb {value}',
 }]
 ~~~~

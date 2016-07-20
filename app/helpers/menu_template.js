@@ -1,5 +1,4 @@
 const { BrowserWindow } = require('electron')
-const env = require('../env.js')
 const globalEmitter = require('../lib/globalEmitter')
 const Update = require('../lib/update')
 
@@ -10,14 +9,14 @@ const menuTemplate = [
       globalEmitter.emit('toggleWindow')
     },
   },
-  {type: 'separator'},
+  { type: 'separator' },
   {
     label: 'About Zazu',
     click () {
       globalEmitter.emit('showAbout')
     },
   },
-  {type: 'separator'},
+  { type: 'separator' },
   {
     label: 'Edit',
     submenu: [
@@ -30,41 +29,41 @@ const menuTemplate = [
       { label: 'Select All', accelerator: 'CmdOrCtrl+A', selector: 'selectAll:' },
     ],
   },
-]
-if (env.name !== 'production') {
-  menuTemplate.push({type: 'separator'})
-  menuTemplate.push({
+  { type: 'separator' },
+  {
     label: 'Development',
-    submenu: [{
-      label: 'Reload',
-      accelerator: 'CmdOrCtrl+R',
-      click: function () {
-        BrowserWindow.getFocusedWindow().webContents.reloadIgnoringCache()
+    submenu: [
+      {
+        label: 'Plugin Debugger',
+        click () {
+          globalEmitter.emit('showDebug')
+        },
       },
-    }, {
-      label: 'Toggle DevTools',
-      accelerator: 'Alt+CmdOrCtrl+I',
-      click: function () {
-        BrowserWindow.getFocusedWindow().toggleDevTools()
+      {
+        label: 'Toggle DevTools',
+        accelerator: 'Alt+CmdOrCtrl+I',
+        click: function () {
+          BrowserWindow.getFocusedWindow().toggleDevTools()
+        },
       },
-    }],
-  })
-}
-menuTemplate.push({type: 'separator'})
-menuTemplate.push({
-  label: 'Check for updates...',
-  click: () => {
-    const update = new Update()
-    update.check(true)
+    ],
   },
-})
-menuTemplate.push({type: 'separator'})
-menuTemplate.push({
-  label: 'Quit',
-  accelerator: 'CmdOrCtrl+Q',
-  click: () => {
-    globalEmitter.emit('quitApp')
+  { type: 'separator' },
+  {
+    label: 'Check for updates...',
+    click: () => {
+      const update = new Update()
+      update.check(true)
+    },
   },
-})
+  { type: 'separator' },
+  {
+    label: 'Quit',
+    accelerator: 'CmdOrCtrl+Q',
+    click: () => {
+      globalEmitter.emit('quitApp')
+    },
+  },
+]
 
 module.exports = { menuTemplate }

@@ -11,10 +11,12 @@ class SendNotification extends Block {
 
   call (state) {
     const variables = { value: String(state.value) }
-    notification.push({
+    const options = {
       title: Template.compile(this.title, variables),
       message: Template.compile(this.message, variables),
-    })
+    }
+    this.log('Notification', options)
+    notification.push(options)
     state.next()
   }
 }
