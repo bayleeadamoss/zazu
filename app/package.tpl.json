@@ -6,6 +6,8 @@
   "version": "0.1.0",
   "author": "Blaine Schmeisser",
   "main": "background.js",
+  "homepage": "http://zazuapp.org",
+  "license": "MIT",
   "dependencies": {
     "auto-launch": "^2.1.0",
     "bluebird": "^3.4.0",
