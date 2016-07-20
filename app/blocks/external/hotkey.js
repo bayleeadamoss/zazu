@@ -1,13 +1,9 @@
-const EventEmitter = require('events')
-const cuid = require('cuid')
-
 const globalEmitter = require('../../lib/globalEmitter')
+const ExternalBlock = require('../externalBlock')
 
-class Hotkey extends EventEmitter {
+class Hotkey extends ExternalBlock {
   constructor (data, options) {
-    super()
-    this.type = data.type
-    this.id = data.id || cuid()
+    super(data, options)
     this.name = data.name
     this.connections = data.connections || []
     this.hotkey = options[this.name] ? options[this.name] : data.hotkey
@@ -15,7 +11,8 @@ class Hotkey extends EventEmitter {
     globalEmitter.emit('registerHotkey', this.hotkey)
     globalEmitter.on('triggerHotkey', (accelerator) => {
       if (this.hotkey === accelerator) {
-        this.handle()
+        this.log('Hotkey triggered', { accelerator })
+        this.emit('handle')
       }
     })
   }

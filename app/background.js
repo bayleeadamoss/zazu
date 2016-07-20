@@ -10,7 +10,7 @@ const Update = require('./lib/update')
 const globalEmitter = require('./lib/globalEmitter')
 const env = require('./env')
 
-let mainWindow, tray, aboutWindow
+let mainWindow, tray, aboutWindow, debugWindow
 
 const setApplicationMenu = () => {
   if (app.dock) app.dock.hide()
@@ -50,6 +50,7 @@ if (shouldQuit) {
 }
 
 globalEmitter.on('showAbout', (message) => {
+  if (aboutWindow) aboutWindow.close()
   aboutWindow = new BrowserWindow({
     width: 200,
     height: 200,
@@ -57,6 +58,17 @@ globalEmitter.on('showAbout', (message) => {
     title: 'About Zazu',
   })
   aboutWindow.loadURL(path.join('file://', __dirname, '/about.html'))
+})
+
+globalEmitter.on('showDebug', (message) => {
+  if (debugWindow) debugWindow.close()
+  debugWindow = new BrowserWindow({
+    width: 600,
+    height: 400,
+    resizable: true,
+    title: 'Debug Zazu',
+  })
+  debugWindow.loadURL(path.join('file://', __dirname, '/debug.html'))
 })
 
 app.on('ready', function () {
