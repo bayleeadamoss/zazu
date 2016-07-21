@@ -87,3 +87,10 @@ plugin run. In this case the value `42` as a number would be passed to whatever
 the connection block is, which could be to
 [copy to the clipboard](/documentation/blocks/#copy-to-clipboard) or it could
 run a custom [user script](/documentation/blocks/#user-script).
+
+## Debugging
+
+In the Tray icon, under `Development` there is a debugger called `Plugin
+Debugger` that will output info, warnings and errors of all plugins in a
+filterable interface. Select the plugin you are trying to debug and get logs
+for all the blocks being executed.
