@@ -16,10 +16,16 @@ class RootScript extends InputBlock {
     return respondsTo
   }
 
-  search (query, env = {}) {
+  query (input) {
+    return input
+  }
+
+  search (input, env = {}) {
     if (this.lastProcess) {
+      this.warn('Canceling last Script')
       this.lastProcess.cancel()
     }
+    const query = this.query(input)
     const script = Template.compile(this.script, {
       query,
     })

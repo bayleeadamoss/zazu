@@ -123,6 +123,54 @@ environment variables in the script call.
 }]
 ~~~
 
+### Prefix Node Script
+
+This allows you to execute a node script with a prefix.
+
+* `prefix` *string*: Prefix to be used before user input.
+* `space` *boolean*: If a space should be between the Prefix and the user input.
+* `args` *string*: Specifies if you want arguments. Possibles values are `Required`, `Optional` and `None`.
+* `script` *string*: Path to the node file to execute.
+
+~~~ javascript
+[{
+  id: 'Calculator',
+  type: 'PrefixNodeScript',
+  prefix: 'calc',
+  space: true,
+  args: 'Required',
+  script: 'calculator.js',
+  connections: ['Copy'],
+}]
+~~~~
+
+The node script needs to have a curried function that returns a promise. We call
+the export with the [Plugin Context](#plugin-context). The search function can
+accept a query and the environment variables, and it should return a
+[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
+
+Variables defined in the [configuration](/documentation/configuration/) will be used as
+environment variables in the script call.
+
+~~~ javascript
+// calculator.js
+module.exports = (pluginContext) => {
+  return (query, env = {}) => {
+    return new Promise((resolve, reject) => {
+      const value = eval(query)
+      resolve([
+        {
+          icon: 'fa-calculator',
+          title: value,
+          subtitle: 'Select item to copy the value to the clipboard.',
+          value: value,
+        }
+      ])
+    })
+  }
+}
+~~~
+
 ### Prefix Script
 
 This allows you to execute your script with a prefix.
@@ -259,7 +307,7 @@ For those more unique actions, you can run any script you need.
 Variables will be passed as environment variables, but this plugin cannot mutate
 the state.
 
-* `script` *string*: The shell command to run to return the results.
+* `script` *string*: Shell command to run to return the results.
 
 ~~~ javascript
 [{
@@ -268,3 +316,28 @@ the state.
   script: 'ruby playPandora.rb {value}',
 }]
 ~~~~
+
+## Plugin Context
+
+The pluginContext object passed to node scripts and contains some useful
+functions to help enable your scripts.
+
+### Console
+
+The Plugin Debugger is useful, since we surface information to you to help you
+develop your plugins better. This API allows you to surface your own logs to the
+Plugin Debugger.
+
+The API including `console.log`, `console.warn` and `console.error` all take the
+same parameters:
+
+* `message` *string*: Log message to be displayed.
+* `data` *object*: Other misc data that could be useful.
+
+~~~ javascript
+module.exports = (pluginContext) => {
+  pluginContext.console.log('hello world', {
+    ping: 'pong',
+  })
+}
+~~~

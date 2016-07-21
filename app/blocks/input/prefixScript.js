@@ -1,15 +1,11 @@
-const Process = require('../../lib/process')
-const Template = require('../../lib/template')
-const InputBlock = require('../inputBlock')
+const RootScript = require('./rootScript')
 
-class PrefixScript extends InputBlock {
+class PrefixScript extends RootScript {
   constructor (data) {
     super(data)
-    this.cwd = data.cwd
     this.prefix = data.prefix
     this.space = data.space
     this.args = data.args
-    this.script = data.script
   }
 
   respondsTo (input) {
@@ -35,29 +31,6 @@ class PrefixScript extends InputBlock {
     return this.respondsTo(input)[1]
   }
 
-  search (input, env = {}) {
-    if (this.lastProcess) {
-      this.warn('Canceling last Script')
-      this.lastProcess.cancel()
-    }
-    const query = this.query(input)
-    const script = Template.compile(this.script, {
-      query,
-    })
-
-    this.log('Executing Script', { script })
-    this.lastProcess = Process.execute(script, {
-      cwd: this.cwd,
-      env: Object.assign({}, process.env, env),
-    }).then((results) => {
-      const parsed = JSON.parse(results)
-      this.log('Script results', { results: parsed })
-      return parsed
-    }).catch((error) => {
-      this.error('Script failed', { script, error })
-    })
-    return this.lastProcess
-  }
 }
 
 module.exports = PrefixScript
