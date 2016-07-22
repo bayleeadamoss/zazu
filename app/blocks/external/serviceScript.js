@@ -21,25 +21,25 @@ class ServiceScript extends ExternalBlock {
   call () {}
 
   setup () {
-    this.log('Queueing Service', { interval: this.interval })
+    this.logger.log('Queueing Service', { interval: this.interval })
     setTimeout(() => {
       let promise = this.handle()
       globalEmitter.on('quitApp', () => {
-        this.warn('Killing service')
+        this.logger.warn('Killing service')
         promise.cancel()
       })
     }, this.interval)
   }
 
   handle () {
-    this.log('Executing Script', { script: this.script })
+    this.logger.log('Executing Script', { script: this.script })
     return Process.execute(this.script, {
       cwd: this.cwd,
       env: Object.assign({}, process.env, this.options),
     }).then((results) => {
       this.setup()
     }).catch((error) => {
-      this.error('Script failed', { script: this.script, error })
+      this.logger.error('Script failed', { script: this.script, error })
     })
   }
 }

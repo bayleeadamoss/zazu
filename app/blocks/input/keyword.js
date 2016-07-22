@@ -12,12 +12,12 @@ class Keyword extends InputBlock {
     const respondsTo = this.active() &&
       this.keyword.indexOf(input) !== -1 &&
       input.length > 2
-    this.log('Responds to input', { input, respondsTo })
+    this.logger.log('Responds to input', { input, respondsTo })
     return respondsTo
   }
 
   search (input, env = {}) {
-    this.log('Rendering keyword', { input })
+    this.logger.log('Rendering keyword', { input })
     return new Promise((resolve) => {
       resolve([
         {

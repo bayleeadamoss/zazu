@@ -14,16 +14,16 @@ class UserScript extends Block {
       value: state.value,
     })
 
-    this.log('Executing Script', { script })
+    this.logger.log('Executing Script', { script })
     return Process.execute(script, {
       cwd: this.cwd,
       env: Object.assign({}, process.env, env),
     }).then((output) => {
       state.value = output.trim()
-      this.log('Script results', { value: state.value })
+      this.logger.log('Script results', { value: state.value })
       state.next()
     }).catch((error) => {
-      this.error('Script failed', { script, error })
+      this.logger.error('Script failed', { script, error })
     })
   }
 }

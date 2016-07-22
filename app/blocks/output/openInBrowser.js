@@ -13,7 +13,7 @@ class OpenInBrowser extends Block {
     const url = Template.compile(this.url, {
       value: String(state.value),
     })
-    this.log('Opening in browser', { url })
+    this.logger.log('Opening in browser', { url })
     shell.openExternal(url)
     state.next()
   }

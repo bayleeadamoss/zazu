@@ -15,7 +15,7 @@ class SendNotification extends Block {
       title: Template.compile(this.title, variables),
       message: Template.compile(this.message, variables),
     }
-    this.log('Notification', options)
+    this.logger.log('Notification', options)
     notification.push(options)
     state.next()
   }

@@ -1,8 +1,8 @@
 const path = require('path')
 
-const PrefixScript = require('./prefixScript')
+const RootScript = require('./rootScript')
 
-class PrefixNodeScript extends PrefixScript {
+class RootNodeScript extends RootScript {
   constructor (data) {
     super(data)
     try {
@@ -22,14 +22,14 @@ class PrefixNodeScript extends PrefixScript {
       })
       return false
     }
-    return super.respondsTo(input)
+    return this.script.respondsTo(input)
   }
 
   search (input, env = {}) {
     const query = this.query(input)
-    this.logger.log('Executing Node Script', { query })
-    return this.script(query, env).then((results) => {
-      this.logger.log('Node Script Results', { results })
+    this.logger.log('Executing Root Node Script', { query })
+    return this.script.search(query, env).then((results) => {
+      this.logger.log('Node Root Script Results', { results })
       return results
     }).catch((error) => {
       this.logger.error('Node Script failed', { query, error })
@@ -37,4 +37,4 @@ class PrefixNodeScript extends PrefixScript {
   }
 }
 
-module.exports = PrefixNodeScript
+module.exports = RootNodeScript

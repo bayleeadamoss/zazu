@@ -11,7 +11,7 @@ class CopyToClipboard extends Block {
   }
 
   call (state) {
-    this.log('Copying to clipboard', { value: state.value })
+    this.logger.log('Copying to clipboard', { value: state.value })
     this.clipboard.writeText(Template.compile(this.text, {
       value: String(state.value),
     }))

@@ -99,6 +99,58 @@ module.exports = {
 };
 ~~~
 
+### Root Node Script
+
+This allows you to execute a node script with a prefix.
+
+* `script` *string*: Path to the node file to execute.
+
+~~~ javascript
+[{
+  id: 'Calculator',
+  type: 'RootNodeScript',
+  script: 'calculator.js',
+  connections: ['Copy'],
+}]
+~~~
+
+We call the `export` with the [Plugin Context](#plugin-context), which should
+return an object with two methods `respondsTo` and `search`.
+
+The `respondsTo` method takes a `query` and asks the plugin if they are willing
+to respond to that input.
+
+The `search` method takes a `query` and `env` and returns a
+[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
+that resolves with results.
+
+Variables defined in the [configuration](/documentation/configuration/) will be used as
+environment variables in the script call.
+
+~~~ javascript
+// calculator.js
+module.exports = (pluginContext) => {
+  return {
+    respondsTo: (query) => {
+      return input.match(/\d/)
+    },
+    search: (query, env) => {
+      return new Promise((resolve, reject) => {
+        const value = eval(query)
+        resolve([
+          {
+            icon: 'fa-calculator',
+            title: value,
+            subtitle: 'Select item to copy the value to the clipboard.',
+            value: value,
+          }
+        ])
+      })
+    },
+  }
+}
+~~~
+
 ### Root Script
 
 This allows you to execute your script without any input prefixes.

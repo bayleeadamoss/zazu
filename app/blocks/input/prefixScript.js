@@ -23,7 +23,7 @@ class PrefixScript extends RootScript {
     }
     regex.push('$')
     const respondsTo = this.active() && input.match(new RegExp(regex.join(''), 'i'))
-    this.log('Responds to input', { input, respondsTo })
+    this.logger.log('Responds to input', { input, respondsTo })
     return respondsTo
   }
 
