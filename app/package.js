@@ -1,7 +1,7 @@
 const clone = require('git-clone')
 const path = require('path')
 const jetpack = require('fs-jetpack')
-const Process = require('./lib/process')
+const npmInstall = require('./lib/npmInstall')
 
 const configuration = require('./configuration')
 
@@ -32,12 +32,12 @@ class Package {
         if (error) {
           reject(`Package '${this.url}' failed to load.`)
         } else {
-          const plugin = require(path.join(this.path, 'zazu.js'))
-          Process.execute(plugin.install, {
-            cwd: this.path,
-          }).then(() => {
-            resolve()
-          })
+          const promises = []
+          if (jetpack.exists(path.join(this.path, 'package.json'))) {
+            const promise = npmInstall(this.path)
+            promises.push(promise)
+          }
+          Promise.all(promises).then(resolve)
         }
       })
     })
