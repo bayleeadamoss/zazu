@@ -352,6 +352,38 @@ To show a file in it's folder.
 }]
 ~~~~
 
+### User Node Script
+
+If you need to process or modify your state, this allows you to run any script
+on the current state being passed down.
+
+* `script` *string*: Path to the node file to execute.
+
+~~~ javascript
+[{
+  id: 'Process',
+  type: 'UserNodeScript',
+  script: 'process.js',
+  value: '{value}',
+  connections: ['Copy'],
+}]
+~~~
+
+In the example below we take in a unicode value and output the character that
+corresponds to that unicode value using
+[`String.fromCharCode`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/fromCharCode).
+
+~~~ javascript
+// process.js
+module.exports = (pluginContext) => {
+  return (value) => {
+    return new Promise((resolve, reject) => {
+      resolve(String.fromCharCode(value))
+    })
+  }
+}
+~~~
+
 ### User Script
 
 For those more unique actions, you can run any script you need.
