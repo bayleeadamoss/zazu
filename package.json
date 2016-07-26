@@ -31,7 +31,7 @@
     "build": "gulp build",
     "release": "gulp release --env=production",
     "start": "gulp start",
-    "test": "electron-mocha --recursive test",
+    "test": "NODE_ENV=test electron-mocha --recursive test",
     "lint": "eslint .",
     "install-native": "node ./tasks/install_native_module",
     "predocs:publish": "echo currentCommitSha: $(git rev-parse HEAD) >> docs/_config.yml",
