@@ -27,7 +27,6 @@ module.exports = {
   icon: 'icon.png',
   homepage: 'https://github.com/tinytacoteam/calculator',
   git: 'git@github.com:tinytacoteam/calculator.git',
-  install: 'npm install',
   blocks: {
     input: [
       {
@@ -62,14 +61,13 @@ module.exports = {
   icon: 'icon.png',
   homepage: 'https://github.com/tinytacoteam/calculator',
   git: 'git@github.com:tinytacoteam/calculator.git',
-  install: 'npm install',
   // Rest of plugin
 }
 ~~~~
 
 In this example we have information about who created the plugin and ways to
-discover the repo and the website. There is also an `install` step that gets
-executed after your plugin is downloaded.
+discover the repo and the website. We also execute `npm install` for you, if we
+detect a `package.json` in your plugin root.
 
 
 We might also want to describe the [blocks](/documentation/blocks/) that make up

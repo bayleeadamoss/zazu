@@ -60,6 +60,63 @@ block of your plugin.
 }]
 ~~~
 
+### Service Node Script
+
+Often a plugin will need to run jobs in the background for things like indexing
+files or checking the active application. This block allows you to run your
+script on a set interval. Your service is not guaranteed to run on the given
+interval.
+
+NOTICE: The connections on this block will be ignored.
+
+Variables defined in the [configuration](/documentation/configuration/) will be
+used as environment variables passed into the script.
+
+* `interval` *int*: Milliseconds between the time we run the script. Must be `>=100`.
+* `script` *string*: Path to the node file to execute.
+
+~~~ javascript
+[{
+  id: 'Cache Packages',
+  type: 'ServiceNodeScript',
+  script: 'cachePackages.js',
+  interval: 100,
+}]
+~~~
+
+Below is an example of the `Cache Packages` block we defined earlier. It fetches
+a json file from the [internet](https://en.wikipedia.org/wiki/Internet) and
+store it in the plugin directory under the name `packages.json`.
+
+~~~ javascript
+const fs = require('fs')
+const http = require('http')
+const path = require('path')
+
+module.exports = (pluginContext) => {
+  const packageUrl = 'http://zazuapp.org/packages.json'
+  const outputFile = path.join(pluginContext.cwd, 'packages.json')
+
+  return (env = {}) => {
+    return new Promise((resolve, reject) => {
+      http.get(packageUrl, (response) => {
+        const chunks = []
+
+        response.on('data', (chunk) => {
+          chunks.push(chunk.toString())
+        })
+
+        response.on('end', () => {
+          resolve(chunks.join(''))
+        })
+      })
+    }).then((data) => {
+      return fs.writeFileSync(outputFile, data)
+    })
+  }
+}
+~~~
+
 ### Service Script
 
 Often a plugin will need to run jobs in the background for things like indexing
@@ -97,6 +154,58 @@ module.exports = {
     ]
   }
 };
+~~~
+
+### Root Node Script
+
+This allows you to execute a node script with a prefix.
+
+* `script` *string*: Path to the node file to execute.
+
+~~~ javascript
+[{
+  id: 'Calculator',
+  type: 'RootNodeScript',
+  script: 'calculator.js',
+  connections: ['Copy'],
+}]
+~~~
+
+We call the `export` with the [Plugin Context](#plugin-context), which should
+return an object with two methods `respondsTo` and `search`.
+
+The `respondsTo` method takes a `query` and asks the plugin if they are willing
+to respond to that input.
+
+The `search` method takes a `query` and `env` and returns a
+[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
+that resolves with results.
+
+Variables defined in the [configuration](/documentation/configuration/) will be used as
+environment variables in the script call.
+
+~~~ javascript
+// calculator.js
+module.exports = (pluginContext) => {
+  return {
+    respondsTo: (query) => {
+      return input.match(/\d/)
+    },
+    search: (query, env = {}) => {
+      return new Promise((resolve, reject) => {
+        const value = eval(query)
+        resolve([
+          {
+            icon: 'fa-calculator',
+            title: value,
+            subtitle: 'Select item to copy the value to the clipboard.',
+            value: value,
+          }
+        ])
+      })
+    },
+  }
+}
 ~~~
 
 ### Root Script
@@ -300,6 +409,38 @@ To show a file in it's folder.
 }]
 ~~~~
 
+### User Node Script
+
+If you need to process or modify your state, this allows you to run any script
+on the current state being passed down.
+
+* `script` *string*: Path to the node file to execute.
+
+~~~ javascript
+[{
+  id: 'Process',
+  type: 'UserNodeScript',
+  script: 'process.js',
+  value: '{value}',
+  connections: ['Copy'],
+}]
+~~~
+
+In the example below we take in a unicode value and output the character that
+corresponds to that unicode value using
+[`String.fromCharCode`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/fromCharCode).
+
+~~~ javascript
+// process.js
+module.exports = (pluginContext) => {
+  return (value) => {
+    return new Promise((resolve, reject) => {
+      resolve(String.fromCharCode(value))
+    })
+  }
+}
+~~~
+
 ### User Script
 
 For those more unique actions, you can run any script you need.
@@ -339,5 +480,16 @@ module.exports = (pluginContext) => {
   pluginContext.console.log('hello world', {
     ping: 'pong',
   })
+}
+~~~
+
+### Current working directory
+
+The current working directory (cwd) of the node script being ran.
+
+~~~ javascript
+const path = require('path')
+module.exports = (pluginContext) => {
+  const outputFile = path.join(pluginContext.cwd, 'output.json')
 }
 ~~~
