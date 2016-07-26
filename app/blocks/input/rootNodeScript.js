@@ -7,7 +7,10 @@ class RootNodeScript extends RootScript {
     super(data)
     try {
       const plugin = require(path.join(this.cwd, this.script))
-      this.script = plugin(this.logger)
+      this.script = plugin({
+        console: this.logger,
+        cwd: this.cwd,
+      })
     } catch (e) {
       this.script = false
       this.loadError = e

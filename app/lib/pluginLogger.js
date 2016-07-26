@@ -20,6 +20,7 @@ class PluginLogger {
   }
 
   _log (type, message, data) {
+    console[type](message, data)
     globalEmitter.emit('pluginLog', {
       type,
       pluginId: this.pluginId,

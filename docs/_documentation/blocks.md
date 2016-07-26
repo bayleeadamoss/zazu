@@ -60,6 +60,63 @@ block of your plugin.
 }]
 ~~~
 
+### Service Node Script
+
+Often a plugin will need to run jobs in the background for things like indexing
+files or checking the active application. This block allows you to run your
+script on a set interval. Your service is not guaranteed to run on the given
+interval.
+
+NOTICE: The connections on this block will be ignored.
+
+Variables defined in the [configuration](/documentation/configuration/) will be
+used as environment variables passed into the script.
+
+* `interval` *int*: Milliseconds between the time we run the script. Must be `>=100`.
+* `script` *string*: Path to the node file to execute.
+
+~~~ javascript
+[{
+  id: 'Cache Packages',
+  type: 'ServiceNodeScript',
+  script: 'cachePackages.js',
+  interval: 100,
+}]
+~~~
+
+Below is an example of the `Cache Packages` block we defined earlier. It fetches
+a json file from the [internet](https://en.wikipedia.org/wiki/Internet) and
+store it in the plugin directory under the name `packages.json`.
+
+~~~ javascript
+const fs = require('fs')
+const http = require('http')
+const path = require('path')
+
+module.exports = (pluginContext) => {
+  const packageUrl = 'http://zazuapp.org/packages.json'
+  const outputFile = path.join(pluginContext.cwd, 'packages.json')
+
+  return (env = {}) => {
+    return new Promise((resolve, reject) => {
+      http.get(packageUrl, (response) => {
+        const chunks = []
+
+        response.on('data', (chunk) => {
+          chunks.push(chunk.toString())
+        })
+
+        response.on('end', () => {
+          resolve(chunks.join(''))
+        })
+      })
+    }).then((data) => {
+      return fs.writeFileSync(outputFile, data)
+    })
+  }
+}
+~~~
+
 ### Service Script
 
 Often a plugin will need to run jobs in the background for things like indexing
@@ -134,7 +191,7 @@ module.exports = (pluginContext) => {
     respondsTo: (query) => {
       return input.match(/\d/)
     },
-    search: (query, env) => {
+    search: (query, env = {}) => {
       return new Promise((resolve, reject) => {
         const value = eval(query)
         resolve([
@@ -423,5 +480,16 @@ module.exports = (pluginContext) => {
   pluginContext.console.log('hello world', {
     ping: 'pong',
   })
+}
+~~~
+
+### Current working directory
+
+The current working directory (cwd) of the node script being ran.
+
+~~~ javascript
+const path = require('path')
+module.exports = (pluginContext) => {
+  const outputFile = path.join(pluginContext.cwd, 'output.json')
 }
 ~~~

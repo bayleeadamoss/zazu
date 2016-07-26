@@ -1,8 +1,8 @@
 const path = require('path')
 
-const PrefixScript = require('./prefixScript')
+const ServiceScript = require('./serviceScript')
 
-class PrefixNodeScript extends PrefixScript {
+class ServiceNodeScript extends ServiceScript {
   constructor (data) {
     super(data)
     try {
@@ -17,27 +17,21 @@ class PrefixNodeScript extends PrefixScript {
     }
   }
 
-  respondsTo (input) {
+  handle () {
     if (!this.script) {
       this.logger.error('Plugin failed to load', {
         message: this.loadError.message,
         stack: this.loadError.stack.split('\n'),
       })
-      return false
+      return Promise.resolve()
     }
-    return super.respondsTo(input)
-  }
-
-  search (input, env = {}) {
-    const query = this.query(input)
-    this.logger.log('Executing Node Script', { query })
-    return this.script(query, env).then((results) => {
-      this.logger.log('Node Script Results', { results })
-      return results
+    this.logger.log('Executing script')
+    return this.script(this.options).then(() => {
+      this.queue()
     }).catch((error) => {
-      this.logger.error('Node Script failed', { query, error })
+      this.logger.error('Script failed', { error })
     })
   }
 }
 
-module.exports = PrefixNodeScript
+module.exports = ServiceNodeScript

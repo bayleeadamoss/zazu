@@ -15,18 +15,22 @@ class ServiceScript extends ExternalBlock {
     if (isNaN(this.interval) || this.interval < 100) {
       this.interval = 100
     }
-    this.setup()
+    this.queue()
   }
 
   call () {}
 
-  setup () {
+  queue () {
     this.logger.log('Queueing Service', { interval: this.interval })
     setTimeout(() => {
-      let promise = this.handle()
-      globalEmitter.on('quitApp', () => {
+      const promise = this.handle()
+      const killPromise = () => {
         this.logger.warn('Killing service')
         promise.cancel()
+      }
+      globalEmitter.on('quitApp', killPromise)
+      promise.then(() => {
+        globalEmitter.removeListener('quitApp', killPromise)
       })
     }, this.interval)
   }
@@ -37,7 +41,7 @@ class ServiceScript extends ExternalBlock {
       cwd: this.cwd,
       env: Object.assign({}, process.env, this.options),
     }).then((results) => {
-      this.setup()
+      this.queue()
     }).catch((error) => {
       this.logger.error('Script failed', { script: this.script, error })
     })
