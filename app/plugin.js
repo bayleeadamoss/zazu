@@ -97,7 +97,7 @@ class Plugin extends Package {
   search (inputText) {
     return this.inputs.reduce((responsePromises, input) => {
       if (input.respondsTo(inputText)) {
-        const tracer = newrelic.interaction().createTracer(this.id + '/' + input.id) // Plugin/block tracer
+        const tracer = newrelic.interaction().createTracer(this.id + '/' + input.id)
         responsePromises.push(
           input.search(inputText, this.options).then((results) => {
             return results.map((result) => {
@@ -111,7 +111,7 @@ class Plugin extends Package {
           }).then((results) => {
             tracer()
             return results
-          }).catch(tracer) // finish tracer
+          }).catch(tracer)
         )
       }
       return responsePromises
