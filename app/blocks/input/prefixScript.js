@@ -1,14 +1,33 @@
-const RootScript = require('./rootScript')
+const InputBlock = require('../inputBlock')
 
-class PrefixScript extends RootScript {
+const path = require('path')
+
+class PrefixScript extends InputBlock {
   constructor (data) {
     super(data)
     this.prefix = data.prefix
     this.space = data.space
     this.args = data.args
+    try {
+      const plugin = require(path.join(data.cwd, data.script))
+      this.script = plugin({
+        console: this.logger,
+        cwd: path.cwd,
+      })
+    } catch (e) {
+      this.script = false
+      this.loadError = e
+    }
   }
 
   respondsTo (input) {
+    if (!this.script) {
+      this.logger.error('Plugin failed to load', {
+        message: this.loadError.message,
+        stack: this.loadError.stack.split('\n'),
+      })
+      return []
+    }
     var regex = ['^']
     if (!this.isScoped) {
       regex.push(this.prefix)
@@ -31,6 +50,16 @@ class PrefixScript extends RootScript {
     return this.respondsTo(input)[1]
   }
 
+  search (input, env = {}) {
+    const query = this.query(input)
+    this.logger.log('Executing Root Node Script', { query })
+    return this.script(query, env).then((results) => {
+      this.logger.log('Node Root Script Results', { results })
+      return results
+    }).catch((error) => {
+      this.logger.error('Node Script failed', { query, error })
+    })
+  }
 }
 
 module.exports = PrefixScript

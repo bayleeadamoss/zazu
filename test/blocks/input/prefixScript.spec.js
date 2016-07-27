@@ -2,13 +2,15 @@ const { expect } = require('chai')
 const PrefixScript = require('../../../app/blocks/input/prefixScript')
 
 var prefixScript = new PrefixScript({
-  id: 1,
   prefix: 'test',
   space: true,
   args: 'Required',
-  script: '',
-  connections: [],
 })
+prefixScript.script = (query) => {
+  return new Promise((resolve, reject) => {
+    resolve(true)
+  })
+}
 
 describe('PrefixScript', () => {
   describe('query', () => {

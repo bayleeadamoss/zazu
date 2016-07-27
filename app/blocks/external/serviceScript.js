@@ -1,6 +1,7 @@
 const globalEmitter = require('../../lib/globalEmitter')
 const ExternalBlock = require('../externalBlock')
-const Process = require('../../lib/process')
+
+const path = require('path')
 
 class ServiceScript extends ExternalBlock {
   constructor (data, options) {
@@ -9,11 +10,19 @@ class ServiceScript extends ExternalBlock {
     this.options = options
     this.type = data.type
     this.connections = []
-
-    this.script = data.script
     this.interval = parseInt(data.interval, 10)
     if (isNaN(this.interval) || this.interval < 100) {
       this.interval = 100
+    }
+    try {
+      const plugin = require(path.join(this.cwd, data.script))
+      this.script = plugin({
+        console: this.logger,
+        cwd: this.cwd,
+      })
+    } catch (e) {
+      this.script = false
+      this.loadError = e
     }
     this.queue()
   }
@@ -36,14 +45,18 @@ class ServiceScript extends ExternalBlock {
   }
 
   handle () {
-    this.logger.log('Executing Script', { script: this.script })
-    return Process.execute(this.script, {
-      cwd: this.cwd,
-      env: Object.assign({}, process.env, this.options),
-    }).then((results) => {
+    if (!this.script) {
+      this.logger.error('Plugin failed to load', {
+        message: this.loadError.message,
+        stack: this.loadError.stack.split('\n'),
+      })
+      return Promise.resolve()
+    }
+    this.logger.log('Executing script')
+    return this.script(this.options).then(() => {
       this.queue()
     }).catch((error) => {
-      this.logger.error('Script failed', { script: this.script, error })
+      this.logger.error('Script failed', { error })
     })
   }
 }

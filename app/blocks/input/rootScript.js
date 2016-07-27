@@ -1,17 +1,31 @@
-const Process = require('../../lib/process')
-const Template = require('../../lib/template')
 const InputBlock = require('../inputBlock')
+
+const path = require('path')
 
 class RootScript extends InputBlock {
   constructor (data) {
     super(data)
-    this.script = data.script
-    this.userRespondsTo = data.respondsTo
-    this.cwd = data.cwd
+    try {
+      const plugin = require(path.join(data.cwd, data.script))
+      this.script = plugin({
+        console: this.logger,
+        cwd: path.cwd,
+      })
+    } catch (e) {
+      this.script = false
+      this.loadError = e
+    }
   }
 
   respondsTo (input) {
-    const respondsTo = this.active() && this.userRespondsTo(input)
+    if (!this.script) {
+      this.logger.error('Plugin failed to load', {
+        message: this.loadError.message,
+        stack: this.loadError.stack.split('\n'),
+      })
+      return false
+    }
+    const respondsTo = this.active() && this.script.respondsTo(input)
     this.logger.log('Responds to input', { input, respondsTo })
     return respondsTo
   }
@@ -21,27 +35,14 @@ class RootScript extends InputBlock {
   }
 
   search (input, env = {}) {
-    if (this.lastProcess) {
-      this.logger.warn('Canceling last Script')
-      this.lastProcess.cancel()
-    }
     const query = this.query(input)
-    const script = Template.compile(this.script, {
-      query,
-    })
-
-    this.logger.log('Executing Script', { script })
-    this.lastProcess = Process.execute(script, {
-      cwd: this.cwd,
-      env: Object.assign({}, process.env, env),
-    }).then((results) => {
-      const parsed = JSON.parse(results)
-      this.logger.log('Script results', { results: parsed })
-      return parsed
+    this.logger.log('Executing Root Node Script', { query })
+    return this.script.search(query, env).then((results) => {
+      this.logger.log('Node Root Script Results', { results })
+      return results
     }).catch((error) => {
-      this.logger.error('Script failed', { script, error })
+      this.logger.error('Node Script failed', { query, error })
     })
-    return this.lastProcess
   }
 }
 

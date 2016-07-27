@@ -16,7 +16,7 @@ class PluginLogger {
   }
 
   error (message, data) {
-    window.newrelic.noticeError(message)
+    newrelic.noticeError(message)
     this._log('error', message, data)
   }
 
