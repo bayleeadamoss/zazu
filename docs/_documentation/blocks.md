@@ -189,7 +189,7 @@ environment variables in the script call.
 module.exports = (pluginContext) => {
   return {
     respondsTo: (query) => {
-      return input.match(/\d/)
+      return query.match(/\d/)
     },
     search: (query, env = {}) => {
       return new Promise((resolve, reject) => {
