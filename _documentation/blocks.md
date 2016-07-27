@@ -60,7 +60,7 @@ block of your plugin.
 }]
 ~~~
 
-### Service Node Script
+### Service Script
 
 Often a plugin will need to run jobs in the background for things like indexing
 files or checking the active application. This block allows you to run your
@@ -78,7 +78,7 @@ used as environment variables passed into the script.
 ~~~ javascript
 [{
   id: 'Cache Packages',
-  type: 'ServiceNodeScript',
+  type: 'ServiceScript',
   script: 'cachePackages.js',
   interval: 100,
 }]
@@ -89,6 +89,7 @@ a json file from the [internet](https://en.wikipedia.org/wiki/Internet) and
 store it in the plugin directory under the name `packages.json`.
 
 ~~~ javascript
+// cachePackages.js
 const fs = require('fs')
 const http = require('http')
 const path = require('path')
@@ -117,29 +118,6 @@ module.exports = (pluginContext) => {
 }
 ~~~
 
-### Service Script
-
-Often a plugin will need to run jobs in the background for things like indexing
-files or checking the active application. This block allows you to run your
-script on a set interval. Your service is not guaranteed to run on the given
-interval.
-
-NOTICE: The connections on this block will be ignored.
-
-Variables defined in the [configuration](/documentation/configuration/) will be
-used as environment variables in the script call.
-
-* `interval` *int*: Milliseconds between the time we run the script. Must be `>=100`.
-* `script` *string*: Command to be ran. The return value is ignored.
-
-~~~ javascript
-[{
-  type: 'ServiceScript',
-  script: 'node scanClipboard.js',
-  interval: 30000,
-}]
-~~~
-
 ## Input Blocks
 
 Input blocks are blocks that are the entry points to your plugin. These usually
@@ -156,7 +134,7 @@ module.exports = {
 };
 ~~~
 
-### Root Node Script
+### Root Script
 
 This allows you to execute a node script with a prefix.
 
@@ -165,7 +143,7 @@ This allows you to execute a node script with a prefix.
 ~~~ javascript
 [{
   id: 'Calculator',
-  type: 'RootNodeScript',
+  type: 'RootScript',
   script: 'calculator.js',
   connections: ['Copy'],
 }]
@@ -208,31 +186,7 @@ module.exports = (pluginContext) => {
 }
 ~~~
 
-### Root Script
-
-This allows you to execute your script without any input prefixes.
-
-Variables defined in the [configuration](/documentation/configuration/) will be used as
-environment variables in the script call.
-
-* `respondsTo` *function*: Filter input so your plugin doesn't run after each keystroke
-* `script` *string*: Shell command that returns results
-
-~~~ javascript
-[{
-  id: 'Calculator',
-  type: 'RootScript',
-  respondsTo: (input) => {
-    const hasEquation = input.match(/^[\d\.\(\)\+\-*\/\s]+$/)
-    const hasNumbers = input.match(/\d/)
-    return hasEquation && hasNumbers
-  },
-  script: 'node calculator.js {query}',
-  connections: ['Mutate'],
-}]
-~~~
-
-### Prefix Node Script
+### Prefix Script
 
 This allows you to execute a node script with a prefix.
 
@@ -244,7 +198,7 @@ This allows you to execute a node script with a prefix.
 ~~~ javascript
 [{
   id: 'Calculator',
-  type: 'PrefixNodeScript',
+  type: 'PrefixScript',
   prefix: 'calc',
   space: true,
   args: 'Required',
@@ -279,30 +233,6 @@ module.exports = (pluginContext) => {
   }
 }
 ~~~
-
-### Prefix Script
-
-This allows you to execute your script with a prefix.
-
-Variables defined in the [configuration](/documentation/configuration/) will be used as
-environment variables in the script call.
-
-* `prefix` *string*: Prefix to be used before user input.
-* `space` *boolean*: If a space should be between the Prefix and the user input.
-* `args` *string*: Specifies if you want arguments. Possibles values are `Required`, `Optional` and `None`.
-* `script` *string*: Shell command that returns results
-
-~~~ javascript
-[{
-  id: 'Calculator',
-  type: 'PrefixScript',
-  prefix: 'calc',
-  space: true,
-  args: 'Required',
-  script: 'node calculator.js {query}',
-  connections: ['Mutate'],
-}]
-~~~~
 
 ### Keyword
 
@@ -409,7 +339,7 @@ To show a file in it's folder.
 }]
 ~~~~
 
-### User Node Script
+### User Script
 
 If you need to process or modify your state, this allows you to run any script
 on the current state being passed down.
@@ -419,7 +349,7 @@ on the current state being passed down.
 ~~~ javascript
 [{
   id: 'Process',
-  type: 'UserNodeScript',
+  type: 'UserScript',
   script: 'process.js',
   value: '{value}',
   connections: ['Copy'],
@@ -441,28 +371,6 @@ module.exports = (pluginContext) => {
 }
 ~~~
 
-### User Script
-
-For those more unique actions, you can run any script you need.
-
-Variables will be passed as environment variables, but this plugin cannot mutate
-the state.
-
-* `script` *string*: Shell command to run to return the results.
-
-~~~ javascript
-[{
-  id: 'PlayPandora',
-  type: 'UserScript',
-  script: 'ruby playPandora.rb {value}',
-}]
-~~~~
-
-## Plugin Context
-
-The pluginContext object passed to node scripts and contains some useful
-functions to help enable your scripts.
-
 ### Console
 
 The Plugin Debugger is useful, since we surface information to you to help you
@@ -483,9 +391,9 @@ module.exports = (pluginContext) => {
 }
 ~~~
 
-### Current working directory
+### CWD
 
-The current working directory (cwd) of the node script being ran.
+The current working directory of the node script being ran.
 
 ~~~ javascript
 const path = require('path')
