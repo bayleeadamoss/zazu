@@ -27,11 +27,17 @@ class PluginStore extends EventEmitter {
   setQuery (query) {
     this.query = query
     let first = true
+    const interaction = newrelic.interaction() // start interaction
+    interaction.setName('search')
+    interaction.setAttribute('query', query)
 
     const promises = this.plugins.filter((plugin) => {
       return plugin.respondsTo(query)
     }).reduce((memo, plugin) => {
-      return memo.concat(plugin.search(query))
+      const tracer = interaction.createTracer(plugin.id) // create plugin tracer
+      const pluginPromises = plugin.search(query)
+      Promise.all(pluginPromises).then(tracer).catch(tracer) // finish tracer
+      return memo.concat(pluginPromises)
     }, [])
 
     promises.forEach((promise) => {
@@ -45,6 +51,12 @@ class PluginStore extends EventEmitter {
           this.emitChange()
         }
       })
+    })
+
+    Promise.all(promises).then(() => {
+      interaction.save() // save the interaction
+    }).catch(() => {
+      interaction.ignore() // ignore the interaction - useful for canceled promises
     })
 
     if (promises.length === 0) {

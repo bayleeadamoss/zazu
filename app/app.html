@@ -8,7 +8,7 @@
       NREUM.info={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",licenseKey:"6a1ad6fb51",applicationID:"23931246",sa:1}
       const app = require('electron').remote.app
       const env = require('./env')
-      window.newrelic.setPageViewName('zazuApp')
+      window.newrelic.setPageViewName('search')
       window.newrelic.setCustomAttribute('zazuVersion', app.getVersion())
       window.newrelic.setCustomAttribute('zazuEnvironment', env.name)
     </script>
