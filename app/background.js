@@ -60,6 +60,21 @@ globalEmitter.on('showAbout', (message) => {
   aboutWindow.loadURL(path.join('file://', __dirname, '/about.html'))
 })
 
+globalEmitter.on('quitApp', () => {
+  if (aboutWindow) {
+    aboutWindow.close()
+    aboutWindow.destroy()
+  }
+  if (debugWindow) {
+    debugWindow.close()
+    debugWindow.destroy()
+  }
+  if (mainWindow) {
+    mainWindow.close()
+    mainWindow.destroy()
+  }
+})
+
 globalEmitter.on('showDebug', (message) => {
   if (debugWindow) debugWindow.close()
   debugWindow = new BrowserWindow({
@@ -104,11 +119,6 @@ app.on('ready', function () {
 
   globalEmitter.on('showWindow', () => {
     mainWindow.show()
-  })
-
-  globalEmitter.on('quitApp', () => {
-    mainWindow.close()
-    mainWindow.destroy()
   })
 
   globalEmitter.on('toggleWindow', () => {

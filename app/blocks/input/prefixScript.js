@@ -55,12 +55,12 @@ class PrefixScript extends InputBlock {
 
   search (input, env = {}) {
     const query = this.query(input)
-    this.logger.log('Executing Root Node Script', { query })
+    this.logger.log('Executing Script', { query })
     return this.script(query, env).then((results) => {
-      this.logger.log('Node Root Script Results', { results })
+      this.logger.log('Script Results', { results })
       return results
     }).catch((error) => {
-      this.logger.error('Node Script failed', { query, error })
+      this.logger.error('Script failed', { query, error })
     })
   }
 }

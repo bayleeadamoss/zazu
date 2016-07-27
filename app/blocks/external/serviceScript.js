@@ -1,4 +1,3 @@
-const globalEmitter = require('../../lib/globalEmitter')
 const ExternalBlock = require('../externalBlock')
 
 const path = require('path')
@@ -35,15 +34,7 @@ class ServiceScript extends ExternalBlock {
   queue () {
     this.logger.log('Queueing Service', { interval: this.interval })
     setTimeout(() => {
-      const promise = this.handle()
-      const killPromise = () => {
-        this.logger.warn('Killing service')
-        promise.cancel()
-      }
-      globalEmitter.on('quitApp', killPromise)
-      promise.then(() => {
-        globalEmitter.removeListener('quitApp', killPromise)
-      })
+      this.handle()
     }, this.interval)
   }
 
