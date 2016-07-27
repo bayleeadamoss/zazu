@@ -7,7 +7,13 @@ class UserScript extends Block {
     super(data)
     try {
       const plugin = require(path.join(data.cwd, data.script))
-      this.script = plugin(this.logger)
+      const electron = require('electron')
+      this.script = plugin({
+        console: this.logger,
+        cwd: data.cwd,
+        clipboard: electron.clipboard,
+        nativeImage: electron.nativeImage,
+      })
     } catch (e) {
       this.script = false
       this.loadError = e

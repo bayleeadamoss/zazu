@@ -10,9 +10,12 @@ class PrefixScript extends InputBlock {
     this.args = data.args
     try {
       const plugin = require(path.join(data.cwd, data.script))
+      const electron = require('electron')
       this.script = plugin({
         console: this.logger,
-        cwd: path.cwd,
+        cwd: data.cwd,
+        clipboard: electron.clipboard,
+        nativeImage: electron.nativeImage,
       })
     } catch (e) {
       this.script = false

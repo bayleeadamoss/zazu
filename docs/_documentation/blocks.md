@@ -406,3 +406,29 @@ module.exports = (pluginContext) => {
   const outputFile = path.join(pluginContext.cwd, 'output.json')
 }
 ~~~
+
+### Clipboard
+
+An instance of the [Electron
+Clipboard](https://github.com/electron/electron/blob/master/docs/api/clipboard.md)
+instance.
+
+~~~ javascript
+const path = require('path')
+module.exports = (pluginContext) => {
+  const clipboard = pluginContext.clipboard
+}
+~~~
+
+### NativeImage
+
+An instance of the [Electron
+NativeImage](https://github.com/electron/electron/blob/master/docs/api/native-image.md)
+instance.
+
+~~~ javascript
+const path = require('path')
+module.exports = (pluginContext) => {
+  const nativeImage = pluginContext.nativeImage
+}
+~~~

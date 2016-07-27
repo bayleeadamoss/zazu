@@ -16,9 +16,12 @@ class ServiceScript extends ExternalBlock {
     }
     try {
       const plugin = require(path.join(this.cwd, data.script))
+      const electron = require('electron')
       this.script = plugin({
         console: this.logger,
         cwd: this.cwd,
+        clipboard: electron.clipboard,
+        nativeImage: electron.nativeImage,
       })
     } catch (e) {
       this.script = false
