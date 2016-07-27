@@ -1,5 +1,5 @@
 const Promise = require('bluebird')
-const { exec } = require('child_process')
+const { exec, execFile } = require('child_process')
 
 Promise.config({
   cancellation: true,
@@ -25,6 +25,12 @@ class Process {
       })
     })
   }
+}
+
+if (process.platform === 'darwin') {
+  execFile(process.env.SHELL, ['-i', '-c', 'echo $PATH'], (err, stream) => {
+    process.env.PATH = stream.toString().trim()
+  })
 }
 
 module.exports = Process
