@@ -371,6 +371,11 @@ module.exports = (pluginContext) => {
 }
 ~~~
 
+## Plugin Context
+
+The pluginContext object passed to node scripts and contains some useful
+functions to help enable your scripts.
+
 ### Console
 
 The Plugin Debugger is useful, since we surface information to you to help you
