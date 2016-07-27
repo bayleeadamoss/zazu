@@ -9,6 +9,7 @@
       const app = require('electron').remote.app
       const env = require('./env')
       window.newrelic.setPageViewName('about')
+      window.newrelic.interaction().setName('about')
       window.newrelic.setCustomAttribute('zazuVersion', app.getVersion())
       window.newrelic.setCustomAttribute('zazuEnvironment', env.name)
     </script>
