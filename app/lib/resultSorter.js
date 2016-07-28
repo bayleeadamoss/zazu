@@ -21,10 +21,14 @@ class ResultSorter {
 
   sort () {
     return this.results.map((result) => {
-      result.score = clickedResults.reduce((memo, clickedResult) => {
-        if (clickedResult.id === result.id) memo++
-        return memo
-      }, 0)
+      if (result.id) {
+        result.score = clickedResults.reduce((memo, clickedResult) => {
+          if (clickedResult.id === result.id) memo++
+          return memo
+        }, 0)
+      } else {
+        result.score = 0
+      }
       return result
     }).sort((a, b) => {
       if (a.score < b.score) return 1

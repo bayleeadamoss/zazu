@@ -75,6 +75,7 @@ result might look like:
 
 ### Result Fields
 
+* `id` *string*: Identifier for [internal ranking](#internal-ranking).
 * `icon` *string*: Supports [font awesome](http://fontawesome.io/icons/)
 icons as well as absolute paths to the icon in your project. If one is not
 provided it will fallback tot he icon for your project.
@@ -87,6 +88,12 @@ plugin run. In this case the value `42` as a number would be passed to whatever
 the connection block is, which could be to
 [copy to the clipboard](/documentation/blocks/#copy-to-clipboard) or it could
 run a custom [user script](/documentation/blocks/#user-script).
+
+### Internal Ranking
+
+If you provide results with an `id`, Zazu will rank frequently clicked items
+higher in the results list. This works well even if you sort the results
+yourself. If you don't want this behavior, simply don't add an id to the result.
 
 ## Debugging
 
