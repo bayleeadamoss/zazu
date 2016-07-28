@@ -3,7 +3,8 @@ const EventEmitter = require('events')
 const configuration = require('../configuration')
 const Plugin = require('../plugin')
 
-const CHANGE_EVENT = 'change'
+const CHANGE_RESULTS_EVENT = 'results_change'
+const CHANGE_QUERY_EVENT = 'query_change'
 
 class PluginStore extends EventEmitter {
   constructor () {
@@ -29,6 +30,7 @@ class PluginStore extends EventEmitter {
 
   setQuery (query) {
     this.query = query
+    this.emitQueryChange()
     let first = true
     const interaction = newrelic.interaction()
     interaction.setName('search')
@@ -72,16 +74,28 @@ class PluginStore extends EventEmitter {
     this.emitChange()
   }
 
+  emitQueryChange () {
+    this.emit(CHANGE_QUERY_EVENT)
+  }
+
+  addQueryListener (callback) {
+    this.on(CHANGE_QUERY_EVENT, callback)
+  }
+
+  removeQueryListener (callback) {
+    this.removeListener(CHANGE_QUERY_EVENT, callback)
+  }
+
   emitChange () {
-    this.emit(CHANGE_EVENT)
+    this.emit(CHANGE_RESULTS_EVENT)
   }
 
-  addChangeListener (callback) {
-    this.on(CHANGE_EVENT, callback)
+  addResultListener (callback) {
+    this.on(CHANGE_RESULTS_EVENT, callback)
   }
 
-  removeChangeListener (callback) {
-    this.removeListener(CHANGE_EVENT, callback)
+  removeResultListener (callback) {
+    this.removeListener(CHANGE_RESULTS_EVENT, callback)
   }
 }
 

@@ -32,7 +32,7 @@ const Zazu = React.createClass({
 
     PluginStore.load()
 
-    PluginStore.addChangeListener(this.updateResults)
+    PluginStore.addResultListener(this.updateResults)
 
     globalEmitter.on('showWindow', () => {
       setImmediate(() => PluginStore.setQuery(''))
@@ -44,7 +44,7 @@ const Zazu = React.createClass({
   },
 
   componentWillUnmount () {
-    PluginStore.removeChangeListener(this.updateResults)
+    PluginStore.removeResultListener(this.updateResults)
   },
 
   updateResults () {

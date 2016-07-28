@@ -4,6 +4,7 @@ const Mousetrap = require('mousetrap')
 const Result = require('./result')
 const IFrame = require('./iframe')
 const globalEmitter = require('../lib/globalEmitter')
+const PluginStore = require('../store/pluginStore')
 
 const { PropTypes } = React
 
@@ -44,6 +45,12 @@ const Results = React.createClass({
     }
   },
 
+  resetIndex () {
+    this.setState({
+      activeIndex: 0,
+    })
+  },
+
   componentDidMount () {
     Mousetrap.bind(['ctrl+p', 'ctrl+j', 'up'], () => {
       this.moveUp()
@@ -59,10 +66,12 @@ const Results = React.createClass({
     Mousetrap.bind('esc', () => {
       globalEmitter.emit('hideWindow')
     })
+    PluginStore.addQueryListener(this.resetIndex)
   },
 
-  componentWillUnmount: () => {
+  componentWillUnmount () {
     Mousetrap.reset()
+    PluginStore.removeQueryListener(this.resetIndex)
   },
 
   activate (item) {
