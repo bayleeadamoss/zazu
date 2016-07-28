@@ -1,5 +1,4 @@
 const globalEmitter = require('./globalEmitter')
-const env = require('../env')
 
 class PluginLogger {
   constructor (pluginId, blockId) {
@@ -21,9 +20,6 @@ class PluginLogger {
   }
 
   _log (type, message, data) {
-    if (env.name !== 'test') {
-      console[type](message, data)
-    }
     globalEmitter.emit('pluginLog', {
       type,
       pluginId: this.pluginId,

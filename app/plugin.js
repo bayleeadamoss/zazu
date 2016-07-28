@@ -1,5 +1,6 @@
 const path = require('path')
 const jetpack = require('fs-jetpack')
+const npmInstall = require('./lib/npmInstall')
 
 const Input = require('./blocks/input')
 const Output = require('./blocks/output')
@@ -26,6 +27,10 @@ class Plugin extends Package {
 
   load () {
     return super.load().then((plugin) => {
+      return new Promise((resolve, reject) => {
+        npmInstall(this.path).then(() => resolve(plugin))
+      })
+    }).then((plugin) => {
       this.loaded = true
       this.plugin = plugin
 

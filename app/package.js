@@ -1,7 +1,6 @@
 const clone = require('git-clone')
 const path = require('path')
 const jetpack = require('fs-jetpack')
-const npmInstall = require('./lib/npmInstall')
 
 const configuration = require('./configuration')
 
@@ -31,14 +30,8 @@ class Package {
       this.clone('https://github.com/' + this.url, this.path, { shallow: true }, (error) => {
         if (error) {
           reject(`Package '${this.url}' failed to load.`)
-        } else {
-          const promises = []
-          if (jetpack.exists(path.join(this.path, 'package.json'))) {
-            const promise = npmInstall(this.path)
-            promises.push(promise)
-          }
-          Promise.all(promises).then(resolve)
         }
+        resolve()
       })
     })
   }

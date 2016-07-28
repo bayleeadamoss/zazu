@@ -20,14 +20,16 @@ const Zazu = React.createClass({
   },
 
   componentDidMount () {
-    configuration.load()
-
-    const theme = new Theme(configuration.theme, configuration.pluginDir)
-    theme.load().then((theme) => {
-      this.setState({
-        theme,
+    configuration.load().then(() => {
+      const theme = new Theme(configuration.theme, configuration.pluginDir)
+      theme.load().then((theme) => {
+        this.setState({
+          theme,
+        })
       })
     })
+
+    PluginStore.load()
 
     PluginStore.addChangeListener(this.updateResults)
 
