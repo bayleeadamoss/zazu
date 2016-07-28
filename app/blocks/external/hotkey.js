@@ -12,7 +12,7 @@ class Hotkey extends ExternalBlock {
     globalEmitter.on('triggerHotkey', (accelerator) => {
       if (this.hotkey === accelerator) {
         this.logger.log('Hotkey triggered', { accelerator })
-        this.emit('handle')
+        this.handle()
       }
     })
   }
