@@ -22,6 +22,7 @@ const Zazu = React.createClass({
   componentDidMount () {
     configuration.load().then(() => {
       const theme = new Theme(configuration.theme, configuration.pluginDir)
+      newrelic.setCustomAttribute('zazuTheme', configuration.theme)
       theme.load().then((theme) => {
         this.setState({
           theme,
