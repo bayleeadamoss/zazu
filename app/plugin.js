@@ -25,12 +25,18 @@ class Plugin extends Package {
     })
   }
 
+  download () {
+    return super.download().then((action) => {
+      if (action === 'downloaded') {
+        return new Promise((resolve, reject) => {
+          npmInstall(this.path).then(resolve)
+        })
+      }
+    })
+  }
+
   load () {
     return super.load().then((plugin) => {
-      return new Promise((resolve, reject) => {
-        npmInstall(this.path).then(() => resolve(plugin))
-      })
-    }).then((plugin) => {
       this.loaded = true
       this.plugin = plugin
 

@@ -25,13 +25,13 @@ class Package {
   download () {
     return new Promise((resolve, reject) => {
       if (jetpack.exists(this.path)) {
-        return resolve()
+        return resolve('exists')
       }
       this.clone('https://github.com/' + this.url, this.path, { shallow: true }, (error) => {
         if (error) {
           reject(`Package '${this.url}' failed to load.`)
         }
-        resolve()
+        resolve('downloaded')
       })
     })
   }
