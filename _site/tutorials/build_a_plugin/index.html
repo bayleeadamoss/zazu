@@ -99,7 +99,6 @@ about the author, and entry points to the plugin.</p>
   <span class="na">icon</span><span class="p">:</span> <span class="s1">'icon.png'</span><span class="p">,</span>
   <span class="na">homepage</span><span class="p">:</span> <span class="s1">'https://github.com/tinytacoteam/calculator'</span><span class="p">,</span>
   <span class="na">git</span><span class="p">:</span> <span class="s1">'git@github.com:tinytacoteam/calculator.git'</span><span class="p">,</span>
-  <span class="na">install</span><span class="p">:</span> <span class="s1">'npm install'</span><span class="p">,</span>
   <span class="na">blocks</span><span class="p">:</span> <span class="p">{</span>
     <span class="na">input</span><span class="p">:</span> <span class="p">[</span>
       <span class="p">{</span>
@@ -134,15 +133,14 @@ about the author, and entry points to the plugin.</p>
   <span class="na">icon</span><span class="p">:</span> <span class="s1">'icon.png'</span><span class="p">,</span>
   <span class="na">homepage</span><span class="p">:</span> <span class="s1">'https://github.com/tinytacoteam/calculator'</span><span class="p">,</span>
   <span class="na">git</span><span class="p">:</span> <span class="s1">'git@github.com:tinytacoteam/calculator.git'</span><span class="p">,</span>
-  <span class="na">install</span><span class="p">:</span> <span class="s1">'npm install'</span><span class="p">,</span>
   <span class="c1">// Rest of plugin</span>
 <span class="p">}</span>
 </code></pre>
 </div>
 
 <p>In this example we have information about who created the plugin and ways to
-discover the repo and the website. There is also an <code class="highlighter-rouge">install</code> step that gets
-executed after your plugin is downloaded.</p>
+discover the repo and the website. We also execute <code class="highlighter-rouge">npm install</code> for you, if we
+detect a <code class="highlighter-rouge">package.json</code> in your plugin root.</p>
 
 <p>We might also want to describe the <a href="/documentation/blocks/">blocks</a> that make up
 the plugin.</p>
