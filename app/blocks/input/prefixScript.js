@@ -29,7 +29,7 @@ class PrefixScript extends InputBlock {
         message: this.loadError.message,
         stack: this.loadError.stack.split('\n'),
       })
-      return []
+      return false
     }
     var regex = ['^']
     if (!this.isScoped) {
@@ -50,7 +50,8 @@ class PrefixScript extends InputBlock {
   }
 
   query (input) {
-    return this.respondsTo(input)[1]
+    const respondsTo = this.respondsTo(input)
+    return respondsTo ? respondsTo[1] : ''
   }
 
   search (input, env = {}) {

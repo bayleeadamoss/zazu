@@ -1,5 +1,6 @@
 const jetpack = require('fs-jetpack')
 const path = require('path')
+const fs = require('fs')
 
 class Configuration {
   constructor () {
@@ -13,9 +14,8 @@ class Configuration {
   load () {
     return new Promise((resolve, reject) => {
       if (!jetpack.exists(this.profilePath)) {
-        jetpack.copy('./templates/zazurc.js', this.profilePath, {
-          overwrite: false,
-        })
+        const template = require('./templates/zazurc')()
+        fs.writeFileSync(this.profilePath, template)
       }
 
       const data = require(this.profilePath)
