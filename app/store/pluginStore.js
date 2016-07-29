@@ -2,6 +2,7 @@ const EventEmitter = require('events')
 
 const configuration = require('../configuration')
 const Plugin = require('../plugin')
+const track = require('../vendor/nr')
 
 const CHANGE_RESULTS_EVENT = 'results_change'
 const CHANGE_QUERY_EVENT = 'query_change'
@@ -32,7 +33,7 @@ class PluginStore extends EventEmitter {
     this.query = query
     this.emitQueryChange()
     let first = true
-    const interaction = newrelic.interaction()
+    const interaction = track.interaction()
     interaction.setName('search')
     interaction.setAttribute('query', query)
 
@@ -46,13 +47,13 @@ class PluginStore extends EventEmitter {
     }, [])
 
     promises.map((promise) => {
-      return promise.then((results) => {
+      return promise.then((results = []) => {
         if (query === this.query) {
           if (first) {
             first = false
             this.clearResults()
           }
-          this.results = this.results.concat(results || [])
+          this.results = this.results.concat(results)
           this.emitChange()
         }
       })

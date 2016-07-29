@@ -12,6 +12,20 @@ const appTemplate = [
       { label: 'Copy', accelerator: 'Command+C', selector: 'copy:' },
       { label: 'Paste', accelerator: 'Command+V', selector: 'paste:' },
       { label: 'Select All', accelerator: 'Command+A', selector: 'selectAll:' },
+      {
+        label: 'Toggle DevTools',
+        accelerator: 'Alt+CmdOrCtrl+I',
+        click: function () {
+          BrowserWindow.getFocusedWindow().toggleDevTools()
+        },
+      },
+      {
+        label: 'Quit',
+        accelerator: 'CmdOrCtrl+Q',
+        click: () => {
+          globalEmitter.emit('quitApp')
+        },
+      },
     ],
   },
 ]

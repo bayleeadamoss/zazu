@@ -1,4 +1,5 @@
 const globalEmitter = require('./globalEmitter')
+const track = require('../vendor/nr')
 
 class PluginLogger {
   constructor (pluginId, blockId) {
@@ -19,7 +20,7 @@ class PluginLogger {
   }
 
   error (message, data) {
-    newrelic.noticeError(message)
+    track.noticeError(message)
     this._log('error', message, data)
   }
 

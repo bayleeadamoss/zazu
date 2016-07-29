@@ -1,5 +1,6 @@
 const Datastore = require('nedb')
 const path = require('path')
+const track = require('../vendor/nr')
 
 const databasePath = path.join(require('os').homedir(), '.zazu/databases/track.nedb')
 const database = new Datastore({
@@ -41,7 +42,7 @@ class ResultSorter {
     const clickedResult = Object.assign({}, {
       createdAt: new Date(),
     }, doc)
-    window.newrelic.addPageAction('clickedResult', {
+    track.addPageAction('clickedResult', {
       pluginName: doc.pluginName,
     })
     clickedResults.push(clickedResult)

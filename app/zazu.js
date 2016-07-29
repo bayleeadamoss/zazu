@@ -8,6 +8,7 @@ const Results = require('./components/results')
 const PluginStore = require('./store/pluginStore')
 const globalEmitter = require('./lib/globalEmitter')
 const ResultSorter = require('./lib/resultSorter')
+const track = require('./vendor/nr')
 
 const Zazu = React.createClass({
 
@@ -22,7 +23,7 @@ const Zazu = React.createClass({
   componentDidMount () {
     configuration.load().then(() => {
       const theme = new Theme(configuration.theme, configuration.pluginDir)
-      newrelic.setCustomAttribute('zazuTheme', configuration.theme)
+      track.setAttribute('zazuTheme', configuration.theme)
       theme.load().then((theme) => {
         this.setState({
           theme,

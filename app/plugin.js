@@ -7,6 +7,7 @@ const Output = require('./blocks/output')
 const External = require('./blocks/external')
 const notification = require('./lib/notification')
 const globalEmitter = require('./lib/globalEmitter')
+const track = require('./vendor/nr')
 const Package = require('./package')
 
 class Plugin extends Package {
@@ -108,21 +109,21 @@ class Plugin extends Package {
   search (inputText) {
     return this.inputs.reduce((responsePromises, input) => {
       if (input.respondsTo(inputText)) {
-        const tracer = newrelic.interaction().createTracer(this.id + '/' + input.id)
+        const tracer = track.tracer(this.id + '/' + input.id)
         responsePromises.push(
-          input.search(inputText, this.options).then((results) => {
-            return results.map((result) => {
-              result.previewCss = this.plugin.css
-              result.pluginName = this.url
-              result.icon = result.icon || path.join(this.path, this.plugin.icon)
-              result.blockId = input.id
-              result.next = this.next.bind(this, result)
-              return result
+          input.search(inputText, this.options)
+            .then((results = []) => {
+              return results.map((result) => {
+                result.previewCss = this.plugin.css
+                result.pluginName = this.url
+                result.icon = result.icon || path.join(this.path, this.plugin.icon)
+                result.blockId = input.id
+                result.next = this.next.bind(this, result)
+                return result
+              })
             })
-          }).then((results) => {
-            tracer()
-            return results
-          }).catch(tracer)
+            .then(tracer.complete)
+            .catch(tracer.error)
         )
       }
       return responsePromises
