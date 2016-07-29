@@ -3,4 +3,4 @@ const noop = require('./track/noop')
 const newrelic = require('./track/newrelic')
 
 configuration.load()
-module.exports = configuration.doNotTrack ? noop : newrelic
+module.exports = configuration.disableAnalytics ? noop : newrelic

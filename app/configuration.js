@@ -7,7 +7,7 @@ class Configuration {
     this.pluginDir = path.join(require('os').homedir(), '.zazu/plugins/')
     this.plugins = []
     this.loaded = false
-    this.doNotTrack = false
+    this.disableAnalytics = false
     this.theme = ''
     this.hotkey = ''
   }
@@ -24,7 +24,7 @@ class Configuration {
     this.plugins = data.plugins
     this.theme = data.theme
     this.hotkey = data.hotkey
-    this.doNotTrack = data.doNotTrack
+    this.disableAnalytics = data.disableAnalytics
     this.loaded = true
   }
 }
