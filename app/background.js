@@ -57,6 +57,9 @@ globalEmitter.on('showAbout', (message) => {
     resizable: false,
     title: 'About Zazu',
   })
+  aboutWindow.on('closed', () => {
+    aboutWindow = null
+  })
   aboutWindow.loadURL(path.join('file://', __dirname, '/about.html'))
 })
 
@@ -82,6 +85,9 @@ globalEmitter.on('showDebug', (message) => {
     height: 400,
     resizable: true,
     title: 'Debug Zazu',
+  })
+  aboutWindow.on('closed', () => {
+    aboutWindow = null
   })
   debugWindow.loadURL(path.join('file://', __dirname, '/debug.html'))
 })
