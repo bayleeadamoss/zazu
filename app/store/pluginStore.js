@@ -52,7 +52,7 @@ class PluginStore extends EventEmitter {
             first = false
             this.clearResults()
           }
-          this.results = this.results.concat(results)
+          this.results = this.results.concat(results || [])
           this.emitChange()
         }
       })
@@ -61,7 +61,7 @@ class PluginStore extends EventEmitter {
     Promise.all(promises).then(() => {
       interaction.save()
     }).catch(() => {
-      interaction.ignore()
+      interaction.save()
     })
 
     if (promises.length === 0) {
