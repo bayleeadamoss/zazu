@@ -8,7 +8,7 @@ const Results = require('./components/results')
 const PluginStore = require('./store/pluginStore')
 const globalEmitter = require('./lib/globalEmitter')
 const ResultSorter = require('./lib/resultSorter')
-const track = require('./vendor/nr')
+const track = require('./lib/track')
 
 const Zazu = React.createClass({
 

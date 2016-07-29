@@ -7,7 +7,7 @@ const Output = require('./blocks/output')
 const External = require('./blocks/external')
 const notification = require('./lib/notification')
 const globalEmitter = require('./lib/globalEmitter')
-const track = require('./vendor/nr')
+const track = require('./lib/track')
 const Package = require('./package')
 
 class Plugin extends Package {

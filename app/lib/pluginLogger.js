@@ -1,5 +1,5 @@
 const globalEmitter = require('./globalEmitter')
-const track = require('../vendor/nr')
+const track = require('../lib/track')
 
 class PluginLogger {
   constructor (pluginId, blockId) {

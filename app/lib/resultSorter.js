@@ -1,6 +1,6 @@
 const Datastore = require('nedb')
 const path = require('path')
-const track = require('../vendor/nr')
+const track = require('../lib/track')
 
 const databasePath = path.join(require('os').homedir(), '.zazu/databases/track.nedb')
 const database = new Datastore({

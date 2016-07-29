@@ -2,7 +2,7 @@ const EventEmitter = require('events')
 
 const configuration = require('../configuration')
 const Plugin = require('../plugin')
-const track = require('../vendor/nr')
+const track = require('../lib/track')
 
 const CHANGE_RESULTS_EVENT = 'results_change'
 const CHANGE_QUERY_EVENT = 'query_change'
