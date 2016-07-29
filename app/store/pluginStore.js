@@ -12,20 +12,20 @@ class PluginStore extends EventEmitter {
     super()
     this.query = ''
     this.results = []
+    this.plugins = []
   }
 
   load () {
-    configuration.load().then(() => {
-      this.plugins = configuration.plugins.map((plugin) => {
-        let pluginObj
-        if (typeof plugin === 'object') {
-          pluginObj = new Plugin(plugin.name, plugin.variables)
-        } else {
-          pluginObj = new Plugin(plugin)
-        }
-        pluginObj.load()
-        return pluginObj
-      })
+    configuration.load()
+    this.plugins = configuration.plugins.map((plugin) => {
+      let pluginObj
+      if (typeof plugin === 'object') {
+        pluginObj = new Plugin(plugin.name, plugin.variables)
+      } else {
+        pluginObj = new Plugin(plugin)
+      }
+      pluginObj.load()
+      return pluginObj
     })
   }
 
@@ -40,9 +40,9 @@ class PluginStore extends EventEmitter {
     const promises = this.plugins.filter((plugin) => {
       return plugin.respondsTo(query)
     }).reduce((memo, plugin) => {
-      const tracer = interaction.createTracer(plugin.id)
+      const tracer = track.tracer(plugin.id)
       const pluginPromises = plugin.search(query)
-      Promise.all(pluginPromises).then(tracer).catch(tracer)
+      Promise.all(pluginPromises).then(tracer.complete).catch(tracer.error)
       return memo.concat(pluginPromises)
     }, [])
 

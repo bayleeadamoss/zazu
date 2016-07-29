@@ -21,13 +21,12 @@ const Zazu = React.createClass({
   },
 
   componentDidMount () {
-    configuration.load().then(() => {
-      const theme = new Theme(configuration.theme, configuration.pluginDir)
-      track.setAttribute('zazuTheme', configuration.theme)
-      theme.load().then((theme) => {
-        this.setState({
-          theme,
-        })
+    configuration.load()
+    track.setAttribute('zazuTheme', configuration.theme)
+    const theme = new Theme(configuration.theme, configuration.pluginDir)
+    theme.load().then((theme) => {
+      this.setState({
+        theme,
       })
     })
 

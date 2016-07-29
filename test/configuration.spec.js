@@ -10,6 +10,7 @@ describe('Configuration', () => {
     configuration.profilePath = path.join(base, '.zazurc.js')
     configuration.pluginDir = path.join(base, '.zazu/plugins/')
     jetpack.remove(configuration.profilePath)
+    configuration.loaded = false
   })
 
   describe('load', () => {

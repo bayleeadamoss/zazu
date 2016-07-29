@@ -144,14 +144,13 @@ app.on('ready', function () {
     globalEmitter.emit('hideWindow')
   })
 
-  configuration.load().then(() => {
-    globalShortcut.register(configuration.hotkey, () => {
-      if (mainWindow.isVisible()) {
-        globalEmitter.emit('hideWindow')
-      } else {
-        globalEmitter.emit('showWindow')
-      }
-    })
+  configuration.load()
+  globalShortcut.register(configuration.hotkey, () => {
+    if (mainWindow.isVisible()) {
+      globalEmitter.emit('hideWindow')
+    } else {
+      globalEmitter.emit('showWindow')
+    }
   })
 
   mainWindow.loadURL(path.join('file://', __dirname, '/app.html'))
