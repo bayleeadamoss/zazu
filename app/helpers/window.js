@@ -29,7 +29,7 @@ const windowHelper = (options) => {
         resize(mainContentHeight)
       })
     }
-    const id = setInterval(updateHeight, 500)
+    const id = setInterval(updateHeight, 125)
     globalEmitter.on('quitApp', () => {
       clearInterval(id)
     })
