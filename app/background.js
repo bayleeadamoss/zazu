@@ -1,5 +1,4 @@
-const { app, Menu, Tray, systemPreferences, BrowserWindow } = require('electron')
-const globalShortcut = require('global-shortcut')
+const { app, Menu, Tray, systemPreferences, BrowserWindow, globalShortcut } = require('electron')
 const path = require('path')
 const AutoLaunch = require('auto-launch')
 
@@ -29,14 +28,24 @@ const checkForUpdate = () => {
 
 const addToStartup = () => {
   if (env.name === 'production') {
-    const appLauncher = new AutoLaunch({
-      name: 'Zazu App',
-    })
+    const isLinux = ['win32', 'darwin'].indexOf(process.env) !== -1
+    if (isLinux) {
+      const appLauncher = new AutoLaunch({
+        name: 'Zazu App',
+      })
 
-    appLauncher.isEnabled().then((enabled) => {
-      if (enabled) return
-      return appLauncher.enable()
-    })
+      appLauncher.isEnabled().then((enabled) => {
+        if (enabled) return
+        return appLauncher.enable()
+      })
+    } else {
+      const settings = app.getLoginItemSettings()
+      if (!settings.openAtLogin) {
+        app.setLoginItemSettings({
+          openAtLogin: true,
+        })
+      }
+    }
   }
 }
 
