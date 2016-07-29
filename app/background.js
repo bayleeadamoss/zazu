@@ -3,7 +3,7 @@ const globalShortcut = require('global-shortcut')
 const path = require('path')
 const AutoLaunch = require('auto-launch')
 
-const { menuTemplate } = require('./helpers/menu_template')
+const { trayTemplate, appTemplate } = require('./helpers/menu_template')
 const { windowHelper } = require('./helpers/window')
 const configuration = require('./configuration')
 const Update = require('./lib/update')
@@ -18,7 +18,8 @@ const setApplicationMenu = () => {
   const iconPath = path.join(app.getAppPath(), 'images', iconName)
   tray = new Tray(iconPath)
   tray.setToolTip('Toggle Zazu')
-  tray.setContextMenu(Menu.buildFromTemplate(menuTemplate))
+  tray.setContextMenu(Menu.buildFromTemplate(trayTemplate))
+  Menu.setApplicationMenu(Menu.buildFromTemplate(appTemplate))
 }
 
 const checkForUpdate = () => {
