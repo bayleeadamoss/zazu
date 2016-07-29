@@ -17,7 +17,7 @@ class Keyword extends InputBlock {
   }
 
   search (input, env = {}) {
-    this.logger.log('Rendering keyword', { input })
+    this.logger.info('Rendering keyword', { input })
     return new Promise((resolve) => {
       resolve([
         {

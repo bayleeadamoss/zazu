@@ -56,7 +56,7 @@ class PrefixScript extends InputBlock {
 
   search (input, env = {}) {
     const query = this.query(input)
-    this.logger.log('Executing Script', { query })
+    this.logger.info('Executing Script', { query })
     return this.script(query, env).then((results) => {
       this.logger.log('Script Results', { results })
       return results

@@ -7,16 +7,24 @@ const Debug = React.createClass({
   getInitialState () {
     return {
       selectedPlugin: 'Any',
+      selectedType: 'warn',
+      logTypes: ['info', 'log', 'warn', 'error'],
+      plugins: [],
       items: [],
     }
   },
 
   log (options) {
     const items = Object.assign([], this.state.items)
+    const plugins = Object.assign([], this.state.plugins)
     items.unshift(Object.assign({}, options, {
       time: new Date(),
     }))
+    if (plugins.indexOf(options.pluginId) === -1) {
+      plugins.push(options.pluginId)
+    }
     this.setState({
+      plugins,
       items,
     })
   },
@@ -31,13 +39,32 @@ const Debug = React.createClass({
     globalEmitter.removeAllListeners('pluginLog')
   },
 
-  handleChange (e) {
+  handleTypeChange (e) {
+    this.setState({
+      selectedType: e.target.value,
+    })
+  },
+
+  handlePluginChange (e) {
     this.setState({
       selectedPlugin: e.target.value,
     })
   },
 
+  allowedTypes () {
+    if (this.state.selectedType === 'error') {
+      return ['error']
+    } else if (this.state.selectedType === 'warn') {
+      return ['error', 'warn']
+    } else if (this.state.selectedType === 'log') {
+      return ['error', 'warn', 'log']
+    } else if (this.state.selectedType === 'info') {
+      return ['error', 'warn', 'log', 'info']
+    }
+  },
+
   render () {
+    const allowedTypes = this.allowedTypes()
     return React.createElement(
       'ul',
       null,
@@ -45,15 +72,20 @@ const Debug = React.createClass({
         'select',
         {
           defaultValue: 'Any',
-          onChange: this.handleChange,
+          onChange: this.handlePluginChange,
         },
-        this.state.items.reduce((memo, item) => {
-          if (memo.indexOf(item.pluginId) === -1) {
-            memo.push(item.pluginId)
-          }
-          return memo
-        }, ['Any']).map((pluginId) => {
+        ['Any'].concat(this.state.plugins).map((pluginId) => {
           return React.createElement('option', { key: pluginId }, pluginId)
+        })
+      ),
+      React.createElement(
+        'select',
+        {
+          defaultValue: this.state.selectedType,
+          onChange: this.handleTypeChange,
+        },
+        this.state.logTypes.map((logType) => {
+          return React.createElement('option', { key: logType }, logType)
         })
       ),
       React.createElement(
@@ -61,6 +93,8 @@ const Debug = React.createClass({
         null,
         this.state.items.filter((item) => {
           return ['Any', item.pluginId].indexOf(this.state.selectedPlugin) !== -1
+        }).filter((item) => {
+          return allowedTypes.indexOf(item.type) !== -1
         }).map((item, key) => {
           return React.createElement(
             'li',

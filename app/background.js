@@ -51,7 +51,7 @@ if (shouldQuit) {
 }
 
 globalEmitter.on('showAbout', (message) => {
-  if (aboutWindow) aboutWindow.close()
+  if (aboutWindow) return aboutWindow.focus()
   aboutWindow = new BrowserWindow({
     width: 200,
     height: 200,
@@ -80,7 +80,7 @@ globalEmitter.on('quitApp', () => {
 })
 
 globalEmitter.on('showDebug', (message) => {
-  if (debugWindow) debugWindow.close()
+  if (debugWindow) return debugWindow.focus()
   debugWindow = new BrowserWindow({
     width: 600,
     height: 400,

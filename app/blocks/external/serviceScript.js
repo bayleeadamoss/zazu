@@ -32,7 +32,7 @@ class ServiceScript extends ExternalBlock {
   call () {}
 
   queue () {
-    this.logger.log('Queueing Service', { interval: this.interval })
+    this.logger.info('Queueing Service', { interval: this.interval })
     setTimeout(() => {
       this.handle()
     }, this.interval)
@@ -46,7 +46,7 @@ class ServiceScript extends ExternalBlock {
       })
       return Promise.resolve()
     }
-    this.logger.log('Executing script')
+    this.logger.info('Executing script')
     return this.script(this.options).then(() => {
       this.queue()
     }).catch((error) => {

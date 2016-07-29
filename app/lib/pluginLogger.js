@@ -6,6 +6,10 @@ class PluginLogger {
     this.blockId = blockId
   }
 
+  info (message, data) {
+    this._log('info', message, data)
+  }
+
   log (message, data) {
     this._log('log', message, data)
   }
