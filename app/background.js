@@ -86,8 +86,8 @@ globalEmitter.on('showDebug', (message) => {
     resizable: true,
     title: 'Debug Zazu',
   })
-  aboutWindow.on('closed', () => {
-    aboutWindow = null
+  debugWindow.on('closed', () => {
+    debugWindow = null
   })
   debugWindow.loadURL(path.join('file://', __dirname, '/debug.html'))
 })
