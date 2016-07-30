@@ -36,7 +36,6 @@
     <nav class="c-navigation is-fixed">
   <div class="c-navigation__container u-container">
     <a class="c-navigation__item " href="/">Home</a>
-    <a class="c-navigation__item " href="/tutorials/">Tutorials</a>
     <a class="c-navigation__item " href="/documentation/">Docs</a>
     <a class="c-navigation__item " href="/packages/">Packages</a>
   </div>
@@ -58,7 +57,6 @@
       </a> &gt;
     </span>
     
-      
       
       
     
@@ -91,6 +89,13 @@
       <li><a href="#user-script" id="markdown-toc-user-script">User Script</a></li>
     </ul>
   </li>
+  <li><a href="#plugin-context" id="markdown-toc-plugin-context">Plugin Context</a>    <ul>
+      <li><a href="#console" id="markdown-toc-console">Console</a></li>
+      <li><a href="#cwd" id="markdown-toc-cwd">CWD</a></li>
+      <li><a href="#clipboard" id="markdown-toc-clipboard">Clipboard</a></li>
+      <li><a href="#nativeimage" id="markdown-toc-nativeimage">NativeImage</a></li>
+    </ul>
+  </li>
 </ul>
 
 <h2 id="blocks">Blocks</h2>
@@ -101,13 +106,14 @@ If they fork, each block will get their own copy of the current value.</p>
 
 <p>Blocks link to other blocks via <code class="highlighter-rouge">connections</code>. Once a blocks gets executed,
 it’s connections will get executed after. You can link to both output and input
-blocks.</p>
+blocks. All blocks have connections unless the block explicitly mentions
+otherwise.</p>
 
 <p>All blocks can have the following properties:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">id</code> <em>int|string</em>: Unique identifier of the block, used to help make connections.</li>
-  <li><code class="highlighter-rouge">connections</code> <em>int[]</em>: Blocks to execute if one of the results are chosen.</li>
+  <li><code class="highlighter-rouge">id</code> <em>mixed</em>: Unique identifier of the block, used when creating connections.</li>
+  <li><code class="highlighter-rouge">connections</code> <em>mixed[]</em>: Blocks to execute if one of the results are chosen.</li>
   <li><code class="highlighter-rouge">type</code> <em>string</em>: Name of the block you wish to use.</li>
 </ul>
 
@@ -140,11 +146,10 @@ block of your plugin.</p>
 </ul>
 
 <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
-  <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
   <span class="na">type</span><span class="p">:</span> <span class="s1">'Hotkey'</span><span class="p">,</span>
   <span class="na">hotkey</span><span class="p">:</span> <span class="s1">'cmd+shift+o'</span><span class="p">,</span>
   <span class="na">name</span><span class="p">:</span> <span class="s1">'Inverse'</span><span class="p">,</span>
-  <span class="na">connections</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+  <span class="na">connections</span><span class="p">:</span> <span class="p">[</span><span class="s1">'PlayPandora'</span><span class="p">],</span>
 <span class="p">}]</span>
 </code></pre>
 </div>
@@ -156,22 +161,56 @@ files or checking the active application. This block allows you to run your
 script on a set interval. Your service is not guaranteed to run on the given
 interval.</p>
 
-<p>The connections on this block will be ignored.</p>
+<p>NOTICE: The connections on this block will be ignored.</p>
 
 <p>Variables defined in the <a href="/documentation/configuration/">configuration</a> will be
-used as environment variables in the script call.</p>
+used as environment variables passed into the script.</p>
 
 <ul>
   <li><code class="highlighter-rouge">interval</code> <em>int</em>: Milliseconds between the time we run the script. Must be <code class="highlighter-rouge">&gt;=100</code>.</li>
-  <li><code class="highlighter-rouge">script</code> <em>string</em>: Command to be ran. The return value is ignored.</li>
+  <li><code class="highlighter-rouge">script</code> <em>string</em>: Path to the node file to execute.</li>
 </ul>
 
 <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
-  <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">id</span><span class="p">:</span> <span class="s1">'Cache Packages'</span><span class="p">,</span>
   <span class="na">type</span><span class="p">:</span> <span class="s1">'ServiceScript'</span><span class="p">,</span>
-  <span class="na">script</span><span class="p">:</span> <span class="s1">'node scanClipboard.js'</span><span class="p">,</span>
-  <span class="na">interval</span><span class="p">:</span> <span class="mi">30000</span><span class="p">,</span>
+  <span class="na">script</span><span class="p">:</span> <span class="s1">'cachePackages.js'</span><span class="p">,</span>
+  <span class="na">interval</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
 <span class="p">}]</span>
+</code></pre>
+</div>
+
+<p>Below is an example of the <code class="highlighter-rouge">Cache Packages</code> block we defined earlier. It fetches
+a json file from the <a href="https://en.wikipedia.org/wiki/Internet">internet</a> and
+store it in the plugin directory under the name <code class="highlighter-rouge">packages.json</code>.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// cachePackages.js</span>
+<span class="kr">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'fs'</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'http'</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'path'</span><span class="p">)</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">(</span><span class="nx">pluginContext</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">packageUrl</span> <span class="o">=</span> <span class="s1">'http://zazuapp.org/packages.json'</span>
+  <span class="kr">const</span> <span class="nx">outputFile</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">pluginContext</span><span class="p">.</span><span class="nx">cwd</span><span class="p">,</span> <span class="s1">'packages.json'</span><span class="p">)</span>
+
+  <span class="k">return</span> <span class="p">(</span><span class="nx">env</span> <span class="o">=</span> <span class="p">{})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">packageUrl</span><span class="p">,</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="kr">const</span> <span class="nx">chunks</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="nx">response</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'data'</span><span class="p">,</span> <span class="p">(</span><span class="nx">chunk</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+          <span class="nx">chunks</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">chunk</span><span class="p">.</span><span class="nx">toString</span><span class="p">())</span>
+        <span class="p">})</span>
+
+        <span class="nx">response</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'end'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+          <span class="nx">resolve</span><span class="p">(</span><span class="nx">chunks</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">''</span><span class="p">))</span>
+        <span class="p">})</span>
+      <span class="p">})</span>
+    <span class="p">}).</span><span class="nx">then</span><span class="p">((</span><span class="nx">data</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFileSync</span><span class="p">(</span><span class="nx">outputFile</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span>
+    <span class="p">})</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
@@ -193,53 +232,105 @@ scripts should be able to handle a <a href="http://www.gnu.org/software/libc/man
 
 <h3 id="root-script">Root Script</h3>
 
-<p>This allows you to execute your script without any input prefixes.</p>
+<p>This allows you to execute a node script with a prefix.</p>
+
+<ul>
+  <li><code class="highlighter-rouge">script</code> <em>string</em>: Path to the node file to execute.</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
+  <span class="na">id</span><span class="p">:</span> <span class="s1">'Calculator'</span><span class="p">,</span>
+  <span class="na">type</span><span class="p">:</span> <span class="s1">'RootScript'</span><span class="p">,</span>
+  <span class="na">script</span><span class="p">:</span> <span class="s1">'calculator.js'</span><span class="p">,</span>
+  <span class="na">connections</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Copy'</span><span class="p">],</span>
+<span class="p">}]</span>
+</code></pre>
+</div>
+
+<p>We call the <code class="highlighter-rouge">export</code> with the <a href="#plugin-context">Plugin Context</a>, which should
+return an object with two methods <code class="highlighter-rouge">respondsTo</code> and <code class="highlighter-rouge">search</code>.</p>
+
+<p>The <code class="highlighter-rouge">respondsTo</code> method takes a <code class="highlighter-rouge">query</code> and asks the plugin if they are willing
+to respond to that input.</p>
+
+<p>The <code class="highlighter-rouge">search</code> method takes a <code class="highlighter-rouge">query</code> and <code class="highlighter-rouge">env</code> and returns a
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>.
+that resolves with results.</p>
 
 <p>Variables defined in the <a href="/documentation/configuration/">configuration</a> will be used as
 environment variables in the script call.</p>
 
-<ul>
-  <li><code class="highlighter-rouge">respondsTo</code> <em>function</em>: Filter input so your plugin doesn’t run after each keystroke</li>
-  <li><code class="highlighter-rouge">script</code> <em>string</em>: Shell command that returns results</li>
-</ul>
-
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
-  <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-  <span class="na">type</span><span class="p">:</span> <span class="s1">'RootScript'</span><span class="p">,</span>
-  <span class="na">respondsTo</span><span class="p">:</span> <span class="p">(</span><span class="nx">input</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="kr">const</span> <span class="nx">hasEquation</span> <span class="o">=</span> <span class="nx">input</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^</span><span class="se">[\d\.\(\)\+\-</span><span class="sr">*</span><span class="se">\/\s]</span><span class="sr">+$/</span><span class="p">)</span>
-    <span class="kr">const</span> <span class="nx">hasNumbers</span> <span class="o">=</span> <span class="nx">input</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/</span><span class="se">\d</span><span class="sr">/</span><span class="p">)</span>
-    <span class="k">return</span> <span class="nx">hasEquation</span> <span class="o">&amp;&amp;</span> <span class="nx">hasNumbers</span>
-  <span class="p">},</span>
-  <span class="na">script</span><span class="p">:</span> <span class="s1">'node calculator.js {query}'</span><span class="p">,</span>
-  <span class="na">connections</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span>
-<span class="p">}]</span>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// calculator.js</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">(</span><span class="nx">pluginContext</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">respondsTo</span><span class="p">:</span> <span class="p">(</span><span class="nx">query</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">query</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/</span><span class="se">\d</span><span class="sr">/</span><span class="p">)</span>
+    <span class="p">},</span>
+    <span class="na">search</span><span class="p">:</span> <span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="nx">env</span> <span class="o">=</span> <span class="p">{})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nx">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="kr">const</span> <span class="nx">value</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="nx">query</span><span class="p">)</span>
+        <span class="nx">resolve</span><span class="p">([</span>
+          <span class="p">{</span>
+            <span class="na">icon</span><span class="p">:</span> <span class="s1">'fa-calculator'</span><span class="p">,</span>
+            <span class="na">title</span><span class="p">:</span> <span class="nx">value</span><span class="p">,</span>
+            <span class="na">subtitle</span><span class="p">:</span> <span class="s1">'Select item to copy the value to the clipboard.'</span><span class="p">,</span>
+            <span class="na">value</span><span class="p">:</span> <span class="nx">value</span><span class="p">,</span>
+          <span class="p">}</span>
+        <span class="p">])</span>
+      <span class="p">})</span>
+    <span class="p">},</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
 <h3 id="prefix-script">Prefix Script</h3>
 
-<p>This allows you to execute your script with a prefix.</p>
-
-<p>Variables defined in the <a href="/documentation/configuration/">configuration</a> will be used as
-environment variables in the script call.</p>
+<p>This allows you to execute a node script with a prefix.</p>
 
 <ul>
   <li><code class="highlighter-rouge">prefix</code> <em>string</em>: Prefix to be used before user input.</li>
   <li><code class="highlighter-rouge">space</code> <em>boolean</em>: If a space should be between the Prefix and the user input.</li>
   <li><code class="highlighter-rouge">args</code> <em>string</em>: Specifies if you want arguments. Possibles values are <code class="highlighter-rouge">Required</code>, <code class="highlighter-rouge">Optional</code> and <code class="highlighter-rouge">None</code>.</li>
-  <li><code class="highlighter-rouge">script</code> <em>string</em>: Shell command that returns results</li>
+  <li><code class="highlighter-rouge">script</code> <em>string</em>: Path to the node file to execute.</li>
 </ul>
 
 <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
-  <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">id</span><span class="p">:</span> <span class="s1">'Calculator'</span><span class="p">,</span>
   <span class="na">type</span><span class="p">:</span> <span class="s1">'PrefixScript'</span><span class="p">,</span>
   <span class="na">prefix</span><span class="p">:</span> <span class="s1">'calc'</span><span class="p">,</span>
   <span class="na">space</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
   <span class="na">args</span><span class="p">:</span> <span class="s1">'Required'</span><span class="p">,</span>
-  <span class="na">script</span><span class="p">:</span> <span class="s1">'node calculator.js {query}'</span><span class="p">,</span>
-  <span class="na">connections</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+  <span class="na">script</span><span class="p">:</span> <span class="s1">'calculator.js'</span><span class="p">,</span>
+  <span class="na">connections</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Copy'</span><span class="p">],</span>
 <span class="p">}]</span>
+</code></pre>
+</div>
+
+<p>The node script needs to have a curried function that returns a promise. We call
+the export with the <a href="#plugin-context">Plugin Context</a>. The search function can
+accept a query and the environment variables, and it should return a
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>.</p>
+
+<p>Variables defined in the <a href="/documentation/configuration/">configuration</a> will be used as
+environment variables in the script call.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// calculator.js</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">(</span><span class="nx">pluginContext</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="nx">env</span> <span class="o">=</span> <span class="p">{})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="kr">const</span> <span class="nx">value</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="nx">query</span><span class="p">)</span>
+      <span class="nx">resolve</span><span class="p">([</span>
+        <span class="p">{</span>
+          <span class="na">icon</span><span class="p">:</span> <span class="s1">'fa-calculator'</span><span class="p">,</span>
+          <span class="na">title</span><span class="p">:</span> <span class="nx">value</span><span class="p">,</span>
+          <span class="na">subtitle</span><span class="p">:</span> <span class="s1">'Select item to copy the value to the clipboard.'</span><span class="p">,</span>
+          <span class="na">value</span><span class="p">:</span> <span class="nx">value</span><span class="p">,</span>
+        <span class="p">}</span>
+      <span class="p">])</span>
+    <span class="p">})</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
@@ -256,12 +347,12 @@ can click on.</p>
 </ul>
 
 <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
-  <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">id</span><span class="p">:</span> <span class="s1">'Play'</span><span class="p">,</span>
   <span class="na">type</span><span class="p">:</span> <span class="s1">'Keyword'</span><span class="p">,</span>
   <span class="na">keyword</span><span class="p">:</span> <span class="s1">'play'</span><span class="p">,</span>
   <span class="na">title</span><span class="p">:</span> <span class="s1">'Play Pandora'</span><span class="p">,</span>
   <span class="na">subtitle</span><span class="p">:</span> <span class="s1">'Click to play Pandora!'</span><span class="p">,</span>
-  <span class="na">connections</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+  <span class="na">connections</span><span class="p">:</span> <span class="p">[</span><span class="s1">'PlayPandora'</span><span class="p">],</span>
 <span class="p">}]</span>
 </code></pre>
 </div>
@@ -293,7 +384,7 @@ be replaced with the current value of the result being passed around.</p>
 </ul>
 
 <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
-  <span class="na">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="na">id</span><span class="p">:</span> <span class="s1">'Copy'</span><span class="p">,</span>
   <span class="na">type</span><span class="p">:</span> <span class="s1">'CopyToClipboard'</span><span class="p">,</span>
   <span class="na">text</span><span class="p">:</span> <span class="s1">'{value}'</span><span class="p">,</span>
 <span class="p">}]</span>
@@ -309,7 +400,7 @@ be replaced with the current value of the result being passed around.</p>
 </ul>
 
 <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
-  <span class="na">id</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+  <span class="na">id</span><span class="p">:</span> <span class="s1">'Link'</span><span class="p">,</span>
   <span class="na">type</span><span class="p">:</span> <span class="s1">'OpenInBrowser'</span><span class="p">,</span>
   <span class="na">url</span><span class="p">:</span> <span class="s1">'{value}'</span><span class="p">,</span>
 <span class="p">}]</span>
@@ -326,7 +417,7 @@ be replaced with the current value of the result being passed around.</p>
 </ul>
 
 <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
-  <span class="na">id</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+  <span class="na">id</span><span class="p">:</span> <span class="s1">'Notify'</span><span class="p">,</span>
   <span class="na">type</span><span class="p">:</span> <span class="s1">'SendNotification'</span><span class="p">,</span>
   <span class="na">title</span><span class="p">:</span> <span class="s1">'Hello world'</span><span class="p">,</span>
   <span class="na">message</span><span class="p">:</span> <span class="s1">'{value}'</span><span class="p">,</span>
@@ -339,7 +430,7 @@ be replaced with the current value of the result being passed around.</p>
 <p>To open a file in the default application.</p>
 
 <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
-  <span class="na">id</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+  <span class="na">id</span><span class="p">:</span> <span class="s1">'Open'</span><span class="p">,</span>
   <span class="na">type</span><span class="p">:</span> <span class="s1">'OpenFile'</span><span class="p">,</span>
 <span class="p">}]</span>
 </code></pre>
@@ -350,7 +441,7 @@ be replaced with the current value of the result being passed around.</p>
 <p>To show a file in it’s folder.</p>
 
 <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
-  <span class="na">id</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+  <span class="na">id</span><span class="p">:</span> <span class="s1">'Show'</span><span class="p">,</span>
   <span class="na">type</span><span class="p">:</span> <span class="s1">'ShowFile'</span><span class="p">,</span>
 <span class="p">}]</span>
 </code></pre>
@@ -358,20 +449,99 @@ be replaced with the current value of the result being passed around.</p>
 
 <h3 id="user-script">User Script</h3>
 
-<p>For those more unique actions, you can run any script you need.</p>
-
-<p>Variables will be passed as environment variables, but this plugin cannot mutate
-the state.</p>
+<p>If you need to process or modify your state, this allows you to run any script
+on the current state being passed down.</p>
 
 <ul>
-  <li><code class="highlighter-rouge">script</code> <em>string</em>: The shell command to run to return the results.</li>
+  <li><code class="highlighter-rouge">script</code> <em>string</em>: Path to the node file to execute.</li>
 </ul>
 
 <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
-  <span class="na">id</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+  <span class="na">id</span><span class="p">:</span> <span class="s1">'Process'</span><span class="p">,</span>
   <span class="na">type</span><span class="p">:</span> <span class="s1">'UserScript'</span><span class="p">,</span>
-  <span class="na">script</span><span class="p">:</span> <span class="s1">'ruby output.rb {value}'</span><span class="p">,</span>
+  <span class="na">script</span><span class="p">:</span> <span class="s1">'process.js'</span><span class="p">,</span>
+  <span class="na">value</span><span class="p">:</span> <span class="s1">'{value}'</span><span class="p">,</span>
+  <span class="na">connections</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Copy'</span><span class="p">],</span>
 <span class="p">}]</span>
+</code></pre>
+</div>
+
+<p>In the example below we take in a unicode value and output the character that
+corresponds to that unicode value using
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/fromCharCode"><code class="highlighter-rouge">String.fromCharCode</code></a>.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// process.js</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">(</span><span class="nx">pluginContext</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">resolve</span><span class="p">(</span><span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="nx">value</span><span class="p">))</span>
+    <span class="p">})</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h2 id="plugin-context">Plugin Context</h2>
+
+<p>The pluginContext object passed to node scripts and contains some useful
+functions to help enable your scripts.</p>
+
+<h3 id="console">Console</h3>
+
+<p>The Plugin Debugger is useful, since we surface information to you to help you
+develop your plugins better. This API allows you to surface your own logs to the
+Plugin Debugger.</p>
+
+<p>The API including <code class="highlighter-rouge">console.log</code>, <code class="highlighter-rouge">console.warn</code> and <code class="highlighter-rouge">console.error</code> all take the
+same parameters:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">message</code> <em>string</em>: Log message to be displayed.</li>
+  <li><code class="highlighter-rouge">data</code> <em>object</em>: Other misc data that could be useful.</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">(</span><span class="nx">pluginContext</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">pluginContext</span><span class="p">.</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'hello world'</span><span class="p">,</span> <span class="p">{</span>
+    <span class="na">ping</span><span class="p">:</span> <span class="s1">'pong'</span><span class="p">,</span>
+  <span class="p">})</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h3 id="cwd">CWD</h3>
+
+<p>The current working directory of the node script being ran.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'path'</span><span class="p">)</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">(</span><span class="nx">pluginContext</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">outputFile</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">pluginContext</span><span class="p">.</span><span class="nx">cwd</span><span class="p">,</span> <span class="s1">'output.json'</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h3 id="clipboard">Clipboard</h3>
+
+<p>An instance of the <a href="https://github.com/electron/electron/blob/master/docs/api/clipboard.md">Electron
+Clipboard</a>
+instance.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'path'</span><span class="p">)</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">(</span><span class="nx">pluginContext</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">clipboard</span> <span class="o">=</span> <span class="nx">pluginContext</span><span class="p">.</span><span class="nx">clipboard</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h3 id="nativeimage">NativeImage</h3>
+
+<p>An instance of the <a href="https://github.com/electron/electron/blob/master/docs/api/native-image.md">Electron
+NativeImage</a>
+instance.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'path'</span><span class="p">)</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">(</span><span class="nx">pluginContext</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">nativeImage</span> <span class="o">=</span> <span class="nx">pluginContext</span><span class="p">.</span><span class="nx">nativeImage</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 

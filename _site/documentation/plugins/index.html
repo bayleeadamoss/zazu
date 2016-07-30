@@ -35,7 +35,6 @@
     <nav class="c-navigation is-fixed">
   <div class="c-navigation__container u-container">
     <a class="c-navigation__item " href="/">Home</a>
-    <a class="c-navigation__item " href="/tutorials/">Tutorials</a>
     <a class="c-navigation__item " href="/documentation/">Docs</a>
     <a class="c-navigation__item " href="/packages/">Packages</a>
   </div>
@@ -59,7 +58,6 @@
     
       
       
-      
         <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
           <a href="/documentation" title="Documentation" itemprop="url">
             <span itemprop="title">Documentation</span>
@@ -81,8 +79,10 @@
   </li>
   <li><a href="#results" id="markdown-toc-results">Results</a>    <ul>
       <li><a href="#result-fields" id="markdown-toc-result-fields">Result Fields</a></li>
+      <li><a href="#internal-ranking" id="markdown-toc-internal-ranking">Internal Ranking</a></li>
     </ul>
   </li>
+  <li><a href="#debugging" id="markdown-toc-debugging">Debugging</a></li>
 </ul>
 
 <h2 id="plugin-overview">Plugin Overview</h2>
@@ -155,6 +155,7 @@ result might look like:</p>
 <h3 id="result-fields">Result Fields</h3>
 
 <ul>
+  <li><code class="highlighter-rouge">id</code> <em>string</em>: Identifier for <a href="#internal-ranking">internal ranking</a>.</li>
   <li><code class="highlighter-rouge">icon</code> <em>string</em>: Supports <a href="http://fontawesome.io/icons/">font awesome</a>
 icons as well as absolute paths to the icon in your project. If one is not
 provided it will fallback tot he icon for your project.</li>
@@ -168,6 +169,19 @@ the connection block is, which could be to
 <a href="/documentation/blocks/#copy-to-clipboard">copy to the clipboard</a> or it could
 run a custom <a href="/documentation/blocks/#user-script">user script</a>.</li>
 </ul>
+
+<h3 id="internal-ranking">Internal Ranking</h3>
+
+<p>If you provide results with an <code class="highlighter-rouge">id</code>, Zazu will rank frequently clicked items
+higher in the results list. This works well even if you sort the results
+yourself. If you don’t want this behavior, simply don’t add an id to the result.</p>
+
+<h2 id="debugging">Debugging</h2>
+
+<p>In the Tray icon, under <code class="highlighter-rouge">Development</code> there is a debugger called <code class="highlighter-rouge">Plugin
+Debugger</code> that will output info, warnings and errors of all plugins in a
+filterable interface. Select the plugin you are trying to debug and get logs
+for all the blocks being executed.</p>
 
 
     </div>

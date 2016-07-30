@@ -72,8 +72,8 @@ module.exports = {
 }
 ~~~~
 
-### Tracking
+### Analytics
 
 We send anonymous usage to [New Relic](https://newrelic.com/). To opt out of
-sending this anonymous data you can set `doNotTrack` to `false` in your
+sending this anonymous data you can set `disableAnalytics` to `false` in your
 configuration.
