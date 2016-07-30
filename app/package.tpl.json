@@ -22,6 +22,9 @@
     "react-dom": "^15.0.1",
     "semver": "^5.0.3"
   },
+  "engines": {
+    "electron": "1.3.1"
+  },
   "packageNameTemplate": "{{name}}-v{{version}}-{{platform}}-{{arch}}",
   "osx": {
     "build": "1",
