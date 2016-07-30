@@ -10,9 +10,6 @@ siteurl: 'http://zazuapp.org'
 branch: gh-pages
 
 collections:
-  tutorials:
-    output: true
-    permalink: /tutorials/:path/
   packages:
     output: false
   documentation:
@@ -33,7 +30,7 @@ githubUsername: tinytacoteam
 # Build settings
 permalink: /:year/:month/:title
 markdown: kramdown
-include: [_pages, _tutorials, _packages, _documentation]
+include: [_pages, _packages, _documentation]
 exclude: [vendor, _site, CHANGELOG.md, LICENSE, README.md, .ruby-version]
 sass:
   style: compressed
