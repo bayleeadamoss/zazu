@@ -1,4 +1,4 @@
-const clone = require('git-clone')
+const git = require('nodegit')
 const path = require('path')
 const jetpack = require('fs-jetpack')
 
@@ -8,7 +8,7 @@ class Package {
   constructor (url) {
     this.path = path.join(configuration.pluginDir, url)
     this.url = url
-    this.clone = clone
+    this.clone = git.Clone
   }
 
   load () {
@@ -23,16 +23,11 @@ class Package {
   }
 
   download () {
-    return new Promise((resolve, reject) => {
-      if (jetpack.exists(this.path)) {
-        return resolve('exists')
-      }
-      this.clone('https://github.com/' + this.url, this.path, { shallow: true }, (error) => {
-        if (error) {
-          reject(`Package '${this.url}' failed to load.`)
-        }
-        resolve('downloaded')
-      })
+    if (jetpack.exists(this.path)) {
+      return Promise.resolve('exists')
+    }
+    return this.clone('https://github.com/' + this.url, this.path).then(() => {
+      return 'downloaded'
     })
   }
 }
