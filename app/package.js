@@ -1,6 +1,7 @@
 const { clone, pull } = require('./lib/git')
 const path = require('path')
 const jetpack = require('fs-jetpack')
+const freshRequire = require('./lib/freshRequire')
 
 const configuration = require('./configuration')
 
@@ -14,7 +15,7 @@ class Package {
 
   load () {
     return this.download().then(() => {
-      const plugin = require(path.join(this.path, 'zazu.js'))
+      const plugin = freshRequire(path.join(this.path, 'zazu.js'))
       plugin.blocks = plugin.blocks || {}
       plugin.blocks.external = plugin.blocks.external || []
       plugin.blocks.input = plugin.blocks.input || []
