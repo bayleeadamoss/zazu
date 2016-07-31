@@ -1,4 +1,5 @@
 const ExternalBlock = require('../externalBlock')
+const freshRequire = require('../../lib/freshRequire.js')
 
 const path = require('path')
 
@@ -14,7 +15,7 @@ class ServiceScript extends ExternalBlock {
       this.interval = 100
     }
     try {
-      const plugin = require(path.join(this.cwd, data.script))
+      const plugin = freshRequire(path.join(this.cwd, data.script))
       const electron = require('electron')
       this.script = plugin({
         console: this.logger,

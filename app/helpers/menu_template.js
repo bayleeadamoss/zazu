@@ -65,10 +65,16 @@ const trayTemplate = [
   },
   { type: 'separator' },
   {
-    label: 'Check for updates...',
+    label: 'Check for Zazu Updates',
     click: () => {
       const update = new Update()
       update.check(true)
+    },
+  },
+  {
+    label: 'Update installed Plugins',
+    click: () => {
+      globalEmitter.emit('updatePlugins')
     },
   },
   { type: 'separator' },

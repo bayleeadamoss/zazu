@@ -1,4 +1,5 @@
 const InputBlock = require('../inputBlock')
+const freshRequire = require('../../lib/freshRequire.js')
 
 const path = require('path')
 
@@ -6,7 +7,7 @@ class RootScript extends InputBlock {
   constructor (data) {
     super(data)
     try {
-      const plugin = require(path.join(data.cwd, data.script))
+      const plugin = freshRequire(path.join(data.cwd, data.script))
       const electron = require('electron')
       this.script = plugin({
         console: this.logger,

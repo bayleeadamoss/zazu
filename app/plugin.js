@@ -26,13 +26,28 @@ class Plugin extends Package {
     })
   }
 
+  update () {
+    return super.update().then((action) => {
+      if (action === 'downloaded') {
+        return npmInstall(this.path)
+      } else {
+        return Promise.resolve()
+      }
+    })
+  }
+
   download () {
     return super.download().then((action) => {
       if (action === 'downloaded') {
-        return new Promise((resolve, reject) => {
-          npmInstall(this.path).then(resolve)
-        })
+        return npmInstall(this.path)
+      } else {
+        return Promise.resolve()
       }
+    }).catch((error) => {
+      notification.push({
+        title: 'Plugin failed to download',
+        message: error.message,
+      })
     })
   }
 

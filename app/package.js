@@ -1,4 +1,4 @@
-const clone = require('git-clone')
+const { clone, pull } = require('./lib/git')
 const path = require('path')
 const jetpack = require('fs-jetpack')
 
@@ -9,6 +9,7 @@ class Package {
     this.path = path.join(configuration.pluginDir, url)
     this.url = url
     this.clone = clone
+    this.pull = pull
   }
 
   load () {
@@ -22,17 +23,19 @@ class Package {
     })
   }
 
+  update () {
+    if (!jetpack.exists(this.path)) {
+      return Promise.reject('Package' + this.url + ' does not exist')
+    }
+    return this.pull(this.path)
+  }
+
   download () {
-    return new Promise((resolve, reject) => {
-      if (jetpack.exists(this.path)) {
-        return resolve('exists')
-      }
-      this.clone('https://github.com/' + this.url, this.path, { shallow: true }, (error) => {
-        if (error) {
-          reject(`Package '${this.url}' failed to load.`)
-        }
-        resolve('downloaded')
-      })
+    if (jetpack.exists(this.path)) {
+      return Promise.resolve('exists')
+    }
+    return this.clone(this.url, this.path).then(() => {
+      return 'downloaded'
     })
   }
 }

@@ -1,14 +1,11 @@
 const React = require('react')
 
-const Theme = require('./theme')
-const configuration = require('./configuration')
 const Style = require('./components/style')
 const Search = require('./components/search')
 const Results = require('./components/results')
 const PluginStore = require('./store/pluginStore')
 const globalEmitter = require('./lib/globalEmitter')
 const ResultSorter = require('./lib/resultSorter')
-const track = require('./lib/track')
 
 const Zazu = React.createClass({
 
@@ -21,17 +18,7 @@ const Zazu = React.createClass({
   },
 
   componentDidMount () {
-    configuration.load()
-    track.setAttribute('zazuTheme', configuration.theme)
-    const theme = new Theme(configuration.theme, configuration.pluginDir)
-    theme.load().then((theme) => {
-      this.setState({
-        theme,
-      })
-    })
-
-    PluginStore.load()
-
+    PluginStore.addThemeListener(this.updateTheme)
     PluginStore.addResultListener(this.updateResults)
 
     globalEmitter.on('showWindow', () => {
@@ -45,11 +32,18 @@ const Zazu = React.createClass({
 
   componentWillUnmount () {
     PluginStore.removeResultListener(this.updateResults)
+    PluginStore.removeThemeListener(this.updateTheme)
   },
 
-  updateResults () {
+  updateTheme (theme) {
     this.setState({
-      results: new ResultSorter(PluginStore.results).sort(),
+      theme,
+    })
+  },
+
+  updateResults (results) {
+    this.setState({
+      results: new ResultSorter(results).sort(),
     })
   },
 

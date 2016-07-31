@@ -15,7 +15,7 @@ describe('Package', () => {
   const calculator = new Package('example/calculator', base)
   describe('download', () => {
     beforeEach(() => {
-      calculator.clone = sinon.stub()
+      calculator.clone = sinon.stub().returns(Promise.resolve())
       jetpack.remove(calculator.path)
     })
 
