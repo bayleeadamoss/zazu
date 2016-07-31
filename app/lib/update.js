@@ -52,7 +52,7 @@ class Update {
           defaultId: 1,
           cancelId: 0,
           title: 'Zazu Updater',
-          message: 'Zazu v' + updateVersion + ' is available for download!',
+          message: 'Zazu ' + updateVersion + ' is available for download!',
           detail: 'Click download to get the newest version of Zazu!',
         }, (response) => {
           if (response === 1) {
