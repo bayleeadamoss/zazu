@@ -139,7 +139,7 @@ app.on('ready', function () {
   })
 
   globalEmitter.on('toggleWindow', () => {
-    mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show()
+    globalEmitter.emit(mainWindow.isVisible() ? 'hideWindow' : 'showWindow')
   })
 
   globalEmitter.on('registerHotkey', (accelerator) => {
