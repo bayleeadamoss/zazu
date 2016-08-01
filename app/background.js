@@ -131,6 +131,7 @@ app.on('ready', function () {
 
   globalEmitter.on('hideWindow', () => {
     mainWindow.hide()
+    app.hide()
   })
 
   globalEmitter.on('showWindow', () => {
