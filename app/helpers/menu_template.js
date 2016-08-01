@@ -1,6 +1,20 @@
-const { BrowserWindow } = require('electron')
+const { BrowserWindow, dialog } = require('electron')
 const globalEmitter = require('../lib/globalEmitter')
 const Update = require('../lib/update')
+
+const toggleDevTools = () => {
+  const currentWindow = BrowserWindow.getFocusedWindow()
+  if (currentWindow) {
+    currentWindow.toggleDevTools()
+  } else {
+    dialog.showMessageBox({
+      type: 'error',
+      message: 'No focused window',
+      detail: 'There are currently no focused windows.',
+      buttons: ['Ok'],
+    })
+  }
+}
 
 const appTemplate = [
   {
@@ -15,9 +29,7 @@ const appTemplate = [
       {
         label: 'Toggle DevTools',
         accelerator: 'Alt+CmdOrCtrl+I',
-        click: function () {
-          BrowserWindow.getFocusedWindow().toggleDevTools()
-        },
+        click: toggleDevTools,
       },
       {
         label: 'Quit',
@@ -57,9 +69,7 @@ const trayTemplate = [
       {
         label: 'Toggle DevTools',
         accelerator: 'Alt+CmdOrCtrl+I',
-        click: function () {
-          BrowserWindow.getFocusedWindow().toggleDevTools()
-        },
+        click: toggleDevTools,
       },
     ],
   },
