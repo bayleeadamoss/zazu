@@ -158,7 +158,7 @@ app.on('ready', function () {
   })
 
   mainWindow.on('blur', () => {
-    globalEmitter.emit('hideWindow')
+    if (mainWindow.isVisible()) globalEmitter.emit('hideWindow')
   })
 
   configuration.load()
