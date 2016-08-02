@@ -118,6 +118,9 @@ app.on('ready', function () {
     alwaysOnTop: true,
     fullscreenable: false,
     title: 'Zazu',
+    webPreferences: {
+      backgroundThrottling: false,
+    },
   })
 
   checkForUpdate()

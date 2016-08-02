@@ -20,19 +20,17 @@ const Zazu = React.createClass({
   componentDidMount () {
     PluginStore.addThemeListener(this.updateTheme)
     PluginStore.addResultListener(this.updateResults)
+    PluginStore.addQueryListener(this.updateQuery)
 
-    globalEmitter.on('showWindow', () => {
-      setImmediate(() => PluginStore.setQuery(''))
-      this.setState({
-        query: '',
-        results: [],
-      })
+    globalEmitter.on('hideWindow', () => {
+      PluginStore.setQuery('')
     })
   },
 
   componentWillUnmount () {
-    PluginStore.removeResultListener(this.updateResults)
     PluginStore.removeThemeListener(this.updateTheme)
+    PluginStore.removeResultListener(this.updateResults)
+    PluginStore.removeQueryListener(this.updateQuery)
   },
 
   updateTheme (theme) {
@@ -47,11 +45,14 @@ const Zazu = React.createClass({
     })
   },
 
-  handleQueryChange (query) {
-    PluginStore.setQuery(query)
+  updateQuery (query) {
     this.setState({
       query,
     })
+  },
+
+  handleQueryChange (query) {
+    PluginStore.setQuery(query)
   },
 
   handleResultAction (result) {
