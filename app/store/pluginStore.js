@@ -22,12 +22,11 @@ class PluginStore extends EventEmitter {
         return this.load()
       })
     })
-    this.load()
   }
 
   load () {
     configuration.load()
-    this.loadTheme().then(() => {
+    return this.loadTheme().then(() => {
       return this.loadPlugins()
     }).then(() => {
       notification.push({
@@ -81,6 +80,12 @@ class PluginStore extends EventEmitter {
     return Promise.all(this.plugins.map((plugin) => {
       return plugin.update()
     }))
+  }
+
+  resetQuery () {
+    this.query = ''
+    this.emitQueryChange()
+    this.clearResults()
   }
 
   setQuery (query) {

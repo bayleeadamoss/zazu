@@ -22,8 +22,13 @@ const Zazu = React.createClass({
     PluginStore.addResultListener(this.updateResults)
     PluginStore.addQueryListener(this.updateQuery)
 
-    globalEmitter.on('hideWindow', () => {
-      PluginStore.setQuery('')
+    PluginStore.load().then(() => {
+      globalEmitter.on('hideWindow', () => {
+        PluginStore.resetQuery()
+      })
+      globalEmitter.on('showWindow', () => {
+        PluginStore.setQuery('')
+      })
     })
   },
 
