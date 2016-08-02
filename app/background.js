@@ -134,7 +134,11 @@ app.on('ready', function () {
 
   globalEmitter.on('hideWindow', () => {
     mainWindow.hide()
-    app.hide()
+    const debugFocus = debugWindow && debugWindow.isFocused()
+    const aboutFocus = aboutWindow && aboutWindow.isFocused()
+    if (!debugFocus && !aboutFocus) {
+      app.hide()
+    }
   })
 
   globalEmitter.on('showWindow', () => {

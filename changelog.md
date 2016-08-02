@@ -1,3 +1,9 @@
+## v0.1.2
+
+### Fixed Bugs
+
+* Don't hide app when debug or about screens are showing.
+
 ## v0.1.1
 
 ### Fixed Bugs
