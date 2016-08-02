@@ -3,6 +3,7 @@
 ### Fixed Bugs
 
 * Don't hide app when debug or about screens are showing.
+* Correctly clear results when toggling Zazu.
 
 ## v0.1.1
 
