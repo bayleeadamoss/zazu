@@ -1,0 +1,35 @@
+---
+layout: page
+title: Downlod Zazu
+permalink: /download/
+---
+
+<div class="os">
+    <h2>Downlod for your Operating System</h2>
+    <a class="package download windows"
+       href="https://github.com/tinytacoteam/zazu/releases/download/{{ site.currentAppVersion | default: 'v0.1.2' }}/zazu-{{ site.currentAppVersion | default: 'v0.1.2' }}-win32-ia32.exe">
+        <img src="/images/os-icons/windows.png" alt="Windows Download" />
+        <h2>Windows</h2>
+    </a>
+    <a class="package download mac"
+       href="https://github.com/tinytacoteam/zazu/releases/download/{{ site.currentAppVersion | default: 'v0.1.2' }}/zazu-{{ site.currentAppVersion | default: 'v0.1.2' }}-darwin-x64.dmg">
+        <img src="/images/os-icons/mac.png" alt="Mac Download" />
+        <h2>Mac OS X</h2>
+    </a>
+    <a class="package download ubuntu" href="https://github.com/tinytacoteam/zazu/releases/download/{{ site.currentAppVersion | default: 'v0.1.2' }}/zazu-{{ site.currentAppVersion | default: 'v0.1.2' }}-linux-x64.deb">
+        <img src="/images/os-icons/ubuntu.png" alt="Ubuntu Download" />
+        <h2>Ubuntu</h2>
+    </a>
+</div>
+
+<div class="compile">
+    <h2>Compile Locally</h2>
+    <p>If we don't create builds for your platform, feel free to compile it locally</p>
+    <pre>
+git clone git@github.com:tinytacoteam/zazu.git
+cd zazu
+npm install
+npm run release
+open releases
+    </pre>
+</div>

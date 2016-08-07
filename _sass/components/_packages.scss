@@ -9,6 +9,14 @@ a.package {
   position: relative;
   text-decoration: none !important;
 
+  &.download {
+    height: 200px;
+  }
+
+  img {
+    max-width: 128px;
+  }
+
   &:hover {
     background-color: $c__light-grey;
   }
@@ -37,6 +45,18 @@ a.package {
     color: $c__white;
     top: 2px;
     line-height: 1;
+  }
+
+  &.windows:after {
+    content: "\f17a"; // windows logo
+  }
+
+  &.ubuntu:after {
+    content: "\f17c"; // linux penguin
+  }
+
+  &.mac:after {
+    content: "\f179"; // apple icon
   }
 
   &.theme:after {
