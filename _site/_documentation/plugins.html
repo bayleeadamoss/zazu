@@ -86,10 +86,13 @@
 
 <h2 id="plugin-overview">Plugin Overview</h2>
 
-<p>A plugin can be in any language but required a <code class="highlighter-rouge">zazu.js</code> file in the root of the
-project to communicate how to talk to Zazu. Included is some meta information
-about the project and a description of the <a href="/documentation/blocks/">blocks</a> that
-the plugin make use of.</p>
+<p>Plugins provide all the end user behavior. Plugins use a workflow architecutre,
+where some <a href="/documentation/blocks/">blocks</a> return results, and other process
+data. You can have as many blocks as you want that can do their own specific
+tasks.</p>
+
+<p>At the root of every plugin there is a <code class="highlighter-rouge">zazu.js</code> file that tells Zazu how to
+communicate with your plugin.</p>
 
 <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">name</span><span class="p">:</span> <span class="s1">'Demo Plugin'</span><span class="p">,</span>
@@ -135,9 +138,8 @@ so great, they have their own <a href="/documentation/blocks/">block page</a>.</
 
 <h2 id="results">Results</h2>
 
-<p>Your plugin can be written in any language, but it needs to output in a
-<a href="https://en.wikipedia.org/wiki/JSON">JSON</a> format. An example with a single
-result might look like:</p>
+<p>The <a href="/documentation/blocks/#input-blocks">input blocks</a> in your plugins will
+need to return results to Zazu. Here is an example:</p>
 
 <div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
@@ -173,7 +175,8 @@ run a custom <a href="/documentation/blocks/#user-script">user script</a>.</li>
 
 <p>If you provide results with an <code class="highlighter-rouge">id</code>, Zazu will rank frequently clicked items
 higher in the results list. This works well even if you sort the results
-yourself. If you don’t want this behavior, simply don’t add an id to the result.</p>
+yourself. If you don’t want this behavior, simply don’t add an <code class="highlighter-rouge">id</code> to the
+result.</p>
 
 <h2 id="debugging">Debugging</h2>
 
