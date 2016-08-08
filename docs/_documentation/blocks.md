@@ -30,7 +30,7 @@ descriptions.
 
 ## External Blocks
 
-External blocks are ways of accessing Zazu plugins without using the zazu search
+External blocks are ways of accessing Zazu plugins without using the Zazu search
 bar. These types of blocks are unique because they cannot be used as a connection.
 
 ~~~ javascript
@@ -85,7 +85,7 @@ used as environment variables passed into the script.
 ~~~
 
 Below is an example of the `Cache Packages` block we defined earlier. It fetches
-a json file from the [internet](https://en.wikipedia.org/wiki/Internet) and
+a JSON file from the [internet](https://en.wikipedia.org/wiki/Internet) and
 store it in the plugin directory under the name `packages.json`.
 
 ~~~ javascript
@@ -373,7 +373,7 @@ module.exports = (pluginContext) => {
 
 ## Plugin Context
 
-The pluginContext object passed to node scripts and contains some useful
+The `pluginContext` object passed to node scripts and contains some useful
 functions to help enable your scripts.
 
 ### Console
@@ -420,10 +420,10 @@ module.exports = (pluginContext) => {
 }
 ~~~
 
-### NativeImage
+### Native Image
 
 An instance of the [Electron
-NativeImage](https://github.com/electron/electron/blob/master/docs/api/native-image.md)
+Native Image](https://github.com/electron/electron/blob/master/docs/api/native-image.md)
 instance.
 
 ~~~ javascript

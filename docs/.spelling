@@ -8,3 +8,7 @@ repo
 boolean
  - _documentation/blocks.md
 toc
+unicode
+Analytics
+stylesheet
+iframe
