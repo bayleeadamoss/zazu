@@ -10,10 +10,13 @@ title:  "Creating Plugins"
 
 ## Plugin Overview
 
-A plugin can be in any language but required a `zazu.js` file in the root of the
-project to communicate how to talk to Zazu. Included is some meta information
-about the project and a description of the [blocks](/documentation/blocks/) that
-the plugin make use of.
+Plugins provide all the end user behavior. Plugins use a workflow architecutre,
+where some [blocks](/documentation/blocks/) return results, and other process
+data. You can have as many blocks as you want that can do their own specific
+tasks.
+
+At the root of every plugin there is a `zazu.js` file that tells Zazu how to
+communicate with your plugin.
 
 ~~~ javascript
 module.exports = {
