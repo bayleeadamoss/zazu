@@ -12,7 +12,7 @@
     window.newrelic.setCustomAttribute('zazuVersion', 'v0.1.2')
   </script>
 
-  <title>Packages</title>
+  <title>Search</title>
   <meta name="description" content="Zazu is a new open source productivity app, that allows developers to be in the drivers seat. Unlike other solutions, there is no built in integrations, so every plugin has the full scope of what Zazu has to offer.
 ">
 
@@ -21,7 +21,7 @@
   <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://zazuapp.org/packages/">
+  <link rel="canonical" href="http://zazuapp.org/search/">
   <link rel="alternate" type="application/rss+xml" title="Zazu App" href="http://zazuapp.org/feed.xml">
   <!--
     Material Jekyll Theme Provided By:
@@ -41,7 +41,7 @@
     <a class="c-navigation__item " href="/">Home</a>
     <a class="c-navigation__item " href="/download/">Download</a>
     <a class="c-navigation__item " href="/documentation/">Docs</a>
-    <a class="c-navigation__item is-active" href="/packages/">Packages</a>
+    <a class="c-navigation__item " href="/packages/">Packages</a>
   </div>
 </nav>
 
@@ -49,7 +49,7 @@
     <article class="c-article">
   <header class="c-header c-article__header">
     <div class="u-container">
-      <h1 class="c-header__title">Packages</h1>
+      <h1 class="c-header__title">Search</h1>
     </div>
   </header>
 
@@ -61,67 +61,138 @@
       </a> &gt;
     </span>
     
-    <span>Packages</span>
+    <span>Search</span>
   </div>
 
 
 
   <div class="c-article__main">
+    <div id="search"></div>
+<script>
+window.site = {
+  packages: [
     
-    <a class="package plugin" href="https://github.com/tinytacoteam/zazu-mac-1password">
-        <img src="/images/package-icons/1password.png" alt="1Password Logo" />
-        <h2>1Password</h2>
-        <p>A 1password site opener for Mac</p>
-    </a>
-
-    <a class="package plugin" href="https://github.com/tinytacoteam/zazu-ascii-search">
-        <img src="/images/package-icons/ascii-search.png" alt="Ascii Search Logo" />
-        <h2>Ascii Search</h2>
-        <p>Copy uncommon characters to your clipboard.</p>
-    </a>
-
-    <a class="package plugin" href="https://github.com/tinytacoteam/zazu-calculator">
-        <img src="/images/package-icons/calculator.png" alt="Calculator Logo" />
-        <h2>Calculator</h2>
-        <p>A basic calculator for Zazu</p>
-    </a>
-
-    <a class="package plugin" href="https://github.com/tinytacoteam/zazu-chrome-bookmarks">
-        <img src="/images/package-icons/chrome.png" alt="Chrome Bookmarks Logo" />
-        <h2>Chrome Bookmarks</h2>
-        <p>Chrome bookmark searcher</p>
-    </a>
-
-    <a class="package plugin" href="https://github.com/tinytacoteam/zazu-clipboard">
-        <img src="/images/package-icons/clipboard.png" alt="Clipboard Logo" />
-        <h2>Clipboard</h2>
-        <p>A clipboard manager for Zazu</p>
-    </a>
-
-    <a class="package theme" href="https://github.com/tinytacoteam/zazu-dark-theme">
-        <img src="/images/package-icons/dark-theme.png" alt="Dark Theme Logo" />
-        <h2>Dark Theme</h2>
-        <p>The darker side of Zazu</p>
-    </a>
-
-    <a class="package plugin" href="https://github.com/tinytacoteam/zazu-file-finder">
-        <img src="/images/package-icons/file-finder.png" alt="File Finder Logo" />
-        <h2>File Finder</h2>
-        <p>The default file finder for Zazu</p>
-    </a>
-
-    <a class="package theme" href="https://github.com/tinytacoteam/zazu-light-theme">
-        <img src="/images/package-icons/light-theme.png" alt="Light Theme Logo" />
-        <h2>Light Theme</h2>
-        <p>The default theme for Zazu</p>
-    </a>
-
-    <a class="package theme" href="https://github.com/tinytacoteam/zazu-playful-theme">
-        <img src="/images/package-icons/playful-theme.png" alt="Playful Theme Logo" />
-        <h2>Playful Theme</h2>
-        <p>For the young at heart.</p>
-    </a>
-
+      {
+        top: true,
+        type: "plugin",
+        title: "1Password",
+        image: "/images/package-icons/1password.png",
+        githuburl: "tinytacoteam/zazu-mac-1password",
+        description: "A 1password site opener for Mac"
+      },
+    
+      {
+        top: false,
+        type: "plugin",
+        title: "Ascii Search",
+        image: "/images/package-icons/ascii-search.png",
+        githuburl: "tinytacoteam/zazu-ascii-search",
+        description: "Copy uncommon characters to your clipboard."
+      },
+    
+      {
+        top: true,
+        type: "plugin",
+        title: "Calculator",
+        image: "/images/package-icons/calculator.png",
+        githuburl: "tinytacoteam/zazu-calculator",
+        description: "A basic calculator for Zazu"
+      },
+    
+      {
+        top: true,
+        type: "plugin",
+        title: "Chrome Bookmarks",
+        image: "/images/package-icons/chrome.png",
+        githuburl: "tinytacoteam/zazu-chrome-bookmarks",
+        description: "Chrome bookmark searcher"
+      },
+    
+      {
+        top: true,
+        type: "plugin",
+        title: "Clipboard",
+        image: "/images/package-icons/clipboard.png",
+        githuburl: "tinytacoteam/zazu-clipboard",
+        description: "A clipboard manager for Zazu"
+      },
+    
+      {
+        top: true,
+        type: "theme",
+        title: "Dark Theme",
+        image: "/images/package-icons/dark-theme.png",
+        githuburl: "tinytacoteam/zazu-dark-theme",
+        description: "The darker side of Zazu"
+      },
+    
+      {
+        top: true,
+        type: "plugin",
+        title: "File Finder",
+        image: "/images/package-icons/file-finder.png",
+        githuburl: "tinytacoteam/zazu-file-finder",
+        description: "The default file finder for Zazu"
+      },
+    
+      {
+        top: true,
+        type: "theme",
+        title: "Light Theme",
+        image: "/images/package-icons/light-theme.png",
+        githuburl: "tinytacoteam/zazu-light-theme",
+        description: "The default theme for Zazu"
+      },
+    
+      {
+        top: true,
+        type: "theme",
+        title: "Playful Theme",
+        image: "/images/package-icons/playful-theme.png",
+        githuburl: "tinytacoteam/zazu-playful-theme",
+        description: "For the young at heart."
+      }
+    
+  ],
+  docs: [
+    
+      {
+        icon: "fa-th-large",
+        url: "/documentation/blocks/",
+        title: "Blocks",
+        content: "Blocks are the foundation of workflows. Each one represents a step to be completed.",
+        description: "  Blocks  External Blocks          Hotkey      Service Script        Input Blocks          Root Script      Prefix Script      Keyword        Output Blocks          Copy To Clipboard      Open In Browser      Send Notification      Open File      Show File      User Script        Plugin Context          Console      CWD      Clipboard      NativeImage      BlocksBlocks are the foundation of Zazu plugins. Each one represents a step to becompleted. Along the way, each block passes a value from one block to the next.If they fork, each block will get their own copy of the current value.Blocks link to other blocks via connections. Once a blocks gets executed,it’s connections will get executed after. You can link to both output and inputblocks. All blocks have connections unless the block explicitly mentionsotherwise.All blocks can have the following properties:  id mixed: Unique identifier of the block, used when creating connections.  connections mixed[]: Blocks to execute if one of the results are chosen.  type string: Name of the block you wish to use.Each unique block type can have it’s own properties, listed below with theirdescriptions.External BlocksExternal blocks are ways of accessing Zazu plugins without using the zazu searchbar. These types of blocks are unique because they cannot be used as a connection.module.exports = {  blocks: {    external: [      // trigger blocks    ]  }};HotkeyWhen a user hits a specific set of keys, it can activate an input or outputblock of your plugin.  hotkey string: Key combination to use. [docs]  name string: Names allow hotkeys to be overwritten by the user.[{  type: 'Hotkey',  hotkey: 'cmd+shift+o',  name: 'Inverse',  connections: ['PlayPandora'],}]Service ScriptOften a plugin will need to run jobs in the background for things like indexingfiles or checking the active application. This block allows you to run yourscript on a set interval. Your service is not guaranteed to run on the giveninterval.NOTICE: The connections on this block will be ignored.Variables defined in the configuration will beused as environment variables passed into the script.  interval int: Milliseconds between the time we run the script. Must be &gt;=100.  script string: Path to the node file to execute.[{  id: 'Cache Packages',  type: 'ServiceScript',  script: 'cachePackages.js',  interval: 100,}]Below is an example of the Cache Packages block we defined earlier. It fetchesa json file from the internet andstore it in the plugin directory under the name packages.json.// cachePackages.jsconst fs = require('fs')const http = require('http')const path = require('path')module.exports = (pluginContext) =&gt; {  const packageUrl = 'http://zazuapp.org/packages.json'  const outputFile = path.join(pluginContext.cwd, 'packages.json')  return (env = {}) =&gt; {    return new Promise((resolve, reject) =&gt; {      http.get(packageUrl, (response) =&gt; {        const chunks = []        response.on('data', (chunk) =&gt; {          chunks.push(chunk.toString())        })        response.on('end', () =&gt; {          resolve(chunks.join(''))        })      })    }).then((data) =&gt; {      return fs.writeFileSync(outputFile, data)    })  }}Input BlocksInput blocks are blocks that are the entry points to your plugin. These usuallyreturn results to be displayed in Zazu. If a search becomes stales, all inputscripts should be able to handle a SIGKILLmodule.exports = {  blocks: {    input: [      // input blocks    ]  }};Root ScriptThis allows you to execute a node script with a prefix.  script string: Path to the node file to execute.[{  id: 'Calculator',  type: 'RootScript',  script: 'calculator.js',  connections: ['Copy'],}]We call the export with the Plugin Context, which shouldreturn an object with two methods respondsTo and search.The respondsTo method takes a query and asks the plugin if they are willingto respond to that input.The search method takes a query and env and returns aPromise.that resolves with results.Variables defined in the configuration will be used asenvironment variables in the script call.// calculator.jsmodule.exports = (pluginContext) =&gt; {  return {    respondsTo: (query) =&gt; {      return query.match(/\\d/)    },    search: (query, env = {}) =&gt; {      return new Promise((resolve, reject) =&gt; {        const value = eval(query)        resolve([          {            icon: 'fa-calculator',            title: value,            subtitle: 'Select item to copy the value to the clipboard.',            value: value,          }        ])      })    },  }}Prefix ScriptThis allows you to execute a node script with a prefix.  prefix string: Prefix to be used before user input.  space boolean: If a space should be between the Prefix and the user input.  args string: Specifies if you want arguments. Possibles values are Required, Optional and None.  script string: Path to the node file to execute.[{  id: 'Calculator',  type: 'PrefixScript',  prefix: 'calc',  space: true,  args: 'Required',  script: 'calculator.js',  connections: ['Copy'],}]The node script needs to have a curried function that returns a promise. We callthe export with the Plugin Context. The search function canaccept a query and the environment variables, and it should return aPromise.Variables defined in the configuration will be used asenvironment variables in the script call.// calculator.jsmodule.exports = (pluginContext) =&gt; {  return (query, env = {}) =&gt; {    return new Promise((resolve, reject) =&gt; {      const value = eval(query)      resolve([        {          icon: 'fa-calculator',          title: value,          subtitle: 'Select item to copy the value to the clipboard.',          value: value,        }      ])    })  }}KeywordKeyword blocks are a useful input block, if you don’t need input from the user.Once a user types in part of your keyword, it will display as a result the usercan click on.  keyword string: What the user input should match. Similar to the value in results.  title string: Title of the result that will be displayed, similar to results.  subtitle string: Subtitle of the result that will be displayed, similar to results.[{  id: 'Play',  type: 'Keyword',  keyword: 'play',  title: 'Play Pandora',  subtitle: 'Click to play Pandora!',  connections: ['PlayPandora'],}]Output BlocksOutput blocks happen after an input block, these can do several things like calla script, or copy something to your clipboard.Most of the special attributes allow you to use a variable {value} which willbe replaced with the current value of the result being passed around.module.exports = {  blocks: {    output: [      // output blocks    ]  }};Copy To ClipboardThis block will copy the given input to the clipboard.  text string: Text to be copied to the clipboard.[{  id: 'Copy',  type: 'CopyToClipboard',  text: '{value}',}]Open In BrowserOpen up the value in the users default Browser.  url string: URL of the page you wish to open.[{  id: 'Link',  type: 'OpenInBrowser',  url: '{value}',}]Send NotificationGive the user a notification with a title and a message.  title string: Title of the notification.  message string: Message of the notification.[{  id: 'Notify',  type: 'SendNotification',  title: 'Hello world',  message: '{value}',}]Open FileTo open a file in the default application.[{  id: 'Open',  type: 'OpenFile',}]Show FileTo show a file in it’s folder.[{  id: 'Show',  type: 'ShowFile',}]User ScriptIf you need to process or modify your state, this allows you to run any scripton the current state being passed down.  script string: Path to the node file to execute.[{  id: 'Process',  type: 'UserScript',  script: 'process.js',  value: '{value}',  connections: ['Copy'],}]In the example below we take in a unicode value and output the character thatcorresponds to that unicode value usingString.fromCharCode.// process.jsmodule.exports = (pluginContext) =&gt; {  return (value) =&gt; {    return new Promise((resolve, reject) =&gt; {      resolve(String.fromCharCode(value))    })  }}Plugin ContextThe pluginContext object passed to node scripts and contains some usefulfunctions to help enable your scripts.ConsoleThe Plugin Debugger is useful, since we surface information to you to help youdevelop your plugins better. This API allows you to surface your own logs to thePlugin Debugger.The API including console.log, console.warn and console.error all take thesame parameters:  message string: Log message to be displayed.  data object: Other misc data that could be useful.module.exports = (pluginContext) =&gt; {  pluginContext.console.log('hello world', {    ping: 'pong',  })}CWDThe current working directory of the node script being ran.const path = require('path')module.exports = (pluginContext) =&gt; {  const outputFile = path.join(pluginContext.cwd, 'output.json')}ClipboardAn instance of the ElectronClipboardinstance.const path = require('path')module.exports = (pluginContext) =&gt; {  const clipboard = pluginContext.clipboard}NativeImageAn instance of the ElectronNativeImageinstance.const path = require('path')module.exports = (pluginContext) =&gt; {  const nativeImage = pluginContext.nativeImage}"
+      },
+    
+      {
+        icon: "fa-sliders",
+        url: "/documentation/configuration/",
+        title: "Personal Configuration",
+        content: "Getting started to configure your Zazu in your dotfiles.",
+        description: "  Configuring Zazu          Hotkey      Theme      Plugins      Analytics      Configuring ZazuYour personal configuration lives in ~/.zazurc.js. Here is an example of thebasic usage.module.exports = {  'hotkey': 'alt+space',  'theme': 'tinytacoteam/dark-theme',  'plugins': [],}HotkeyThis can be any keyboardacceleratoryou can think of. We recommend using alt+space or Command+space, but it’s upto you!ThemeThis in the format of a relative GitHub URL. For example tinytacoteam/dark-themewould translate to https://github.com/tinytacoteam/dark-theme.There are a few themes we created that you can pick from, feel freeto fork them and make your own.PluginsPlugins can be in either of two formats. The first is the short GitHub URLformat for example tinytacoteam/dark-theme would translate tohttps://github.com/tinytacoteam/dark-theme.module.exports = {  // ...  'plugins': [    'tinytacoteam/calculator',  ],}The second format is an object syntax that allows you to add custom variables.These variables will be applied differently based on whichblocks the plugin is using.Variables ARE case sensitive, check with individual plugins for what variablesyou can use to configure it’s behavior.module.exports = {  // ...  'plugins': [    {      name: 'tinytacoteam/calculator',      variables: {        OFFSET: 10,      },    },  ],}AnalyticsWe send anonymous usage to New Relic. To opt out ofsending this anonymous data you can set disableAnalytics to true in yourconfiguration."
+      },
+    
+      {
+        icon: "fa-plug",
+        url: "/documentation/plugins/",
+        title: "Creating Plugins",
+        content: "Overview of what is all included in Zazu Plugins",
+        description: "  Plugin Overview          Plugin Fields        Results          Result Fields      Internal Ranking        DebuggingPlugin OverviewA plugin can be in any language but required a zazu.js file in the root of theproject to communicate how to talk to Zazu. Included is some meta informationabout the project and a description of the blocks thatthe plugin make use of.module.exports = {  name: 'Demo Plugin',  icon: 'icon.png',  install: 'npm install',  stylesheet: 'dist/main.css',  blocks: {    input: [      {        id: 1,        type: 'Keyword',        keyword: 'play',        title: 'Test Notification',        subtitle: 'Click to test notifications',        connections: [2],      },    ],    output: [      {        id: 2,        type: 'SendNotification',        title: 'Hello world',        message: '{value}',      },    ],  },}Plugin Fields  icon string: If the result does not provide an individual icon, the pluginicon will be used. The icon here is treated as a relative path.  install string: Optional. A script to warm up your application. Such as abundle install, warming up a cache or migrating a local database.  stylesheet string: Optional. Relative path of a compiled stylesheet to beused when a single result is being previewed.  blocks object:  Blocks are the foundations of every great plugin. They areso great, they have their own block page.ResultsYour plugin can be written in any language, but it needs to output in aJSON format. An example with a singleresult might look like:[    {      \"icon\": \"fa-calculator\",      \"title\": \"The answer is 42\",      \"subtitle\": \"Answer to the Ultimate Question of Life, the Universe, and Everything\",      \"preview\": \"&lt;span&gt;42!&lt;/span&gt;\",      \"value\": 42    }]Result Fields  id string: Identifier for internal ranking.  icon string: Supports font awesomeicons as well as absolute paths to the icon in your project. If one is notprovided it will fallback tot he icon for your project.  title string: Larger text you see in a result.  subtitle string: Optional. Smaller text under the title.  preview string: Optional. HTML that shows up next to an active result.This will be in an iframe and include any stylesheet for styling.  value mixed: Value is the what is passed from block to block to make yourplugin run. In this case the value 42 as a number would be passed to whateverthe connection block is, which could be tocopy to the clipboard or it couldrun a custom user script.Internal RankingIf you provide results with an id, Zazu will rank frequently clicked itemshigher in the results list. This works well even if you sort the resultsyourself. If you don’t want this behavior, simply don’t add an id to the result.DebuggingIn the Tray icon, under Development there is a debugger called PluginDebugger that will output info, warnings and errors of all plugins in afilterable interface. Select the plugin you are trying to debug and get logsfor all the blocks being executed."
+      },
+    
+      {
+        icon: "fa-paint-brush",
+        url: "/documentation/themes/",
+        title: "Creating Themes",
+        content: "Overview of what is all included in Zazu Themes",
+        description: "  Theme Overview          Fields        Previewing your theme  Using your themeTheme OverviewThe compiled CSS gets included when Zazu is launched. Be sure to include azazu.js file in the root of your project with the following information:module.exports = {  name: 'Light Theme',  stylesheet: 'dist/main.css'}Fields  stylesheet string: A relative path to the CSS to be used when displayingthe Zazu window.Previewing your themeA perma-linkable themeplaybook exists so you canpreview your Zazu theme with a few of the basic cases.Take a look at some of the other themes on the packages page forsome inspiration.Using your themeJust add your relative path to your github repo inside of your personalconfiguration."
+      }
+    
+  ]
+}
+</script>
+<script src="/js/vendor/lunr.min.js"></script>
+<script src="/js/search.js"></script>
 
   </div>
 </article>
@@ -134,7 +205,7 @@
     </p>
     <p>
       See a typo? Feel free to
-      <a href="https://github.com/tinytacoteam/zazu/blob/gh-pages/_pages/packages.html">edit this page</a>!
+      <a href="https://github.com/tinytacoteam/zazu/blob/gh-pages/_pages/search.html">edit this page</a>!
     </p>
     <p>
       
