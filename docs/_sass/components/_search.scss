@@ -1,0 +1,23 @@
+#search {
+  input {
+    font-size: 20px;
+    width: 500px;
+    padding: 5px;
+    margin-bottom: 30px;
+  }
+  select {
+    top: -2px;
+    margin-left: 5px;
+    position: relative;
+    border: none;
+    font-size: 14px;
+    height: 35px;
+    padding: 5px;
+  }
+  .docs {
+    margin-left: 10px;
+    i {
+      margin-right: 10px;
+    }
+  }
+}

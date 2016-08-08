@@ -3,12 +3,6 @@ layout: page
 title: Packages
 permalink: /packages/
 ---
-<!--
-<div class="filter">
-    <h2>Filter</h2>
-    <p><input type="q"></p>
-</div>
--->
 
 {% for package in site.packages %}
     <a class="package {{ package.type }}" href="https://github.com/{{ package.githuburl }}">
