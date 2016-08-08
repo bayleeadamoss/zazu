@@ -10,10 +10,13 @@ title:  "Creating Plugins"
 
 ## Plugin Overview
 
-A plugin can be in any language but required a `zazu.js` file in the root of the
-project to communicate how to talk to Zazu. Included is some meta information
-about the project and a description of the [blocks](/documentation/blocks/) that
-the plugin make use of.
+Plugins provide all the end user behavior. Plugins use a workflow architecutre,
+where some [blocks](/documentation/blocks/) return results, and other process
+data. You can have as many blocks as you want that can do their own specific
+tasks.
+
+At the root of every plugin there is a `zazu.js` file that tells Zazu how to
+communicate with your plugin.
 
 ~~~ javascript
 module.exports = {
@@ -57,9 +60,8 @@ so great, they have their own [block page](/documentation/blocks/).
 
 ## Results
 
-Your plugin can be written in any language, but it needs to output in a
-[JSON](https://en.wikipedia.org/wiki/JSON) format. An example with a single
-result might look like:
+The [input blocks](/documentation/blocks/#input-blocks) in your plugins will
+need to return results to Zazu. Here is an example:
 
 ~~~ json
 [
@@ -93,7 +95,8 @@ run a custom [user script](/documentation/blocks/#user-script).
 
 If you provide results with an `id`, Zazu will rank frequently clicked items
 higher in the results list. This works well even if you sort the results
-yourself. If you don't want this behavior, simply don't add an id to the result.
+yourself. If you don't want this behavior, simply don't add an `id` to the
+result.
 
 ## Debugging
 
