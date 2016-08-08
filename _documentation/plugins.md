@@ -60,9 +60,8 @@ so great, they have their own [block page](/documentation/blocks/).
 
 ## Results
 
-Your plugin can be written in any language, but it needs to output in a
-[JSON](https://en.wikipedia.org/wiki/JSON) format. An example with a single
-result might look like:
+The [input blocks](/documentation/blocks/#input-blocks) in your plugins will
+need to return results to Zazu. Here is an example:
 
 ~~~ json
 [
@@ -96,7 +95,8 @@ run a custom [user script](/documentation/blocks/#user-script).
 
 If you provide results with an `id`, Zazu will rank frequently clicked items
 higher in the results list. This works well even if you sort the results
-yourself. If you don't want this behavior, simply don't add an id to the result.
+yourself. If you don't want this behavior, simply don't add an `id` to the
+result.
 
 ## Debugging
 
