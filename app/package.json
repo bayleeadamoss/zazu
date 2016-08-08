@@ -1,0 +1,35 @@
+{
+  "name": "zazu",
+  "productName": "Zazu",
+  "identifier": "com.tinytacoteam.zazu",
+  "description": "A cross platform productivity application.",
+  "version": "0.1.2",
+  "author": "Blaine Schmeisser",
+  "main": "background.js",
+  "homepage": "http://zazuapp.org",
+  "license": "MIT",
+  "dependencies": {
+    "auto-launch": "^2.1.0",
+    "cuid": "^1.3.8",
+    "fs-jetpack": "^0.7.0",
+    "git-clone": "^0.1.0",
+    "mousetrap": "^1.5.3",
+    "nedb": "^1.8.0",
+    "node-notifier": "^4.5.0",
+    "npm": "^3.10.5",
+    "react": "^15.0.1",
+    "react-dom": "^15.0.1",
+    "semver": "^5.0.3"
+  },
+  "packageNameTemplate": "{{name}}-v{{version}}-{{platform}}-{{arch}}",
+  "osx": {
+    "build": "1",
+    "identifier": "com.tinytacoteam.zazu",
+    "LSApplicationCategoryType": "public.app-category.productivity",
+    "//codeSignIdentitiy": {
+      "dmg": "Developer ID Application: Company Name (APPIDENTITY)",
+      "MAS": "3rd Party Mac Developer Application: Company Name (APPIDENTITY)",
+      "MASInstaller": "3rd Party Mac Developer Installer: Company Name (APPIDENTITY)"
+    }
+  }
+}

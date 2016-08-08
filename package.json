@@ -29,9 +29,8 @@
   "scripts": {
     "prepush": "npm run lint && npm test",
     "postinstall": "npm run build && cd app && npm install",
-    "build": "gulp build",
     "release": "gulp release --env=production",
-    "start": "gulp start",
+    "start": "cross-env NODE_ENV=development electron ./app",
     "test": "cross-env NODE_ENV=test electron-mocha --recursive test",
     "lint": "eslint .",
     "install-native": "node ./tasks/install_native_module",
