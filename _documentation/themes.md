@@ -27,7 +27,7 @@ module.exports = {
 
 ## Previewing your theme
 
-A perma-linkable [theme
+A [theme
 playbook](https://tinytacoteam.github.io/zazu-theme-playbook) exists so you can
 preview your Zazu theme with a few of the basic cases.
 
@@ -36,5 +36,5 @@ some inspiration.
 
 ## Using your theme
 
-Just add your relative path to your github repo inside of your [personal
+Just add your relative path to your GitHub repo inside of your [personal
 configuration](/documentation/configuration/#theme).
