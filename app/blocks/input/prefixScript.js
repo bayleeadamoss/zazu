@@ -1,5 +1,5 @@
 const InputBlock = require('../inputBlock')
-const freshRequire = require('../../lib/freshRequire.js')
+const freshRequire = require('../../lib/freshRequire')
 
 const path = require('path')
 
@@ -45,7 +45,7 @@ class PrefixScript extends InputBlock {
       regex.push('(.*)')
     }
     regex.push('$')
-    const respondsTo = this.active() && input.match(new RegExp(regex.join(''), 'i'))
+    const respondsTo = input.match(new RegExp(regex.join(''), 'i'))
     this.logger.log('Responds to input', { input, respondsTo })
     return respondsTo
   }

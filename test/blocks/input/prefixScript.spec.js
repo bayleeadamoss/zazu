@@ -107,16 +107,5 @@ describe('PrefixScript', () => {
         expect(prefixScript.respondsTo('')).to.be.ok
       })
     })
-    describe('when not active', () => {
-      beforeEach(() => {
-        prefixScript.activeState = false
-        prefixScript.space = true
-        prefixScript.args = 'Required'
-      })
-
-      it('passes with space and argument', () => {
-        expect(prefixScript.respondsTo('test data')).to.not.be.ok
-      })
-    })
   })
 })

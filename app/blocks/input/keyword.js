@@ -9,9 +9,9 @@ class Keyword extends InputBlock {
   }
 
   respondsTo (input) {
-    const respondsTo = this.active() &&
-      this.keyword.indexOf(input) !== -1 &&
-      input.length > 2
+    const longEnough = input.length > 2
+    const partOfKeyword = this.keyword.inexOf(input) !== -1
+    const respondsTo = longEnough && partOfKeyword
     this.logger.log('Responds to input', { input, respondsTo })
     return respondsTo
   }

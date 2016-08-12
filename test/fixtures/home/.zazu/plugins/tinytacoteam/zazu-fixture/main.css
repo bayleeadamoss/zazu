@@ -1,0 +1,88 @@
+html,
+body {
+    background-color: #F7F7F7;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+}
+section#zazu {
+    background-color: #eaeaea;
+    background-position: 530px 5px;
+    background-repeat: no-repeat;
+    background-size: 60px;
+    -webkit-app-region: drag;
+    cursor: move;
+}
+section#zazu input {
+    outline: none;
+    font-size: 40px;
+    width: 500px;
+    padding: 10px;
+    border: 0;
+    background-color: transparent;
+    -webkit-app-region: no-drag;
+    cursor: auto;
+}
+section#zazu iframe#preview {
+    border: 0;
+}
+section#zazu div.results {
+    display: flex;
+    flex-direction: row;
+}
+section#zazu div.results ul {
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid #dedede;
+    max-height: 333px;
+    overflow: hidden;
+    width: 50%;
+}
+section#zazu div.results ul:last-child {
+    width: 100%;
+}
+section#zazu div.results ul + div {
+    width: 50%;
+}
+section#zazu div.results ul li {
+    display: block;
+    height: 45px;
+    line-height: 45px;
+    border-bottom: 1px solid #dedede;
+    -webkit-app-region: no-drag;
+    cursor: pointer;
+    width: 100%;
+}
+section#zazu div.results ul li .icon {
+    text-align: center;
+    line-height: 30px;
+    height: 30px;
+    width: 30px;
+    margin: 7.5px;
+    float: left;
+}
+section#zazu div.results ul li h2,
+section#zazu div.results ul li h3 {
+    margin: 0;
+    padding-left: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 400;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+section#zazu div.results ul li h2 {
+    font-size: 20px;
+    line-height: 25px;
+}
+section#zazu div.results ul li h2:last-child {
+    font-size: 20px;
+    line-height: 45px;
+}
+section#zazu div.results ul li h3 {
+    font-size: 15px;
+    line-height: 15px;
+}
+section#zazu div.results ul li.active {
+    background-color: #dedede;
+}

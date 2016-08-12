@@ -7,7 +7,9 @@ class Hotkey extends ExternalBlock {
     this.name = data.name
     this.connections = data.connections || []
     this.hotkey = options[this.name] ? options[this.name] : data.hotkey
+  }
 
+  start () {
     globalEmitter.emit('registerHotkey', this.hotkey)
     globalEmitter.on('triggerHotkey', (accelerator) => {
       if (this.hotkey === accelerator) {
