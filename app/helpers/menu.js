@@ -84,8 +84,7 @@ const trayTemplate = [
   {
     label: 'Check for Zazu Updates',
     click: () => {
-      const update = new Update()
-      update.check(true)
+      Update.check(true)
     },
   },
   {
