@@ -4,16 +4,21 @@ const { shell, app, dialog } = require('electron')
 
 const globalEmitter = require('./globalEmitter')
 
-class Update {
+var self = {
 
-  constructor () {
-    this._latestVersion = null
-  }
+  _latestVersion: null,
+
+  queueUpdate () {
+    const tenMinutes = 1000 * 60 * 10
+    setTimeout(() => {
+      self.check()
+    }, tenMinutes)
+  },
 
   latestVersion () {
     return new Promise((resolve, reject) => {
-      if (this._latestVersion) {
-        return resolve(this._latestVersion)
+      if (self._latestVersion) {
+        return resolve(self._latestVersion)
       }
       https.get({
         host: 'api.github.com',
@@ -27,23 +32,23 @@ class Update {
           chunks.push(chunk.toString())
         })
         res.on('end', () => {
-          this._latestVersion = JSON.parse(chunks.join()).tag_name
-          resolve(this._latestVersion || app.getVersion())
+          self._latestVersion = JSON.parse(chunks.join()).tag_name
+          resolve(self._latestVersion || app.getVersion())
         })
       }).on('error', (e) => {
         reject(`Got error: ${e.message}`)
       })
     })
-  }
+  },
 
   needsUpdate () {
-    return this.latestVersion().then((newestVersion) => {
+    return self.latestVersion().then((newestVersion) => {
       return semver.satisfies(newestVersion, `>${app.getVersion()}`) && newestVersion
     })
-  }
+  },
 
   check (manualUpdate) {
-    this.needsUpdate().then((updateVersion) => {
+    self.needsUpdate().then((updateVersion) => {
       if (updateVersion) {
         globalEmitter.emit('showWindow')
         dialog.showMessageBox({
@@ -69,8 +74,8 @@ class Update {
         })
       }
     })
-  }
+  },
 
 }
 
-module.exports = Update
+module.exports = self

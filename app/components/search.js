@@ -6,8 +6,22 @@ const Search = React.createClass({
     handleQueryChange: React.PropTypes.func.isRequired,
   },
 
+  getInitialState () {
+    return {
+      input: null,
+    }
+  },
+
+  focus () {
+    this.state.input && this.state.input.focus()
+  },
+
   componentDidMount () {
-    this.input.focus()
+    this.focus()
+  },
+
+  componentDidUpdate () {
+    this.focus()
   },
 
   handleQueryChange (event) {
@@ -16,7 +30,9 @@ const Search = React.createClass({
   },
 
   setReference (input) {
-    this.input = input
+    this.setState({
+      input,
+    })
   },
 
   render () {

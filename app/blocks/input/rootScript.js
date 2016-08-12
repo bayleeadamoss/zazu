@@ -1,5 +1,5 @@
 const InputBlock = require('../inputBlock')
-const freshRequire = require('../../lib/freshRequire.js')
+const freshRequire = require('../../lib/freshRequire')
 
 const path = require('path')
 
@@ -29,7 +29,7 @@ class RootScript extends InputBlock {
       })
       return false
     }
-    const respondsTo = this.active() && this.script.respondsTo(input)
+    const respondsTo = this.script.respondsTo(input)
     this.logger.log('Responds to input', { input, respondsTo })
     return respondsTo
   }

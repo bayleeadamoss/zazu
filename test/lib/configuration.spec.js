@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const configuration = require('../app/configuration')
+const configuration = require('../../app/lib/configuration')
 const jetpack = require('fs-jetpack')
 const os = require('os')
 const path = require('path')

@@ -1,5 +1,5 @@
 const Block = require('../block')
-const freshRequire = require('../../lib/freshRequire.js')
+const freshRequire = require('../../lib/freshRequire')
 
 const path = require('path')
 
@@ -31,7 +31,7 @@ class UserScript extends Block {
     }
     this.logger.log('Executing User Node Script', { value: state.value })
     return this.script(state.value, env).then((output) => {
-      state.value = output.trim()
+      state.value = output
       this.logger.log('User Node Script results', { value: state.value })
       state.next()
     }).catch((error) => {

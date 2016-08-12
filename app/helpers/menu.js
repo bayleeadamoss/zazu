@@ -1,11 +1,18 @@
-const { BrowserWindow, dialog } = require('electron')
+const { app, BrowserWindow, dialog, Menu, systemPreferences, Tray } = require('electron')
+const path = require('path')
+
 const globalEmitter = require('../lib/globalEmitter')
 const Update = require('../lib/update')
 
-const toggleDevTools = () => {
+const openDevTools = () => {
   const currentWindow = BrowserWindow.getFocusedWindow()
   if (currentWindow) {
-    currentWindow.toggleDevTools()
+    if (currentWindow.isDevToolsOpened()) {
+      currentWindow.closeDevTools()
+    }
+    currentWindow.openDevTools({
+      mode: 'undocked',
+    })
   } else {
     dialog.showMessageBox({
       type: 'error',
@@ -27,15 +34,15 @@ const appTemplate = [
       { label: 'Paste', accelerator: 'Command+V', selector: 'paste:' },
       { label: 'Select All', accelerator: 'Command+A', selector: 'selectAll:' },
       {
-        label: 'Toggle DevTools',
+        label: 'Toggle Chrome DevTools',
         accelerator: 'Alt+CmdOrCtrl+I',
-        click: toggleDevTools,
+        click: openDevTools,
       },
       {
         label: 'Quit',
         accelerator: 'CmdOrCtrl+Q',
         click: () => {
-          globalEmitter.emit('quitApp')
+          app.quit()
         },
       },
     ],
@@ -61,15 +68,15 @@ const trayTemplate = [
     label: 'Development',
     submenu: [
       {
-        label: 'Plugin Debugger',
+        label: 'Zazu Plugin Debugger',
         click () {
           globalEmitter.emit('showDebug')
         },
       },
       {
-        label: 'Toggle DevTools',
+        label: 'Chrome DevTools',
         accelerator: 'Alt+CmdOrCtrl+I',
-        click: toggleDevTools,
+        click: openDevTools,
       },
     ],
   },
@@ -92,9 +99,18 @@ const trayTemplate = [
     label: 'Quit',
     accelerator: 'CmdOrCtrl+Q',
     click: () => {
-      globalEmitter.emit('quitApp')
+      app.quit()
     },
   },
 ]
 
-module.exports = { trayTemplate, appTemplate }
+let tray
+module.exports = () => {
+  if (app.dock) app.dock.hide()
+  const iconName = systemPreferences.isDarkMode() ? 'tray-icon-white.png' : 'tray-icon.png'
+  const iconPath = path.join(app.getAppPath(), 'assets', 'images', iconName)
+  tray = new Tray(iconPath)
+  tray.setToolTip('Toggle Zazu')
+  tray.setContextMenu(Menu.buildFromTemplate(trayTemplate))
+  Menu.setApplicationMenu(Menu.buildFromTemplate(appTemplate))
+}

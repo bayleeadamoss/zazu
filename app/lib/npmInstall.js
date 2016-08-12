@@ -8,8 +8,12 @@ const npmInstall = (baseDir) => {
     return Promise.resolve()
   }
   const pkg = require(packageFile)
-  const packages = Object.keys(pkg.dependencies).map((packageName) => {
-    const packageVersion = pkg.dependencies[packageName]
+  const dependencies = pkg.dependencies
+  if (!dependencies) {
+    return Promise.resolve()
+  }
+  const packages = Object.keys(dependencies).map((packageName) => {
+    const packageVersion = dependencies[packageName]
     return packageName + '@' + packageVersion
   })
   return new Promise((resolve, reject) => {

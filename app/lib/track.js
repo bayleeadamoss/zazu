@@ -1,4 +1,4 @@
-const configuration = require('../configuration')
+const configuration = require('../lib/configuration')
 const noop = require('./track/noop')
 const newrelic = require('./track/newrelic')
 

@@ -4,25 +4,19 @@ const Mousetrap = require('mousetrap')
 const Result = require('./result')
 const IFrame = require('./iframe')
 const globalEmitter = require('../lib/globalEmitter')
-const PluginStore = require('../store/pluginStore')
 
 const { PropTypes } = React
 
 const Results = React.createClass({
   propTypes: {
+    activeIndex: PropTypes.number.isRequired,
     values: PropTypes.array.isRequired,
-    handleResultAction: PropTypes.func.isRequired,
-  },
-
-  getInitialState () {
-    return {
-      activeIndex: 0,
-    }
+    handleResultClick: PropTypes.func.isRequired,
+    handleUpdateActiveIndex: PropTypes.func.isRequired,
   },
 
   moveUp () {
-    const { activeIndex } = this.state
-    const { values } = this.props
+    const { values, activeIndex } = this.props
     const prevIndex = activeIndex - 1
 
     if (prevIndex < 0) {
@@ -34,8 +28,7 @@ const Results = React.createClass({
   },
 
   moveDown () {
-    const { activeIndex } = this.state
-    const { values } = this.props
+    const { values, activeIndex } = this.props
     const nextIndex = activeIndex + 1
 
     if (nextIndex >= values.length) {
@@ -43,12 +36,6 @@ const Results = React.createClass({
     } else {
       this.activate(values[nextIndex])
     }
-  },
-
-  resetIndex () {
-    this.setState({
-      activeIndex: 0,
-    })
   },
 
   componentDidMount () {
@@ -59,47 +46,41 @@ const Results = React.createClass({
       this.moveDown()
     })
     Mousetrap.bind('enter', () => {
-      const { activeIndex } = this.state
-      const { values, handleResultAction } = this.props
-      handleResultAction(values[activeIndex])
+      const { values, handleResultClick, activeIndex } = this.props
+      handleResultClick(values[activeIndex])
     })
     Mousetrap.bind('esc', () => {
       globalEmitter.emit('hideWindow')
     })
-    PluginStore.addQueryListener(this.resetIndex)
   },
 
   componentWillUnmount () {
     Mousetrap.reset()
-    PluginStore.removeQueryListener(this.resetIndex)
   },
 
   activate (item) {
     var index = this.props.values.indexOf(item)
     if (index > -1) {
-      this.setState({
-        activeIndex: index,
-      })
+      this.props.handleUpdateActiveIndex(index)
     }
   },
 
   render () {
-    const { activeIndex } = this.state
-    const { values, handleResultAction } = this.props
+    const { values, handleResultClick, activeIndex } = this.props
     if (values.length === 0) { return null }
     return React.createElement(
       'div',
       { className: 'results' },
       React.createElement(
         'ul',
-        null,
+        { key: 'results' },
         values.map((result, i) => {
           return React.createElement(Result, {
             active: i === activeIndex,
             activate: this.activate,
             value: result,
-            onClick: handleResultAction,
-            key: i,
+            onClick: handleResultClick,
+            key: result.id,
           })
         })
       ),

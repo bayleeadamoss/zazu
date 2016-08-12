@@ -1,4 +1,4 @@
-const notification = require('./lib/notification')
+const notification = require('../lib/notification')
 const Package = require('./package')
 const jetpack = require('fs-jetpack')
 const path = require('path')
@@ -11,7 +11,7 @@ class Theme extends Package {
 
   load () {
     return super.load().then((plugin) => {
-      plugin.css = jetpack.read(path.join(this.path, plugin.stylesheet))
+      this.css = plugin.css = jetpack.read(path.join(this.path, plugin.stylesheet))
       return plugin
     }).catch((errorMessage) => {
       notification.push({

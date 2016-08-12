@@ -1,9 +1,9 @@
-const { clone, pull } = require('./lib/git')
 const path = require('path')
 const jetpack = require('fs-jetpack')
-const freshRequire = require('./lib/freshRequire')
 
-const configuration = require('./configuration')
+const { clone, pull } = require('../lib/git')
+const freshRequire = require('../lib/freshRequire')
+const configuration = require('../lib/configuration')
 
 class Package {
   constructor (url) {

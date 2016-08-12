@@ -10,13 +10,14 @@ class Configuration {
     this.disableAnalytics = false
     this.theme = ''
     this.hotkey = ''
+    this.debug = false
   }
 
   load () {
     if (this.loaded) return
 
     if (!jetpack.exists(this.profilePath)) {
-      const template = require('./templates/zazurc')()
+      const template = require('../templates/zazurc')()
       jetpack.write(this.profilePath, template)
     }
 
@@ -25,6 +26,7 @@ class Configuration {
     this.theme = data.theme
     this.hotkey = data.hotkey
     this.disableAnalytics = data.disableAnalytics
+    this.debug = data.debug
     this.loaded = true
   }
 }

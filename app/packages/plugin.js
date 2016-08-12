@@ -1,13 +1,15 @@
 const path = require('path')
 const jetpack = require('fs-jetpack')
-const npmInstall = require('./lib/npmInstall')
 
-const Input = require('./blocks/input')
-const Output = require('./blocks/output')
-const External = require('./blocks/external')
-const notification = require('./lib/notification')
-const globalEmitter = require('./lib/globalEmitter')
-const track = require('./lib/track')
+const Input = require('../blocks/input')
+const Output = require('../blocks/output')
+const External = require('../blocks/external')
+
+const npmInstall = require('../lib/npmInstall')
+const notification = require('../lib/notification')
+const track = require('../lib/track')
+const pluginFreshRequire = require('../lib/pluginFreshRequire')
+
 const Package = require('./package')
 
 class Plugin extends Package {
@@ -19,20 +21,28 @@ class Plugin extends Package {
     this.blocksById = {}
     this.options = options
     this.loaded = false
-
     this.activeState = true
-    globalEmitter.on('showWindow', (pluginId, blockId) => {
-      this.activeState = !pluginId || this.id === pluginId
+  }
+
+  setActive (activeState) {
+    this.activeState = activeState
+    this.inputs.forEach((input) => {
+      input.setScoped(false)
+    })
+  }
+
+  setScoped (activeState, blockId) {
+    this.activeState = activeState
+    this.inputs.forEach((input) => {
+      input.setScoped(input.id === blockId)
     })
   }
 
   update () {
-    return super.update().then((action) => {
-      if (action === 'downloaded') {
-        return npmInstall(this.path)
-      } else {
-        return Promise.resolve()
-      }
+    return super.update().then(() => {
+      return npmInstall(this.path)
+    }).then(() => {
+      return pluginFreshRequire(this.path)
     })
   }
 
@@ -86,6 +96,7 @@ class Plugin extends Package {
   }
 
   addExternal (external) {
+    external.start()
     this.blocksById[external.id] = external
     external.on('actioned', () => {
       this.next({

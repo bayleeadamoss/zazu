@@ -3,6 +3,9 @@ module.exports = () => {
   hotkey: 'alt+space',
   theme: 'tinytacoteam/zazu-light-theme',
   plugins: [
+    'tinytacoteam/zazu-calculator',
+  ],
+  _plugins: [
     'tinytacoteam/zazu-file-finder',
     'tinytacoteam/zazu-calculator',
     'tinytacoteam/zazu-system',

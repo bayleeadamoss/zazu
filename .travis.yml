@@ -12,6 +12,7 @@ before_install:
     fi
 script:
   - npm run release
+  - npm run cucumber
   - npm test
 deploy:
   provider: releases

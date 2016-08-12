@@ -1,7 +1,5 @@
-const ReactDOM = require('react-dom')
 const React = require('react')
-
-const globalEmitter = require('./lib/globalEmitter')
+const globalEmitter = require('../lib/globalEmitter')
 
 const Debug = React.createClass({
   getInitialState () {
@@ -95,7 +93,7 @@ const Debug = React.createClass({
           return ['Any', item.pluginId].indexOf(this.state.selectedPlugin) !== -1
         }).filter((item) => {
           return allowedTypes.indexOf(item.type) !== -1
-        }).map((item, key) => {
+        }).slice(0, 100).map((item, key) => {
           return React.createElement(
             'li',
             { key },
@@ -115,7 +113,4 @@ const Debug = React.createClass({
   },
 })
 
-ReactDOM.render(
-  React.createElement(Debug),
-  document.getElementById('debug')
-)
+module.exports = Debug

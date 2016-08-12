@@ -6,7 +6,7 @@
     <script>
       const track = require('./lib/track')
       const app = require('electron').remote.app
-      const env = require('./env')
+      const env = require('./lib/env')
       track.initialize('search', {
         zazuVersion: app.getVersion(),
         zazuEnvironment: env.name,
@@ -16,6 +16,16 @@
   </head>
   <body>
     <section id="zazu"></section>
-    <script src="./app.js"></script>
+    <script>
+      const ReactDOM = require('react-dom')
+      const React = require('react')
+
+      const PluginWrapper = require('./containers/pluginWrapper')
+
+      ReactDOM.render(
+        React.createElement(PluginWrapper),
+        document.getElementById('zazu')
+      )
+    </script>
   </body>
 </html>

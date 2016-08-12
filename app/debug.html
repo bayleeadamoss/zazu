@@ -6,18 +6,28 @@
     <script>
       const track = require('./lib/track')
       const app = require('electron').remote.app
-      const env = require('./env')
+      const env = require('./lib/env')
       track.initialize('debug', {
         zazuVersion: app.getVersion(),
         zazuEnvironment: env.name,
       })
     </script>
-    <link href="stylesheets/debug.css" rel="stylesheet">
+    <link href="assets/stylesheets/debug.css" rel="stylesheet">
     <link href="http://fonts.googleapis.com/css?family=Roboto:400,400italic,700|Roboto+Mono:400,500" rel="stylesheet">
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
   </head>
   <body>
     <ul id="debug"></ul>
-    <script src="debug.js"></script>
+    <script>
+      const ReactDOM = require('react-dom')
+      const React = require('react')
+
+      const Debug = require('./components/debug')
+
+      ReactDOM.render(
+        React.createElement(Debug),
+        document.getElementById('debug')
+      )
+    </script>
   </body>
 </html>

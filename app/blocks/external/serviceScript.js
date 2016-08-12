@@ -1,5 +1,5 @@
 const ExternalBlock = require('../externalBlock')
-const freshRequire = require('../../lib/freshRequire.js')
+const freshRequire = require('../../lib/freshRequire')
 
 const path = require('path')
 
@@ -27,16 +27,17 @@ class ServiceScript extends ExternalBlock {
       this.script = false
       this.loadError = e
     }
-    this.queue()
   }
 
   call () {}
 
-  queue () {
+  start () {
     this.logger.info('Queueing Service', { interval: this.interval })
-    setTimeout(() => {
-      this.handle()
-    }, this.interval)
+    return new Promise((resolve) => {
+      setTimeout(resolve, this.interval)
+    }).then(() => {
+      return this.handle()
+    })
   }
 
   handle () {
@@ -49,7 +50,7 @@ class ServiceScript extends ExternalBlock {
     }
     this.logger.info('Executing script')
     return this.script(this.options).then(() => {
-      this.queue()
+      this.start()
     }).catch((error) => {
       this.logger.error('Script failed', { error })
     })

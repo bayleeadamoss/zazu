@@ -1,10 +1,12 @@
 environment:
   nodejs_version: "6"
 
+os: unstable
+
 install:
   - ps: Install-Product node $env:nodejs_version
   - ps: $env:Path += ";C:\Program Files (x86)\NSIS"
-  - choco install nsis -pre
+  - choco install nsis -pre -y
   - npm install
 
 test_script:

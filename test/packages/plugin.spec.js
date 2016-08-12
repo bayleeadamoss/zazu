@@ -1,9 +1,8 @@
 const sinon = require('sinon')
 const chai = require('chai')
 const sinonChai = require('sinon-chai')
-const Plugin = require('../app/plugin')
-const Block = require('../app/blocks/block')
-
+const Plugin = require('../../app/packages/plugin')
+const Block = require('../../app/blocks/block')
 const { expect } = chai
 
 chai.use(sinonChai)
@@ -18,7 +17,7 @@ const blockFactory = (responds, connections) => {
 }
 
 describe('Plugin', () => {
-  const plugin = new Plugin('tinytacoteam/calculator', '/tmp')
+  const plugin = new Plugin('tinytacoteam/calculator')
 
   describe('respondsTo', () => {
     it('says false when no blocks provided', () => {
