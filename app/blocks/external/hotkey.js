@@ -19,8 +19,6 @@ class Hotkey extends ExternalBlock {
     })
   }
 
-  call () {}
-
   handle () {
     this.emit('actioned')
   }

@@ -10,6 +10,10 @@ class ExternalBlock extends EventEmitter {
     this.id = data.id || cuid()
     this.logger = new PluginLogger(this.pluginId, this.id)
   }
+
+  call () {
+    return Promise.resolve()
+  }
 }
 
 module.exports = ExternalBlock

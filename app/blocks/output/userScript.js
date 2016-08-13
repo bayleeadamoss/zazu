@@ -33,7 +33,7 @@ class UserScript extends Block {
     return this.script(state.value, env).then((output) => {
       state.value = output
       this.logger.log('User Node Script results', { value: state.value })
-      state.next()
+      return state.next()
     }).catch((error) => {
       this.logger.error('User Node Script failed', { value: state.value, error })
     })

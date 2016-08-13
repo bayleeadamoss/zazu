@@ -12,7 +12,7 @@ class Block {
   }
 
   call (state) {
-    state.next()
+    return state.next()
   }
 }
 

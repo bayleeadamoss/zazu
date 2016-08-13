@@ -17,6 +17,7 @@ class InputBlock extends Block {
     setImmediate(() => {
       globalEmitter.emit('showWindow', this.pluginId, this.id)
     })
+    return Promise.resolve()
   }
 
 }

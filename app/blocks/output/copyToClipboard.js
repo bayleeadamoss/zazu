@@ -15,7 +15,7 @@ class CopyToClipboard extends Block {
     this.clipboard.writeText(Template.compile(this.text, {
       value: String(state.value),
     }))
-    state.next()
+    return state.next()
   }
 }
 

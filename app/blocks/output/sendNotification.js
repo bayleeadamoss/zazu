@@ -17,7 +17,7 @@ class SendNotification extends Block {
     }
     this.logger.log('Notification', options)
     notification.push(options)
-    state.next()
+    return state.next()
   }
 }
 

@@ -15,7 +15,7 @@ class OpenInBrowser extends Block {
     })
     this.logger.log('Opening in browser', { url })
     shell.openExternal(url)
-    state.next()
+    return state.next()
   }
 }
 

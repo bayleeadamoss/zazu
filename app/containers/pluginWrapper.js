@@ -162,7 +162,13 @@ const PluginWrapper = React.createClass({
   },
 
   handleResultClick (result) {
-    result.next()
+    const interaction = track.interaction()
+    interaction.setName('actioned')
+    result.next().then(() => {
+      interaction.save()
+    }).catch(() => {
+      interaction.save()
+    })
   },
 
   render () {

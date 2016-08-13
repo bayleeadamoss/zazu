@@ -14,7 +14,7 @@ class ShowFile extends Block {
     const fullPath = state.value.replace(/^~/, os.homedir())
     this.logger.log('Showing File', { fullPath })
     shell.showItemInFolder(fullPath)
-    state.next()
+    return state.next()
   }
 }
 

@@ -29,8 +29,6 @@ class ServiceScript extends ExternalBlock {
     }
   }
 
-  call () {}
-
   start () {
     this.logger.info('Queueing Service', { interval: this.interval })
     return new Promise((resolve) => {

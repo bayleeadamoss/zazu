@@ -124,12 +124,16 @@ class Plugin extends Package {
 
   next (state) {
     const previousBlock = this.blocksById[state.blockId]
-    previousBlock.connections.forEach((blockId) => {
+    const promises = previousBlock.connections.map((blockId) => {
       const nextBlock = this.blocksById[blockId]
       const nextState = Object.assign({}, state, { blockId })
+      const tracer = track.tracer(this.id + '/' + nextBlock.id)
       nextState.next = this.next.bind(this, nextState)
-      nextBlock.call(nextState)
+      return nextBlock.call(nextState)
+        .then(tracer.complete)
+        .catch(tracer.error)
     })
+    return Promise.all(promises)
   }
 
   search (inputText) {
