@@ -3,8 +3,9 @@ const path = require('path')
 
 class Configuration {
   constructor () {
-    this.profilePath = path.join(require('os').homedir(), '.zazurc.js')
-    this.pluginDir = path.join(require('os').homedir(), '.zazu/plugins/')
+    const home = process.env.HOME || require('os').homedir()
+    this.profilePath = path.join(home, '.zazurc.js')
+    this.pluginDir = path.join(home, '.zazu/plugins/')
     this.plugins = []
     this.loaded = false
     this.disableAnalytics = false

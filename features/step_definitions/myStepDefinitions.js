@@ -13,7 +13,6 @@ class World {
       env: {
         NODE_ENV: 'test',
         HOME: homePath,
-        USERPROFILE: homePath,
       },
     })
   }
