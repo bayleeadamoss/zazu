@@ -30,7 +30,9 @@
   "scripts": {
     "prepush": "npm run lint && npm test",
     "postinstall": "cd app && npm install",
-    "release": "gulp release --env=production",
+    "dev-release": "gulp release --env=production",
+    "prerelease": "npm install",
+    "release": "npm run dev-release",
     "start": "cross-env NODE_ENV=development electron ./app",
     "test": "cross-env NODE_ENV=test electron-mocha --recursive test",
     "cucumber": "cucumberjs",
