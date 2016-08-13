@@ -118,7 +118,7 @@ const PluginWrapper = React.createClass({
     let first = true
     const interaction = track.interaction()
     interaction.setName('search')
-    interaction.setAttribute('query', query)
+    interaction.setAttribute('queryLength', query.length)
 
     const promises = this.state.plugins.filter((plugin) => {
       return plugin.respondsTo(query)
