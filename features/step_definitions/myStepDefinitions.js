@@ -5,14 +5,13 @@ const Application = require('spectron').Application
 class World {
   constructor () {
     const appPath = path.join(__dirname, '../../app')
-    const homePath = path.join(__dirname, '../../test/fixtures/home')
-    console.log({appPath, homePath})
+    const homeDir = path.join(__dirname, '../../test/fixtures/home')
     this.app = new Application({
       path: require('electron-prebuilt'),
       args: [appPath],
       env: {
         NODE_ENV: 'test',
-        HOME: homePath,
+        ZAZU_HOME: homeDir,
       },
     })
   }
