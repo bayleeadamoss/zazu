@@ -79,7 +79,7 @@ need to return results to Zazu. Here is an example:
 
 * `id` *string*: Identifier for [internal ranking](#internal-ranking).
 * `icon` *string*: Supports [font awesome](http://fontawesome.io/icons/)
-icons as well as absolute paths to the icon in your project. If one is not
+icons as well as relative paths to the icon in your project. If one is not
 provided it will fallback tot he icon for your project.
 * `title` *string*: Larger text you see in a result.
 * `subtitle` *string*: Optional. Smaller text under the title.
