@@ -15,9 +15,9 @@ module.exports = {
     ],
     input: [
       {
-        id: 'Copy',
+        id: 'CopyPasta',
         type: 'RootScript',
-        script: 'main.js',
+        script: 'copyPasta.js',
         connections: ['Copy'],
       },
       {
@@ -36,10 +36,17 @@ module.exports = {
         space: true,
         args: 'Required',
         script: 'food.js',
-        connections: ['Copy'],
+        connections: ['Process'],
       },
     ],
     output: [
+      {
+        id: 'Process',
+        type: 'UserScript',
+        script: 'process.js',
+        value: '{value}',
+        connections: ['Copy'],
+      },
       {
         id: 'Copy',
         type: 'CopyToClipboard',

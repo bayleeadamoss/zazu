@@ -21,8 +21,10 @@ class World {
     return this.app.browserWindow.isVisible()
   }
 
-  isResultsVisible () {
-    return this.app.client.isVisible('.results')
+  hasResults () {
+    return this.app.client.getHTML('.results').then((resultHtml) => {
+      return !!resultHtml
+    })
   }
 
   type (input) {
@@ -75,6 +77,31 @@ class World {
 
 }
 
+const wait = (time) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, time)
+  })
+}
+
+const eventually = (func, expectedValue) => {
+  return func().then((actualValue) => {
+    if (actualValue === expectedValue) {
+      return true
+    } else {
+      return new Promise((resolve) => {
+        setTimeout(resolve, 100)
+      }).then(() => {
+        return eventually(func, expectedValue)
+      })
+    }
+  }).catch((err) => {
+    console.error('ERROR: ', err)
+    return wait(100).then(() => {
+      return eventually(func, expectedValue)
+    })
+  })
+}
+
 module.exports = function () {
   this.World = World
 
@@ -100,28 +127,10 @@ module.exports = function () {
   })
 
   this.When(/^I eventually click on the active result$/, function () {
-    const check = () => {
-      return this.isResultsVisible().then((isVisible) => {
-        if (isVisible) {
-          return this.clickActiveResult()
-        } else {
-          return new Promise((resolve) => {
-            setTimeout(resolve, 100)
-          }).then(() => {
-            return check()
-          })
-        }
-      })
-    }
-    return check()
-  })
-
-  this.Then(/^the search window is not visible$/, function (callback) {
-    this.isWindowVisible().then((isVisible) => {
-      if (!isVisible) {
-        return callback()
-      }
-      return callback(new Error('Window must not be visible'))
+    return eventually(() => this.hasResults(), true).then(() => {
+      return wait(100)
+    }).then(() => {
+      return this.clickActiveResult()
     })
   })
 
@@ -135,43 +144,18 @@ module.exports = function () {
     })
   })
 
+  this.Then(/^the search window is not visible$/, function () {
+    return eventually(() => this.isWindowVisible(), false)
+  })
+
   this.Then(/^the search window is(?: eventually)? visible$/, function () {
-    const check = () => {
-      return this.isResultsVisible().then((isVisible) => {
-        if (isVisible) {
-          return true
-        } else {
-          return new Promise((resolve) => {
-            setTimeout(resolve, 100)
-          }).then(() => {
-            return check()
-          })
-        }
-      })
-    }
-    return check()
+    return eventually(() => this.isWindowVisible(), true)
   })
 
-  this.Then(/^I have (\d+) results$/, function (expected, callback) {
-    this.getResultItems().then((actualResults) => {
-      const actualLength = actualResults.length
-      const expectedLength = parseInt(expected, 10)
-      if (expectedLength === actualLength) {
-        callback()
-      } else {
-        callback(new Error('Expected ' + expectedLength + ' to be ' + actualLength))
-      }
-    })
-  })
-
-  this.Then(/^the results should be visible$/, function (callback) {
-    this.isResultsVisible().then((isVisible) => {
-      if (isVisible) {
-        callback()
-      } else {
-        callback(new Error('Results should be visible'))
-      }
-    })
+  this.Then(/^I have (\d+) results$/, function (expected) {
+    return eventually(() => {
+      return this.getResultItems().then((items) => items.length)
+    }, parseInt(expected, 10))
   })
 
   this.When(/^I type in "([^"]*)"$/, function (input, callback) {

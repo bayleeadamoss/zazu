@@ -1,4 +1,4 @@
-Feature: Block Types
+Feature: Input Blocks
   As a user of Zazu
   I want to use all the available block types
   So I can be more productive
