@@ -6,11 +6,12 @@ class Keyword extends InputBlock {
     this.keyword = data.keyword
     this.title = data.title
     this.subtitle = data.subtitle
+    this.icon = data.icon
   }
 
   respondsTo (input) {
     const longEnough = input.length > 2
-    const partOfKeyword = this.keyword.inexOf(input) !== -1
+    const partOfKeyword = this.keyword.indexOf(input) !== -1
     const respondsTo = longEnough && partOfKeyword
     this.logger.log('Responds to input', { input, respondsTo })
     return respondsTo
@@ -24,6 +25,7 @@ class Keyword extends InputBlock {
           title: this.title,
           subtitle: this.subtitle,
           value: this.keyword,
+          icon: this.icon,
         },
       ])
     })

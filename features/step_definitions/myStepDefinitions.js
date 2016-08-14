@@ -1,6 +1,7 @@
 const path = require('path')
 const robot = require('robotjs')
 const Application = require('spectron').Application
+const $ = require('cheerio')
 
 class World {
   constructor () {
@@ -28,10 +29,16 @@ class World {
     this.app.client.setValue('input', input)
   }
 
+  open () {
+    return this.app.start()
+  }
+
   showWindow () {
-    return this.app.start().then(() => {
-      return robot.keyTap('space', 'shift')
-    })
+    return Promise.resolve(this.hitHotkey('space', 'shift'))
+  }
+
+  hitHotkey (key, modifier) {
+    return Promise.resolve(robot.keyTap(key, modifier))
   }
 
   close () {
@@ -50,6 +57,12 @@ class World {
     return this.app.client.getText('.results')
   }
 
+  getResultItems () {
+    return this.app.client.getHTML('.results').then((results) => {
+      return $(results).find('li')
+    })
+  }
+
   windowCount () {
     return this.app.client.getWindowCount().catch((err) => {
       console.log('ERROR:', err)
@@ -65,14 +78,25 @@ class World {
 module.exports = function () {
   this.World = World
 
-  this.When(/^I open the application$/, function () {
+  this.Given(/^I have "([^"]*)" as a plugin$/, function (plugin) {
+    if (plugin !== 'tinytacoteam/zazu-fixture') {
+      return Promise.reject('We should make this dynamic.')
+    }
+    return Promise.resolve()
+  })
+
+  this.Given(/^the app is launched$/, function () {
+    return this.open()
+  })
+
+  this.When(/^I toggle it open$/, function () {
     return this.showWindow()
   })
 
-  this.When(/^I wait "([^"]*)" milliseconds$/, function (seconds, callback) {
-    setTimeout(() => {
-      callback()
-    }, parseInt(seconds, 10))
+  // assumes modifier is first
+  this.When(/^I hit the hotkey "([^"]*)"$/, function (hotkey) {
+    var keys = hotkey.split('+')
+    return this.hitHotkey(keys[1], keys[0])
   })
 
   this.When(/^I eventually click on the active result$/, function () {
@@ -126,6 +150,18 @@ module.exports = function () {
       })
     }
     return check()
+  })
+
+  this.Then(/^I have (\d+) results$/, function (expected, callback) {
+    this.getResultItems().then((actualResults) => {
+      const actualLength = actualResults.length
+      const expectedLength = parseInt(expected, 10)
+      if (expectedLength === actualLength) {
+        callback()
+      } else {
+        callback(new Error('Expected ' + expectedLength + ' to be ' + actualLength))
+      }
+    })
   })
 
   this.Then(/^the results should be visible$/, function (callback) {

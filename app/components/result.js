@@ -38,6 +38,7 @@ const Result = React.createClass({
 
   render () {
     const { active, value } = this.props
+    const isFontAwesome = value.icon.indexOf('fa-') === 0 && value.icon.indexOf('.') === -1
     return React.createElement(
       'li',
       {
@@ -46,7 +47,7 @@ const Result = React.createClass({
         className: active ? 'active' : 'inactive',
         ref: this.setReference,
       },
-      value.icon.indexOf('fa-') === 0 ? (
+      isFontAwesome ? (
         React.createElement('i', {
           className: 'icon fa ' + value.icon,
           'aria-hidden': 'true',

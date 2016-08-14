@@ -9,6 +9,10 @@ class InputBlock extends Block {
     this.isScoped = false
   }
 
+  isActive () {
+    return this.isScoped !== false
+  }
+
   setScoped (value) {
     this.isScoped = value
   }

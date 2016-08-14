@@ -73,14 +73,14 @@ const Results = React.createClass({
       { className: 'results' },
       React.createElement(
         'ul',
-        { key: 'results' },
+        {},
         values.map((result, i) => {
           return React.createElement(Result, {
             active: i === activeIndex,
             activate: this.activate,
             value: result,
             onClick: handleResultClick,
-            key: result.id,
+            key: i,
           })
         })
       ),

@@ -27,7 +27,7 @@ class Plugin extends Package {
   setActive (activeState) {
     this.activeState = activeState
     this.inputs.forEach((input) => {
-      input.setScoped(false)
+      input.setScoped(null)
     })
   }
 
@@ -138,15 +138,17 @@ class Plugin extends Package {
 
   search (inputText) {
     return this.inputs.reduce((responsePromises, input) => {
-      if (input.respondsTo(inputText)) {
+      if (input.isActive() && input.respondsTo(inputText)) {
         const tracer = track.tracer(this.id + '/' + input.id)
         responsePromises.push(
           input.search(inputText, this.options)
             .then((results = []) => {
               return results.map((result) => {
+                const icon = result.icon || this.plugin.icon
+                const isFontAwesome = icon.indexOf('fa-') === 0 && icon.indexOf('.') === -1
+                result.icon = isFontAwesome ? icon : path.join(this.path, icon)
                 result.previewCss = this.plugin.css
                 result.pluginName = this.url
-                result.icon = result.icon || path.join(this.path, this.plugin.icon)
                 result.blockId = input.id
                 result.next = this.next.bind(this, result)
                 return result

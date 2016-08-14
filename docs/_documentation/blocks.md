@@ -243,6 +243,7 @@ can click on.
 * `keyword` *string*: What the user input should match. Similar to the `value` in results.
 * `title` *string*: Title of the result that will be displayed, similar to results.
 * `subtitle` *string*: Subtitle of the result that will be displayed, similar to results.
+* `icon` *string*: [Font awesome](http://fontawesome.io/icons/) or the relative path to an icon to be displayed next to the result.
 
 ~~~ javascript
 [{
@@ -251,6 +252,7 @@ can click on.
   keyword: 'play',
   title: 'Play Pandora',
   subtitle: 'Click to play Pandora!',
+  icon: 'fa-play',
   connections: ['PlayPandora'],
 }]
 ~~~
