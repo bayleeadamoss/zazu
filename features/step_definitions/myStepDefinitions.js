@@ -2,11 +2,18 @@ const path = require('path')
 const robot = require('robotjs')
 const Application = require('spectron').Application
 const $ = require('cheerio')
+const jetpack = require('fs-jetpack')
 
 class World {
-  constructor () {
+  profile (name) {
+    this.profileType = name
     const appPath = path.join(__dirname, '../../app')
     const homeDir = path.join(__dirname, '../../test/fixtures/home')
+    const calcProfile = path.join(homeDir, '..', '.zazurc.js')
+    const homeProfile = path.join(homeDir, '.zazurc.js')
+    if (this.profileType === 'calculator') {
+      jetpack.copy(calcProfile, homeProfile, { overwrite: true })
+    }
     this.app = new Application({
       path: require('electron-prebuilt'),
       args: [appPath],
@@ -15,6 +22,16 @@ class World {
         ZAZU_HOME: homeDir,
       },
     })
+    return Promise.resolve()
+  }
+
+  open () {
+    if (this.profileType === 'calculator') {
+      return this.app.start().then(() => {
+        return wait(10 * 1000) // give it time to install the plugin
+      })
+    }
+    return this.app.start()
   }
 
   isWindowVisible () {
@@ -31,10 +48,6 @@ class World {
     this.app.client.setValue('input', input)
   }
 
-  open () {
-    return this.app.start()
-  }
-
   showWindow () {
     return Promise.resolve(this.hitHotkey('space', 'shift'))
   }
@@ -44,7 +57,7 @@ class World {
   }
 
   close () {
-    return this.app.stop()
+    return this.app && this.app.stop()
   }
 
   clickActiveResult () {
@@ -83,7 +96,11 @@ const wait = (time) => {
   })
 }
 
-const eventually = (func, expectedValue) => {
+const eventually = (func, expectedValue, iteration) => {
+  iteration = (iteration || 1)
+  if (iteration === 30) {
+    return Promise.reject('Forever is a long time')
+  }
   return func().then((actualValue) => {
     if (actualValue === expectedValue) {
       return true
@@ -91,13 +108,13 @@ const eventually = (func, expectedValue) => {
       return new Promise((resolve) => {
         setTimeout(resolve, 100)
       }).then(() => {
-        return eventually(func, expectedValue)
+        return eventually(func, expectedValue, iteration + 1)
       })
     }
   }).catch((err) => {
     console.error('ERROR: ', err)
     return wait(100).then(() => {
-      return eventually(func, expectedValue)
+      return eventually(func, expectedValue, iteration + 1)
     })
   })
 }
@@ -106,13 +123,15 @@ module.exports = function () {
   this.World = World
 
   this.Given(/^I have "([^"]*)" as a plugin$/, function (plugin) {
-    if (plugin !== 'tinytacoteam/zazu-fixture') {
-      return Promise.reject('We should make this dynamic.')
+    if (plugin === 'tinytacoteam/zazu-fixture') {
+      return this.profile('default')
+    } else if (plugin === 'tinytacoteam/zazu-calculator') {
+      return this.profile('calculator')
     }
-    return Promise.resolve()
+    return Promise.reject('Profile not found')
   })
 
-  this.Given(/^the app is launched$/, function () {
+  this.Given(/^the app is launched$/, {timeout: 15 * 1000}, function () {
     return this.open()
   })
 

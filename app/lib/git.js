@@ -23,7 +23,7 @@ const pull = (packagePath) => {
 }
 
 const clone = (name, packagePath) => {
-  const packageUrl = 'git@github.com:' + name + '.git'
+  const packageUrl = 'https://github.com/' + name + '.git'
   return git(['clone', packageUrl, packagePath]).catch((err) => {
     if (err.message.match(/already exists/i)) {
       return // futher promises will resolve
