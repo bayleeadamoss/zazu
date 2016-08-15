@@ -5,10 +5,12 @@ const Theme = require('../packages/theme')
 const track = require('../lib/track')
 const globalEmitter = require('../lib/globalEmitter')
 const notification = require('../lib/notification')
-const configuration = require('../lib/configuration')
 const DatabaseWrapper = require('./databaseWrapper')
 
 const PluginWrapper = React.createClass({
+  contextTypes: {
+    configuration: React.PropTypes.object.isRequired,
+  },
 
   getInitialState () {
     return {
@@ -65,7 +67,6 @@ const PluginWrapper = React.createClass({
   },
 
   loadPackages () {
-    configuration.load()
     return this.loadTheme().then(() => {
       return this.loadPlugins()
     }).then(() => {
@@ -77,6 +78,7 @@ const PluginWrapper = React.createClass({
   },
 
   loadTheme () {
+    const { configuration } = this.context
     const theme = new Theme(configuration.theme, configuration.pluginDir)
     return theme.load().then((plugin) => {
       this.setState({ theme })
@@ -88,6 +90,7 @@ const PluginWrapper = React.createClass({
   },
 
   loadPlugins () {
+    const { configuration } = this.context
     const plugins = configuration.plugins.map((plugin) => {
       if (typeof plugin === 'object') {
         return new Plugin(plugin.name, plugin.variables)
@@ -107,7 +110,7 @@ const PluginWrapper = React.createClass({
   },
 
   handleResetQuery () {
-    if (configuration.debug) return
+    if (this.context.configuration.debug) return
     this.setState({
       query: '',
       results: [],

@@ -18,8 +18,13 @@ const DatabaseWrapper = React.createClass({
     scopeBlock: React.PropTypes.func.isRequired,
   },
 
+  contextTypes: {
+    configuration: React.PropTypes.object.isRequired,
+  },
+
   getInitialState () {
-    const databasePath = path.join(os.homedir(), '.zazu/databases/track.nedb')
+    const { configuration } = this.context
+    const databasePath = path.join(configuration.databaseDir, 'track.nedb')
     return {
       clickedResults: [],
       database: new Datastore({ filename: databasePath, autoload: true }),

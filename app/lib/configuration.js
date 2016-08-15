@@ -6,6 +6,8 @@ class Configuration {
     const home = process.env.ZAZU_HOME || require('os').homedir()
     this.profilePath = path.join(home, '.zazurc.js')
     this.pluginDir = path.join(home, '.zazu/plugins/')
+    this.databaseDir = path.join(home, '.zazu/databases')
+    this.logDir = path.join(home, '.zazu/log')
     this.plugins = []
     this.loaded = false
     this.disableAnalytics = false
