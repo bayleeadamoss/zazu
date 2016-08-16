@@ -26,6 +26,7 @@ class Plugin extends Package {
 
   setActive (activeState) {
     this.activeState = activeState
+    if (this.activeState) this.logger.log('info', 'activate plugin')
     this.inputs.forEach((input) => {
       input.setScoped(null)
     })
@@ -33,6 +34,7 @@ class Plugin extends Package {
 
   setScoped (activeState, blockId) {
     this.activeState = activeState
+    if (this.activeState) this.logger.log('info', 'scoping plugin')
     this.inputs.forEach((input) => {
       input.setScoped(input.id === blockId)
     })
@@ -40,6 +42,7 @@ class Plugin extends Package {
 
   update () {
     return super.update().then(() => {
+      this.logger.log('info', 'npm install')
       return npmInstall(this.path)
     }).then(() => {
       return pluginFreshRequire(this.path)
@@ -49,6 +52,7 @@ class Plugin extends Package {
   download () {
     return super.download().then((action) => {
       if (action === 'downloaded') {
+        this.logger.log('verbose', 'npm install')
         return npmInstall(this.path)
       } else {
         return Promise.resolve()

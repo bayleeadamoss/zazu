@@ -18,7 +18,9 @@
     "npm": "^3.10.5",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
-    "semver": "^5.0.3"
+    "semver": "^5.0.3",
+    "winston": "^2.2.0",
+    "winston-daily-rotate-file": "^1.2.0"
   },
   "packageNameTemplate": "{{name}}-v{{version}}-{{platform}}-{{arch}}",
   "osx": {

@@ -1,14 +1,14 @@
 const EventEmitter = require('events')
 const cuid = require('cuid')
 
-const PluginLogger = require('../lib/pluginLogger')
+const logger = require('../lib/logger')
 
 class ExternalBlock extends EventEmitter {
   constructor (data, options) {
     super()
     this.pluginId = data.pluginId
     this.id = data.id || cuid()
-    this.logger = new PluginLogger(this.pluginId, this.id)
+    this.logger = logger.bindMeta({ plugin: this.url, block: this.id })
   }
 
   call () {

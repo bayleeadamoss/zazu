@@ -1,6 +1,7 @@
 const AutoLaunch = require('auto-launch')
 const { app } = require('electron')
 const env = require('../lib/env')
+const logger = require('../lib/logger')
 
 module.exports = () => {
   if (env.name === 'production') {
@@ -12,11 +13,13 @@ module.exports = () => {
 
       appLauncher.isEnabled().then((enabled) => {
         if (enabled) return
+        logger.log('info', 'Adding to linux startup')
         return appLauncher.enable()
       })
     } else {
       const settings = app.getLoginItemSettings()
       if (!settings.openAtLogin) {
+        logger.log('info', 'Adding to win32 or darwin startup')
         app.setLoginItemSettings({
           openAtLogin: true,
         })

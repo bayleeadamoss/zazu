@@ -15,10 +15,15 @@ const Results = React.createClass({
     handleUpdateActiveIndex: PropTypes.func.isRequired,
   },
 
+  contextTypes: {
+    logger: React.PropTypes.object.isRequired,
+  },
+
   moveUp () {
     const { values, activeIndex } = this.props
     const prevIndex = activeIndex - 1
 
+    this.context.logger.log('info', 'move down')
     if (prevIndex < 0) {
       const lastIndex = values.length - 1
       this.activate(values[lastIndex])
@@ -31,6 +36,7 @@ const Results = React.createClass({
     const { values, activeIndex } = this.props
     const nextIndex = activeIndex + 1
 
+    this.context.logger.log('info', 'move up')
     if (nextIndex >= values.length) {
       this.activate(values[0])
     } else {

@@ -5,8 +5,8 @@ const Debug = React.createClass({
   getInitialState () {
     return {
       selectedPlugin: 'Any',
-      selectedType: 'warn',
-      logTypes: ['info', 'log', 'warn', 'error'],
+      selectedLevel: 'info',
+      logTypes: ['verbose', 'info', 'warn', 'error'],
       plugins: [],
       items: [],
     }
@@ -18,8 +18,8 @@ const Debug = React.createClass({
     items.unshift(Object.assign({}, options, {
       time: new Date(),
     }))
-    if (plugins.indexOf(options.pluginId) === -1) {
-      plugins.push(options.pluginId)
+    if (plugins.indexOf(options.plugin) === -1) {
+      plugins.push(options.plugin)
     }
     this.setState({
       plugins,
@@ -39,7 +39,7 @@ const Debug = React.createClass({
 
   handleTypeChange (e) {
     this.setState({
-      selectedType: e.target.value,
+      selectedLevel: e.target.value,
     })
   },
 
@@ -49,20 +49,20 @@ const Debug = React.createClass({
     })
   },
 
-  allowedTypes () {
-    if (this.state.selectedType === 'error') {
+  allowedLevels () {
+    if (this.state.selectedLevel === 'error') {
       return ['error']
-    } else if (this.state.selectedType === 'warn') {
+    } else if (this.state.selectedLevel === 'warn') {
       return ['error', 'warn']
-    } else if (this.state.selectedType === 'log') {
-      return ['error', 'warn', 'log']
-    } else if (this.state.selectedType === 'info') {
-      return ['error', 'warn', 'log', 'info']
+    } else if (this.state.selectedLevel === 'info') {
+      return ['error', 'warn', 'info']
+    } else if (this.state.selectedLevel === 'verbose') {
+      return ['error', 'warn', 'info', 'verbose']
     }
   },
 
   render () {
-    const allowedTypes = this.allowedTypes()
+    const allowedLevels = this.allowedLevels()
     return React.createElement(
       'ul',
       null,
@@ -72,14 +72,14 @@ const Debug = React.createClass({
           defaultValue: 'Any',
           onChange: this.handlePluginChange,
         },
-        ['Any'].concat(this.state.plugins).map((pluginId) => {
-          return React.createElement('option', { key: pluginId }, pluginId)
+        ['Any'].concat(this.state.plugins).map((plugin) => {
+          return React.createElement('option', { key: plugin }, plugin)
         })
       ),
       React.createElement(
         'select',
         {
-          defaultValue: this.state.selectedType,
+          defaultValue: this.state.selectedLevel,
           onChange: this.handleTypeChange,
         },
         this.state.logTypes.map((logType) => {
@@ -90,22 +90,25 @@ const Debug = React.createClass({
         'ul',
         null,
         this.state.items.filter((item) => {
-          return ['Any', item.pluginId].indexOf(this.state.selectedPlugin) !== -1
+          return ['Any', item.plugin].indexOf(this.state.selectedPlugin) !== -1
         }).filter((item) => {
-          return allowedTypes.indexOf(item.type) !== -1
+          return allowedLevels.indexOf(item.level) !== -1
         }).slice(0, 100).map((item, key) => {
           return React.createElement(
             'li',
             { key },
             React.createElement(
               'pre',
-              { className: item.type },
-              item.type.toUpperCase(), ': ',
+              { className: item.level },
+              item.level.toUpperCase(), ': ',
               '[' + item.time.toTimeString().split(' ')[0] + ']',
-              '[' + item.pluginId, ':', item.blockId + '] '
+              '[',
+                item.plugin,
+                item.block ? (':' + item.block) : '',
+              '] '
             ),
             React.createElement('pre', null, item.message),
-            React.createElement('pre', null, JSON.stringify(item.data, null, 2))
+            React.createElement('pre', null, JSON.stringify(item, null, 2))
           )
         })
       )

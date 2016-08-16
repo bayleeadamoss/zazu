@@ -1,6 +1,7 @@
 const React = require('react')
 
 const configuration = require('../lib/configuration')
+const logger = require('../lib/logger')
 
 const ConfigWrapper = React.createClass({
   propTypes: {
@@ -16,6 +17,7 @@ const ConfigWrapper = React.createClass({
     configuration.load()
     return {
       configuration,
+      logger,
     }
   },
 

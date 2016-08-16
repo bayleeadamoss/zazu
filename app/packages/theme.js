@@ -11,6 +11,7 @@ class Theme extends Package {
 
   load () {
     return super.load().then((plugin) => {
+      this.logger.log('info', 'loading css for theme')
       this.css = plugin.css = jetpack.read(path.join(this.path, plugin.stylesheet))
       return plugin
     }).catch((errorMessage) => {

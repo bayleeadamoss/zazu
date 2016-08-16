@@ -384,15 +384,13 @@ The Plugin Debugger is useful, since we surface information to you to help you
 develop your plugins better. This API allows you to surface your own logs to the
 Plugin Debugger.
 
-The API including `console.log`, `console.warn` and `console.error` all take the
-same parameters:
-
+* `level` *string*: Log level `verbose`, `info`, or `error`
 * `message` *string*: Log message to be displayed.
 * `data` *object*: Other misc data that could be useful.
 
 ~~~ javascript
 module.exports = (pluginContext) => {
-  pluginContext.console.log('hello world', {
+  pluginContext.console.log('verbose', 'hello world', {
     ping: 'pong',
   })
 }

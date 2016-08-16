@@ -1,6 +1,6 @@
 const cuid = require('cuid')
 
-const PluginLogger = require('../lib/pluginLogger')
+const logger = require('../lib/logger')
 
 class Block {
   constructor (data) {
@@ -8,7 +8,7 @@ class Block {
     this.type = data.type
     this.id = data.id || cuid()
     this.connections = data.connections || []
-    this.logger = new PluginLogger(this.pluginId, this.id)
+    this.logger = logger.bindMeta({ plugin: this.pluginId, block: this.id })
   }
 
   call (state) {

@@ -1,6 +1,5 @@
 const React = require('react')
 const path = require('path')
-const os = require('os')
 const Datastore = require('nedb')
 
 const Zazu = require('./zazu')

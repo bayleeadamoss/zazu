@@ -3,6 +3,7 @@ const https = require('https')
 const { shell, app, dialog } = require('electron')
 
 const globalEmitter = require('./globalEmitter')
+const logger = require('./logger')
 
 var self = {
 
@@ -50,6 +51,7 @@ var self = {
   check (manualUpdate) {
     self.needsUpdate().then((updateVersion) => {
       if (updateVersion) {
+        logger.log('info', 'needs zazu software update', { updateVersion })
         globalEmitter.emit('showWindow')
         dialog.showMessageBox({
           type: 'question',

@@ -23,14 +23,14 @@ class RootScript extends InputBlock {
 
   respondsTo (input) {
     if (!this.script) {
-      this.logger.error('Plugin failed to load', {
+      this.logger.log('error', 'Plugin failed to load', {
         message: this.loadError.message,
         stack: this.loadError.stack.split('\n'),
       })
       return false
     }
     const respondsTo = this.script.respondsTo(input)
-    this.logger.log('Responds to input', { input, respondsTo })
+    this.logger.log('info', 'Responds to input', { input, respondsTo })
     return respondsTo
   }
 
@@ -40,12 +40,12 @@ class RootScript extends InputBlock {
 
   search (input, env = {}) {
     const query = this.query(input)
-    this.logger.info('Executing Script', { query })
+    this.logger.log('verbose', 'Executing Script', { query })
     return this.script.search(query, env).then((results) => {
-      this.logger.log('Script Results', { results })
+      this.logger.log('info', 'Script Results', { results })
       return results
     }).catch((error) => {
-      this.logger.error('Script failed', { query, error })
+      this.logger.log('error', 'Script failed', { query, error })
     })
   }
 }
