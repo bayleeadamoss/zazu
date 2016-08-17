@@ -117,7 +117,8 @@ otherwise.</p>
 <p>All blocks can have the following properties:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">id</code> <em>mixed</em>: Unique identifier of the block, used when creating connections.</li>
+  <li><code class="highlighter-rouge">id</code> <em>mixed</em>: Unique identifier of the block, used for logging and
+connections.</li>
   <li><code class="highlighter-rouge">connections</code> <em>mixed[]</em>: Blocks to execute if one of the results are chosen.</li>
   <li><code class="highlighter-rouge">type</code> <em>string</em>: Name of the block you wish to use.</li>
 </ul>
@@ -156,9 +157,10 @@ hotkey it goes to the next block <code class="highlighter-rouge">PlayPandora</co
 script</a>.</p>
 
 <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
+  <span class="na">id</span><span class="p">:</span> <span class="s1">'Inverse'</span><span class="p">,</span>
+  <span class="na">name</span><span class="p">:</span> <span class="s1">'Inverse'</span><span class="p">,</span>
   <span class="na">type</span><span class="p">:</span> <span class="s1">'Hotkey'</span><span class="p">,</span>
   <span class="na">hotkey</span><span class="p">:</span> <span class="s1">'cmd+shift+o'</span><span class="p">,</span>
-  <span class="na">name</span><span class="p">:</span> <span class="s1">'Inverse'</span><span class="p">,</span>
   <span class="na">connections</span><span class="p">:</span> <span class="p">[</span><span class="s1">'PlayPandora'</span><span class="p">],</span>
 <span class="p">}]</span>
 </code></pre>
@@ -484,7 +486,7 @@ corresponds to that unicode value using
 
 <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// process.js</span>
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">(</span><span class="nx">pluginContext</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">env</span> <span class="o">=</span> <span class="p">{})</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="k">return</span> <span class="k">new</span> <span class="nx">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
       <span class="nx">resolve</span><span class="p">(</span><span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="nx">value</span><span class="p">))</span>
     <span class="p">})</span>

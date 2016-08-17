@@ -84,6 +84,15 @@
     
       {
         "top": true,
+        "type": "plugin",
+        "title": "Open Terminal",
+        "image": "/images/package-icons/terminal.png",
+        "githuburl": "amjith/zazu-mac-open-terminal",
+        "description": "Open terminal from the current finder path."
+      },
+    
+      {
+        "top": true,
         "type": "theme",
         "title": "Playful Theme",
         "image": "/images/package-icons/playful-theme.png",

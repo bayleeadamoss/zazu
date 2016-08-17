@@ -372,7 +372,7 @@ corresponds to that unicode value using
 ~~~ javascript
 // process.js
 module.exports = (pluginContext) => {
-  return (value) => {
+  return (value, env = {}) => {
     return new Promise((resolve, reject) => {
       resolve(String.fromCharCode(value))
     })
