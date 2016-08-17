@@ -129,7 +129,7 @@ class Plugin extends Package {
       const nextState = Object.assign({}, state, { blockId })
       const tracer = track.tracer(this.id + '/' + nextBlock.id)
       nextState.next = this.next.bind(this, nextState)
-      return nextBlock.call(nextState)
+      return nextBlock.call(nextState, this.options)
         .then(tracer.complete)
         .catch(tracer.error)
     })
