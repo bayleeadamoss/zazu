@@ -57,7 +57,10 @@ class World {
   }
 
   close () {
-    return this.app && this.app.stop()
+    if (this.app) {
+      return this.app.stop()
+    }
+    return Promise.resolve()
   }
 
   clickActiveResult () {
