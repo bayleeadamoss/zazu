@@ -22,7 +22,6 @@ communicate with your plugin.
 module.exports = {
   name: 'Demo Plugin',
   icon: 'icon.png',
-  install: 'npm install',
   stylesheet: 'dist/main.css',
   blocks: {
     input: [
@@ -51,8 +50,6 @@ module.exports = {
 
 * `icon` *string*: If the result does not provide an individual icon, the plugin
 icon will be used. The icon here is treated as a relative path.
-* `install` *string*: Optional. A script to warm up your application. Such as a
-`bundle install`, warming up a cache or migrating a local database.
 * `stylesheet` *string*: Optional. Relative path of a compiled stylesheet to be
   used when a single result is being previewed.
 * `blocks` *object*:  Blocks are the foundations of every great plugin. They are
@@ -66,6 +63,7 @@ need to return results to Zazu. Here is an example:
 ~~~ json
 [
     {
+      "id": "42",
       "icon": "fa-calculator",
       "title": "The answer is 42",
       "subtitle": "Answer to the Ultimate Question of Life, the Universe, and Everything",
