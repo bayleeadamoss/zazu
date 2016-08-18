@@ -5,11 +5,9 @@ const Theme = require('../packages/theme')
 const track = require('../lib/track')
 const globalEmitter = require('../lib/globalEmitter')
 const notification = require('../lib/notification')
-const configuration = require('../lib/configuration')
 const DatabaseWrapper = require('./databaseWrapper')
 
 const PluginWrapper = React.createClass({
-
   getInitialState () {
     return {
       query: '',
@@ -20,7 +18,13 @@ const PluginWrapper = React.createClass({
     }
   },
 
+  contextTypes: {
+    configuration: React.PropTypes.object.isRequired,
+    logger: React.PropTypes.object.isRequired,
+  },
+
   scopeBlock (activePlugin, activeBlock) {
+    this.context.logger.log('info', 'scoping block', { activePlugin, activeBlock })
     if (!activePlugin) {
       this.state.plugins.forEach((plugin) => {
         plugin.setActive(true)
@@ -59,13 +63,13 @@ const PluginWrapper = React.createClass({
   },
 
   clearResults () {
+    this.context.logger.log('info', 'clearing results')
     this.setState({
       results: [],
     })
   },
 
   loadPackages () {
-    configuration.load()
     return this.loadTheme().then(() => {
       return this.loadPlugins()
     }).then(() => {
@@ -77,17 +81,19 @@ const PluginWrapper = React.createClass({
   },
 
   loadTheme () {
+    const { configuration } = this.context
     const theme = new Theme(configuration.theme, configuration.pluginDir)
-    return theme.load().then((plugin) => {
+    return theme.load().then(() => {
       this.setState({ theme })
       track.addPageAction('loadedPackage', {
         packageType: 'theme',
-        packageName: plugin.url,
+        packageName: theme.url,
       })
     })
   },
 
   loadPlugins () {
+    const { configuration } = this.context
     const plugins = configuration.plugins.map((plugin) => {
       if (typeof plugin === 'object') {
         return new Plugin(plugin.name, plugin.variables)
@@ -107,7 +113,7 @@ const PluginWrapper = React.createClass({
   },
 
   handleResetQuery () {
-    if (configuration.debug) return
+    if (this.context.configuration.debug) return
     this.setState({
       query: '',
       results: [],
@@ -119,6 +125,7 @@ const PluginWrapper = React.createClass({
     const interaction = track.interaction()
     interaction.setName('search')
     interaction.setAttribute('queryLength', query.length)
+    this.context.logger.log('info', `Updating query to "${query}"`)
 
     const promises = this.state.plugins.filter((plugin) => {
       return plugin.respondsTo(query)
@@ -162,6 +169,7 @@ const PluginWrapper = React.createClass({
   },
 
   handleResultClick (result) {
+    this.context.logger.log('info', 'actioned result', result)
     const interaction = track.interaction()
     interaction.setName('actioned')
     result.next().then(() => {

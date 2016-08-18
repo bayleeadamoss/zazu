@@ -4,6 +4,7 @@ const path = require('path')
 const configuration = require('./lib/configuration')
 const update = require('./lib/update')
 const globalEmitter = require('./lib/globalEmitter')
+const logger = require('./lib/logger')
 
 const { windowHelper, openCount } = require('./helpers/window')
 const forceSingleInstance = require('./helpers/singleInstance')
@@ -11,6 +12,7 @@ const addToStartup = require('./helpers/startup')
 const createMenu = require('./helpers/menu')
 
 globalEmitter.on('showDebug', (message) => {
+  logger.log('info', 'opening debug page')
   windowHelper('debug', {
     width: 600,
     height: 400,
@@ -21,6 +23,7 @@ globalEmitter.on('showDebug', (message) => {
 })
 
 globalEmitter.on('showAbout', (message) => {
+  logger.log('info', 'opening about page')
   windowHelper('about', {
     width: 200,
     height: 200,
@@ -31,6 +34,7 @@ globalEmitter.on('showAbout', (message) => {
 })
 
 app.on('ready', function () {
+  logger.debug('app is ready')
   createMenu()
   update.queueUpdate()
   addToStartup()
@@ -38,18 +42,23 @@ app.on('ready', function () {
 
   globalEmitter.on('registerHotkey', (accelerator) => {
     if (!globalShortcut.isRegistered(accelerator)) {
+      logger.log('verbose', 'registered a hotkey', { hotkey: accelerator })
       globalShortcut.register(accelerator, () => {
         globalEmitter.emit('triggerHotkey', accelerator)
+        logger.log('info', 'triggered a hotkey', { hotkey: accelerator })
       })
     }
   })
 
   configuration.load()
+  logger.log('verbose', 'registering zazu hotkey', { hotkey: configuration.hotkey })
   globalShortcut.register(configuration.hotkey, () => {
+    logger.log('info', 'triggered zazu hotkey')
     globalEmitter.emit('toggleWindow')
   })
 
   const debug = !!configuration.debug
+  if (debug) logger.log('verbose', 'debug mode is on')
 
   const mainWindow = windowHelper('main', {
     width: 600,
@@ -74,11 +83,13 @@ app.on('ready', function () {
   if (debug) mainWindow.webContents.toggleDevTools({mode: 'undocked'})
 
   mainWindow.on('blur', () => {
+    logger.log('verbose', 'sending hide event signal from blur event')
     if (mainWindow.isVisible()) globalEmitter.emit('hideWindow')
   })
 
   globalEmitter.on('hideWindow', () => {
     if (debug) return
+    logger.log('info', 'hiding window from manual trigger')
     mainWindow.hide()
   })
 
@@ -89,15 +100,19 @@ app.on('ready', function () {
   })
 
   globalEmitter.on('showWindow', () => {
+    logger.log('info', 'showing window from manual trigger')
     mainWindow.show()
   })
 
   globalEmitter.on('toggleWindow', () => {
-    globalEmitter.emit(mainWindow.isVisible() ? 'hideWindow' : 'showWindow')
+    const type = mainWindow.isVisible() ? 'hideWindow' : 'showWindow'
+    logger.log('verbose', `sending ${type} event from toggle event`)
+    globalEmitter.emit(type)
   })
 })
 
 app.on('will-quit', () => {
+  logger.log('verbose', 'zazu is closing')
   globalShortcut.unregisterAll()
 })
 

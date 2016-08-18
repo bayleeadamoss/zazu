@@ -23,19 +23,19 @@ class UserScript extends Block {
 
   call (state, env = {}) {
     if (!this.script) {
-      this.logger.error('Plugin failed to load', {
+      this.logger.log('error', 'Plugin failed to load', {
         message: this.loadError.message,
         stack: this.loadError.stack.split('\n'),
       })
       return Promise.resolve()
     }
-    this.logger.log('Executing User Node Script', { value: state.value })
+    this.logger.log('verbose', 'Executing Script', { value: state.value })
     return this.script(state.value, env).then((output) => {
       state.value = output
-      this.logger.log('User Node Script results', { value: state.value })
+      this.logger.log('info', 'User Script results', { value: state.value })
       return state.next()
     }).catch((error) => {
-      this.logger.error('User Node Script failed', { value: state.value, error })
+      this.logger.log('error', 'User Script failed', { value: state.value, error })
     })
   }
 }

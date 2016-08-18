@@ -30,7 +30,6 @@ class ServiceScript extends ExternalBlock {
   }
 
   start () {
-    this.logger.info('Queueing Service', { interval: this.interval })
     return new Promise((resolve) => {
       setTimeout(resolve, this.interval)
     }).then(() => {
@@ -40,17 +39,16 @@ class ServiceScript extends ExternalBlock {
 
   handle () {
     if (!this.script) {
-      this.logger.error('Plugin failed to load', {
+      this.logger.log('error', 'Plugin failed to load', {
         message: this.loadError.message,
         stack: this.loadError.stack.split('\n'),
       })
       return Promise.resolve()
     }
-    this.logger.info('Executing script')
     return this.script(this.options).then(() => {
       this.start()
     }).catch((error) => {
-      this.logger.error('Script failed', { error })
+      this.logger.log('error', 'Script failed', { error })
     })
   }
 }

@@ -20,10 +20,15 @@
       const ReactDOM = require('react-dom')
       const React = require('react')
 
+      const ConfigWrapper = require('./containers/configWrapper')
       const PluginWrapper = require('./containers/pluginWrapper')
 
       ReactDOM.render(
-        React.createElement(PluginWrapper),
+        React.createElement(
+          ConfigWrapper,
+          {},
+          React.createElement(PluginWrapper)
+        ),
         document.getElementById('zazu')
       )
     </script>

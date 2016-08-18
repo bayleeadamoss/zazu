@@ -21,13 +21,13 @@ ul {
 li {
   list-style: none;
 }
-pre.info {
+pre.verbose {
   border-left: 5px solid #31708F;
   color: #31708F;
   padding-left: 5px;
   background-color: #D9EDF7;
 }
-pre.log {
+pre.info {
   border-left: 5px solid #3C763D;
   color: #3C763D;
   padding-left: 5px;

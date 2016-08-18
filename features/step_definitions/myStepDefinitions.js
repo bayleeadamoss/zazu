@@ -57,7 +57,10 @@ class World {
   }
 
   close () {
-    return this.app && this.app.stop()
+    if (this.app) {
+      return this.app.stop()
+    }
+    return Promise.resolve()
   }
 
   clickActiveResult () {
@@ -96,26 +99,25 @@ const wait = (time) => {
   })
 }
 
-const eventually = (func, expectedValue, iteration) => {
-  iteration = (iteration || 1)
-  if (iteration === 30) {
-    return Promise.reject('Forever is a long time')
-  }
-  return func().then((actualValue) => {
-    if (actualValue === expectedValue) {
-      return true
-    } else {
-      return new Promise((resolve) => {
-        setTimeout(resolve, 100)
-      }).then(() => {
-        return eventually(func, expectedValue, iteration + 1)
-      })
+const eventually = (func, expectedValue) => {
+  const assert = (actualValue) => {
+    if (actualValue !== expectedValue) {
+      throw new Error('Values didnt match')
     }
-  }).catch((err) => {
-    console.error('ERROR: ', err)
-    return wait(100).then(() => {
-      return eventually(func, expectedValue, iteration + 1)
-    })
+  }
+  return new Promise((resolve, reject) => {
+    let iterations = 0
+    const retry = () => {
+      iterations++
+      if (iterations >= 30) {
+        reject('Forever is a long time')
+      } else {
+        func().then(assert).then(resolve).catch(() => {
+          return wait(100).then(retry)
+        })
+      }
+    }
+    retry()
   })
 }
 
