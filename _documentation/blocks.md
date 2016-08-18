@@ -95,6 +95,9 @@ Below is an example of the `Cache Packages` block we defined earlier. It fetches
 a JSON file from the [internet](https://en.wikipedia.org/wiki/Internet) and
 store it in the plugin directory under the name `packages.json`.
 
+The `pluginContext` is provided when your plugin is loaded, and the returned
+function will be called as needed.
+
 ~~~ javascript
 // cachePackages.js
 const fs = require('fs')
@@ -166,6 +169,9 @@ The `search` method takes a `query` and `env` and returns a
 [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
 that resolves with results.
 
+The `pluginContext` is provided when your plugin is loaded, and the returned
+functions will be called as needed.
+
 Variables defined in the [configuration](/documentation/configuration/) will be used as
 environment variables in the script call.
 
@@ -218,6 +224,9 @@ The node script needs to have a curried function that returns a promise. We call
 the export with the [Plugin Context](#plugin-context). The search function can
 accept a query and the environment variables, and it should return a
 [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
+
+The `pluginContext` is provided when your plugin is loaded, and the returned
+function will be called as needed.
 
 Variables defined in the [configuration](/documentation/configuration/) will be used as
 environment variables in the script call.
@@ -369,6 +378,9 @@ In the example below we take in a unicode value and output the character that
 corresponds to that unicode value using
 [`String.fromCharCode`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/fromCharCode).
 
+The `pluginContext` is provided when your plugin is loaded, and the returned
+function will be called as needed.
+
 ~~~ javascript
 // process.js
 module.exports = (pluginContext) => {
@@ -391,15 +403,13 @@ The Plugin Debugger is useful, since we surface information to you to help you
 develop your plugins better. This API allows you to surface your own logs to the
 Plugin Debugger.
 
-The API including `console.log`, `console.warn` and `console.error` all take the
-same parameters:
-
+* `level` *string*: Log level `verbose`, `info`, or `error`
 * `message` *string*: Log message to be displayed.
 * `data` *object*: Other misc data that could be useful.
 
 ~~~ javascript
 module.exports = (pluginContext) => {
-  pluginContext.console.log('hello world', {
+  pluginContext.console.log('verbose', 'hello world', {
     ping: 'pong',
   })
 }
