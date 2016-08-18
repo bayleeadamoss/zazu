@@ -7,4 +7,4 @@ Feature: Open
     Given I have "tinytacoteam/zazu-fixture" as a plugin
     And the app is launched
     When I toggle it open
-    Then the search window is eventually visible
+    Then the search window is visible

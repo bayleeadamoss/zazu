@@ -169,7 +169,7 @@ module.exports = function () {
     return eventually(() => this.isWindowVisible(), false)
   })
 
-  this.Then(/^the search window is(?: eventually)? visible$/, function () {
+  this.Then(/^the search window is visible$/, function () {
     return eventually(() => this.isWindowVisible(), true)
   })
 
@@ -186,15 +186,9 @@ module.exports = function () {
     }, input)
   })
 
-  this.When(/^I have no results$/, function () {
-    return eventually(() => this.hasResults(), false)
-  })
-
   this.Then(/^the active result contains "([^"]*)"$/, function (header) {
     return eventually(() => this.hasResults(), true).then(() => {
       return wait(100)
-    }).then(() => {
-      return this.getResultItems()
     }).then(() => {
       return eventually(() => this.getActiveHeader(), header)
     })

@@ -8,6 +8,6 @@ Feature: Installing Plugins
     And the app is launched
     When I toggle it open
     And I type in "21 * 2"
-    Then the search window is eventually visible
+    Then the search window is visible
     And I have 1 results
     And the results should contain "42"
