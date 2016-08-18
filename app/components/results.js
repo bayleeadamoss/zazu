@@ -25,7 +25,7 @@ const Results = React.createClass({
     const lastIndex = values.length - 1
     const index = prevIndex < 0 ? lastIndex : prevIndex
     this.context.logger.log('info', 'move up', { index, activeIndex })
-    this.activate(values[index])
+    this.props.handleUpdateActiveIndex(index)
   },
 
   moveDown () {
@@ -33,7 +33,7 @@ const Results = React.createClass({
     const nextIndex = activeIndex + 1
     const index = nextIndex >= values.length ? 0 : nextIndex
     this.context.logger.log('info', 'move down', { index, activeIndex })
-    this.activate(values[index])
+    this.props.handleUpdateActiveIndex(index)
   },
 
   componentDidMount () {
@@ -56,13 +56,6 @@ const Results = React.createClass({
     Mousetrap.reset()
   },
 
-  activate (item) {
-    var index = this.props.values.indexOf(item)
-    if (index > -1) {
-      this.props.handleUpdateActiveIndex(index)
-    }
-  },
-
   render () {
     const { values, handleResultClick, activeIndex } = this.props
     if (values.length === 0) { return null }
@@ -75,7 +68,6 @@ const Results = React.createClass({
         values.map((result, i) => {
           return React.createElement(Result, {
             active: i === activeIndex,
-            activate: this.activate,
             value: result,
             onClick: handleResultClick,
             key: i,
