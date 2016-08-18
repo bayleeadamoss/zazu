@@ -44,6 +44,10 @@ class World {
     })
   }
 
+  getQuery () {
+    return this.app.client.getValue('input')
+  }
+
   type (input) {
     this.app.client.setValue('input', input)
   }
@@ -67,8 +71,8 @@ class World {
     return this.app.client.click('li.active')
   }
 
-  isRunning () {
-    return this.app.isRunning()
+  getActiveHeader () {
+    return this.app.client.getText('li.active h2')
   }
 
   getResults () {
@@ -78,12 +82,6 @@ class World {
   getResultItems () {
     return this.app.client.getHTML('.results').then((results) => {
       return $(results).find('li')
-    })
-  }
-
-  windowCount () {
-    return this.app.client.getWindowCount().catch((err) => {
-      console.log('ERROR:', err)
     })
   }
 
@@ -144,7 +142,9 @@ module.exports = function () {
   // assumes modifier is first
   this.When(/^I hit the hotkey "([^"]*)"$/, function (hotkey) {
     var keys = hotkey.split('+')
-    return this.hitHotkey(keys[1], keys[0])
+    return this.hitHotkey(keys[1], keys[0]).then(() => {
+      return wait(100)
+    })
   })
 
   this.When(/^I eventually click on the active result$/, function () {
@@ -179,9 +179,25 @@ module.exports = function () {
     }, parseInt(expected, 10))
   })
 
-  this.When(/^I type in "([^"]*)"$/, function (input, callback) {
+  this.When(/^I type in "([^"]*)"$/, function (input) {
     this.type(input)
-    callback()
+    return eventually(() => {
+      return this.getQuery()
+    }, input)
+  })
+
+  this.When(/^I have no results$/, function () {
+    return eventually(() => this.hasResults(), false)
+  })
+
+  this.Then(/^the active result contains "([^"]*)"$/, function (header) {
+    return eventually(() => this.hasResults(), true).then(() => {
+      return wait(100)
+    }).then(() => {
+      return this.getResultItems()
+    }).then(() => {
+      return eventually(() => this.getActiveHeader(), header)
+    })
   })
 
   this.Then(/^the results should contain "([^"]*)"$/, function (subset, callback) {
