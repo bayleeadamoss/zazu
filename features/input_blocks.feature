@@ -8,7 +8,7 @@ Feature: Input Blocks
     And the app is launched
     When I toggle it open
     And I type in "tinytacoteam"
-    Then the search window is eventually visible
+    Then the search window is visible
     And I have 1 results
     And the results should contain "tinytacoteam"
 
