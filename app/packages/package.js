@@ -31,7 +31,7 @@ class Package {
     if (!jetpack.exists(this.path)) {
       return Promise.reject('Package' + this.url + ' does not exist')
     }
-    this.logger.log('info', 'update plugin')
+    this.logger.log('info', 'pull package')
     return this.pull(this.path)
   }
 
@@ -39,7 +39,7 @@ class Package {
     if (jetpack.exists(this.path)) {
       return Promise.resolve('exists')
     }
-    this.logger.log('verbose', 'cloning plugin')
+    this.logger.log('verbose', 'cloning package')
     return this.clone(this.url, this.path).then(() => {
       return 'downloaded'
     })

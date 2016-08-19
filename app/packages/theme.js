@@ -9,6 +9,15 @@ class Theme extends Package {
     this.loaded = false
   }
 
+  update () {
+    return super.update().catch((error) => {
+      notification.push({
+        title: 'Theme update failed',
+        message: error.message,
+      })
+    })
+  }
+
   load () {
     return super.load().then((plugin) => {
       this.logger.log('info', 'loading css for theme')
@@ -16,7 +25,7 @@ class Theme extends Package {
       return plugin
     }).catch((errorMessage) => {
       notification.push({
-        title: 'Theme failed',
+        title: 'Theme install failed',
         message: errorMessage,
       })
     })
