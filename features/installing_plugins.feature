@@ -10,4 +10,4 @@ Feature: Installing Plugins
     And I type in "21 * 2"
     Then the search window is visible
     And I have 1 results
-    And the results should contain "42"
+    And the results contain "42"

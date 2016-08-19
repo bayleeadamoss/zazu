@@ -3,16 +3,22 @@ const robot = require('robotjs')
 const Application = require('spectron').Application
 const $ = require('cheerio')
 const jetpack = require('fs-jetpack')
+const { git, clone } = require('../../app/lib/git')
+
+const appPath = path.join(__dirname, '../../app')
+const homeDir = path.join(__dirname, '../../test/fixtures/home')
+const pluginDir = path.join(homeDir, '.zazu/plugins')
+const calcProfile = path.join(homeDir, '.calculator.zazurc.js')
+const fallbackProfile = path.join(homeDir, '.fallback.zazurc.js')
+const homeProfile = path.join(homeDir, '.zazurc.js')
 
 class World {
   profile (name) {
     this.profileType = name
-    const appPath = path.join(__dirname, '../../app')
-    const homeDir = path.join(__dirname, '../../test/fixtures/home')
-    const calcProfile = path.join(homeDir, '..', '.zazurc.js')
-    const homeProfile = path.join(homeDir, '.zazurc.js')
     if (this.profileType === 'calculator') {
       jetpack.copy(calcProfile, homeProfile, { overwrite: true })
+    } else if (this.profileType === 'fallback') {
+      jetpack.copy(fallbackProfile, homeProfile, { overwrite: true })
     }
     this.app = new Application({
       path: require('electron-prebuilt'),
@@ -39,8 +45,12 @@ class World {
   }
 
   hasResults () {
-    return this.app.client.getHTML('.results').then((resultHtml) => {
-      return !!resultHtml
+    return this.app.client.isExisting('.results')
+  }
+
+  updatePlugins () {
+    return this.app.webContents.send('updatePlugins').then(() => {
+      return wait(10 * 1000) // give it time to update the plugin
     })
   }
 
@@ -135,6 +145,19 @@ module.exports = function () {
     return this.open()
   })
 
+  this.Given(/^I have "tinytacoteam\/zazu-fallback" installed before mdn support$/, function () {
+    const fallbackDir = path.join(pluginDir, 'tinytacoteam', 'zazu-fallback')
+    return clone('tinytacoteam/zazu-fallback', fallbackDir).then(() => {
+      return git(['reset', '--hard', 'aab89b7'], { cwd: fallbackDir })
+    }).then(() => {
+      return this.profile('fallback')
+    })
+  })
+
+  this.Given(/^I update the plugins$/, {timeout: 15 * 1000}, function () {
+    return this.updatePlugins()
+  })
+
   this.When(/^I toggle it open$/, function () {
     return this.showWindow()
   })
@@ -173,7 +196,7 @@ module.exports = function () {
     return eventually(() => this.isWindowVisible(), true)
   })
 
-  this.Then(/^I have (\d+) results$/, function (expected) {
+  this.Then(/^I have (\d+) results?$/, function (expected) {
     return eventually(() => {
       return this.getResultItems().then((items) => items.length)
     }, parseInt(expected, 10))
@@ -186,6 +209,10 @@ module.exports = function () {
     }, input)
   })
 
+  this.Then(/^I have no results$/, function () {
+    return eventually(() => this.hasResults(), false)
+  })
+
   this.Then(/^the active result contains "([^"]*)"$/, function (header) {
     return eventually(() => this.hasResults(), true).then(() => {
       return wait(100)
@@ -194,7 +221,7 @@ module.exports = function () {
     })
   })
 
-  this.Then(/^the results should contain "([^"]*)"$/, function (subset, callback) {
+  this.Then(/^the results contain "([^"]*)"$/, function (subset, callback) {
     this.getResults().then((resultText) => {
       if (resultText.match(subset)) {
         callback()
