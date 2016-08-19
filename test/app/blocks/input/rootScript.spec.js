@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const RootScript = require('../../../app/blocks/input/rootScript')
+const RootScript = require('../../../../app/blocks/input/rootScript')
 
 const rootScript = new RootScript({})
 rootScript.script = {

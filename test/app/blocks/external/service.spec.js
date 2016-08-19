@@ -1,7 +1,7 @@
 const chai = require('chai')
 const sinonChai = require('sinon-chai')
 const sinon = require('sinon')
-const ServiceScript = require('../../../app/blocks/external/serviceScript')
+const ServiceScript = require('../../../../app/blocks/external/serviceScript')
 const { expect } = chai
 
 chai.use(sinonChai)

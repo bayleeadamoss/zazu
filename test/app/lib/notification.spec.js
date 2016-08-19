@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const notification = require('../../app/lib/notification')
+const notification = require('../../../app/lib/notification')
 const sinon = require('sinon')
 
 describe('Notification', () => {

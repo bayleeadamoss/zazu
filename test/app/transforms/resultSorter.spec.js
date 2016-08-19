@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const resultSorter = require('../app/transforms/resultSorter')
+const resultSorter = require('../../../app/transforms/resultSorter')
 
 describe('ResultSorter', () => {
   describe('given the second item is clicked', () => {

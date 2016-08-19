@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const Template = require('../../app/lib/template')
+const Template = require('../../../app/lib/template')
 
 describe('Template', () => {
   describe('compile', () => {
