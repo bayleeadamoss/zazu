@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const PrefixScript = require('../../../app/blocks/input/prefixScript')
+const PrefixScript = require('../../../../app/blocks/input/prefixScript')
 
 var prefixScript = new PrefixScript({
   prefix: 'test',

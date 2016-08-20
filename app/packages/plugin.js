@@ -46,6 +46,11 @@ class Plugin extends Package {
       return npmInstall(this.path)
     }).then(() => {
       return pluginFreshRequire(this.path)
+    }).catch((error) => {
+      notification.push({
+        title: this.id + ' failed to update',
+        message: error.message,
+      })
     })
   }
 
@@ -59,7 +64,7 @@ class Plugin extends Package {
       }
     }).catch((error) => {
       notification.push({
-        title: 'Plugin failed to download',
+        title: this.id + ' failed to download',
         message: error.message,
       })
     })
@@ -93,7 +98,7 @@ class Plugin extends Package {
       })
     }).catch((errorMessage) => {
       notification.push({
-        title: 'Plugin failed',
+        title: this.id + ' failed to install',
         message: errorMessage,
       })
     })

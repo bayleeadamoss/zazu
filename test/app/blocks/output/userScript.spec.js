@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const UserScript = require('../../../app/blocks/output/userScript')
+const UserScript = require('../../../../app/blocks/output/userScript')
 
 const userScript = new UserScript({})
 userScript.script = (value) => {
