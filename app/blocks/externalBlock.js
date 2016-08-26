@@ -8,7 +8,7 @@ class ExternalBlock extends EventEmitter {
     super()
     this.pluginId = data.pluginId
     this.id = data.id || cuid()
-    this.logger = logger.bindMeta({ plugin: this.url, block: this.id })
+    this.logger = logger.bindMeta({ plugin: data.pluginId, block: this.id })
   }
 
   call () {
