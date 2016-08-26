@@ -4,18 +4,19 @@ module.exports = {
     "plugins": [ "react" ],
     "parserOptions": {
         "ecmaFeatures": {
-            "jsx": true
-        }
+            "jsx": true,
+        },
     },
     "globals": {
         "Mousetrap": true,
-        "newrelic": true
+        "newrelic": true,
+        "__nr_require": true,
     },
     "env": {
         "browser": true,
         "node": true,
         "es6": true,
         "mocha": true,
-        "node": true
+        "node": true,
     }
 };

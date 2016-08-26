@@ -13,6 +13,27 @@ const self = {
     for (let key in attributes) {
       self.setAttribute(key, attributes[key])
     }
+    self._trackTime()
+  },
+
+  _trackTime () {
+    let called = false
+    const callback = function () {
+      if (called) return
+      called = true
+      const end = new Date().getTime()
+      const start = __nr_require('loader').offset
+      window.newrelic.addPageAction('PageDuration', {
+        duration: end - start,
+      })
+    }
+    if ('addEventListener' in window) {
+      window.addEventListener('pagehide', callback, true)
+      window.addEventListener('unload', callback, true)
+    } else if ('attachEvent' in window) {
+      window.attachEvent('onpagehide', callback)
+      window.attachEvent('onunload', callback)
+    }
   },
 
   setName: (name) => {
