@@ -96,6 +96,14 @@ higher in the results list. This works well even if you sort the results
 yourself. If you don't want this behavior, simply don't add an `id` to the
 result.
 
+## Long Synchronous Operations
+
+Zazu runs your application in the same thread, this is useful so your plugin can
+share the same objects between blocks, however if you are planning on running a
+long synchronous job, you should consider using a
+[child_process.fork](https://nodejs.org/api/child_process.html#child_process_child_process_fork_modulepath_args_options)
+within your block.
+
 ## Debugging
 
 In the Tray icon, under `Development` there is a debugger called `Plugin
