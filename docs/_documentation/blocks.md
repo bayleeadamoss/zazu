@@ -159,8 +159,9 @@ This allows you to execute a node script with a prefix.
 }]
 ~~~
 
-We call the `export` with the [Plugin Context](#plugin-context), which should
-return an object with two methods `respondsTo` and `search`.
+We call the `export` with the [Plugin
+Context](/documentation/plugins/#plugin-context), which should return an object
+with two methods `respondsTo` and `search`.
 
 The `respondsTo` method takes a `query` and asks the plugin if they are willing
 to respond to that input.
@@ -221,8 +222,9 @@ This allows you to execute a node script with a prefix.
 ~~~~
 
 The node script needs to have a curried function that returns a promise. We call
-the export with the [Plugin Context](#plugin-context). The search function can
-accept a query and the environment variables, and it should return a
+the export with the [Plugin Context](/documentation/plugins/#plugin-context).
+The search function can accept a query and the environment variables, and it
+should return a
 [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
 
 The `pluginContext` is provided when your plugin is loaded, and the returned
@@ -389,65 +391,5 @@ module.exports = (pluginContext) => {
       resolve(String.fromCharCode(value))
     })
   }
-}
-~~~
-
-## Plugin Context
-
-The `pluginContext` object passed to node scripts and contains some useful
-functions to help enable your scripts.
-
-### Console
-
-The Plugin Debugger is useful, since we surface information to you to help you
-develop your plugins better. This API allows you to surface your own logs to the
-Plugin Debugger.
-
-* `level` *string*: Log level `verbose`, `info`, or `error`
-* `message` *string*: Log message to be displayed.
-* `data` *object*: Other misc data that could be useful.
-
-~~~ javascript
-module.exports = (pluginContext) => {
-  pluginContext.console.log('verbose', 'hello world', {
-    ping: 'pong',
-  })
-}
-~~~
-
-### CWD
-
-The current working directory of the node script being ran.
-
-~~~ javascript
-const path = require('path')
-module.exports = (pluginContext) => {
-  const outputFile = path.join(pluginContext.cwd, 'output.json')
-}
-~~~
-
-### Clipboard
-
-An instance of the [Electron
-Clipboard](https://github.com/electron/electron/blob/master/docs/api/clipboard.md)
-instance.
-
-~~~ javascript
-const path = require('path')
-module.exports = (pluginContext) => {
-  const clipboard = pluginContext.clipboard
-}
-~~~
-
-### Native Image
-
-An instance of the [Electron
-Native Image](https://github.com/electron/electron/blob/master/docs/api/native-image.md)
-instance.
-
-~~~ javascript
-const path = require('path')
-module.exports = (pluginContext) => {
-  const nativeImage = pluginContext.nativeImage
 }
 ~~~

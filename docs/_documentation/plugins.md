@@ -110,3 +110,63 @@ In the Tray icon, under `Development` there is a debugger called `Plugin
 Debugger` that will output info, warnings and errors of all plugins in a
 filterable interface. Select the plugin you are trying to debug and get logs
 for all the blocks being executed.
+
+## Plugin Context
+
+The `pluginContext` object passed to node scripts and contains some useful
+functions to help enable your scripts.
+
+### Console
+
+The Plugin Debugger is useful, since we surface information to you to help you
+develop your plugins better. This API allows you to surface your own logs to the
+Plugin Debugger.
+
+* `level` *string*: Log level `verbose`, `info`, or `error`
+* `message` *string*: Log message to be displayed.
+* `data` *object*: Other misc data that could be useful.
+
+~~~ javascript
+module.exports = (pluginContext) => {
+  pluginContext.console.log('verbose', 'hello world', {
+    ping: 'pong',
+  })
+}
+~~~
+
+### CWD
+
+The current working directory of the node script being ran.
+
+~~~ javascript
+const path = require('path')
+module.exports = (pluginContext) => {
+  const outputFile = path.join(pluginContext.cwd, 'output.json')
+}
+~~~
+
+### Clipboard
+
+An instance of the [Electron
+Clipboard](https://github.com/electron/electron/blob/master/docs/api/clipboard.md)
+instance.
+
+~~~ javascript
+const path = require('path')
+module.exports = (pluginContext) => {
+  const clipboard = pluginContext.clipboard
+}
+~~~
+
+### Native Image
+
+An instance of the [Electron
+Native Image](https://github.com/electron/electron/blob/master/docs/api/native-image.md)
+instance.
+
+~~~ javascript
+const path = require('path')
+module.exports = (pluginContext) => {
+  const nativeImage = pluginContext.nativeImage
+}
+~~~
