@@ -5,7 +5,7 @@ description: >
   drivers seat. Unlike other solutions, there is no built in integrations, so
   every plugin has the full scope of what Zazu has to offer.
 fixedNav: 'true' # true or false
-theme: mint # teal, purple, green, blue, orange, purple, grey
+themeColor: mint # teal, purple, green, blue, orange, purple, grey
 siteurl: 'http://zazuapp.org'
 branch: gh-pages
 
