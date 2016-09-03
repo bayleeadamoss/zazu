@@ -87,7 +87,15 @@
       <li><a href="#internal-ranking" id="markdown-toc-internal-ranking">Internal Ranking</a></li>
     </ul>
   </li>
+  <li><a href="#long-synchronous-operations" id="markdown-toc-long-synchronous-operations">Long Synchronous Operations</a></li>
   <li><a href="#debugging" id="markdown-toc-debugging">Debugging</a></li>
+  <li><a href="#plugin-context" id="markdown-toc-plugin-context">Plugin Context</a>    <ul>
+      <li><a href="#console" id="markdown-toc-console">Console</a></li>
+      <li><a href="#cwd" id="markdown-toc-cwd">CWD</a></li>
+      <li><a href="#clipboard" id="markdown-toc-clipboard">Clipboard</a></li>
+      <li><a href="#native-image" id="markdown-toc-native-image">Native Image</a></li>
+    </ul>
+  </li>
 </ul>
 
 <h2 id="plugin-overview">Plugin Overview</h2>
@@ -182,12 +190,82 @@ higher in the results list. This works well even if you sort the results
 yourself. If you don’t want this behavior, simply don’t add an <code class="highlighter-rouge">id</code> to the
 result.</p>
 
+<h2 id="long-synchronous-operations">Long Synchronous Operations</h2>
+
+<p>Zazu runs your application in the same thread, this is useful so your plugin can
+share the same objects between blocks, however if you are planning on running a
+long synchronous job, you should consider using a
+<a href="https://nodejs.org/api/child_process.html#child_process_child_process_fork_modulepath_args_options">child_process.fork</a>
+within your block.</p>
+
 <h2 id="debugging">Debugging</h2>
 
 <p>In the Tray icon, under <code class="highlighter-rouge">Development</code> there is a debugger called <code class="highlighter-rouge">Plugin
 Debugger</code> that will output info, warnings and errors of all plugins in a
 filterable interface. Select the plugin you are trying to debug and get logs
 for all the blocks being executed.</p>
+
+<h2 id="plugin-context">Plugin Context</h2>
+
+<p>The <code class="highlighter-rouge">pluginContext</code> object passed to node scripts and contains some useful
+functions to help enable your scripts.</p>
+
+<h3 id="console">Console</h3>
+
+<p>The Plugin Debugger is useful, since we surface information to you to help you
+develop your plugins better. This API allows you to surface your own logs to the
+Plugin Debugger.</p>
+
+<ul>
+  <li><code class="highlighter-rouge">level</code> <em>string</em>: Log level <code class="highlighter-rouge">verbose</code>, <code class="highlighter-rouge">info</code>, or <code class="highlighter-rouge">error</code></li>
+  <li><code class="highlighter-rouge">message</code> <em>string</em>: Log message to be displayed.</li>
+  <li><code class="highlighter-rouge">data</code> <em>object</em>: Other misc data that could be useful.</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">(</span><span class="nx">pluginContext</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">pluginContext</span><span class="p">.</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'verbose'</span><span class="p">,</span> <span class="s1">'hello world'</span><span class="p">,</span> <span class="p">{</span>
+    <span class="na">ping</span><span class="p">:</span> <span class="s1">'pong'</span><span class="p">,</span>
+  <span class="p">})</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h3 id="cwd">CWD</h3>
+
+<p>The current working directory of the node script being ran.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'path'</span><span class="p">)</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">(</span><span class="nx">pluginContext</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">outputFile</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">pluginContext</span><span class="p">.</span><span class="nx">cwd</span><span class="p">,</span> <span class="s1">'output.json'</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h3 id="clipboard">Clipboard</h3>
+
+<p>An instance of the <a href="https://github.com/electron/electron/blob/master/docs/api/clipboard.md">Electron
+Clipboard</a>
+instance.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'path'</span><span class="p">)</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">(</span><span class="nx">pluginContext</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">clipboard</span> <span class="o">=</span> <span class="nx">pluginContext</span><span class="p">.</span><span class="nx">clipboard</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h3 id="native-image">Native Image</h3>
+
+<p>An instance of the <a href="https://github.com/electron/electron/blob/master/docs/api/native-image.md">Electron
+Native Image</a>
+instance.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'path'</span><span class="p">)</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">(</span><span class="nx">pluginContext</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">nativeImage</span> <span class="o">=</span> <span class="nx">pluginContext</span><span class="p">.</span><span class="nx">nativeImage</span>
+<span class="p">}</span>
+</code></pre>
+</div>
 
 
     </div>

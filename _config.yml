@@ -5,7 +5,7 @@ description: >
   drivers seat. Unlike other solutions, there is no built in integrations, so
   every plugin has the full scope of what Zazu has to offer.
 fixedNav: 'true' # true or false
-theme: mint # teal, purple, green, blue, orange, purple, grey
+themeColor: mint # teal, purple, green, blue, orange, purple, grey
 siteurl: 'http://zazuapp.org'
 branch: gh-pages
 
@@ -34,6 +34,6 @@ include: [_pages, _packages, _documentation]
 exclude: [vendor, _site, CHANGELOG.md, LICENSE, README.md, .ruby-version]
 sass:
   style: compressed
-currentCommitSha: 92add262880daead32993e7172bd33cf6a82a1c2
+currentCommitSha: 3a4fb9b385dabd2f53b2ebe4ab5837d3d4e09f76
 
-currentAppVersion: v0.1.2
+currentAppVersion: v0.1.3
