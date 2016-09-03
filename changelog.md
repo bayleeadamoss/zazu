@@ -1,3 +1,9 @@
+## v0.1.4
+
+## Fixed Bugs
+
+* Fix ctrl+j and ctrl+k going the wrong directions in search results.
+
 ## v0.1.3
 
 ### Features

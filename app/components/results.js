@@ -37,10 +37,10 @@ const Results = React.createClass({
   },
 
   componentDidMount () {
-    Mousetrap.bind(['ctrl+p', 'ctrl+j', 'up'], () => {
+    Mousetrap.bind(['ctrl+p', 'ctrl+k', 'up'], () => {
       this.moveUp()
     })
-    Mousetrap.bind(['ctrl+n', 'ctrl+k', 'down'], () => {
+    Mousetrap.bind(['ctrl+n', 'ctrl+j', 'down'], () => {
       this.moveDown()
     })
     Mousetrap.bind('enter', () => {
