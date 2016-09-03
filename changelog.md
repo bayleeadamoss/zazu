@@ -1,3 +1,15 @@
+## v0.1.3
+
+### Features
+
+* Mouse controls no longer change active index.
+* Added univeral logging for easier debugging.
+
+### Fixed Bugs
+
+* Broken packages no longer break installs and updates.
+* Verify `app.hide` exists before calling it, to support windows.
+
 ## v0.1.2
 
 ### Fixed Bugs
