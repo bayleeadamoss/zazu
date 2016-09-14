@@ -98,6 +98,15 @@
         "image": "/images/package-icons/playful-theme.png",
         "githuburl": "tinytacoteam/zazu-playful-theme",
         "description": "For the young at heart."
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
+        "title": "Snippets",
+        "image": "/images/package-icons/snippets.svg",
+        "githuburl": "tinytacoteam/zazu-snippets",
+        "description": "A snippet manager for Zazu"
       }
     
   ]
