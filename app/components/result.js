@@ -12,6 +12,12 @@ const Result = React.createClass({
     this.props.onClick(this.props.value)
   },
 
+  shouldComponentUpdate (nextProps) {
+    return nextProps.active !== this.props.active ||
+      nextProps.value !== this.props.value ||
+      nextProps.onClick !== this.props.onClick
+  },
+
   componentDidUpdate () {
     if (this.props.active) {
       const list = this.el.parentElement
