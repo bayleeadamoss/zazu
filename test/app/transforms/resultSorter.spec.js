@@ -55,4 +55,42 @@ describe('ResultSorter', () => {
       ])
     })
   })
+
+  describe('given non-deterministic sorts', () => {
+    it('maintains the current index', () => {
+      const results = [
+        { title: 'One' },
+        { title: 'Two' },
+        { title: 'Three' },
+        { title: 'Four' },
+        { title: 'Five' },
+        { title: 'Six' },
+        { title: 'Seven' },
+        { title: 'Eight' },
+        { title: 'Nine' },
+        { title: 'Ten' },
+        { title: 'Eleven' },
+        { title: 'Twelve' },
+        { title: 'Thirteen' },
+      ]
+      const sortedItems = resultSorter.sort(results, []).map((item) => {
+        return item.title
+      })
+      expect(sortedItems).to.deep.equal([
+        'One',
+        'Two',
+        'Three',
+        'Four',
+        'Five',
+        'Six',
+        'Seven',
+        'Eight',
+        'Nine',
+        'Ten',
+        'Eleven',
+        'Twelve',
+        'Thirteen',
+      ])
+    })
+  })
 })

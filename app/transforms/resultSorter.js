@@ -1,6 +1,6 @@
 const resultSorter = {
   sort (results, clickedResults) {
-    return results.map((result) => {
+    return results.slice(0).map((result) => {
       let score = -1
       if (result.id) {
         score = clickedResults.reduce((memo, clickedResult) => {
@@ -10,9 +10,10 @@ const resultSorter = {
       }
       return { score, result }
     }).sort((a, b) => {
-      if (a.score < b.score) return 1
-      if (a.score > b.score) return -1
-      return 0
+      if (a.score !== b.score) return b.score - a.score
+      const aIndex = results.indexOf(a.result)
+      const bIndex = results.indexOf(b.result)
+      return aIndex - bIndex
     }).map((item) => {
       return item.result
     })
