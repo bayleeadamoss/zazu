@@ -1,5 +1,30 @@
 /* global React, ReactDOM, fuzzyfind */
 
+function packagesToResults (packages) {
+  return packages.map(function packageToResult(package) {
+    return {
+      title: package.title,
+      url: 'https://github.com/' + package.githuburl,
+      icon: package.image,
+      subtitle: package.description,
+      type: 'packages',
+    }
+  })
+}
+
+function docsToResults (docs) {
+  return docs.map(function docToResult(doc) {
+    return {
+      title: doc.title,
+      url: doc.url,
+      icon: doc.icon,
+      subtitle: doc.content,
+      type: 'docs',
+    }
+  })
+}
+
+
 var SearchForm = React.createClass({
   propTypes: {
     query: React.PropTypes.string.isRequired,
@@ -27,14 +52,15 @@ var Result = React.createClass({
     url: React.PropTypes.string.isRequired,
     icon: React.PropTypes.string.isRequired,
     title: React.PropTypes.string.isRequired,
-    content: React.PropTypes.string.isRequired,
+    subtitle: React.PropTypes.string.isRequired,
+    type: React.PropTypes.string.isRequired,
   },
   render: function () {
-    const { url, icon, title, content } = this.props
+    const { url, icon, title, subtitle, type } = this.props
     const hasFontAwesome = icon.indexOf('fa-') === 0
     return React.createElement(
       'div',
-      { key: url },
+      { key: url, className: type },
       React.createElement(
         'h2',
         {},
@@ -45,61 +71,7 @@ var Result = React.createClass({
         ),
         React.createElement('a', { href: url }, title)
       ),
-      React.createElement('p', {}, content)
-    )
-  },
-})
-
-var SearchPackages = React.createClass({
-  propTypes: {
-    query: React.PropTypes.string.isRequired,
-    packages: React.PropTypes.array.isRequired,
-  },
-  render: function () {
-    const filteredResults = fuzzyfind(this.props.query, this.props.packages, {
-      accessor: function (el) {
-        return el.title + el.githuburl + el.description
-      },
-    })
-    return React.createElement(
-      'div',
-      { className: 'packages' },
-      filteredResults.map(function (el, i) {
-        return React.createElement(Result, {
-          key: i,
-          title: el.title,
-          url: 'https://github.com/' + el.githuburl,
-          icon: el.image,
-          content: el.description,
-        })
-      })
-    )
-  },
-})
-
-var SearchDocs = React.createClass({
-  propTypes: {
-    query: React.PropTypes.string.isRequired,
-    docs: React.PropTypes.array.isRequired,
-  },
-  render: function () {
-    const filteredResults = fuzzyfind(this.props.query, this.props.docs, {
-      accessor: function (el) {
-        return el.title + el.content
-      },
-    })
-    return React.createElement(
-      'div',
-      { className: 'docs' },
-      filteredResults.map(function (el, i) {
-        return React.createElement(Result, {
-          key: i,
-          title: el.title,
-          url: el.url,
-          icon: el.icon,
-          content: el.content,
-        })
-      })
+      React.createElement('p', {}, subtitle)
     )
   },
 })
@@ -123,6 +95,14 @@ var SearchPage = React.createClass({
   },
 
   render: function () {
+    var docs = docsToResults(this.props.docs)
+    var package = packagesToResults(this.props.packages)
+    var results = docs.concat(package)
+    var filteredResults = fuzzyfind(this.state.query, results, {
+      accessor: function (el) {
+        return el.title + el.subtitle
+      },
+    })
     return React.createElement(
       'div',
       {},
@@ -130,13 +110,9 @@ var SearchPage = React.createClass({
         query: this.state.query,
         handleUpdateQuery: this.handleUpdateQuery,
       }),
-      React.createElement(SearchDocs, {
-        query: this.state.query,
-        docs: this.props.docs,
-      }),
-      React.createElement(SearchPackages, {
-        query: this.state.query,
-        packages: this.props.packages,
+      filteredResults.map(function renderResult(result, i) {
+        result.key = i
+        return React.createElement(Result, result)
       })
     )
   },
