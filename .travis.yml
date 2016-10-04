@@ -1,7 +1,7 @@
 language: ruby
 
 rvm:
-  - 2.2
+  - 2.2.2
 
 cache: bundler
 
@@ -11,7 +11,7 @@ branches:
 
 before_install:
   - npm install -g markdown-spellcheck
-  - gem install html-proofer -v 3.0.6
+  - gem install html-proofer
 
 script:
   - mdspell -nar --en-us "**/*.md" "!**/vendor/**/*.md"
