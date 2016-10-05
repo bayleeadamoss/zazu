@@ -1,0 +1,16 @@
+---
+layout: null
+---
+{
+  "docs": [
+    {% for documentation in site.documentation %}
+      {
+        "icon": "{{ documentation.icon }}",
+        "url": "{{ documentation.url }}",
+        "title": "{{ documentation.title | xml_escape }}",
+        "content": {{ documentation.description | jsonify }},
+        "description": {{ documentation.content | strip_html | strip_newlines | jsonify }}
+      }{% if forloop.last == false %},{% endif %}
+    {% endfor %}
+  ]
+}
