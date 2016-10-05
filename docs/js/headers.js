@@ -5,9 +5,8 @@
 var selector = '.c-article__main.sidebar h2[id], .c-article__main.sidebar h3[id]'
 var headers = document.querySelectorAll(selector)
 var headerLength = headers.length
-var i
 
-for (i = 0; i < headerLength; ++i) {
+for (var i = 0; i < headerLength; ++i) {
   var header = headers[i]
   var link = document.createElement('a')
   link.href = '#' + header.id
