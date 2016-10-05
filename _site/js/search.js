@@ -92,6 +92,7 @@ var SearchPage = React.createClass({
       packages: [],
       query: '',
       fetched: false,
+      focused: false,
     }
   },
 
@@ -107,7 +108,16 @@ var SearchPage = React.createClass({
     })
   },
 
-  fetchData: function () {
+  handleUpdateQuery: function (query) {
+    this.setState({
+      query: query,
+    })
+  },
+
+  handleFocus: function () {
+    this.setState({
+      focused: true,
+    })
     if (!this.state.fetched) {
       fetch('/api/docs.json').then(function (response) {
         return response.json()
@@ -127,9 +137,19 @@ var SearchPage = React.createClass({
     }
   },
 
-  handleUpdateQuery: function (query) {
+  componentWillMount: function () {
+    window.document.addEventListener('click', this.onClickOutside, false)
+  },
+
+  componentWillUnmount: function () {
+    window.document.removeEventListener('click', this.onClickOutside)
+  },
+
+  onClickOutside: function (event) {
+    const el = ReactDOM.findDOMNode(this)
+    if (!el || el.contains(event.target)) { return }
     this.setState({
-      query: query,
+      focused: false,
     })
   },
 
@@ -145,11 +165,11 @@ var SearchPage = React.createClass({
     })
     return React.createElement(
       'div',
-      {},
+      { className: 'searchContainer ' + (this.state.focused && 'focused') },
       React.createElement(SearchForm, {
         query: query,
         handleUpdateQuery: this.handleUpdateQuery,
-        handleFocus: this.fetchData,
+        handleFocus: this.handleFocus,
       }),
       filteredResults.map(function renderResult (result, i) {
         result.key = i

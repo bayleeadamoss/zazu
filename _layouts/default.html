@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html class="t-{{ site.themeColor }}" lang="en">
   {% include head.html %}
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.js"></script>
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.js"></script>
   <body>
     {% include fork.html %}
     {% include navigation.html %}
@@ -10,8 +8,15 @@
     {{ content }}
 
     {% include footer.html %}
+    <!-- vendor -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.js"></script>
+    <script src="/js/vendor/fuzzyfind.min.js"></script>
+    <script src="/js/vendor/fetch.min.js"></script>
 
+    <!-- Zazu -->
     <script src="/js/headers.js"></script>
     <script src="/js/feedback.js"></script>
+    <script src="/js/search.js"></script>
   </body>
 </html>

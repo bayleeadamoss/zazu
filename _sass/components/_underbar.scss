@@ -1,0 +1,12 @@
+.additionalInformation {
+  @include fs--meta;
+  margin: 10px;
+  .breadcrumbs {
+    width: 50%;
+    float: left;
+  }
+  .search {
+    width: 50%;
+    float: right;
+  }
+}
