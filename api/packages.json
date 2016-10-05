@@ -10,7 +10,7 @@ layout: null
         "title": "{{ package.title }}",
         "image": "{{ package.image }}",
         "githuburl": "{{ package.githuburl }}",
-        "description": "{{ package.description }}"
+        "description": "{{ package.description | xml_escape }}"
       }{% if forloop.last == false %},{% endif %}
     {% endfor %}
   ]

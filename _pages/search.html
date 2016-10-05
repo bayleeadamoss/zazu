@@ -5,32 +5,6 @@ permalink: /search/
 ---
 
 <div id="search"></div>
-<script>
-window.site = {
-  packages: [
-    {% for package in site.packages %}
-      {
-        top: {{ package.top }},
-        type: "{{ package.type }}",
-        title: "{{ package.title }}",
-        image: "{{ package.image }}",
-        githuburl: "{{ package.githuburl }}",
-        description: "{{ package.description | xml_escape }}"
-      }{% if forloop.last == false %},{% endif %}
-    {% endfor %}
-  ],
-  docs: [
-    {% for documentation in site.documentation %}
-      {
-        icon: "{{ documentation.icon }}",
-        url: "{{ documentation.url }}",
-        title: "{{ documentation.title | xml_escape }}",
-        content: {{ documentation.description | jsonify }},
-        description: {{ documentation.content | strip_html | strip_newlines | jsonify }}
-      }{% if forloop.last == false %},{% endif %}
-    {% endfor %}
-  ]
-}
-</script>
 <script src="/js/vendor/fuzzyfind.min.js"></script>
+<script src="/js/vendor/fetch.min.js"></script>
 <script src="/js/search.js"></script>

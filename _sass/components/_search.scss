@@ -1,10 +1,13 @@
 #search {
+  width: 400px;
+
   input {
     font-size: 20px;
-    width: 500px;
+    width: 100%;
     padding: 5px;
-    margin-bottom: 30px;
+    outline: none;
   }
+
   select {
     top: -2px;
     margin-left: 5px;
@@ -14,18 +17,36 @@
     height: 35px;
     padding: 5px;
   }
-  .packages {
-    margin-left: 10px;
-    img {
-      width: 30px;
-      height: 30px;
-      margin-right: 10px;
+
+  .result {
+    padding-left: 10px;
+    border-color: darken(white, 10%);
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    cursor: pointer;
+
+    p {
+      margin: 0;
     }
-  }
-  .docs {
-    margin-left: 10px;
-    i {
-      margin-right: 10px;
+
+    &:hover {
+      background-color: darken(white, 2.5%);
+    }
+
+    &.packages {
+      border-left: 3px solid $c__orange;
+      img {
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+      }
+    }
+
+    &.docs {
+      border-left: 3px solid $c__mint;
+      i {
+        margin-right: 10px;
+      }
     }
   }
 }
