@@ -49,9 +49,9 @@ module.exports = {
 When a user hits a specific set of keys, it can activate an input or output
 block of your plugin.
 
+A hotkey can be overwritten in the user's local [configuration file](/documentation/configuration/#plugins).
+
 * `hotkey` *string*: Key combination to use. [[docs]](https://github.com/electron/electron/blob/master/docs/api/accelerator.md)
-* `name` *string*: Giving the hotkey a name allows it to be overwritten in the
-  user's local [configuration file](/documentation/configuration/#plugins).
 
 In this example you have a hotkey block named `Inverse`, when somebody hits that
 hotkey it goes to the next block `PlayPandora` which is most likely a [user
@@ -60,7 +60,6 @@ script](#user-script).
 ~~~ javascript
 [{
   id: 'Inverse',
-  name: 'Inverse',
   type: 'Hotkey',
   hotkey: 'cmd+shift+o',
   connections: ['PlayPandora'],

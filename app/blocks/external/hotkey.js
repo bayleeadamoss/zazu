@@ -4,9 +4,8 @@ const ExternalBlock = require('../externalBlock')
 class Hotkey extends ExternalBlock {
   constructor (data, options) {
     super(data, options)
-    this.name = data.name
     this.connections = data.connections || []
-    this.hotkey = options[this.name] ? options[this.name] : data.hotkey
+    this.hotkey = options[this.id] || data.hotkey
   }
 
   start () {
