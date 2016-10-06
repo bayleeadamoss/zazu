@@ -37,8 +37,9 @@ app.on('ready', function () {
   logger.debug('app is ready')
   createMenu()
   update.queueUpdate()
-  addToStartup()
   forceSingleInstance()
+  configuration.load()
+  addToStartup(configuration)
 
   globalEmitter.on('registerHotkey', (accelerator) => {
     if (!globalShortcut.isRegistered(accelerator)) {
@@ -50,7 +51,6 @@ app.on('ready', function () {
     }
   })
 
-  configuration.load()
   logger.log('verbose', 'registering zazu hotkey', { hotkey: configuration.hotkey })
   globalShortcut.register(configuration.hotkey, () => {
     logger.log('info', 'triggered zazu hotkey')
