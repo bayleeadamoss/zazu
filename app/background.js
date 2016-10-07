@@ -10,6 +10,7 @@ const { windowHelper, openCount } = require('./helpers/window')
 const forceSingleInstance = require('./helpers/singleInstance')
 const addToStartup = require('./helpers/startup')
 const createMenu = require('./helpers/menu')
+const about = require('./about')
 
 globalEmitter.on('showDebug', (message) => {
   logger.log('info', 'opening debug page')
@@ -24,13 +25,7 @@ globalEmitter.on('showDebug', (message) => {
 
 globalEmitter.on('showAbout', (message) => {
   logger.log('info', 'opening about page')
-  windowHelper('about', {
-    width: 200,
-    height: 200,
-    resizable: false,
-    title: 'About Zazu',
-    url: path.join('file://', __dirname, '/about.html'),
-  })
+  about.show()
 })
 
 app.on('ready', function () {
