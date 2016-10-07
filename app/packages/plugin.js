@@ -153,7 +153,7 @@ class Plugin extends Package {
           input.search(inputText, this.options)
             .then((results = []) => {
               return results.map((result) => {
-                const icon = result.icon || this.plugin.icon
+                const icon = result.icon || this.plugin.icon || 'fa-bolt'
                 const isFontAwesome = icon.indexOf('fa-') === 0 && icon.indexOf('.') === -1
                 result.icon = isFontAwesome ? icon : path.join(this.path, icon)
                 result.previewCss = this.plugin.css
