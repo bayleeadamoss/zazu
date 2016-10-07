@@ -18,6 +18,7 @@ const openDevTools = () => {
       type: 'error',
       message: 'No focused window',
       detail: 'There are currently no focused windows.',
+      defaultId: 0,
       buttons: ['Ok'],
     })
   }

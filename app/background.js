@@ -1,4 +1,4 @@
-const { app, globalShortcut } = require('electron')
+const { dialog, app, globalShortcut } = require('electron')
 const path = require('path')
 
 const configuration = require('./lib/configuration')
@@ -34,11 +34,21 @@ globalEmitter.on('showAbout', (message) => {
 })
 
 app.on('ready', function () {
+  if (!configuration.load()) {
+    return dialog.showMessageBox({
+      type: 'error',
+      message: 'You have an invalid ~/.zazurc.js file.',
+      detail: 'Please edit your ~/.zazurc.js file and try loading Zazu again.',
+      defaultId: 0,
+      buttons: ['Ok'],
+    }, () => {
+      app.quit()
+    })
+  }
   logger.debug('app is ready')
   createMenu()
   update.queueUpdate()
   forceSingleInstance()
-  configuration.load()
   addToStartup(configuration)
 
   globalEmitter.on('registerHotkey', (accelerator) => {
