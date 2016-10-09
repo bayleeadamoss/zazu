@@ -24,7 +24,7 @@ const self = {
       const end = new Date().getTime()
       const start = __nr_require('loader').offset
       window.newrelic.addPageAction('PageDuration', {
-        duration: end - start,
+        duration: Math.round((end - start) / 1000),
       })
     }
     if ('addEventListener' in window) {
