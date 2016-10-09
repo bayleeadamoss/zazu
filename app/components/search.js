@@ -21,7 +21,9 @@ const Search = React.createClass({
   },
 
   componentDidUpdate () {
-    this.focus()
+    if (this.props.value === '') {
+      this.focus()
+    }
   },
 
   handleQueryChange (event) {
@@ -38,6 +40,7 @@ const Search = React.createClass({
   render () {
     const { value } = this.props
     return React.createElement('input', {
+      title: 'Search Zazu',
       className: 'mousetrap',
       ref: this.setReference,
       type: 'text',

@@ -48,6 +48,10 @@ class World {
     return this.app.client.isExisting('.results')
   }
 
+  accessibility () {
+    return this.app.client.auditAccessibility()
+  }
+
   updatePlugins () {
     return this.app.webContents.send('updatePlugins').then(() => {
       return wait(10 * 1000) // give it time to update the plugin
@@ -218,6 +222,14 @@ module.exports = function () {
       return wait(100)
     }).then(() => {
       return eventually(() => this.getActiveHeader(), header)
+    })
+  })
+
+  this.Then(/^I have no accessibility warnings$/, function () {
+    return this.accessibility().then((response) => {
+      if (response.results.length !== 0) {
+        throw new Error('You have accessibility issues')
+      }
     })
   })
 

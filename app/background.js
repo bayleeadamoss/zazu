@@ -69,7 +69,7 @@ app.on('ready', function () {
     width: 600,
     height: 400,
     maxHeight: 400,
-    show: debug,
+    show: false,
     frame: false,
     resizable: false,
     transparent: true,
