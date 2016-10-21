@@ -5,7 +5,7 @@ module.exports = () => {
   plugins: [
     'tinytacoteam/zazu-calculator',
     'tinytacoteam/zazu-file-finder',
-    'tinytacoteam/zazu-calculator',
+    'tinytacoteam/zazu-fallback',
     'tinytacoteam/zazu-system',
     {
       name: 'tinytacoteam/zazu-clipboard',
