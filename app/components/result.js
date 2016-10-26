@@ -6,10 +6,15 @@ const Result = React.createClass({
     active: React.PropTypes.bool.isRequired,
     value: React.PropTypes.object.isRequired,
     onClick: React.PropTypes.func.isRequired,
+    handleTab: React.PropTypes.func.isRequired,
   },
 
   click () {
     this.props.onClick(this.props.value)
+  },
+
+  handleFocus () {
+    this.props.handleTab(this.props.value)
   },
 
   shouldComponentUpdate (nextProps) {
@@ -46,6 +51,8 @@ const Result = React.createClass({
         onClick: this.click,
         className: active ? 'active' : 'inactive',
         ref: this.setReference,
+        tabIndex: 0,
+        onFocus: this.handleFocus,
       },
       isFontAwesome ? (
         React.createElement('i', {
@@ -56,6 +63,7 @@ const Result = React.createClass({
         React.createElement('img', {
           className: 'icon',
           src: value.icon,
+          role: 'presentation',
           alt: '',
         })
       ),

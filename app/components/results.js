@@ -36,6 +36,11 @@ const Results = React.createClass({
     this.props.handleUpdateActiveIndex(index)
   },
 
+  handleTab (result) {
+    const index = this.props.values.indexOf(result)
+    this.props.handleUpdateActiveIndex(index)
+  },
+
   componentDidMount () {
     Mousetrap.bind(['ctrl+p', 'ctrl+k', 'up'], () => {
       this.moveUp()
@@ -70,6 +75,7 @@ const Results = React.createClass({
             active: i === activeIndex,
             value: result,
             onClick: handleResultClick,
+            handleTab: this.handleTab,
             key: i,
           })
         })
