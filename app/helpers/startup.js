@@ -27,7 +27,7 @@ const markAddedToStartup = (configuration) => {
 }
 
 const addToStartup = () => {
-  const isLinux = ['win32', 'darwin'].indexOf(process.env) !== -1
+  const isLinux = ['win32', 'darwin'].indexOf(process.platform) === -1
   if (isLinux) {
     const appLauncher = new AutoLaunch({
       name: 'Zazu App',
