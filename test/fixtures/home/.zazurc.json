@@ -1,0 +1,12 @@
+{
+  "hotkey": "shift+space",
+  "theme": "tinytacoteam/zazu-fixture",
+  "disableAnalytics": true,
+  "plugins": [
+    "tinytacoteam/zazu-fallback"
+  ],
+  "comments": [
+    "zazu-fixtures is installed",
+    "zazu-fallback is not"
+  ]
+}

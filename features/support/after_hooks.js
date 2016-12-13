@@ -7,7 +7,7 @@ module.exports = function () {
     const homeDir = path.join(__dirname, '../../test/fixtures/home')
     const calcPlugin = path.join(homeDir, '.zazu', 'plugins', 'tinytacoteam', 'zazu-calculator')
     const fallbackPlugin = path.join(homeDir, '.zazu', 'plugins', 'tinytacoteam', 'zazu-fallback')
-    const configFile = path.join(homeDir, '.zazurc.js')
+    const configFile = path.join(homeDir, '.zazurc.json')
     return git(['checkout', configFile]).then(() => {
       jetpack.remove(calcPlugin)
       jetpack.remove(fallbackPlugin)

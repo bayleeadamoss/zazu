@@ -7,7 +7,7 @@ const path = require('path')
 describe('Configuration', () => {
   beforeEach(() => {
     const base = path.join(os.tmpdir(), String(Math.random()))
-    configuration.profilePath = path.join(base, '.zazurc.js')
+    configuration.profilePath = path.join(base, '.zazurc.json')
     configuration.pluginDir = path.join(base, '.zazu/plugins/')
     jetpack.remove(configuration.profilePath)
     configuration.loaded = false
@@ -21,18 +21,18 @@ describe('Configuration', () => {
       })
 
       it('creates zazurc file', () => {
-        expect(jetpack.exists(configuration.profilePath)).to.be.okay
+        expect(jetpack.exists(configuration.profilePath)).to.be.ok
       })
     })
 
     describe('given a configuration file', () => {
       beforeEach(() => {
-        jetpack.write(configuration.profilePath, 'module.exports = ' + JSON.stringify({
+        jetpack.write(configuration.profilePath, JSON.stringify({
           hotkey: 'alt+space',
           theme: 'tinytacoteam/dark-purple',
           plugins: ['abc'],
         }))
-        expect(jetpack.exists(configuration.profilePath)).to.be.okay
+        expect(jetpack.exists(configuration.profilePath)).to.be.ok
         configuration.load()
       })
 

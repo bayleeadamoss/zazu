@@ -32,8 +32,8 @@ app.on('ready', function () {
   if (!configuration.load()) {
     return dialog.showMessageBox({
       type: 'error',
-      message: 'You have an invalid ~/.zazurc.js file.',
-      detail: 'Please edit your ~/.zazurc.js file and try loading Zazu again.',
+      message: 'You have an invalid ~/.zazurc.json file.',
+      detail: 'Please edit your ~/.zazurc.json file and try loading Zazu again.',
       defaultId: 0,
       buttons: ['Ok'],
     }, () => {

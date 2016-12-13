@@ -8,9 +8,9 @@ const { git, clone } = require('../../app/lib/git')
 const appPath = path.join(__dirname, '../../app')
 const homeDir = path.join(__dirname, '../../test/fixtures/home')
 const pluginDir = path.join(homeDir, '.zazu/plugins')
-const calcProfile = path.join(homeDir, '.calculator.zazurc.js')
-const fallbackProfile = path.join(homeDir, '.fallback.zazurc.js')
-const homeProfile = path.join(homeDir, '.zazurc.js')
+const calcProfile = path.join(homeDir, '.calculator.zazurc.json')
+const fallbackProfile = path.join(homeDir, '.fallback.zazurc.json')
+const homeProfile = path.join(homeDir, '.zazurc.json')
 
 class World {
   profile (name) {

@@ -4,7 +4,7 @@ const path = require('path')
 class Configuration {
   constructor () {
     const home = process.env.ZAZU_HOME || require('os').homedir()
-    this.profilePath = path.join(home, '.zazurc.js')
+    this.profilePath = path.join(home, '.zazurc.json')
     this.pluginDir = path.join(home, '.zazu/plugins/')
     this.databaseDir = path.join(home, '.zazu/databases')
     this.logDir = path.join(home, '.zazu/log')
@@ -20,7 +20,7 @@ class Configuration {
     if (this.loaded) return
 
     if (!jetpack.exists(this.profilePath)) {
-      const template = require('../templates/zazurc')()
+      const template = require('../templates/zazurc.json')
       jetpack.write(this.profilePath, template)
     }
 
@@ -34,7 +34,7 @@ class Configuration {
       this.loaded = true
     } catch (e) {
       const logger = require('./logger')
-      logger.log('error', 'Attempted to load an invalid ~/.zazurc.js file', {
+      logger.log('error', 'Attempted to load an invalid ~/.zazurc.json file', {
         message: e.message,
         stack: e.stack,
       })
