@@ -3,19 +3,16 @@ const which = require('which')
 
 const git = (args, options) => {
   return new Promise((resolve, reject) => {
-    which('git', (err, resolvedPath) => {
-      if (err) return reject('GIT was not found on  your system')
-      exec(resolvedPath, args, options || {}, (err) => {
-        err && reject(err) || resolve()
-      })
+    exec(gitPath(), args, options || {}, (err) => {
+      err && reject(err) || resolve()
     })
   })
 }
 
-const pull = (packagePath) => {
+const pull = (name, packagePath) => {
   return git(['pull'], { cwd: packagePath }).catch((err) => {
     if (err.message.match(/ENOENT/i)) {
-      throw new Error('Package "' + name + '" is not cloneed')
+      throw new Error('Package "' + name + '" is not cloned')
     } else {
       throw err
     }
@@ -35,4 +32,16 @@ const clone = (name, packagePath) => {
   })
 }
 
-module.exports = { clone, pull, git }
+const gitPath = () => {
+  return which.sync('git')
+}
+
+const isInstalled = () => {
+  try {
+    return gitPath()
+  } catch (e) {
+    return false
+  }
+}
+
+module.exports = { clone, pull, git, isInstalled }

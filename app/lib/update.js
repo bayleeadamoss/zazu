@@ -1,5 +1,5 @@
 const semver = require('semver')
-const https = require('https')
+const json = require('./json')
 const { shell, app, dialog } = require('electron')
 
 const globalEmitter = require('./globalEmitter')
@@ -21,22 +21,12 @@ var self = {
       if (self._latestVersion) {
         return resolve(self._latestVersion)
       }
-      https.get({
+      json({
         host: 'api.github.com',
         path: '/repos/tinytacoteam/zazu/releases/latest',
-        headers: {
-          'User-Agent': `ZazuApp Updater v${app.getVersion()}`,
-        },
-      }, (res) => {
-        var chunks = []
-        res.on('data', (chunk) => {
-          chunks.push(chunk.toString())
-        })
-        res.on('end', () => {
-          self._latestVersion = JSON.parse(chunks.join()).tag_name
-          resolve(self._latestVersion || app.getVersion())
-        })
-      }).on('error', (e) => {
+      }).then((body) => {
+        resolve(body.tag_name || app.getVersion())
+      }).catch((e) => {
         reject(`Got error: ${e.message}`)
       })
     })
