@@ -10,14 +10,14 @@ title:  "Personal Configuration"
 
 ## Configuring Zazu
 
-Your personal configuration lives in `~/.zazurc.js`. Here is an example of the
+Your personal configuration lives in `~/.zazurc.json`. Here is an example of the
 basic usage.
 
-~~~ javascript
-module.exports = {
-  'hotkey': 'alt+space',
-  'theme': 'tinytacoteam/dark-theme',
-  'plugins': [],
+~~~ json
+{
+  "hotkey": "alt+space",
+  "theme": "tinytacoteam/dark-theme",
+  "plugins": []
 }
 ~~~~
 
@@ -42,12 +42,11 @@ Plugins can be in either of two formats. The first is the short GitHub URL
 format for example `tinytacoteam/dark-theme` would translate to
 `https://github.com/tinytacoteam/dark-theme`.
 
-~~~ javascript
-module.exports = {
-  // ...
-  'plugins': [
-    'tinytacoteam/calculator',
-  ],
+~~~ json
+{
+  "plugins": [
+    "tinytacoteam/calculator"
+  ]
 }
 ~~~~
 
@@ -58,17 +57,16 @@ These variables will be applied differently based on which
 Variables *ARE* case sensitive, check with individual plugins for what variables
 you can use to configure it's behavior.
 
-~~~ javascript
-module.exports = {
-  // ...
-  'plugins': [
+~~~ json
+{
+  "plugins": [
     {
-      name: 'tinytacoteam/calculator',
-      variables: {
-        OFFSET: 10,
-      },
-    },
-  ],
+      "name": "tinytacoteam/calculator",
+      "variables": {
+        "OFFSET": 10
+      }
+    }
+  ]
 }
 ~~~~
 

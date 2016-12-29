@@ -122,7 +122,7 @@ The Plugin Debugger is useful, since we surface information to you to help you
 develop your plugins better. This API allows you to surface your own logs to the
 Plugin Debugger.
 
-* `level` *string*: Log level `verbose`, `info`, or `error`
+* `level` *string*: Log level `verbose`, `info`, `warn` or `error`
 * `message` *string*: Log message to be displayed.
 * `data` *object*: Other misc data that could be useful.
 

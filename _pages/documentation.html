@@ -3,13 +3,43 @@ layout: page
 title: Documentation
 permalink: /documentation/
 ---
-
-{% for documentation in site.documentation %}
+<ul class="articles">
+  <li>
     <h2>
-        <i class="fa {{ documentation.icon }}"></i>
-        <a href="{{ documentation.url }}">
-            {{ documentation.title }}
-        </a>
+      <i class="fa fa-sliders"></i>
+      <a href="/documentation/configuration/">
+        Personal Configuration
+      </a>
     </h2>
-    <p>{{ documentation.description }}</p>
-{% endfor %}
+    <p>Getting started to configure your Zazu in your dotfiles.</p>
+  </li>
+  <li>
+    <h2>
+      <i class="fa fa-plug"></i>
+      <a href="/documentation/plugins/">
+        Creating Plugins
+      </a>
+    </h2>
+    <p>Overview of what is all included in Zazu Plugins</p>
+    <ul class="articles">
+      <li>
+        <h3>
+          <i class="fa fa-th-large"></i>
+          <a href="/documentation/blocks/">
+            Blocks
+          </a>
+        </h3>
+        <p>Blocks are the foundation of workflows. Each one represents a step to be completed.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <h2>
+      <i class="fa fa-paint-brush"></i>
+      <a href="/documentation/themes/">
+        Creating Themes
+      </a>
+    </h2>
+    <p>Overview of what is all included in Zazu Themes</p>
+  </li>
+</ul>
