@@ -82,24 +82,40 @@ class Plugin extends Package {
       plugin.blocks.external.forEach((external) => {
         external.cwd = this.path
         external.pluginId = this.id
-        this.addExternal(new External[external.type](external, this.options))
+        if (External[external.type]) {
+          this.addExternal(new External[external.type](external, this.options))
+        } else {
+          throw new Error(`Type "${external.type}" is not a recognized external block.`)
+        }
       })
 
       plugin.blocks.input.forEach((input) => {
         input.cwd = this.path
         input.pluginId = this.id
-        this.addInput(new Input[input.type](input))
+        if (Input[input.type]) {
+          this.addInput(new Input[input.type](input))
+        } else {
+          throw new Error(`Type "${input.type}" is not a recognized input block.`)
+        }
       })
 
       plugin.blocks.output.forEach((output) => {
         output.cwd = this.path
         output.pluginId = this.id
-        this.addOutput(new Output[output.type](output))
+        if (Output[output.type]) {
+          this.addOutput(new Output[output.type](output))
+        } else {
+          throw new Error(`Type "${output.type}" is not a recognized output block.`)
+        }
       })
-    }).catch((errorMessage) => {
+    }).catch((e) => {
+      this.logger.log('error', this.id + ' failed to install', {
+        message: e.message,
+        stack: e.stack,
+      })
       notification.push({
         title: this.id + ' failed to install',
-        message: errorMessage,
+        message: e.message,
       })
     })
   }

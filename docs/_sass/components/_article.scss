@@ -111,6 +111,14 @@ $header-height: 66px;
     }
   }
 
+  ul.articles {
+    list-style: none;
+    @include ff--sans-serif(400);
+    h2 a, h3 a {
+      @include ff--sans-serif(600);
+    }
+  }
+
   p {
     margin: 20px 0;
   }

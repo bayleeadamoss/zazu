@@ -7,7 +7,7 @@ class CopyToClipboard extends Block {
   constructor (data) {
     super(data)
     this.clipboard = electron.clipboard
-    this.text = data.text
+    this.text = data.text || '{value}'
   }
 
   call (state) {

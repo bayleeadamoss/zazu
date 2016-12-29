@@ -5,8 +5,8 @@ const Block = require('../block')
 class SendNotification extends Block {
   constructor (data) {
     super(data)
-    this.title = data.title
-    this.message = data.message
+    this.title = data.title || '{value}'
+    this.message = data.message || '{value}'
   }
 
   call (state) {

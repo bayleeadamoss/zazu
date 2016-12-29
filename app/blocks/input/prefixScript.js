@@ -6,9 +6,9 @@ const path = require('path')
 class PrefixScript extends InputBlock {
   constructor (data) {
     super(data)
-    this.prefix = data.prefix
-    this.space = data.space
-    this.args = data.args
+    this.prefix = data.prefix || this.requiredField('prefix')
+    this.args = data.args || this.requiredField('args')
+    this.space = !!data.space
     try {
       const plugin = freshRequire(path.join(data.cwd, data.script))
       const electron = require('electron')
@@ -58,9 +58,9 @@ class PrefixScript extends InputBlock {
   search (input, env = {}) {
     const query = this.query(input)
     this.logger.log('verbose', 'Executing Script', { query })
-    return this.script(query, env).then((results) => {
+    return this._ensurePromise(this.script(query, env)).then((results) => {
       this.logger.log('info', 'Script Results', { results })
-      return results
+      return this._validateResults(results)
     }).catch((error) => {
       this.logger.log('error', 'Script failed', { query, error })
     })

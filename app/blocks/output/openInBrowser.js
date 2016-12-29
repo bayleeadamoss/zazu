@@ -6,7 +6,7 @@ const Block = require('../block')
 class OpenInBrowser extends Block {
   constructor (data) {
     super(data)
-    this.url = data.url
+    this.url = data.url || '{value}'
   }
 
   call (state) {

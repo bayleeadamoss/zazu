@@ -45,7 +45,7 @@ class ServiceScript extends ExternalBlock {
       })
       return Promise.resolve()
     }
-    return this.script(this.options).then(() => {
+    return this._ensurePromise(this.script(this.options)).then(() => {
       this.start()
     }).catch((error) => {
       this.logger.log('error', 'Script failed', { error })

@@ -5,6 +5,7 @@ const { clone, pull } = require('../lib/download')
 const freshRequire = require('../lib/freshRequire')
 const configuration = require('../lib/configuration')
 const logger = require('../lib/logger')
+const notification = require('../lib/notification')
 
 class Package {
   constructor (url) {
@@ -17,13 +18,24 @@ class Package {
 
   load () {
     return this.download().then(() => {
-      this.logger.log('verbose', 'loading package')
-      const plugin = freshRequire(path.join(this.path, 'zazu.js'))
-      plugin.blocks = plugin.blocks || {}
-      plugin.blocks.external = plugin.blocks.external || []
-      plugin.blocks.input = plugin.blocks.input || []
-      plugin.blocks.output = plugin.blocks.output || []
-      return plugin
+      this.logger.log('verbose', 'loading package: ' + this.url)
+      try {
+        const plugin = freshRequire(path.join(this.path, 'zazu.js'))
+        plugin.blocks = plugin.blocks || {}
+        plugin.blocks.external = plugin.blocks.external || []
+        plugin.blocks.input = plugin.blocks.input || []
+        plugin.blocks.output = plugin.blocks.output || []
+        return plugin
+      } catch (e) {
+        this.logger.log('error', `failed to load "${this.url}" configuration`, {
+          message: e.message,
+          stack: e.stack,
+        })
+        notification.push({
+          title: 'Configuration failed to load',
+          message: `There was a syntax error in configuration for "${this.url}"`,
+        })
+      }
     })
   }
 

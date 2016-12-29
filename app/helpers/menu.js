@@ -69,7 +69,7 @@ const trayTemplate = [
     label: 'Development',
     submenu: [
       {
-        label: 'Zazu Plugin Debugger',
+        label: 'Plugin Debugger',
         click () {
           globalEmitter.emit('showDebug')
         },

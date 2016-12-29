@@ -54,10 +54,14 @@ app.on('ready', function () {
   globalEmitter.on('registerHotkey', (accelerator) => {
     if (!globalShortcut.isRegistered(accelerator)) {
       logger.log('verbose', 'registered a hotkey', { hotkey: accelerator })
-      globalShortcut.register(accelerator, () => {
-        globalEmitter.emit('triggerHotkey', accelerator)
-        logger.log('info', 'triggered a hotkey', { hotkey: accelerator })
-      })
+      try {
+        globalShortcut.register(accelerator, () => {
+          globalEmitter.emit('triggerHotkey', accelerator)
+          logger.log('info', 'triggered a hotkey', { hotkey: accelerator })
+        })
+      } catch (e) {
+        logger.log('error', 'failed to register hotkey', { hotkey: accelerator })
+      }
     }
   })
 

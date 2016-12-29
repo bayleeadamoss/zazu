@@ -30,7 +30,7 @@ class UserScript extends Block {
       return Promise.resolve()
     }
     this.logger.log('verbose', 'Executing Script', { value: state.value })
-    return this.script(state.value, env).then((output) => {
+    return this._ensurePromise(this.script(state.value, env)).then((output) => {
       state.value = output
       this.logger.log('info', 'User Script results', { value: state.value })
       return state.next()

@@ -17,6 +17,25 @@ class InputBlock extends Block {
     this.isScoped = value
   }
 
+  _validateResults (results) {
+    if (!Array.isArray(results)) {
+      this.logger.log('error', 'results must be an array', {
+        results,
+      })
+      return []
+    }
+    results.forEach((result) => {
+      const keys = Object.keys(result)
+      if (!keys.includes('title')) {
+        this.logger.log('error', 'result must contain a title', { result })
+      }
+      if (!keys.includes('value')) {
+        this.logger.log('error', 'result must contain a value', { result })
+      }
+    })
+    return results
+  }
+
   call (state) {
     setImmediate(() => {
       globalEmitter.emit('showWindow', this.pluginId, this.id)

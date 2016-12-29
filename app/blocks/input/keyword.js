@@ -3,8 +3,8 @@ const InputBlock = require('../inputBlock')
 class Keyword extends InputBlock {
   constructor (data) {
     super(data)
-    this.keyword = data.keyword
-    this.title = data.title
+    this.keyword = data.keyword || this.requiredField('keyword')
+    this.title = data.title || this.requiredField('title')
     this.subtitle = data.subtitle
     this.icon = data.icon
   }

@@ -11,6 +11,14 @@ class ExternalBlock extends EventEmitter {
     this.logger = logger.bindMeta({ plugin: data.pluginId, block: this.id })
   }
 
+  _ensurePromise (val) {
+    if (!(val instanceof Promise)) {
+      this.logger.log('error', 'Block did not return a Promise')
+      return Promise.resolve()
+    }
+    return val
+  }
+
   call () {
     return Promise.resolve()
   }

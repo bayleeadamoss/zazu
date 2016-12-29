@@ -29,6 +29,9 @@ All blocks can have the following properties:
 Each unique block type can have it's own properties, listed below with their
 descriptions.
 
+If a block is missing a required argument, you will see an error in the `Plugin
+Debugger` or in the logs in `~/.zazu/log/`.
+
 ## External Blocks
 
 External blocks are ways of accessing Zazu plugins without using the Zazu search
@@ -370,7 +373,6 @@ on the current state being passed down.
   id: 'Process',
   type: 'UserScript',
   script: 'process.js',
-  value: '{value}',
   connections: ['Copy'],
 }]
 ~~~
