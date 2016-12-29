@@ -1,7 +1,7 @@
 const path = require('path')
 const jetpack = require('fs-jetpack')
 
-const { clone, pull } = require('../lib/git')
+const { clone, pull } = require('../lib/download')
 const freshRequire = require('../lib/freshRequire')
 const configuration = require('../lib/configuration')
 const logger = require('../lib/logger')
@@ -32,7 +32,7 @@ class Package {
       return Promise.reject('Package' + this.url + ' does not exist')
     }
     this.logger.log('info', 'pull package')
-    return this.pull(this.path)
+    return this.pull(this.url, this.path)
   }
 
   download () {

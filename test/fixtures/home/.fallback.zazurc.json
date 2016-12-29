@@ -6,7 +6,6 @@
     "tinytacoteam/zazu-fallback"
   ],
   "comments": [
-    "zazu-fixtures is installed",
-    "zazu-fallback is not"
+    "zazu-fixtures and zazu-fallback is installed"
   ]
 }
