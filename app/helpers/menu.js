@@ -83,15 +83,21 @@ const trayTemplate = [
   },
   { type: 'separator' },
   {
-    label: 'Check for Zazu Updates',
+    label: 'Check for Updates',
     click: () => {
       Update.check(true)
     },
   },
   {
-    label: 'Update installed Plugins',
+    label: 'Update Plugins',
     click: () => {
       globalEmitter.emit('updatePlugins')
+    },
+  },
+  {
+    label: 'Reload Config',
+    click: () => {
+      globalEmitter.emit('reloadConfig')
     },
   },
   { type: 'separator' },

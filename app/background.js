@@ -28,6 +28,11 @@ globalEmitter.on('showAbout', (message) => {
   about.show()
 })
 
+globalEmitter.on('reloadConfig', (message) => {
+  app.relaunch()
+  app.exit()
+})
+
 app.on('ready', function () {
   if (!configuration.load()) {
     return dialog.showMessageBox({
