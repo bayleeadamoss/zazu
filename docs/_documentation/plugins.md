@@ -15,34 +15,34 @@ where some [blocks](/documentation/blocks/) return results, and other process
 data. You can have as many blocks as you want that can do their own specific
 tasks.
 
-At the root of every plugin there is a `zazu.js` file that tells Zazu how to
+At the root of every plugin there is a `zazu.json` file that tells Zazu how to
 communicate with your plugin.
 
-~~~ javascript
-module.exports = {
-  name: 'Demo Plugin',
-  icon: 'icon.png',
-  stylesheet: 'dist/main.css',
-  blocks: {
-    input: [
+~~~ json
+{
+  "name": "Demo Plugin",
+  "icon": "icon.png",
+  "stylesheet": "dist/main.css",
+  "blocks": {
+    "input": [
       {
-        id: 1,
-        type: 'Keyword',
-        keyword: 'play',
-        title: 'Test Notification',
-        subtitle: 'Click to test notifications',
-        connections: [2],
-      },
+        "id": 1,
+        "type": "Keyword",
+        "keyword": "play",
+        "title": "Test Notification",
+        "subtitle": "Click to test notifications",
+        "connections": [2]
+      }
     ],
-    output: [
+    "output": [
       {
-        id: 2,
-        type: 'SendNotification',
-        title: 'Hello world',
-        message: '{value}',
-      },
-    ],
-  },
+        "id": 2,
+        "type": "SendNotification",
+        "title": "Hello world",
+        "message": "{value}"
+      }
+    ]
+  }
 }
 ~~~~
 
