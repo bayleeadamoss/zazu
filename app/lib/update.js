@@ -10,10 +10,10 @@ var self = {
   _latestVersion: null,
 
   queueUpdate () {
-    const tenMinutes = 1000 * 60 * 10
+    const thirtySeconds = 1000 * 30
     setTimeout(() => {
       self.check()
-    }, tenMinutes)
+    }, thirtySeconds)
   },
 
   latestVersion () {
@@ -53,7 +53,7 @@ var self = {
           detail: 'Click download to get the newest version of Zazu!',
         }, (response) => {
           if (response === 1) {
-            shell.openExternal('http://zazuapp.org/')
+            shell.openExternal('http://zazuapp.org/download/')
           }
         })
       } else if (manualUpdate) {
