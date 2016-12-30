@@ -20,7 +20,7 @@ class Package {
     return this.download().then(() => {
       this.logger.log('verbose', 'loading package: ' + this.url)
       try {
-        const plugin = freshRequire(path.join(this.path, 'zazu.js'))
+        const plugin = freshRequire(path.join(this.path, 'zazu.json'))
         plugin.blocks = plugin.blocks || {}
         plugin.blocks.external = plugin.blocks.external || []
         plugin.blocks.input = plugin.blocks.input || []

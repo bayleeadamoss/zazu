@@ -10,9 +10,10 @@ title:  "Blocks"
 
 ## Blocks
 
-Blocks are the foundation of Zazu plugins. Each one represents a step to be
-completed. Along the way, each block passes a value from one block to the next.
-If they fork, each block will get their own copy of the current value.
+Blocks are the foundation of Zazu plugins and are defined in the `zazu.json`
+file in each plugin. Each one represents a step to be completed. Along the way,
+each block passes a value from one block to the next. If they fork, each block
+will get their own copy of the current value.
 
 Blocks link to other blocks via `connections`. Once a blocks gets executed,
 it's connections will get executed after. You can link to both output and input
@@ -37,14 +38,14 @@ Debugger` or in the logs in `~/.zazu/log/`.
 External blocks are ways of accessing Zazu plugins without using the Zazu search
 bar. These types of blocks are unique because they cannot be used as a connection.
 
-~~~ javascript
-module.exports = {
-  blocks: {
-    external: [
+~~~ json
+{
+  "blocks": {
+    "external": [
       // trigger blocks
     ]
   }
-};
+}
 ~~~
 
 ### Hotkey
@@ -60,12 +61,12 @@ In this example you have a hotkey block named `Inverse`, when somebody hits that
 hotkey it goes to the next block `PlayPandora` which is most likely a [user
 script](#user-script).
 
-~~~ javascript
+~~~ json
 [{
-  id: 'Inverse',
-  type: 'Hotkey',
-  hotkey: 'cmd+shift+o',
-  connections: ['PlayPandora'],
+  "id": "Inverse",
+  "type": "Hotkey",
+  "hotkey": "cmd+shift+o",
+  "connections": ["PlayPandora"]
 }]
 ~~~
 
@@ -86,10 +87,10 @@ used as environment variables passed into the script.
 
 ~~~ javascript
 [{
-  id: 'Cache Packages',
-  type: 'ServiceScript',
-  script: 'cachePackages.js',
-  interval: 100,
+  "id": "Cache Packages",
+  "type": "ServiceScript",
+  "script": "cachePackages.js",
+  "interval": 100
 }]
 ~~~
 
@@ -136,14 +137,14 @@ Input blocks are blocks that are the entry points to your plugin. These usually
 return results to be displayed in Zazu. If a search becomes stales, all input
 scripts should be able to handle a [`SIGKILL`](http://www.gnu.org/software/libc/manual/html_node/Termination-Signals.html)
 
-~~~ javascript
-module.exports = {
-  blocks: {
-    input: [
+~~~ json
+{
+  "blocks": {
+    "input": [
       // input blocks
     ]
   }
-};
+}
 ~~~
 
 ### Root Script
@@ -154,10 +155,10 @@ This allows you to execute a node script with a prefix.
 
 ~~~ javascript
 [{
-  id: 'Calculator',
-  type: 'RootScript',
-  script: 'calculator.js',
-  connections: ['Copy'],
+  "id": "Calculator",
+  "type": "RootScript",
+  "script": "calculator.js",
+  "connections": ["Copy"]
 }]
 ~~~
 
@@ -211,15 +212,15 @@ This allows you to execute a node script with a prefix.
 * `args` *string*: Specifies if you want arguments. Possibles values are `Required`, `Optional` and `None`.
 * `script` *string*: Path to the node file to execute.
 
-~~~ javascript
+~~~ json
 [{
-  id: 'Calculator',
-  type: 'PrefixScript',
-  prefix: 'calc',
-  space: true,
-  args: 'Required',
-  script: 'calculator.js',
-  connections: ['Copy'],
+  "id": "Calculator",
+  "type": "PrefixScript",
+  "prefix": "calc",
+  "space": true,
+  "args": "Required",
+  "script": "calculator.js",
+  "connections": ["Copy"]
 }]
 ~~~~
 
@@ -265,15 +266,15 @@ can click on.
 * `subtitle` *string*: Subtitle of the result that will be displayed, similar to results.
 * `icon` *string*: [Font awesome](http://fontawesome.io/icons/) or the relative path to an icon to be displayed next to the result.
 
-~~~ javascript
+~~~ json
 [{
-  id: 'Play',
-  type: 'Keyword',
-  keyword: 'play',
-  title: 'Play Pandora',
-  subtitle: 'Click to play Pandora!',
-  icon: 'fa-play',
-  connections: ['PlayPandora'],
+  "id": "Play",
+  "type": "Keyword",
+  "keyword": "play",
+  "title": "Play Pandora",
+  "subtitle": "Click to play Pandora!",
+  "icon": "fa-play",
+  "connections": ["PlayPandora"]
 }]
 ~~~
 
@@ -285,14 +286,14 @@ a script, or copy something to your clipboard.
 Most of the special attributes allow you to use a variable `{value}` which will
 be replaced with the current value of the result being passed around.
 
-~~~ javascript
-module.exports = {
-  blocks: {
-    output: [
+~~~ json
+{
+  "blocks": {
+    "output": [
       // output blocks
     ]
   }
-};
+}
 ~~~~
 
 ### Copy To Clipboard
@@ -301,11 +302,11 @@ This block will copy the given input to the clipboard.
 
 * `text` *string*: Text to be copied to the clipboard.
 
-~~~ javascript
+~~~ json
 [{
-  id: 'Copy',
-  type: 'CopyToClipboard',
-  text: '{value}',
+  "id": "Copy",
+  "type": "CopyToClipboard",
+  "text": "{value}"
 }]
 ~~~~
 
@@ -315,11 +316,11 @@ Open up the value in the users default Browser.
 
 * `url` *string*: URL of the page you wish to open.
 
-~~~ javascript
+~~~ json
 [{
-  id: 'Link',
-  type: 'OpenInBrowser',
-  url: '{value}',
+  "id": "Link",
+  "type": "OpenInBrowser",
+  "url": "{value}"
 }]
 ~~~~
 
@@ -330,12 +331,12 @@ Give the user a notification with a title and a message.
 * `title` *string*: Title of the notification.
 * `message` *string*: Message of the notification.
 
-~~~ javascript
+~~~ json
 [{
-  id: 'Notify',
-  type: 'SendNotification',
-  title: 'Hello world',
-  message: '{value}',
+  "id": "Notify",
+  "type": "SendNotification",
+  "title": "Hello world",
+  "message": "{value}"
 }]
 ~~~~
 
@@ -343,10 +344,10 @@ Give the user a notification with a title and a message.
 
 To open a file in the default application.
 
-~~~ javascript
+~~~ json
 [{
-  id: 'Open',
-  type: 'OpenFile',
+  "id": "Open",
+  "type": "OpenFile"
 }]
 ~~~~
 
@@ -354,10 +355,10 @@ To open a file in the default application.
 
 To show a file in it's folder.
 
-~~~ javascript
+~~~ json
 [{
-  id: 'Show',
-  type: 'ShowFile',
+  "id": "Show",
+  "type": "ShowFile"
 }]
 ~~~~
 
@@ -368,12 +369,12 @@ on the current state being passed down.
 
 * `script` *string*: Path to the node file to execute.
 
-~~~ javascript
+~~~ json
 [{
-  id: 'Process',
-  type: 'UserScript',
-  script: 'process.js',
-  connections: ['Copy'],
+  "id": "Process",
+  "type": "UserScript",
+  "script": "process.js",
+  "connections": ["Copy"]
 }]
 ~~~
 
