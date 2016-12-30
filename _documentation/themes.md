@@ -11,12 +11,12 @@ title:  "Creating Themes"
 ## Theme Overview
 
 The compiled CSS gets included when Zazu is launched. Be sure to include a
-`zazu.js` file in the root of your project with the following information:
+`zazu.json` file in the root of your project with the following information:
 
 ~~~ javascript
-module.exports = {
-  name: 'Light Theme',
-  stylesheet: 'dist/main.css'
+{
+  "name": "Light Theme",
+  "stylesheet": "dist/main.css"
 }
 ~~~~
 

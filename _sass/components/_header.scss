@@ -8,6 +8,23 @@
   padding-right: 2.5rem;
   padding-left: 2.5rem;
   background: $t-theme;
+  position: relative;
+  max-width: 100%;
+  canvas {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+  }
+  h1 {
+    text-shadow:
+      -1px -1px 0 $c__mint,
+      1px -1px 0 $c__mint,
+      -1px 1px 0 $c__mint,
+      1px 1px 0 $c__mint;
+    position: relative;
+    z-index: 2;
+  }
 }
 
 .c-header__title {
