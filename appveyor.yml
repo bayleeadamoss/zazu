@@ -23,7 +23,7 @@ artifacts:
 deploy:
   provider: GitHub
   auth_token:
-    secure: D1pIgsEHQWzKjrC6oPRnPYwLjz8PEkKBuhc9Vs1uR+UZuCa0cFDFw2bfhWyPQEdY
+    secure: XJXnzo2BTOVQ/JOyd7ccmoVhucZbl3lEzeKACXgROih54K5JZKGIjAdx1pAX/E+G
   artifact: ZazuWin
   draft: false
   prerelease: false
