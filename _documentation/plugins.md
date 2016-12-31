@@ -96,7 +96,7 @@ higher in the results list. This works well even if you sort the results
 yourself. If you don't want this behavior, simply don't add an `id` to the
 result.
 
-## Long Synchronous Operations
+## Blocking Operations
 
 Zazu runs your application in the same thread, this is useful so your plugin can
 share the same objects between blocks, however if you are planning on running a
