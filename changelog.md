@@ -1,6 +1,12 @@
-## v0.1.4
+## v0.2.0
 
-## Fixed Bugs
+### Features
+
+* Github fallback if git is not installed.
+* Switched all incoming formats to json.
+* Better plugin validation/debugging.
+
+### Fixed Bugs
 
 * Fix ctrl+j and ctrl+k going the wrong directions in search results.
 
