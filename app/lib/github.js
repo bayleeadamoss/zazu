@@ -7,10 +7,11 @@ const decompress = require('decompress')
 const mkdirp = require('mkdirp')
 
 const currentRemoteVersion = (name) => {
-  return json({ host: 'api.github.com',
+  return json({
+    host: 'api.github.com',
     path: '/repos/' + name + '/commits',
   }).then((response) => {
-    return response[0] && response[0].sha || ''
+    return response[0] && response[0].sha || 'master'
   })
 }
 
