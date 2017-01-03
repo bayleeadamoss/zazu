@@ -1,8 +1,13 @@
 ## Next
 
+### Features
+
+* Loading screen when plugins are still loading.
+
 ### Fixed Bugs
 
 * Set default state for plugins.
+* Fix github fallback for fresh downloads resulting in plugins not loading.
 
 ## v0.2.1
 
