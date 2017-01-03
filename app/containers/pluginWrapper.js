@@ -13,6 +13,7 @@ const PluginWrapper = React.createClass({
       query: '',
       theme: '',
       results: [],
+      plugins: [],
       activePlugin: null,
       activeBlock: null,
     }
