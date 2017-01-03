@@ -4,7 +4,7 @@
   "identifier": "com.tinytacoteam.zazu",
   "description": "A cross platform productivity application.",
   "version": "0.2.1",
-  "author": "Blaine Schmeisser",
+  "author": "Blaine Schmeisser <blainesch@gmail.com>",
   "main": "background.js",
   "homepage": "http://zazuapp.org",
   "license": "MIT",
