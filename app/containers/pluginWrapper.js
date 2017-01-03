@@ -6,10 +6,12 @@ const track = require('../lib/track')
 const globalEmitter = require('../lib/globalEmitter')
 const notification = require('../lib/notification')
 const DatabaseWrapper = require('./databaseWrapper')
+const LoadingSpinner = require('../components/loadingSpinner.js')
 
 const PluginWrapper = React.createClass({
   getInitialState () {
     return {
+      loaded: 0,
       query: '',
       theme: '',
       results: [],
@@ -105,6 +107,9 @@ const PluginWrapper = React.createClass({
     this.setState({ plugins })
     return Promise.all(plugins.map((pluginObj) => {
       return pluginObj.load().then(() => {
+        this.setState({
+          loaded: this.state.loaded + 1,
+        })
         track.addPageAction('loadedPackage', {
           packageType: 'plugin',
           packageName: pluginObj.id,
@@ -182,6 +187,14 @@ const PluginWrapper = React.createClass({
 
   render () {
     const { query, theme, results } = this.state
+    const noPlugins = this.state.plugins.length === 0
+    const stillLoading = this.state.loaded !== this.state.plugins.length
+    if (stillLoading || noPlugins) {
+      return React.createElement(LoadingSpinner, {
+        loaded: this.state.loaded,
+        total: this.state.plugins.length,
+      })
+    }
     return React.createElement(DatabaseWrapper, {
       query,
       theme: theme && theme.css,
