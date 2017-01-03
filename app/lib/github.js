@@ -37,13 +37,16 @@ const download = (remote, local) => {
   return new Promise((resolve, reject) => {
     const dir = path.dirname(local)
     if (!fs.existsSync(dir)) {
-      mkdirp(dir)
+      mkdirp(dir, resolve)
     }
-    request(remote)
-      .pipe(fs.createWriteStream(local))
-      .on('close', () => {
-        resolve()
-      })
+  }).then(() => {
+    return new Promise((resolve, reject) => {
+      request(remote)
+        .pipe(fs.createWriteStream(local))
+        .on('close', () => {
+          resolve()
+        })
+    })
   })
 }
 
