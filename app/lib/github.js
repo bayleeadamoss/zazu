@@ -4,6 +4,7 @@ const fs = require('fs')
 const json = require('./json')
 const jetpack = require('fs-jetpack')
 const decompress = require('decompress')
+const mkdirp = require('mkdirp')
 
 const currentRemoteVersion = (name) => {
   return json({ host: 'api.github.com',
@@ -34,6 +35,10 @@ const pull = (name, packagePath) => {
 
 const download = (remote, local) => {
   return new Promise((resolve, reject) => {
+    const dir = path.dirname(local)
+    if (!fs.existsSync(dir)) {
+      mkdirp(dir)
+    }
     request(remote)
       .pipe(fs.createWriteStream(local))
       .on('close', () => {
