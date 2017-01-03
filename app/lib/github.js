@@ -39,6 +39,8 @@ const download = (remote, local) => {
     const dir = path.dirname(local)
     if (!fs.existsSync(dir)) {
       mkdirp(dir, resolve)
+    } else {
+      resolve()
     }
   }).then(() => {
     return new Promise((resolve, reject) => {
