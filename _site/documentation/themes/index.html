@@ -40,13 +40,12 @@
     <a class="c-navigation__item " href="/download/">Download</a>
     <a class="c-navigation__item " href="/documentation/">Docs</a>
     <a class="c-navigation__item " href="/packages/">Packages</a>
-    <a class="c-navigation__item " href="/faq/">FAQ</a>
   </div>
 </nav>
 
 
     <article class="c-article">
-  <header class="c-header c-article__header" id="header">
+  <header class="c-header c-article__header">
     <div class="u-container">
       <h1 class="c-header__title">Creating Themes</h1>
     </div>
@@ -91,11 +90,11 @@
 <h2 id="theme-overview">Theme Overview</h2>
 
 <p>The compiled CSS gets included when Zazu is launched. Be sure to include a
-<code class="highlighter-rouge">zazu.json</code> file in the root of your project with the following information:</p>
+<code class="highlighter-rouge">zazu.js</code> file in the root of your project with the following information:</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">{</span>
-  <span class="s2">"name"</span><span class="err">:</span> <span class="s2">"Light Theme"</span><span class="p">,</span>
-  <span class="s2">"stylesheet"</span><span class="err">:</span> <span class="s2">"dist/main.css"</span>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="s1">'Light Theme'</span><span class="p">,</span>
+  <span class="na">stylesheet</span><span class="p">:</span> <span class="s1">'dist/main.css'</span>
 <span class="p">}</span>
 </code></pre>
 </div>
@@ -153,10 +152,8 @@ configuration</a>.</p>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.js"></script>
     <script src="/js/vendor/fuzzyfind.min.js"></script>
     <script src="/js/vendor/fetch.min.js"></script>
-    <script src="/js/vendor/trianglify.min.js"></script>
 
     <!-- Zazu -->
-    <script src="/js/triangle-header.js"></script>
     <script src="/js/headers.js"></script>
     <script src="/js/feedback.js"></script>
     <script src="/js/search.js"></script>

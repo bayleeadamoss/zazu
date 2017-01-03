@@ -41,13 +41,12 @@
     <a class="c-navigation__item " href="/download/">Download</a>
     <a class="c-navigation__item " href="/documentation/">Docs</a>
     <a class="c-navigation__item " href="/packages/">Packages</a>
-    <a class="c-navigation__item " href="/faq/">FAQ</a>
   </div>
 </nav>
 
 
     <article class="c-article">
-  <header class="c-header c-article__header" id="header">
+  <header class="c-header c-article__header">
     <div class="u-container">
       <h1 class="c-header__title">Blocks</h1>
     </div>
@@ -100,10 +99,9 @@
 
 <h2 id="blocks">Blocks</h2>
 
-<p>Blocks are the foundation of Zazu plugins and are defined in the <code class="highlighter-rouge">zazu.json</code>
-file in each plugin. Each one represents a step to be completed. Along the way,
-each block passes a value from one block to the next. If they fork, each block
-will get their own copy of the current value.</p>
+<p>Blocks are the foundation of Zazu plugins. Each one represents a step to be
+completed. Along the way, each block passes a value from one block to the next.
+If they fork, each block will get their own copy of the current value.</p>
 
 <p>Blocks link to other blocks via <code class="highlighter-rouge">connections</code>. Once a blocks gets executed,
 it’s connections will get executed after. You can link to both output and input
@@ -123,21 +121,21 @@ connections.</li>
 descriptions.</p>
 
 <p>If a block is missing a required argument, you will see an error in the <code class="highlighter-rouge">Plugin
-Debugger</code> or in the logs in <code class="highlighter-rouge">~/.zazu/log/</code>.</p>
+Debugger</code>.</p>
 
 <h2 id="external-blocks">External Blocks</h2>
 
 <p>External blocks are ways of accessing Zazu plugins without using the Zazu search
 bar. These types of blocks are unique because they cannot be used as a connection.</p>
 
-<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"blocks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"external"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="err">//</span><span class="w"> </span><span class="err">trigger</span><span class="w"> </span><span class="err">blocks</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">blocks</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">external</span><span class="p">:</span> <span class="p">[</span>
+      <span class="c1">// trigger blocks</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre>
 </div>
 
 <h3 id="hotkey">Hotkey</h3>
@@ -155,13 +153,13 @@ block of your plugin.</p>
 hotkey it goes to the next block <code class="highlighter-rouge">PlayPandora</code> which is most likely a <a href="#user-script">user
 script</a>.</p>
 
-<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span><span class="w">
-  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Inverse"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hotkey"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"hotkey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cmd+shift+o"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"connections"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"PlayPandora"</span><span class="p">]</span><span class="w">
-</span><span class="p">}]</span><span class="w">
-</span></code></pre>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
+  <span class="na">id</span><span class="p">:</span> <span class="s1">'Inverse'</span><span class="p">,</span>
+  <span class="na">type</span><span class="p">:</span> <span class="s1">'Hotkey'</span><span class="p">,</span>
+  <span class="na">hotkey</span><span class="p">:</span> <span class="s1">'cmd+shift+o'</span><span class="p">,</span>
+  <span class="na">connections</span><span class="p">:</span> <span class="p">[</span><span class="s1">'PlayPandora'</span><span class="p">],</span>
+<span class="p">}]</span>
+</code></pre>
 </div>
 
 <h3 id="service-script">Service Script</h3>
@@ -182,10 +180,10 @@ used as environment variables passed into the script.</p>
 </ul>
 
 <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
-  <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"Cache Packages"</span><span class="p">,</span>
-  <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"ServiceScript"</span><span class="p">,</span>
-  <span class="s2">"script"</span><span class="p">:</span> <span class="s2">"cachePackages.js"</span><span class="p">,</span>
-  <span class="s2">"interval"</span><span class="p">:</span> <span class="mi">100</span>
+  <span class="na">id</span><span class="p">:</span> <span class="s1">'Cache Packages'</span><span class="p">,</span>
+  <span class="na">type</span><span class="p">:</span> <span class="s1">'ServiceScript'</span><span class="p">,</span>
+  <span class="na">script</span><span class="p">:</span> <span class="s1">'cachePackages.js'</span><span class="p">,</span>
+  <span class="na">interval</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
 <span class="p">}]</span>
 </code></pre>
 </div>
@@ -233,14 +231,14 @@ function will be called as needed.</p>
 return results to be displayed in Zazu. If a search becomes stales, all input
 scripts should be able to handle a <a href="http://www.gnu.org/software/libc/manual/html_node/Termination-Signals.html"><code class="highlighter-rouge">SIGKILL</code></a></p>
 
-<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"blocks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"input"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="err">//</span><span class="w"> </span><span class="err">input</span><span class="w"> </span><span class="err">blocks</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">blocks</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">input</span><span class="p">:</span> <span class="p">[</span>
+      <span class="c1">// input blocks</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre>
 </div>
 
 <h3 id="root-script">Root Script</h3>
@@ -252,10 +250,10 @@ scripts should be able to handle a <a href="http://www.gnu.org/software/libc/man
 </ul>
 
 <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
-  <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"Calculator"</span><span class="p">,</span>
-  <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"RootScript"</span><span class="p">,</span>
-  <span class="s2">"script"</span><span class="p">:</span> <span class="s2">"calculator.js"</span><span class="p">,</span>
-  <span class="s2">"connections"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Copy"</span><span class="p">]</span>
+  <span class="na">id</span><span class="p">:</span> <span class="s1">'Calculator'</span><span class="p">,</span>
+  <span class="na">type</span><span class="p">:</span> <span class="s1">'RootScript'</span><span class="p">,</span>
+  <span class="na">script</span><span class="p">:</span> <span class="s1">'calculator.js'</span><span class="p">,</span>
+  <span class="na">connections</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Copy'</span><span class="p">],</span>
 <span class="p">}]</span>
 </code></pre>
 </div>
@@ -312,16 +310,16 @@ environment variables in the script call.</p>
   <li><code class="highlighter-rouge">script</code> <em>string</em>: Path to the node file to execute.</li>
 </ul>
 
-<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span><span class="w">
-  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Calculator"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PrefixScript"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"prefix"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calc"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"space"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Required"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"script"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calculator.js"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"connections"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Copy"</span><span class="p">]</span><span class="w">
-</span><span class="p">}]</span><span class="w">
-</span></code></pre>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
+  <span class="na">id</span><span class="p">:</span> <span class="s1">'Calculator'</span><span class="p">,</span>
+  <span class="na">type</span><span class="p">:</span> <span class="s1">'PrefixScript'</span><span class="p">,</span>
+  <span class="na">prefix</span><span class="p">:</span> <span class="s1">'calc'</span><span class="p">,</span>
+  <span class="na">space</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="na">args</span><span class="p">:</span> <span class="s1">'Required'</span><span class="p">,</span>
+  <span class="na">script</span><span class="p">:</span> <span class="s1">'calculator.js'</span><span class="p">,</span>
+  <span class="na">connections</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Copy'</span><span class="p">],</span>
+<span class="p">}]</span>
+</code></pre>
 </div>
 
 <p>The node script needs to have a curried function that returns a promise. We call
@@ -368,16 +366,16 @@ can click on.</p>
   <li><code class="highlighter-rouge">icon</code> <em>string</em>: <a href="http://fontawesome.io/icons/">Font awesome</a> or the relative path to an icon to be displayed next to the result.</li>
 </ul>
 
-<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span><span class="w">
-  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Play"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Keyword"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"keyword"</span><span class="p">:</span><span class="w"> </span><span class="s2">"play"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Play Pandora"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"subtitle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Click to play Pandora!"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"icon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fa-play"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"connections"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"PlayPandora"</span><span class="p">]</span><span class="w">
-</span><span class="p">}]</span><span class="w">
-</span></code></pre>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
+  <span class="na">id</span><span class="p">:</span> <span class="s1">'Play'</span><span class="p">,</span>
+  <span class="na">type</span><span class="p">:</span> <span class="s1">'Keyword'</span><span class="p">,</span>
+  <span class="na">keyword</span><span class="p">:</span> <span class="s1">'play'</span><span class="p">,</span>
+  <span class="na">title</span><span class="p">:</span> <span class="s1">'Play Pandora'</span><span class="p">,</span>
+  <span class="na">subtitle</span><span class="p">:</span> <span class="s1">'Click to play Pandora!'</span><span class="p">,</span>
+  <span class="na">icon</span><span class="p">:</span> <span class="s1">'fa-play'</span><span class="p">,</span>
+  <span class="na">connections</span><span class="p">:</span> <span class="p">[</span><span class="s1">'PlayPandora'</span><span class="p">],</span>
+<span class="p">}]</span>
+</code></pre>
 </div>
 
 <h2 id="output-blocks">Output Blocks</h2>
@@ -388,14 +386,14 @@ a script, or copy something to your clipboard.</p>
 <p>Most of the special attributes allow you to use a variable <code class="highlighter-rouge"><span class="p">{</span><span class="err">value</span><span class="p">}</span></code> which will
 be replaced with the current value of the result being passed around.</p>
 
-<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"blocks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"output"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="err">//</span><span class="w"> </span><span class="err">output</span><span class="w"> </span><span class="err">blocks</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">blocks</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">output</span><span class="p">:</span> <span class="p">[</span>
+      <span class="c1">// output blocks</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre>
 </div>
 
 <h3 id="copy-to-clipboard">Copy To Clipboard</h3>
@@ -406,12 +404,12 @@ be replaced with the current value of the result being passed around.</p>
   <li><code class="highlighter-rouge">text</code> <em>string</em>: Text to be copied to the clipboard.</li>
 </ul>
 
-<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span><span class="w">
-  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Copy"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CopyToClipboard"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{value}"</span><span class="w">
-</span><span class="p">}]</span><span class="w">
-</span></code></pre>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
+  <span class="na">id</span><span class="p">:</span> <span class="s1">'Copy'</span><span class="p">,</span>
+  <span class="na">type</span><span class="p">:</span> <span class="s1">'CopyToClipboard'</span><span class="p">,</span>
+  <span class="na">text</span><span class="p">:</span> <span class="s1">'{value}'</span><span class="p">,</span>
+<span class="p">}]</span>
+</code></pre>
 </div>
 
 <h3 id="open-in-browser">Open In Browser</h3>
@@ -422,12 +420,12 @@ be replaced with the current value of the result being passed around.</p>
   <li><code class="highlighter-rouge">url</code> <em>string</em>: URL of the page you wish to open.</li>
 </ul>
 
-<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span><span class="w">
-  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Link"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OpenInBrowser"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{value}"</span><span class="w">
-</span><span class="p">}]</span><span class="w">
-</span></code></pre>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
+  <span class="na">id</span><span class="p">:</span> <span class="s1">'Link'</span><span class="p">,</span>
+  <span class="na">type</span><span class="p">:</span> <span class="s1">'OpenInBrowser'</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s1">'{value}'</span><span class="p">,</span>
+<span class="p">}]</span>
+</code></pre>
 </div>
 
 <h3 id="send-notification">Send Notification</h3>
@@ -439,35 +437,35 @@ be replaced with the current value of the result being passed around.</p>
   <li><code class="highlighter-rouge">message</code> <em>string</em>: Message of the notification.</li>
 </ul>
 
-<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span><span class="w">
-  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Notify"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SendNotification"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello world"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{value}"</span><span class="w">
-</span><span class="p">}]</span><span class="w">
-</span></code></pre>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
+  <span class="na">id</span><span class="p">:</span> <span class="s1">'Notify'</span><span class="p">,</span>
+  <span class="na">type</span><span class="p">:</span> <span class="s1">'SendNotification'</span><span class="p">,</span>
+  <span class="na">title</span><span class="p">:</span> <span class="s1">'Hello world'</span><span class="p">,</span>
+  <span class="na">message</span><span class="p">:</span> <span class="s1">'{value}'</span><span class="p">,</span>
+<span class="p">}]</span>
+</code></pre>
 </div>
 
 <h3 id="open-file">Open File</h3>
 
 <p>To open a file in the default application.</p>
 
-<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span><span class="w">
-  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Open"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OpenFile"</span><span class="w">
-</span><span class="p">}]</span><span class="w">
-</span></code></pre>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
+  <span class="na">id</span><span class="p">:</span> <span class="s1">'Open'</span><span class="p">,</span>
+  <span class="na">type</span><span class="p">:</span> <span class="s1">'OpenFile'</span><span class="p">,</span>
+<span class="p">}]</span>
+</code></pre>
 </div>
 
 <h3 id="show-file">Show File</h3>
 
 <p>To show a file in it’s folder.</p>
 
-<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span><span class="w">
-  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Show"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ShowFile"</span><span class="w">
-</span><span class="p">}]</span><span class="w">
-</span></code></pre>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
+  <span class="na">id</span><span class="p">:</span> <span class="s1">'Show'</span><span class="p">,</span>
+  <span class="na">type</span><span class="p">:</span> <span class="s1">'ShowFile'</span><span class="p">,</span>
+<span class="p">}]</span>
+</code></pre>
 </div>
 
 <h3 id="user-script">User Script</h3>
@@ -479,13 +477,13 @@ on the current state being passed down.</p>
   <li><code class="highlighter-rouge">script</code> <em>string</em>: Path to the node file to execute.</li>
 </ul>
 
-<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span><span class="w">
-  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Process"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UserScript"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"script"</span><span class="p">:</span><span class="w"> </span><span class="s2">"process.js"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"connections"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Copy"</span><span class="p">]</span><span class="w">
-</span><span class="p">}]</span><span class="w">
-</span></code></pre>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span>
+  <span class="na">id</span><span class="p">:</span> <span class="s1">'Process'</span><span class="p">,</span>
+  <span class="na">type</span><span class="p">:</span> <span class="s1">'UserScript'</span><span class="p">,</span>
+  <span class="na">script</span><span class="p">:</span> <span class="s1">'process.js'</span><span class="p">,</span>
+  <span class="na">connections</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Copy'</span><span class="p">],</span>
+<span class="p">}]</span>
+</code></pre>
 </div>
 
 <p>In the example below we take in a unicode value and output the character that
@@ -538,10 +536,8 @@ function will be called as needed.</p>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.js"></script>
     <script src="/js/vendor/fuzzyfind.min.js"></script>
     <script src="/js/vendor/fetch.min.js"></script>
-    <script src="/js/vendor/trianglify.min.js"></script>
 
     <!-- Zazu -->
-    <script src="/js/triangle-header.js"></script>
     <script src="/js/headers.js"></script>
     <script src="/js/feedback.js"></script>
     <script src="/js/search.js"></script>

@@ -41,13 +41,12 @@
     <a class="c-navigation__item " href="/download/">Download</a>
     <a class="c-navigation__item " href="/documentation/">Docs</a>
     <a class="c-navigation__item " href="/packages/">Packages</a>
-    <a class="c-navigation__item " href="/faq/">FAQ</a>
   </div>
 </nav>
 
 
     <article class="c-article">
-  <header class="c-header c-article__header" id="header">
+  <header class="c-header c-article__header">
     <div class="u-container">
       <h1 class="c-header__title">Creating Plugins</h1>
     </div>
@@ -84,7 +83,7 @@
       <li><a href="#internal-ranking" id="markdown-toc-internal-ranking">Internal Ranking</a></li>
     </ul>
   </li>
-  <li><a href="#blocking-operations" id="markdown-toc-blocking-operations">Blocking Operations</a></li>
+  <li><a href="#long-synchronous-operations" id="markdown-toc-long-synchronous-operations">Long Synchronous Operations</a></li>
   <li><a href="#debugging" id="markdown-toc-debugging">Debugging</a></li>
   <li><a href="#plugin-context" id="markdown-toc-plugin-context">Plugin Context</a>    <ul>
       <li><a href="#console" id="markdown-toc-console">Console</a></li>
@@ -102,35 +101,35 @@ where some <a href="/documentation/blocks/">blocks</a> return results, and other
 data. You can have as many blocks as you want that can do their own specific
 tasks.</p>
 
-<p>At the root of every plugin there is a <code class="highlighter-rouge">zazu.json</code> file that tells Zazu how to
+<p>At the root of every plugin there is a <code class="highlighter-rouge">zazu.js</code> file that tells Zazu how to
 communicate with your plugin.</p>
 
-<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Demo Plugin"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"icon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"icon.png"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"stylesheet"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dist/main.css"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"blocks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"input"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Keyword"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"keyword"</span><span class="p">:</span><span class="w"> </span><span class="s2">"play"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Notification"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"subtitle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Click to test notifications"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"connections"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="nt">"output"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SendNotification"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello world"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{value}"</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="s1">'Demo Plugin'</span><span class="p">,</span>
+  <span class="na">icon</span><span class="p">:</span> <span class="s1">'icon.png'</span><span class="p">,</span>
+  <span class="na">stylesheet</span><span class="p">:</span> <span class="s1">'dist/main.css'</span><span class="p">,</span>
+  <span class="na">blocks</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">input</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="na">type</span><span class="p">:</span> <span class="s1">'Keyword'</span><span class="p">,</span>
+        <span class="na">keyword</span><span class="p">:</span> <span class="s1">'play'</span><span class="p">,</span>
+        <span class="na">title</span><span class="p">:</span> <span class="s1">'Test Notification'</span><span class="p">,</span>
+        <span class="na">subtitle</span><span class="p">:</span> <span class="s1">'Click to test notifications'</span><span class="p">,</span>
+        <span class="na">connections</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+      <span class="p">},</span>
+    <span class="p">],</span>
+    <span class="na">output</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="na">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="na">type</span><span class="p">:</span> <span class="s1">'SendNotification'</span><span class="p">,</span>
+        <span class="na">title</span><span class="p">:</span> <span class="s1">'Hello world'</span><span class="p">,</span>
+        <span class="na">message</span><span class="p">:</span> <span class="s1">'{value}'</span><span class="p">,</span>
+      <span class="p">},</span>
+    <span class="p">],</span>
+  <span class="p">},</span>
+<span class="p">}</span>
+</code></pre>
 </div>
 
 <h3 id="plugin-fields">Plugin Fields</h3>
@@ -187,7 +186,7 @@ higher in the results list. This works well even if you sort the results
 yourself. If you don’t want this behavior, simply don’t add an <code class="highlighter-rouge">id</code> to the
 result.</p>
 
-<h2 id="blocking-operations">Blocking Operations</h2>
+<h2 id="long-synchronous-operations">Long Synchronous Operations</h2>
 
 <p>Zazu runs your application in the same thread, this is useful so your plugin can
 share the same objects between blocks, however if you are planning on running a
@@ -214,7 +213,7 @@ develop your plugins better. This API allows you to surface your own logs to the
 Plugin Debugger.</p>
 
 <ul>
-  <li><code class="highlighter-rouge">level</code> <em>string</em>: Log level <code class="highlighter-rouge">verbose</code>, <code class="highlighter-rouge">info</code>, <code class="highlighter-rouge">warn</code> or <code class="highlighter-rouge">error</code></li>
+  <li><code class="highlighter-rouge">level</code> <em>string</em>: Log level <code class="highlighter-rouge">verbose</code>, <code class="highlighter-rouge">info</code>, or <code class="highlighter-rouge">error</code></li>
   <li><code class="highlighter-rouge">message</code> <em>string</em>: Log message to be displayed.</li>
   <li><code class="highlighter-rouge">data</code> <em>object</em>: Other misc data that could be useful.</li>
 </ul>
@@ -296,10 +295,8 @@ instance.</p>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.js"></script>
     <script src="/js/vendor/fuzzyfind.min.js"></script>
     <script src="/js/vendor/fetch.min.js"></script>
-    <script src="/js/vendor/trianglify.min.js"></script>
 
     <!-- Zazu -->
-    <script src="/js/triangle-header.js"></script>
     <script src="/js/headers.js"></script>
     <script src="/js/feedback.js"></script>
     <script src="/js/search.js"></script>

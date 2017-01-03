@@ -138,7 +138,7 @@ var Form = React.createClass({
           name: 'comments',
           label: 'Comments',
           placeholder: 'Optional, but appreciated.',
-          handleUpdate: this.handleCommentUpdate,
+            handleUpdate: this.handleCommentUpdate,
         })
       )
     )
@@ -174,13 +174,13 @@ var Feedback = React.createClass({
         onSubmitComplete: this.handleSubmit,
       })
     )
-  },
+  }
 })
 
 var root = document.getElementById('feedback')
 if (root) {
   ReactDOM.render(
     React.createElement(Feedback),
-    root
+    document.getElementById('feedback')
   )
 }
