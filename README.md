@@ -5,8 +5,9 @@
 [![Travis Build Status](https://travis-ci.org/tinytacoteam/zazu.svg?branch=master)](https://travis-ci.org/tinytacoteam/zazu)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/mhfi0vyyo7dygqiu?svg=true)](https://ci.appveyor.com/project/blainesch/zazu)
 
-Zazu is a cross platform productivity application. Download it from the
-[releases page](https://github.com/tinytacoteam/zazu/releases).
+Zazu, is a cross platform and fully extensible and open source launcher for
+hackers, creators and dabblers. Download it from the [releases
+page](http://zazuapp.org/download).
 
 Zazu was created to be a fully open source alternative to Alfred, but also be
 completely plugin based. You can remove any functionality you don't like, so if
