@@ -33,7 +33,7 @@ to you!
 This in the format of a relative GitHub URL. For example `tinytacoteam/dark-theme`
 would translate to `https://github.com/tinytacoteam/dark-theme`.
 
-There are a [few themes](/packages) we created that you can pick from, feel free
+There are a [few themes](/themes) we created that you can pick from, feel free
 to fork them and make your own.
 
 ### Plugins
