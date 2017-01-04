@@ -12,9 +12,11 @@ title:  "Creating Plugins"
 
 Plugins, written in Node and JavaScript, provide all the end user behavior.
 Plugins use a workflow architecture, where some [blocks](/documentation/blocks/)
-return results, and other process
-data. You can have as many blocks as you want that can do their own specific
-tasks.
+return results, and other process data. You can have as many blocks as you want
+that can do their own specific tasks.
+
+There is a [package boilerplate](https://github.com/tinytacoteam/zazu-template)
+you can start your packages off of.
 
 At the root of every plugin there is a `zazu.json` file that tells Zazu how to
 communicate with your plugin.
