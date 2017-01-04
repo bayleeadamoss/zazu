@@ -45,7 +45,9 @@ app.on('ready', function () {
       app.quit()
     })
   }
-  logger.debug('app is ready')
+  logger.debug('app is ready', {
+    version: app.getVersion(),
+  })
   createMenu()
   update.queueUpdate()
   forceSingleInstance()
