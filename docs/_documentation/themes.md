@@ -31,7 +31,7 @@ A [theme
 playbook](https://tinytacoteam.github.io/zazu-theme-playbook) exists so you can
 preview your Zazu theme with a few of the basic cases.
 
-Take a look at some of the other themes on the [packages](/packages/) page for
+Take a look at some of the other themes on the [packages](/themes/) page for
 some inspiration.
 
 ## Using your theme

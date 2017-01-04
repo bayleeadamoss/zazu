@@ -7,13 +7,6 @@
         </a> &gt;
       </span>
       {% if page.layout != 'page' and page.layout != 'default' %}
-        {% if page.url contains '/packages/' %}
-          <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-            <a href="/packages" title="Packages" itemprop="url">
-              <span itemprop="title">Packages</span>
-            </a> &gt;
-          </span>
-        {% endif %}
         {% if page.url contains '/documentation/' %}
           <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
             <a href="/documentation" title="Documentation" itemprop="url">
