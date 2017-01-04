@@ -85,6 +85,7 @@ app.on('ready', function () {
     minimizable: false,
     maximizable: false,
     alwaysOnTop: true,
+    skipTaskbar: true,
     fullscreenable: false,
     title: 'Zazu',
     autoResize: true,
