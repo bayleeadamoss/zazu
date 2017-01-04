@@ -39,7 +39,8 @@
     <a class="c-navigation__item " href="/">Home</a>
     <a class="c-navigation__item " href="/download/">Download</a>
     <a class="c-navigation__item " href="/documentation/">Docs</a>
-    <a class="c-navigation__item " href="/packages/">Packages</a>
+    <a class="c-navigation__item " href="/plugins/">Plugins</a>
+    <a class="c-navigation__item " href="/themes/">Themes</a>
     <a class="c-navigation__item " href="/faq/">FAQ</a>
   </div>
 </nav>
@@ -102,10 +103,13 @@
 
 <h2 id="plugin-overview">Plugin Overview</h2>
 
-<p>Plugins provide all the end user behavior. Plugins use a workflow architecture,
-where some <a href="/documentation/blocks/">blocks</a> return results, and other process
-data. You can have as many blocks as you want that can do their own specific
-tasks.</p>
+<p>Plugins, written in Node and JavaScript, provide all the end user behavior.
+Plugins use a workflow architecture, where some <a href="/documentation/blocks/">blocks</a>
+return results, and other process data. You can have as many blocks as you want
+that can do their own specific tasks.</p>
+
+<p>There is a <a href="https://github.com/tinytacoteam/zazu-template">package boilerplate</a>
+you can start your packages off of.</p>
 
 <p>At the root of every plugin there is a <code class="highlighter-rouge">zazu.json</code> file that tells Zazu how to
 communicate with your plugin.</p>
