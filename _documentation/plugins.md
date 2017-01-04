@@ -10,8 +10,9 @@ title:  "Creating Plugins"
 
 ## Plugin Overview
 
-Plugins provide all the end user behavior. Plugins use a workflow architecture,
-where some [blocks](/documentation/blocks/) return results, and other process
+Plugins, written in Node and JavaScript, provide all the end user behavior.
+Plugins use a workflow architecture, where some [blocks](/documentation/blocks/)
+return results, and other process
 data. You can have as many blocks as you want that can do their own specific
 tasks.
 
