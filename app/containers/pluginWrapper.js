@@ -104,7 +104,7 @@ const PluginWrapper = React.createClass({
         return new Plugin(plugin)
       }
     })
-    this.setState({ plugins })
+    this.setState({ plugins, loaded: 0 })
     return Promise.all(plugins.map((pluginObj) => {
       return pluginObj.load().then(() => {
         this.setState({
