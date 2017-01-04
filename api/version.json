@@ -1,0 +1,6 @@
+---
+layout: null
+---
+{
+  "version": "{{ site.currentAppVersion | default: 'v0.2.2' }}"
+}

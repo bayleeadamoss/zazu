@@ -12,7 +12,7 @@
     window.newrelic.setCustomAttribute('zazuVersion', 'v0.2.2')
   </script>
 
-  <title>Creating Plugins</title>
+  <title>Getting Started</title>
   <meta name="description" content="Zazu is a new open source productivity app, that allows developers to be in the drivers seat. Unlike other solutions, there is no built in integrations, so every plugin has the full scope of what Zazu has to offer.
 ">
   <meta name="robots" content="index, follow">
@@ -22,7 +22,7 @@
   <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://zazuapp.org/_documentation/plugins">
+  <link rel="canonical" href="http://zazuapp.org/_documentation/getting-started">
   <link rel="alternate" type="application/rss+xml" title="Zazu App" href="http://zazuapp.org/feed.xml">
   <!--
     Material Jekyll Theme Provided By:
@@ -49,7 +49,7 @@
     <article class="c-article">
   <header class="c-header c-article__header" id="header">
     <div class="u-container">
-      <h1 class="c-header__title">Creating Plugins</h1>
+      <h1 class="c-header__title">Getting Started</h1>
     </div>
   </header>
 
@@ -65,7 +65,7 @@
         
         
       
-      <span>Creating Plugins</span>
+      <span>Getting Started</span>
     </div>
   
   <div id="search"></div>
@@ -75,194 +75,37 @@
   <div class="c-article__main sidebar">
     <div class="content">
       <ul id="markdown-toc">
-  <li><a href="#plugin-overview" id="markdown-toc-plugin-overview">Plugin Overview</a>    <ul>
-      <li><a href="#plugin-fields" id="markdown-toc-plugin-fields">Plugin Fields</a></li>
-    </ul>
-  </li>
-  <li><a href="#results" id="markdown-toc-results">Results</a>    <ul>
-      <li><a href="#result-fields" id="markdown-toc-result-fields">Result Fields</a></li>
-      <li><a href="#internal-ranking" id="markdown-toc-internal-ranking">Internal Ranking</a></li>
-    </ul>
-  </li>
-  <li><a href="#blocking-operations" id="markdown-toc-blocking-operations">Blocking Operations</a></li>
-  <li><a href="#debugging" id="markdown-toc-debugging">Debugging</a></li>
-  <li><a href="#plugin-context" id="markdown-toc-plugin-context">Plugin Context</a>    <ul>
-      <li><a href="#console" id="markdown-toc-console">Console</a></li>
-      <li><a href="#cwd" id="markdown-toc-cwd">CWD</a></li>
-      <li><a href="#clipboard" id="markdown-toc-clipboard">Clipboard</a></li>
-      <li><a href="#native-image" id="markdown-toc-native-image">Native Image</a></li>
-    </ul>
-  </li>
+  <li><a href="#download" id="markdown-toc-download">Download</a></li>
+  <li><a href="#run" id="markdown-toc-run">Run</a></li>
+  <li><a href="#configure" id="markdown-toc-configure">Configure</a></li>
 </ul>
 
-<h2 id="plugin-overview">Plugin Overview</h2>
+<h2 id="download">Download</h2>
 
-<p>Plugins provide all the end user behavior. Plugins use a workflow architecture,
-where some <a href="/documentation/blocks/">blocks</a> return results, and other process
-data. You can have as many blocks as you want that can do their own specific
-tasks.</p>
+<p>You can go to our <a href="/download/">Download</a> page to get the latest version of Zazu
+or build your own. It offers a build for popular operating systems such as Mac,
+Linux and Windows.</p>
 
-<p>At the root of every plugin there is a <code class="highlighter-rouge">zazu.json</code> file that tells Zazu how to
-communicate with your plugin.</p>
+<h2 id="run">Run</h2>
 
-<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Demo Plugin"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"icon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"icon.png"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"stylesheet"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dist/main.css"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"blocks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"input"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Keyword"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"keyword"</span><span class="p">:</span><span class="w"> </span><span class="s2">"play"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Notification"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"subtitle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Click to test notifications"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"connections"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="nt">"output"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SendNotification"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello world"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{value}"</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-</div>
-
-<h3 id="plugin-fields">Plugin Fields</h3>
+<p>Once you open Zazu, it’ll begin to install all your plugins and present you with
+a notification letting you know that your plugins have been installed. Once your
+plugins are installed, you can hit the default launch shortcut <code class="highlighter-rouge">alt+space</code> and
+see Zazu appear. You can begin to type in commands such as:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">icon</code> <em>string</em>: If the result does not provide an individual icon, the plugin
-icon will be used. The icon here is treated as a relative path.</li>
-  <li><code class="highlighter-rouge">stylesheet</code> <em>string</em>: Optional. Relative path of a compiled stylesheet to be
-used when a single result is being previewed.</li>
-  <li><code class="highlighter-rouge">blocks</code> <em>object</em>:  Blocks are the foundations of every great plugin. They are
-so great, they have their own <a href="/documentation/blocks/">block page</a>.</li>
+  <li>13 feet to inches</li>
+  <li>screensaver</li>
+  <li>find resume.docx</li>
 </ul>
 
-<h2 id="results">Results</h2>
+<h2 id="configure">Configure</h2>
 
-<p>The <a href="/documentation/blocks/#input-blocks">input blocks</a> in your plugins will
-need to return results to Zazu. Here is an example:</p>
-
-<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"42"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"icon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fa-calculator"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The answer is 42"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"subtitle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Answer to the Ultimate Question of Life, the Universe, and Everything"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"preview"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;span&gt;42!&lt;/span&gt;"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
-</div>
-
-<h3 id="result-fields">Result Fields</h3>
-
-<ul>
-  <li><code class="highlighter-rouge">id</code> <em>string</em>: Identifier for <a href="#internal-ranking">internal ranking</a>.</li>
-  <li><code class="highlighter-rouge">icon</code> <em>string</em>: Supports <a href="http://fontawesome.io/icons/">font awesome</a>
-icons as well as relative paths to the icon in your project. If one is not
-provided it will fallback tot he icon for your project.</li>
-  <li><code class="highlighter-rouge">title</code> <em>string</em>: Larger text you see in a result.</li>
-  <li><code class="highlighter-rouge">subtitle</code> <em>string</em>: Optional. Smaller text under the title.</li>
-  <li><code class="highlighter-rouge">preview</code> <em>string</em>: Optional. HTML that shows up next to an active result.
-This will be in an iframe and include any <code class="highlighter-rouge">stylesheet</code> for styling.</li>
-  <li><code class="highlighter-rouge">value</code> <em>mixed</em>: Value is the what is passed from block to block to make your
-plugin run. In this case the value <code class="highlighter-rouge">42</code> as a number would be passed to whatever
-the connection block is, which could be to
-<a href="/documentation/blocks/#copy-to-clipboard">copy to the clipboard</a> or it could
-run a custom <a href="/documentation/blocks/#user-script">user script</a>.</li>
-</ul>
-
-<h3 id="internal-ranking">Internal Ranking</h3>
-
-<p>If you provide results with an <code class="highlighter-rouge">id</code>, Zazu will rank frequently clicked items
-higher in the results list. This works well even if you sort the results
-yourself. If you don’t want this behavior, simply don’t add an <code class="highlighter-rouge">id</code> to the
-result.</p>
-
-<h2 id="blocking-operations">Blocking Operations</h2>
-
-<p>Zazu runs your application in the same thread, this is useful so your plugin can
-share the same objects between blocks, however if you are planning on running a
-long synchronous job, you should consider using a
-<a href="https://nodejs.org/api/child_process.html#child_process_child_process_fork_modulepath_args_options"><code class="highlighter-rouge">child_process.fork</code></a>
-within your block.</p>
-
-<h2 id="debugging">Debugging</h2>
-
-<p>In the Tray icon, under <code class="highlighter-rouge">Development</code> there is a debugger called <code class="highlighter-rouge">Plugin
-Debugger</code> that will output info, warnings and errors of all plugins in a
-filterable interface. Select the plugin you are trying to debug and get logs
-for all the blocks being executed.</p>
-
-<h2 id="plugin-context">Plugin Context</h2>
-
-<p>The <code class="highlighter-rouge">pluginContext</code> object passed to node scripts and contains some useful
-functions to help enable your scripts.</p>
-
-<h3 id="console">Console</h3>
-
-<p>The Plugin Debugger is useful, since we surface information to you to help you
-develop your plugins better. This API allows you to surface your own logs to the
-Plugin Debugger.</p>
-
-<ul>
-  <li><code class="highlighter-rouge">level</code> <em>string</em>: Log level <code class="highlighter-rouge">verbose</code>, <code class="highlighter-rouge">info</code>, <code class="highlighter-rouge">warn</code> or <code class="highlighter-rouge">error</code></li>
-  <li><code class="highlighter-rouge">message</code> <em>string</em>: Log message to be displayed.</li>
-  <li><code class="highlighter-rouge">data</code> <em>object</em>: Other misc data that could be useful.</li>
-</ul>
-
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">(</span><span class="nx">pluginContext</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="nx">pluginContext</span><span class="p">.</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'verbose'</span><span class="p">,</span> <span class="s1">'hello world'</span><span class="p">,</span> <span class="p">{</span>
-    <span class="na">ping</span><span class="p">:</span> <span class="s1">'pong'</span><span class="p">,</span>
-  <span class="p">})</span>
-<span class="p">}</span>
-</code></pre>
-</div>
-
-<h3 id="cwd">CWD</h3>
-
-<p>The current working directory of the node script being ran.</p>
-
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'path'</span><span class="p">)</span>
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">(</span><span class="nx">pluginContext</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="nx">outputFile</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">pluginContext</span><span class="p">.</span><span class="nx">cwd</span><span class="p">,</span> <span class="s1">'output.json'</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre>
-</div>
-
-<h3 id="clipboard">Clipboard</h3>
-
-<p>An instance of the <a href="https://github.com/electron/electron/blob/master/docs/api/clipboard.md">Electron
-Clipboard</a>
-instance.</p>
-
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'path'</span><span class="p">)</span>
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">(</span><span class="nx">pluginContext</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="nx">clipboard</span> <span class="o">=</span> <span class="nx">pluginContext</span><span class="p">.</span><span class="nx">clipboard</span>
-<span class="p">}</span>
-</code></pre>
-</div>
-
-<h3 id="native-image">Native Image</h3>
-
-<p>An instance of the <a href="https://github.com/electron/electron/blob/master/docs/api/native-image.md">Electron
-Native Image</a>
-instance.</p>
-
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'path'</span><span class="p">)</span>
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">(</span><span class="nx">pluginContext</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="nx">nativeImage</span> <span class="o">=</span> <span class="nx">pluginContext</span><span class="p">.</span><span class="nx">nativeImage</span>
-<span class="p">}</span>
-</code></pre>
-</div>
+<p>All your configuration is in a single file, to make it easy to backup and
+version. It’s located in your home directory under <code class="highlighter-rouge">~/.zazurc.json</code>. Here, you
+can add some new plugins and remove ones you don’t want. There is more
+information in our documentation on <a href="/documentation/configuration/">Personal
+Configuration</a>.</p>
 
 
     </div>
@@ -280,7 +123,7 @@ instance.</p>
     </p>
     <p>
       See a typo? Feel free to
-      <a href="https://github.com/tinytacoteam/zazu/blob/gh-pages/_documentation/plugins.md">edit this page</a>!
+      <a href="https://github.com/tinytacoteam/zazu/blob/gh-pages/_documentation/getting-started.md">edit this page</a>!
     </p>
     <p>
       
