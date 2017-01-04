@@ -22,10 +22,11 @@ var self = {
         return resolve(self._latestVersion)
       }
       json({
-        host: 'api.github.com',
-        path: '/repos/tinytacoteam/zazu/releases/latest',
+        https: false,
+        host: 'zazuapp.org',
+        path: '/api/version.json',
       }).then((body) => {
-        resolve(body.tag_name || app.getVersion())
+        resolve(body.version || app.getVersion())
       }).catch((e) => {
         reject(`Got error: ${e.message}`)
       })

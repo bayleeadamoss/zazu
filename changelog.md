@@ -4,6 +4,8 @@
 
 * Allow users to use the screen, immediately after the loading screen
   disappears.
+* Uses a differnet endpoint to determine the latest version, which fixes an
+  issue with the website being out of sync.
 
 ## 0.2.2
 

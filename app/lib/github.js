@@ -8,6 +8,7 @@ const mkdirp = require('mkdirp')
 
 const currentRemoteVersion = (name) => {
   return json({
+    https: true,
     host: 'api.github.com',
     path: '/repos/' + name + '/commits',
   }).then((response) => {

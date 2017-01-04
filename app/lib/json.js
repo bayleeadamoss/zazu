@@ -1,5 +1,6 @@
 const electron = require('electron')
 const https = require('https')
+const http = require('http')
 const app = electron.app || electron.remote.app
 
 module.exports = (opts) => {
@@ -9,7 +10,8 @@ module.exports = (opts) => {
     },
   })
   return new Promise((resolve) => {
-    https.get(options, (res) => {
+    const lib = opts.https ? https : http
+    lib.get(options, (res) => {
       var chunks = []
       res.on('data', (chunk) => {
         chunks.push(chunk.toString())
