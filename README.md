@@ -15,7 +15,7 @@ you hate the built in calculator, just get a new one!
 We also have all of your configuration in a dotfile in `~/.zazurc.json` so it can
 be backed up and synced!
 
-Be sure to check out our amazing [Documentation](https://zazuapp.org).
+Be sure to check out our amazing [Documentation](http://zazuapp.org).
 
 ## Development
 
