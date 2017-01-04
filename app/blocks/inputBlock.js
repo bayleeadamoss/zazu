@@ -6,7 +6,7 @@ class InputBlock extends Block {
   constructor (data) {
     super(data)
     this.pluginId = data.pluginId
-    this.isScoped = false
+    this.isScoped = null
   }
 
   isActive () {

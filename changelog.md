@@ -1,3 +1,10 @@
+## Next
+
+### Fixed Bugs
+
+* Allow users to use the screen, immediately after the loading screen
+  disappears.
+
 ## 0.2.2
 
 ### Features
