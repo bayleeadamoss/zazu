@@ -2,7 +2,7 @@
 title: Zazu App
 description: >
   Zazu is a new open source productivity app, that allows developers to be in the
-  drivers seat. Unlike other solutions, there is no built in integrations, so
+  drivers seat. Unlike other solutions, there are no built in integrations, so
   every plugin has the full scope of what Zazu has to offer.
 fixedNav: 'true' # true or false
 themeColor: mint # teal, purple, green, blue, orange, purple, grey
@@ -34,6 +34,6 @@ include: [_pages, _packages, _documentation]
 exclude: [vendor, _site, CHANGELOG.md, LICENSE, README.md, .ruby-version]
 sass:
   style: compressed
-currentCommitSha: 3abc4ff4862e4c85c788de253c03c7351057fc65
+currentCommitSha: 60535e8aa67128dc097cfe39a5e05a67cff960f5
 
 currentAppVersion: v0.2.2
