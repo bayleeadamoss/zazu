@@ -18,6 +18,10 @@ be backed up and synced!
 
 Be sure to check out our amazing [Documentation](http://zazuapp.org).
 
+## Action Shot
+
+![Zazu App](docs/images/action-shots/file-finder.png)
+
 ## Development
 
 As you might expect:
