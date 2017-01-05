@@ -4,9 +4,14 @@
   "plugins": [
     "tinytacoteam/zazu-calculator",
     "tinytacoteam/zazu-file-finder",
-    "tinytacoteam/zazu-fallback",
     "tinytacoteam/zazu-template",
     "tinytacoteam/zazu-system",
+    {
+      "name": "tinytacoteam/zazu-fallback",
+      "variables": {
+        "rootSearches": ["npm", "google", "amazon", "giphy", "gh"]
+      }
+    },
     {
       "name": "tinytacoteam/zazu-clipboard",
       "variables": {
