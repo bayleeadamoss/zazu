@@ -47,6 +47,10 @@ class Plugin extends Package {
     }).then(() => {
       return pluginFreshRequire(this.path)
     }).catch((error) => {
+      this.logger.log('error', 'failed to install plugin', {
+        error: error.message,
+        stack: error.stack,
+      })
       notification.push({
         title: this.id + ' failed to update',
         message: error.message,
@@ -108,13 +112,15 @@ class Plugin extends Package {
           throw new Error(`Type "${output.type}" is not a recognized output block.`)
         }
       })
+    }).then((plugin) => {
+      return npmInstall(this.path)
     }).catch((e) => {
-      this.logger.log('error', this.id + ' failed to install', {
+      this.logger.log('error', this.id + ' failed to load', {
         message: e.message,
         stack: e.stack,
       })
       notification.push({
-        title: this.id + ' failed to install',
+        title: this.id + ' failed to load',
         message: e.message,
       })
     })

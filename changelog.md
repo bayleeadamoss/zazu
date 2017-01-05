@@ -1,3 +1,9 @@
+## Next
+
+### Bugs
+
+* Install plugin dependencies for every load
+
 ## 0.2.3
 
 ### Features
