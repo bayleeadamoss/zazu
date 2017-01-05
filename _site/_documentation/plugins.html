@@ -64,7 +64,6 @@
       </span>
       
         
-        
       
       <span>Creating Plugins</span>
     </div>
@@ -76,6 +75,7 @@
   <div class="c-article__main sidebar">
     <div class="content">
       <ul id="markdown-toc">
+  <li><a href="#getting-started" id="markdown-toc-getting-started">Getting Started</a></li>
   <li><a href="#plugin-overview" id="markdown-toc-plugin-overview">Plugin Overview</a>    <ul>
       <li><a href="#plugin-fields" id="markdown-toc-plugin-fields">Plugin Fields</a></li>
     </ul>
@@ -96,15 +96,26 @@
   </li>
 </ul>
 
+<h3 id="getting-started">Getting Started</h3>
+
+<p>There is a <a href="https://github.com/tinytacoteam/zazu-template">package boilerplate</a>
+you can start your packages off of. Once you finish, submit it to the [plugin
+page] by making a package file in the
+<a href="https://github.com/tinytacoteam/zazu/tree/master/docs/_packages">documentation</a>.</p>
+
+<p>The best development workflow is to start the project on GitHub, install the
+bare plugin inside of Zazu and work in the directory Zazu created itself. For
+instance if you installed <code class="highlighter-rouge">tinytacoteam/zazu-template</code> it would be located in
+<code class="highlighter-rouge">~/.zazu/plugins/tinytacoteam/zazu-template</code> and if you have GIT installed
+locally, this will have <code class="highlighter-rouge">origin</code> setup. Once you make your changes you can tell
+Zazu to <code class="highlighter-rouge">Reload Configuration</code> to see your change appear in Zazu.</p>
+
 <h2 id="plugin-overview">Plugin Overview</h2>
 
 <p>Plugins, written in Node and JavaScript, provide all the end user behavior.
 Plugins use a workflow architecture, where some <a href="/documentation/blocks/">blocks</a>
 return results, and other process data. You can have as many blocks as you want
 that can do their own specific tasks.</p>
-
-<p>There is a <a href="https://github.com/tinytacoteam/zazu-template">package boilerplate</a>
-you can start your packages off of.</p>
 
 <p>At the root of every plugin there is a <code class="highlighter-rouge">zazu.json</code> file that tells Zazu how to
 communicate with your plugin.</p>
