@@ -119,6 +119,7 @@ app.on('ready', function () {
   globalEmitter.on('showWindow', () => {
     logger.log('info', 'showing window from manual trigger')
     mainWindow.show()
+    mainWindow.focus()
   })
 
   globalEmitter.on('toggleWindow', () => {
