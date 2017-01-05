@@ -8,15 +8,26 @@ title:  "Creating Plugins"
 * TOC
 {:toc}
 
+### Getting Started
+
+There is a [package boilerplate](https://github.com/tinytacoteam/zazu-template)
+you can start your packages off of. Once you finish, submit it to the [plugin
+page] by making a package file in the
+[documentation](https://github.com/tinytacoteam/zazu/tree/master/docs/_packages).
+
+The best development workflow is to start the project on GitHub, install the
+bare plugin inside of Zazu and work in the directory Zazu created itself. For
+instance if you installed `tinytacoteam/zazu-template` it would be located in
+`~/.zazu/plugins/tinytacoteam/zazu-template` and if you have GIT installed
+locally, this will have `origin` setup. Once you make your changes you can tell
+Zazu to `Reload Configuration` to see your change appear in Zazu.
+
 ## Plugin Overview
 
 Plugins, written in Node and JavaScript, provide all the end user behavior.
 Plugins use a workflow architecture, where some [blocks](/documentation/blocks/)
 return results, and other process data. You can have as many blocks as you want
 that can do their own specific tasks.
-
-There is a [package boilerplate](https://github.com/tinytacoteam/zazu-template)
-you can start your packages off of.
 
 At the root of every plugin there is a `zazu.json` file that tells Zazu how to
 communicate with your plugin.
