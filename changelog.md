@@ -1,4 +1,9 @@
-## Next
+## 0.2.3
+
+### Features
+
+* Added default fallback searches.
+* Include zazu version when logging.
 
 ### Fixed Bugs
 
@@ -6,6 +11,7 @@
   disappears.
 * Uses a differnet endpoint to determine the latest version, which fixes an
   issue with the website being out of sync.
+* Focus correctly in linux desktops.
 
 ## 0.2.2
 
