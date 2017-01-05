@@ -34,6 +34,6 @@ include: [_pages, _packages, _documentation]
 exclude: [vendor, _site, CHANGELOG.md, LICENSE, README.md, .ruby-version]
 sass:
   style: compressed
-currentCommitSha: 3c4eb9ec19bb03df6f0621243ace5caa90e96a69
+currentCommitSha: d3a836747287dd7aafbd5cf7fa807aa96305c0d1
 
 currentAppVersion: v0.2.2
