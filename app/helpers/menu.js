@@ -1,4 +1,4 @@
-const { app, BrowserWindow, dialog, Menu, systemPreferences, Tray } = require('electron')
+const { app, BrowserWindow, dialog, Menu, Tray } = require('electron')
 const path = require('path')
 
 const globalEmitter = require('../lib/globalEmitter')
@@ -113,8 +113,7 @@ const trayTemplate = [
 let tray
 module.exports = () => {
   if (app.dock) app.dock.hide()
-  const iconName = systemPreferences.isDarkMode() ? 'tray-icon-white.png' : 'tray-icon.png'
-  const iconPath = path.join(app.getAppPath(), 'assets', 'images', iconName)
+  const iconPath = path.join(app.getAppPath(), 'assets', 'images', 'iconTemplate.png')
   tray = new Tray(iconPath)
   tray.setToolTip('Toggle Zazu')
   tray.setContextMenu(Menu.buildFromTemplate(trayTemplate))
