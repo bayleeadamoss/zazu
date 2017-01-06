@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "auto-launch": "^2.1.0",
+    "babel-register": "^6.18.0",
     "cuid": "^1.3.8",
     "decompress": "^4.0.0",
     "fs-jetpack": "^0.7.0",
@@ -23,7 +24,11 @@
     "request": "^2.79.0",
     "semver": "^5.0.3",
     "winston": "^2.2.0",
-    "winston-daily-rotate-file": "^1.2.0"
+    "winston-daily-rotate-file": "^1.2.0",
+    "babel": "^6.5.2",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "babelify": "^7.3.0"
   },
   "packageNameTemplate": "{{name}}-v{{version}}-{{platform}}-{{arch}}",
   "osx": {

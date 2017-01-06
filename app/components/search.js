@@ -39,14 +39,16 @@ const Search = React.createClass({
 
   render () {
     const { value } = this.props
-    return React.createElement('input', {
-      title: 'Search Zazu',
-      className: 'mousetrap',
-      ref: this.setReference,
-      type: 'text',
-      onChange: this.handleQueryChange,
-      value: value,
-    })
+
+    return (
+      <input
+        title='Search Zazu'
+        className='mousetrap'
+        ref={this.setReference}
+        type='text'
+        onChange={this.handleQueryChange}
+        value={value}/>
+    )
   },
 })
 

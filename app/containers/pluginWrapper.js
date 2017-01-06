@@ -193,20 +193,23 @@ const PluginWrapper = React.createClass({
     const noPlugins = this.state.plugins.length === 0
     const stillLoading = this.state.loaded !== this.state.plugins.length
     if (stillLoading || noPlugins) {
-      return React.createElement(LoadingSpinner, {
-        loaded: this.state.loaded,
-        total: this.state.plugins.length,
-      })
+      return (
+        <LoadingSpinner
+          loaded={this.state.loaded}
+          total={this.state.plugins.length}/>
+      )
     }
-    return React.createElement(DatabaseWrapper, {
-      query,
-      theme: theme && theme.css,
-      results,
-      scopeBlock: this.scopeBlock,
-      handleResetQuery: this.handleResetQuery,
-      handleQueryChange: this.handleQueryChange,
-      handleResultClick: this.handleResultClick,
-    })
+
+    return (
+      <DatabaseWrapper
+        query={query}
+        theme={theme && theme.css}
+        results={results}
+        scopeBlock={this.scopeBlock}
+        handleResetQuery={this.handleResetQuery}
+        handleQueryChange={this.handleQueryChange}
+        handleResultClick={this.handleResultClick}/>
+    )
   },
 })
 

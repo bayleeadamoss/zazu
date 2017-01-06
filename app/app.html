@@ -4,6 +4,10 @@
     <meta charset="utf-8">
     <title>Zazu</title>
     <script>
+      require('babel-register')({
+        ignore: /(node_modules|newrelic\.js)/ // ignore newrelic
+      })
+
       const track = require('./lib/track')
       const app = require('electron').remote.app
       const env = require('./lib/env')

@@ -59,15 +59,17 @@ const DatabaseWrapper = React.createClass({
 
   render () {
     const { handleQueryChange, handleResetQuery, query, theme, results, scopeBlock } = this.props
-    return React.createElement(Zazu, {
-      query,
-      theme,
-      scopeBlock,
-      handleResetQuery,
-      handleQueryChange,
-      handleResultClick: this.handleResultClick,
-      results: resultSorter.sort(results, this.state.clickedResults),
-    })
+    return (
+      <Zazu
+        query={query}
+        theme={theme}
+        scopeBlock={scopeBlock}
+        handleResetQuery={handleResetQuery}
+        handleQueryChange={handleQueryChange}
+        handleResultClick={this.handleResultClick}
+        results={resultSorter.sort(results, this.state.clickedResults)}
+        />
+    )
   },
 })
 

@@ -64,23 +64,23 @@ const Zazu = React.createClass({
 
   render () {
     const { query, results, theme } = this.props
-    return React.createElement(
-      'div',
-      null,
-      React.createElement(Style, { css: theme }),
-      React.createElement(Search, {
-        handleQueryChange: this.handleQueryChange,
-        value: query,
-      }),
-      React.createElement(Results, {
-        values: results,
-        activeIndex: this.state.activeIndex,
-        handleResultClick: this.handleResultClick,
-        handleUpdateActiveIndex: this.handleUpdateActiveIndex,
-      })
+
+    return (
+      <div>
+        <Style css={theme}/>
+        <Search
+          handleQueryChange={this.handleQueryChange}
+          value={query}
+          />
+        <Results
+          values={results}
+          activeIndex={this.state.activeIndex}
+          handleResultClick={this.handleResultClick}
+          handleUpdateActiveIndex={this.handleUpdateActiveIndex}
+          />
+      </div>
     )
   },
-
 })
 
 module.exports = Zazu

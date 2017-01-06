@@ -42,33 +42,31 @@ const Result = React.createClass({
     this.el = el
   },
 
+  renderIcon () {
+    const { value } = this.props
+    const isFontAwesome = value.icon.indexOf('fa-') === 0 && value.icon.indexOf('.') === -1
+
+    if (isFontAwesome) {
+      return <i className={`icon fa ${value.icon}`} aria-hidden='true'/>
+    } else {
+      return <img className='icon' src={value.icon} role='presentation' alt=''/>
+    }
+  },
+
   render () {
     const { active, value } = this.props
-    const isFontAwesome = value.icon.indexOf('fa-') === 0 && value.icon.indexOf('.') === -1
-    return React.createElement(
-      'li',
-      {
-        onClick: this.click,
-        className: active ? 'active' : 'inactive',
-        ref: this.setReference,
-        tabIndex: 0,
-        onFocus: this.handleFocus,
-      },
-      isFontAwesome ? (
-        React.createElement('i', {
-          className: 'icon fa ' + value.icon,
-          'aria-hidden': 'true',
-        })
-      ) : (
-        React.createElement('img', {
-          className: 'icon',
-          src: value.icon,
-          role: 'presentation',
-          alt: '',
-        })
-      ),
-      React.createElement('h2', null, value.title),
-      value.subtitle && React.createElement('h3', null, value.subtitle)
+
+    return (
+      <li
+        onClick={this.click}
+        className={active ? 'active' : 'inactive'}
+        ref={this.setReference}
+        tabIndex={0}
+        onFocus={this.handleFocus}>
+        {this.renderIcon()}
+        <h2>{value.title}</h2>
+        <h3>{value.subtitle}</h3>
+      </li>
     )
   },
 })
