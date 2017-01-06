@@ -1,8 +1,13 @@
 ## Next
 
+### Features
+
+* Update to a higher quality logo
+
 ### Bugs
 
 * Install plugin dependencies for every load
+* Fixed tray icon coloring for dark/light OS themes
 
 ## 0.2.3
 
