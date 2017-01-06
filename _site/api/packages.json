@@ -67,6 +67,15 @@
       {
         "top": true,
         "type": "plugin",
+        "title": "Emoj",
+        "image": "/images/package-icons/emoj.svg",
+        "githuburl": "blakek/zazu-emoj",
+        "description": "Find relevant emoji"
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
         "title": "Fallback",
         "image": "/images/package-icons/fallback.png",
         "githuburl": "tinytacoteam/zazu-fallback",
