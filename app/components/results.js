@@ -61,37 +61,42 @@ const Results = React.createClass({
     Mousetrap.reset()
   },
 
+  renderPreviewFrame () {
+    const { values, activeIndex } = this.props
+    var activeResult = values.filter((result, i) => i === activeIndex && result.preview)
+    if (!activeResult.length) return
+
+    // TODO: check IFrame functions
+    return (
+      <IFrame
+        id='preview'
+        key='preview'
+        css={activeResult.previewCss}
+        html={activeResult.preview}/>
+    )
+  },
+
   render () {
     const { values, handleResultClick, activeIndex } = this.props
     if (values.length === 0) { return null }
-    return React.createElement(
-      'div',
-      { className: 'results' },
-      React.createElement(
-        'ul',
-        {},
-        values.map((result, i) => {
-          return React.createElement(Result, {
-            active: i === activeIndex,
-            value: result,
-            onClick: handleResultClick,
-            handleTab: this.handleTab,
-            key: i,
-          })
-        })
-      ),
-      values.filter((result, i) => {
-        return i === activeIndex && result.preview
-      }).reduce((memo, result) => {
-        return React.createElement(
-          IFrame,
-          {
-            id: 'preview',
-            css: result.previewCss,
-            html: result.preview,
-          }
-        )
-      }, null)
+
+    return (
+      <div className='results'>
+        <ul>
+          {values.map((result, i) => {
+            return (
+              <Result
+                active={i === activeIndex}
+                value={result}
+                onClick={handleResultClick}
+                handleTab={this.handleTab}
+                key={i}/>
+            )
+          })}
+
+          {this.renderPreviewFrame()}
+        </ul>
+      </div>
     )
   },
 
