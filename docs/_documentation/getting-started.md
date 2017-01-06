@@ -28,7 +28,7 @@ see Zazu appear. You can begin to type in commands such as:
 ## Configure
 
 All your configuration is in a single file, to make it easy to backup and
-version. It's located in your home directory under `~/.zazurc.json`. Here, you
-can add some new plugins and remove ones you don't want. There is more
-information in our documentation on [Personal
-Configuration](/documentation/configuration/).
+version. It's located in your home directory under `~/.zazurc.json` (or
+`C:\Users\YOUR_NAME\.zazurc.json` for Windows). Here, you can add some new
+plugins and remove ones you don't want. There is more information in our
+documentation on [Personal Configuration](/documentation/configuration/).
