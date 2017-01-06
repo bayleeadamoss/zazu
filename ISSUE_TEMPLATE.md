@@ -2,7 +2,7 @@
 
 ### Actual Behavior
 
-### Steps to reproduce the beavior
+### Steps to reproduce the behavior
 
 ### Versions
 
