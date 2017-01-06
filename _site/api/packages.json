@@ -58,6 +58,15 @@
       {
         "top": true,
         "type": "plugin",
+        "title": "Dictionary",
+        "image": "/images/package-icons/dictionary.png",
+        "githuburl": "sagold/zazu-dict",
+        "description": "Find synonyms, translate german &lt;-&gt; *"
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
         "title": "Fallback",
         "image": "/images/package-icons/fallback.png",
         "githuburl": "tinytacoteam/zazu-fallback",
