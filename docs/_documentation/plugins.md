@@ -12,7 +12,7 @@ title:  "Creating Plugins"
 
 There is a [package boilerplate](https://github.com/tinytacoteam/zazu-template)
 you can start your packages off of. Once you finish, submit it to the [plugin
-page] by making a package file in the
+page](/plugins/) by making a package file in the
 [documentation](https://github.com/tinytacoteam/zazu/tree/master/docs/_packages).
 
 The best development workflow is to start the project on GitHub, install the
