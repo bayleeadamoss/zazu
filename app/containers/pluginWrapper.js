@@ -107,15 +107,18 @@ const PluginWrapper = React.createClass({
     this.setState({ plugins, loaded: 0 })
     return Promise.all(plugins.map((pluginObj) => {
       return pluginObj.load().then(() => {
+        const loaded = this.state.loaded + 1
         this.setState({
-          loaded: this.state.loaded + 1,
+          loaded,
         })
         track.addPageAction('loadedPackage', {
           packageType: 'plugin',
           packageName: pluginObj.id,
         })
       })
-    }))
+    })).then(() => {
+      this.context.logger.log('info', 'plugins are loaded')
+    })
   },
 
   handleResetQuery () {
