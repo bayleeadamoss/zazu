@@ -3,9 +3,10 @@
   "theme": "tinytacoteam/zazu-fixture",
   "disableAnalytics": true,
   "plugins": [
-    "tinytacoteam/zazu-fixture"
+    "tinytacoteam/zazu-calculator"
   ],
   "comments": [
-    "zazu-fixtures is installed"
+    "zazu-fixtures is installed",
+    "zazu-calculator is not"
   ]
 }

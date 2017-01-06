@@ -36,7 +36,7 @@
     "release": "npm run dev-release",
     "start": "cross-env NODE_ENV=development electron ./app",
     "test": "cross-env NODE_ENV=test electron-mocha --recursive test/app",
-    "cucumber": "cucumberjs",
+    "cucumber": "cucumberjs features/installing_plugins.feature",
     "lint": "eslint .",
     "install-native": "node ./tasks/install_native_module",
     "docs:publish": "gulp ghpages"
