@@ -49,15 +49,6 @@ const Search = React.createClass({
         onChange={this.handleQueryChange}
         value={value}/>
     )
-
-    // return React.createElement('input', {
-    //   title: 'Search Zazu',
-    //   className: 'mousetrap',
-    //   ref: this.setReference,
-    //   type: 'text',
-    //   onChange: this.handleQueryChange,
-    //   value: value,
-    // })
   },
 })
 
