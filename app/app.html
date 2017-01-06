@@ -5,7 +5,7 @@
     <title>Zazu</title>
     <script>
       require('babel-register')({
-        ignore: /(node_modules|newrelic\.js)/
+        ignore: /(node_modules|newrelic\.js)/ // ignore newrelic
       })
 
       const track = require('./lib/track')
