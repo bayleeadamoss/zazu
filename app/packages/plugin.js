@@ -112,8 +112,6 @@ class Plugin extends Package {
           throw new Error(`Type "${output.type}" is not a recognized output block.`)
         }
       })
-    }).then((plugin) => {
-      return npmInstall(this.path)
     }).catch((e) => {
       this.logger.log('error', this.id + ' failed to load', {
         message: e.message,

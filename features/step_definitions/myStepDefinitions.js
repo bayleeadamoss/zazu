@@ -121,7 +121,7 @@ const eventually = (func, expectedValue) => {
     let iterations = 0
     const retry = () => {
       iterations++
-      if (iterations >= 40) {
+      if (iterations >= 30) {
         reject('Forever is a long time')
       } else {
         func().then(assert).then(resolve).catch(() => {
