@@ -19,7 +19,10 @@ const npmInstall = (baseDir) => {
   return new Promise((resolve, reject) => {
     npm.load({}, (npmEr) => {
       if (npmEr) return reject(npmEr)
-      npm.commands.install(baseDir, packages, resolve)
+      npm.commands.install(baseDir, packages, (err) => {
+        if (err) return reject(err)
+        resolve()
+      })
     })
   })
 }
