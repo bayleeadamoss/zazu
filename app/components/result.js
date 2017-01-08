@@ -65,7 +65,7 @@ const Result = React.createClass({
         onFocus={this.handleFocus}>
         {this.renderIcon()}
         <h2>{value.title}</h2>
-        <h3>{value.subtitle}</h3>
+        { value.subtitle && <h3>{value.subtitle}</h3> }
       </li>
     )
   },

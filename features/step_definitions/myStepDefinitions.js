@@ -32,12 +32,10 @@ class World {
   }
 
   open () {
-    if (this.profileType === 'calculator') {
-      return this.app.start().then(() => {
-        return wait(10 * 1000) // give it time to install the plugin
-      })
-    }
-    return this.app.start()
+    return this.app.start().then(() => {
+      const time = this.profileType === 'calculator' ? 15 * 1000 : 5 * 1000
+      return wait(time) // give it time to load plugins
+    })
   }
 
   isWindowVisible () {
@@ -145,7 +143,7 @@ module.exports = function () {
     return Promise.reject('Profile not found')
   })
 
-  this.Given(/^the app is launched$/, {timeout: 15 * 1000}, function () {
+  this.Given(/^the app is launched$/, {timeout: 35 * 1000}, function () {
     return this.open()
   })
 

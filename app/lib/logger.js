@@ -3,7 +3,6 @@ const winston = require('winston')
 const jetpack = require('fs-jetpack')
 
 const configuration = require('./configuration')
-const PluginTransport = require('./pluginTransport')
 const env = require('./env')
 
 jetpack.dir(configuration.logDir)
@@ -17,6 +16,7 @@ const transports = [
 ]
 
 if (env.isRenderer) {
+  const PluginTransport = require('./pluginTransport')
   transports.push(new PluginTransport({}))
 }
 
@@ -32,7 +32,20 @@ logger.bindMeta = (data) => {
       const mergedOptions = Object.assign({}, options, data)
       logger.log(type, message, mergedOptions)
     },
+    error: (message, error) => {
+      logger.log('error', message, {
+        message: error.message,
+        stack: error.stack,
+      })
+    },
   }
+}
+
+logger.error = (message, error) => {
+  logger.log('error', message, {
+    message: error.message,
+    stack: error.stack,
+  })
 }
 
 module.exports = logger
