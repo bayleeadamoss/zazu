@@ -63,10 +63,9 @@ const Results = React.createClass({
 
   renderPreviewFrame () {
     const { values, activeIndex } = this.props
-    var activeResult = values.filter((result, i) => i === activeIndex && result.preview)
-    if (!activeResult.length) return
+    var activeResult = values.find((result, i) => i === activeIndex && result.preview)
+    if (!activeResult) return
 
-    // TODO: check IFrame functions
     return (
       <IFrame
         id='preview'
@@ -93,9 +92,8 @@ const Results = React.createClass({
                 key={i}/>
             )
           })}
-
-          {this.renderPreviewFrame()}
         </ul>
+        {this.renderPreviewFrame()}
       </div>
     )
   },
