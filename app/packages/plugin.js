@@ -43,14 +43,11 @@ class Plugin extends Package {
   update () {
     return super.update().then(() => {
       this.logger.log('info', 'npm install')
-      return npmInstall(this.path)
+      return npmInstall(this.url, this.path)
     }).then(() => {
       return pluginFreshRequire(this.path)
     }).catch((error) => {
-      this.logger.log('error', 'failed to install plugin', {
-        error: error.message,
-        stack: error.stack,
-      })
+      this.logger.error('failed to install plugin', error)
       notification.push({
         title: this.id + ' failed to update',
         message: error.message,
@@ -60,17 +57,12 @@ class Plugin extends Package {
 
   download () {
     return super.download().then((action) => {
-      if (action === 'downloaded') {
+      if (action === 'cloned') {
         this.logger.log('verbose', 'npm install')
-        return npmInstall(this.path)
+        return npmInstall(this.url, this.path)
       } else {
         return Promise.resolve()
       }
-    }).catch((error) => {
-      notification.push({
-        title: this.id + ' failed to download',
-        message: error.message,
-      })
     })
   }
 
@@ -113,10 +105,7 @@ class Plugin extends Package {
         }
       })
     }).catch((e) => {
-      this.logger.log('error', this.id + ' failed to load', {
-        message: e.message,
-        stack: e.stack,
-      })
+      this.logger.error(this.id + ' failed to load', e)
       notification.push({
         title: this.id + ' failed to load',
         message: e.message,

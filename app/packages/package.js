@@ -27,10 +27,7 @@ class Package {
         plugin.blocks.output = plugin.blocks.output || []
         return plugin
       } catch (e) {
-        this.logger.log('error', `failed to load "${this.url}" configuration`, {
-          message: e.message,
-          stack: e.stack,
-        })
+        this.logger.error(`failed to load "${this.url}" configuration`, e)
         notification.push({
           title: 'Configuration failed to load',
           message: `There was a syntax error in configuration for "${this.url}"`,
@@ -48,13 +45,7 @@ class Package {
   }
 
   download () {
-    if (jetpack.exists(this.path)) {
-      return Promise.resolve('exists')
-    }
-    this.logger.log('verbose', 'cloning package')
-    return this.clone(this.url, this.path).then(() => {
-      return 'downloaded'
-    })
+    return this.clone(this.url, this.path)
   }
 }
 
