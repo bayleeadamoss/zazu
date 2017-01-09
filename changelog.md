@@ -1,12 +1,14 @@
-## Next
+## 0.3.0
 
 ### Features
 
 * Update to a higher quality logo
+* Added a default package manager plugin
 
 ### Bugs
 
 * Fixed tray icon coloring for dark/light OS themes
+* Update package installation to be more resilient
 
 ## 0.2.3
 
