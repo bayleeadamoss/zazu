@@ -28,9 +28,9 @@ const npmInstall = (name, packagePath) => {
     })
     return new Promise((resolve, reject) => {
       npm.load({}, (npmErr) => {
-        if (npmErr) throw npmErr
+        if (npmErr) return reject(npmErr)
         npm.commands.install(packagePath, packages, (err) => {
-          if (err) throw err
+          if (err) return reject(err)
           installStatus.set(name, 'installed').then(resolve)
         })
       })

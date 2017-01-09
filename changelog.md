@@ -1,3 +1,9 @@
+## Next
+
+### Bugs
+
+* Better handle npm install exceptions.
+
 ## 0.3.0
 
 ### Features
