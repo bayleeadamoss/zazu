@@ -3,7 +3,7 @@
   "productName": "Zazu",
   "identifier": "com.tinytacoteam.zazu",
   "description": "A cross platform productivity application.",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "author": "Blaine Schmeisser <blainesch@gmail.com>",
   "main": "background.js",
   "homepage": "http://zazuapp.org",
