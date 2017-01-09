@@ -1,3 +1,9 @@
+## 0.3.2
+
+## Bugs
+
+* No longer show transparent themes on Windows to fix windows never appearing
+
 ## 0.3.1
 
 ### Bugs

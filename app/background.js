@@ -76,6 +76,7 @@ app.on('ready', function () {
   const debug = !!configuration.debug
   if (debug) logger.log('verbose', 'debug mode is on')
 
+  const isWindows = process.platform === 'win32'
   const mainWindow = windowHelper('main', {
     width: 600,
     height: 400,
@@ -83,7 +84,7 @@ app.on('ready', function () {
     show: false,
     frame: false,
     resizable: false,
-    transparent: true,
+    transparent: !isWindows,
     minimizable: false,
     maximizable: false,
     alwaysOnTop: true,
