@@ -2,7 +2,8 @@
 
 ### Bugs
 
-* Better handle npm install exceptions.
+* Better handle npm install exceptions
+* Revert back to old logo
 
 ## 0.3.0
 
