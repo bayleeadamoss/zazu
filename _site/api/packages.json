@@ -120,6 +120,15 @@
     
       {
         "top": true,
+        "type": "plugin",
+        "title": "Package Manager",
+        "image": "/images/package-icons/package-manager.png",
+        "githuburl": "tinytacoteam/zazu-package-manager",
+        "description": "A easy to use package manager for Zazu."
+      },
+    
+      {
+        "top": true,
         "type": "theme",
         "title": "Playful Theme",
         "image": "/images/package-icons/playful-theme.png",
@@ -134,6 +143,15 @@
         "image": "/images/package-icons/snippets.svg",
         "githuburl": "tinytacoteam/zazu-snippets",
         "description": "A snippet manager for Zazu"
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
+        "title": "System",
+        "image": "/images/package-icons/system.png",
+        "githuburl": "tinytacoteam/zazu-system",
+        "description": "System tasks for zazu."
       }
     
   ]
