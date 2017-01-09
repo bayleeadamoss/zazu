@@ -6,6 +6,7 @@
     "tinytacoteam/zazu-file-finder",
     "tinytacoteam/zazu-template",
     "tinytacoteam/zazu-system",
+    "tinytacoteam/zazu-package-manager",
     {
       "name": "tinytacoteam/zazu-fallback",
       "variables": {
