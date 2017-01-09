@@ -108,7 +108,7 @@ const http = require('http')
 const path = require('path')
 
 module.exports = (pluginContext) => {
-  const packageUrl = 'http://zazuapp.org/packages.json'
+  const packageUrl = 'http://zazuapp.org/api/packages.json'
   const outputFile = path.join(pluginContext.cwd, 'packages.json')
 
   return (env = {}) => {
