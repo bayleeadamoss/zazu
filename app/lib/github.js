@@ -39,12 +39,9 @@ const pull = (name, packagePath) => {
 
 const download = (remote, local) => {
   return new Promise((resolve, reject) => {
-    const dir = path.dirname(local)
-    if (!fs.existsSync(dir)) {
-      mkdirp(dir, resolve)
-    } else {
-      resolve()
-    }
+    mkdirp(path.dirname(local), (err) => {
+      err ? reject(err) : resolve()
+    })
   }).then(() => {
     return new Promise((resolve, reject) => {
       request(remote)
