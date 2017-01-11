@@ -8,6 +8,6 @@
 
 * Zazu:
 * OS:
-* GIT (if you have it installed):
+* GIT:
 
 Please, include a link to gist of most applicable `~/.zazu/log/` file.
