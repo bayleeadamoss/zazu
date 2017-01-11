@@ -3,6 +3,12 @@ const path = require('path')
 
 class Configuration {
   constructor () {
+    const cwd = process.cwd()
+    const portableHome = path.join(cwd, 'portable')
+    if (require('fs').existsSync(portableHome)) {
+      process.env.ZAZU_HOME = portableHome
+    }
+
     const home = process.env.ZAZU_HOME || require('os').homedir()
     this.profilePath = path.join(home, '.zazurc.json')
     this.pluginDir = path.join(home, '.zazu/plugins/')
