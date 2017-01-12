@@ -25,7 +25,7 @@ basic usage.
 
 This can be any [keyboard
 accelerator](https://github.com/electron/electron/blob/master/docs/api/accelerator.md)
-you can think of. We recommend using `alt+space` or `Command+space`, but it's up
+you can think of. We recommend using `alt+space` or `cmd+space`, but it's up
 to you!
 
 ### Theme
