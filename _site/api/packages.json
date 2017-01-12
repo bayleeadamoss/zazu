@@ -67,6 +67,15 @@
       {
         "top": true,
         "type": "plugin",
+        "title": "Docker",
+        "image": "/images/package-icons/docker.png",
+        "githuburl": "nantaphop/zazu-docker",
+        "description": "Run Docker Command from Zazu"
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
         "title": "Emoj",
         "image": "/images/package-icons/emoj.svg",
         "githuburl": "blakek/zazu-emoj",
@@ -152,6 +161,15 @@
         "image": "/images/package-icons/system.png",
         "githuburl": "tinytacoteam/zazu-system",
         "description": "System tasks for zazu."
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
+        "title": "Weather",
+        "image": "/images/package-icons/weather.png",
+        "githuburl": "blainesch/zazu-weather",
+        "description": "Get weather information"
       }
     
   ]

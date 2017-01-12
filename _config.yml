@@ -22,7 +22,7 @@ gems:
   - rouge
 
 # Social
-twitterUsername:
+twitterUsername: zazuapp
 dribbbleUsername:
 codepenUsername:
 githubUsername: tinytacoteam
@@ -34,6 +34,6 @@ include: [_pages, _packages, _documentation]
 exclude: [vendor, _site, CHANGELOG.md, LICENSE, README.md, .ruby-version]
 sass:
   style: compressed
-currentCommitSha: a6f9f285bcef6f6db09a7d6948e7130799522765
+currentCommitSha: 5cac06ff1b1d0228ecc851bdc2574072e721e461
 
 currentAppVersion: v0.3.2
