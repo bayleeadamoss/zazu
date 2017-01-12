@@ -9,7 +9,7 @@ const DatabaseWrapper = require('./databaseWrapper')
 const LoadingSpinner = require('../components/loadingSpinner.js')
 
 const PluginWrapper = React.createClass({
-  method: getInitialState () {
+  getInitialState () {
     return {
       loaded: 0,
       query: '',
@@ -18,10 +18,7 @@ const PluginWrapper = React.createClass({
       plugins: [],
       activePlugin: null,
       activeBlock: null,
-    },
-       componentWillMount: getInitialState () {
-       this.method = debounce(this.method,300);
-    },   
+    }
   },
 
   contextTypes: {
