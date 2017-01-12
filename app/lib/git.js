@@ -3,6 +3,8 @@ const which = require('which')
 const retry = require('./retry')
 const installStatus = require('./installStatus')
 const jetpack = require('fs-jetpack')
+const mkdirp = require('mkdirp')
+const path = require('path')
 
 const git = (args, options) => {
   return new Promise((resolve, reject) => {
@@ -37,14 +39,20 @@ const clone = (name, packagePath) => {
     if (status && jetpack.exists(packagePath)) return status
     return retry(`git clone [${name}]`, () => {
       const packageUrl = 'https://github.com/' + name + '.git'
-      return git(['clone', packageUrl, packagePath]).catch((err) => {
-        if (err.message.match(/already exists/i)) {
-          return // futher promises will resolve
-        } else if (err.message.match(/Repository not found/i)) {
-          throw new Error('Package "' + name + '" does not exist on github')
-        } else {
-          throw err
-        }
+      return new Promise((resolve, reject) => {
+        mkdirp(path.dirname(packagePath), (err) => {
+          err ? reject(err) : resolve()
+        })
+      }).then(() => {
+        return git(['clone', packageUrl, packagePath]).catch((err) => {
+          if (err.message.match(/already exists/i)) {
+            return // futher promises will resolve
+          } else if (err.message.match(/Repository not found/i)) {
+            throw new Error('Package "' + name + '" does not exist on github')
+          } else {
+            throw err
+          }
+        })
       }).then(() => {
         return installStatus.set(name, 'cloned')
       })
