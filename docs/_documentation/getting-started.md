@@ -33,4 +33,4 @@ version. It's located in your home directory under `~/.zazurc.json` (or
 plugins and remove ones you don't want. There is more information in our
 documentation on [Personal Configuration](/documentation/configuration/).
 
-Zazu supports running in portable mode, details are found [here](/documentation/configuration#portableMode)
+Zazu supports running in portable mode, details are found on the [configuration page](/documentation/configuration#portableMode)

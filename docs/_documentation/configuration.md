@@ -21,14 +21,6 @@ basic usage.
 }
 ~~~~
 
-## Portable Mode {#portableMode}
-
-If you want your configuration within your application folder for portability just
-create a `portable` directory inside of it. You can copy your configuration files over
-from your home directory if they already exist.
-
-Portable mode overrides ZAZU_HOME, if defined.
-
 ### Hotkey
 
 This can be any [keyboard
@@ -83,3 +75,9 @@ you can use to configure it's behavior.
 We send anonymous usage to [New Relic](https://newrelic.com/). To opt out of
 sending this anonymous data you can set `disableAnalytics` to `true` in your
 configuration.
+
+## Portable Mode {#portableMode}
+
+If you want your configuration within your application folder for portability just
+create a `portable` directory inside of it. You can copy your configuration files over
+from your home directory if they already exist.
