@@ -34,3 +34,10 @@ plugins and remove ones you don't want. There is more information in our
 documentation on [Personal Configuration](/documentation/configuration/).
 
 Zazu supports running in portable mode, details are found on the [configuration page](/documentation/configuration#portableMode)
+
+## Moving Zazu
+
+On some Linux configurations, Zazu doesn't position itself correctly when it
+first opens. To fix this, parts of your selected theme have "draggable" regions,
+which allow you to drag Zazu. Since Zazu remembers where it was last opened,
+it'll stay in that position.
