@@ -9,7 +9,7 @@ const DatabaseWrapper = require('./databaseWrapper')
 const LoadingSpinner = require('../components/loadingSpinner.js')
 
 const PluginWrapper = React.createClass({
-  getInitialState () {
+  method: getInitialState () {
     return {
       loaded: 0,
       query: '',
@@ -18,7 +18,10 @@ const PluginWrapper = React.createClass({
       plugins: [],
       activePlugin: null,
       activeBlock: null,
-    }
+    },
+       componentWillMount: getInitialState () {
+       this.method = debounce(this.method,300);
+    },   
   },
 
   contextTypes: {
@@ -129,7 +132,7 @@ const PluginWrapper = React.createClass({
     })
   },
 
-  handleQueryChange _.debounce(query, 300) {
+  handleQueryChange (query) {
     let first = true
     const interaction = track.interaction()
     interaction.setName('search')
