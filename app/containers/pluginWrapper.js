@@ -129,7 +129,7 @@ const PluginWrapper = React.createClass({
     })
   },
 
-  handleQueryChange (query) {
+  handleQueryChange _.debounce(query, 300) {
     let first = true
     const interaction = track.interaction()
     interaction.setName('search')
