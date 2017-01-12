@@ -132,7 +132,6 @@ const PluginWrapper = React.createClass({
   handleQueryChange (query) {
     let first = true
     const interaction = track.interaction() 
-    track.interaction = debounce(track.interaction, 50)
     interaction.setName('search')
     interaction.setAttribute('queryLength', query.length)
     this.context.logger.log('info', `Updating query to "${query}"`)
