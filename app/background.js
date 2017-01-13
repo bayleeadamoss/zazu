@@ -1,3 +1,4 @@
+const electron = require('electron')
 const { dialog, app, globalShortcut } = require('electron')
 const path = require('path')
 
@@ -119,6 +120,10 @@ app.on('ready', function () {
 
   globalEmitter.on('showWindow', () => {
     logger.log('info', 'showing window from manual trigger')
+    let displayBelowCursor = electron.screen.getDisplayNearestPoint(electron.screen.getCursorScreenPoint());
+    let xWindowPosition = Math.ceil(((displayBelowCursor.bounds.x + (displayBelowCursor.bounds.width / 2)) - (mainWindow.getSize()[0] / 2)))
+    let yWindowPosition = Math.ceil(((displayBelowCursor.bounds.y + (displayBelowCursor.bounds.height / 2)) - (mainWindow.getMaximumSize()[1] / 2)))
+    mainWindow.setPosition(xWindowPosition, yWindowPosition);
     mainWindow.show()
     mainWindow.focus()
   })
