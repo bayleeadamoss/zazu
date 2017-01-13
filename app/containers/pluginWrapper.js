@@ -129,13 +129,16 @@ const PluginWrapper = React.createClass({
     })
   },
 
-  handleQueryChange (query) {
+handleQueryChange (query) {
     let first = true
     const interaction = track.interaction() 
     interaction.setName('search')
     interaction.setAttribute('queryLength', query.length)
     this.context.logger.log('info', `Updating query to "${query}"`)
+    handleQuerySearch={this.handleQuerySearch}
+    }
 
+handleQuerySearch (query) {
     const promises = this.state.plugins.filter((plugin) => {
       return plugin.respondsTo(query)
     }).reduce((memo, plugin) => {
@@ -176,6 +179,7 @@ const PluginWrapper = React.createClass({
       query,
     })
   },
+
 
   handleResultClick (result) {
     this.context.logger.log('info', 'actioned result', result)
