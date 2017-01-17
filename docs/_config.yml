@@ -26,6 +26,7 @@ twitterUsername: zazuapp
 dribbbleUsername:
 codepenUsername:
 githubUsername: tinytacoteam
+gitterUsername: tinytacoteam/zazu
 
 # Build settings
 permalink: /:year/:month/:title
