@@ -10,7 +10,7 @@
     {
       "name": "tinytacoteam/zazu-fallback",
       "variables": {
-        "rootSearches": ["npm", "google", "amazon", "giphy", "gh"]
+        "rootSearches": ["google"]
       }
     },
     {

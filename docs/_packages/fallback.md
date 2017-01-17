@@ -4,5 +4,5 @@ type:        plugin
 title:       "Fallback"
 image:       /images/package-icons/fallback.png
 githuburl:   tinytacoteam/zazu-fallback
-description: "Common fallback searches"
+description: "Search sites such as Google, DuckDuckGo, GitHub and more!"
 ---

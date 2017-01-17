@@ -1,8 +1,8 @@
 ---
 top:         true
 type:        plugin
-title:       "1Password"
+title:       "Mac 1Password"
 image:       /images/package-icons/1password.png
 githuburl:   tinytacoteam/zazu-mac-1password
-description: "A 1password site opener for Mac"
+description: "Open 1password sites on Mac"
 ---
