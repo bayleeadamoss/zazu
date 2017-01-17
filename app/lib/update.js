@@ -16,6 +16,13 @@ var self = {
     }, thirtySeconds)
   },
 
+  stallUpdate () {
+    const oneDay = 1000 * 60 * 60 * 24
+    setTimeout(() => {
+      self.check()
+    }, oneDay)
+  },
+
   latestVersion () {
     return new Promise((resolve, reject) => {
       if (self._latestVersion) {
@@ -54,7 +61,10 @@ var self = {
           detail: 'Click download to get the newest version of Zazu!',
         }, (response) => {
           if (response === 1) {
+            logger.log('info', 'I need it now!', { updateVersion })
             shell.openExternal('http://zazuapp.org/download/')
+          } else {
+            logger.log('info', 'Eh, maybe later', { updateVersion })
           }
         })
       } else if (manualUpdate) {
@@ -65,6 +75,8 @@ var self = {
           detail: 'No Zazu Updates were found.',
           buttons: [],
         })
+      } else {
+        self.stallUpdate()
       }
     })
   },
