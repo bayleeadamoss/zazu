@@ -1,3 +1,4 @@
+const electron = require('electron')
 const { dialog, app, globalShortcut } = require('electron')
 const path = require('path')
 
@@ -98,6 +99,15 @@ app.on('ready', function () {
     },
   })
 
+  const primaryMonitor = !!configuration.primaryMonitor
+  let screens = {}
+
+  if (!primaryMonitor) {
+    electron.screen.getAllDisplays().forEach((display) => {
+      screens[display.id] = display
+    })
+  }
+
   if (debug) mainWindow.webContents.toggleDevTools({mode: 'undocked'})
 
   mainWindow.on('blur', () => {
@@ -117,8 +127,30 @@ app.on('ready', function () {
     }
   })
 
+  mainWindow.on('moved', () => {
+    if (!primaryMonitor) {
+      let updatedPosition = mainWindow.getPosition()
+      let updatedDisplay = electron.screen.getDisplayNearestPoint(electron.screen.getCursorScreenPoint())
+      screens[updatedDisplay.id].customPosition = {
+        x: updatedPosition[0],
+        y: updatedPosition[1],
+      }
+    }
+  })
+
   globalEmitter.on('showWindow', () => {
     logger.log('info', 'showing window from manual trigger')
+    if (!primaryMonitor) {
+      let displayBelowCursor = electron.screen.getDisplayNearestPoint(electron.screen.getCursorScreenPoint())
+      let currentScreen = screens[displayBelowCursor.id]
+      if (currentScreen.customPosition) {
+        mainWindow.setPosition(currentScreen.customPosition.x, currentScreen.customPosition.y)
+      } else {
+        let xWindowPosition = Math.ceil(((displayBelowCursor.bounds.x + (displayBelowCursor.bounds.width / 2)) - (mainWindow.getSize()[0] / 2)))
+        let yWindowPosition = Math.ceil(((displayBelowCursor.bounds.y + (displayBelowCursor.bounds.height / 2)) - (mainWindow.getMaximumSize()[1] / 2)))
+        mainWindow.setPosition(xWindowPosition, yWindowPosition)
+      }
+    }
     mainWindow.show()
     mainWindow.focus()
   })
