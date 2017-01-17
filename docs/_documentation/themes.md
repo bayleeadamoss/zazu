@@ -38,3 +38,9 @@ some inspiration.
 
 Just add your relative path to your GitHub repo inside of your [personal
 configuration](/documentation/configuration/#theme).
+
+## Submitting your theme
+
+Once you finish, submit it to the [themes page](/themes/) by making a package
+file in the
+[documentation](https://github.com/tinytacoteam/zazu/tree/master/docs/_packages)
