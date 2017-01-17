@@ -1,6 +1,7 @@
 {
   "hotkey": "alt+space",
   "theme": "tinytacoteam/zazu-light-theme",
+  "primaryMonitor": false,
   "plugins": [
     "tinytacoteam/zazu-calculator",
     "tinytacoteam/zazu-file-finder",

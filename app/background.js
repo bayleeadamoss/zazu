@@ -1,6 +1,7 @@
 const { dialog, app, globalShortcut } = require('electron')
 const path = require('path')
 
+const Screens = require('./lib/screens')
 const configuration = require('./lib/configuration')
 const update = require('./lib/update')
 const globalEmitter = require('./lib/globalEmitter')
@@ -98,6 +99,10 @@ app.on('ready', function () {
     },
   })
 
+  let screens = new Screens({
+    windowWidth: mainWindow.getSize()[0],
+  })
+
   if (debug) mainWindow.webContents.toggleDevTools({mode: 'undocked'})
 
   mainWindow.on('blur', () => {
@@ -117,8 +122,22 @@ app.on('ready', function () {
     }
   })
 
+  mainWindow.on('move', () => {
+    let currentWindowPosition = mainWindow.getPosition()
+    screens.saveWindowPositionOnCurrentScreen(currentWindowPosition[0], currentWindowPosition[1])
+  })
+
+  mainWindow.on('moved', () => {
+    let currentWindowPosition = mainWindow.getPosition()
+    screens.saveWindowPositionOnCurrentScreen(currentWindowPosition[0], currentWindowPosition[1])
+  })
+
   globalEmitter.on('showWindow', () => {
     logger.log('info', 'showing window from manual trigger')
+    let position = screens.getCenterPositionOnCurrentScreen()
+    if (position) {
+      mainWindow.setPosition(position.x, position.y)
+    }
     mainWindow.show()
     mainWindow.focus()
   })
