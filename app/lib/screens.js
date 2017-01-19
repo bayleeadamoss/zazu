@@ -7,13 +7,18 @@ const primaryMonitor = !!configuration.primaryMonitor
 class Screens {
   constructor () {
     this.screenModule = electron.screen
-    this.screens = {}
-
     if (!primaryMonitor) {
-      this.screenModule.getAllDisplays().forEach((display) => {
-        this.screens[display.id] = display
-      })
+      this.resetScreens()
     }
+    this.screenModule.on('display-added', () => {
+      this.resetScreens()
+    })
+    this.screenModule.on('display-removed', () => {
+      this.resetScreens()
+    })
+    this.screenModule.on('display-metrics-changed', () => {
+      this.resetScreens()
+    })
   }
 
   saveWindowPositionOnCurrentScreen (currentWindowPositionX, currentWindowPositionY) {
@@ -51,6 +56,13 @@ class Screens {
 
   getCurrentScreen () {
     return this.screens[this.getDisplayBelowCursor().id]
+  }
+
+  resetScreens () {
+    this.screens = {}
+    this.screenModule.getAllDisplays().forEach((display) => {
+      this.screens[display.id] = display
+    })
   }
 }
 
