@@ -54,3 +54,9 @@ input {
   -webkit-app-region: no-drag;
 }
 ~~~
+
+## Submitting your theme
+
+Once you finish, submit it to the [themes page](/themes/) by making a package
+file in the
+[documentation](https://github.com/tinytacoteam/zazu/tree/master/docs/_packages)
