@@ -38,3 +38,19 @@ some inspiration.
 
 Just add your relative path to your GitHub repo inside of your [personal
 configuration](/documentation/configuration/#theme).
+
+## Dragable Regions
+
+Zazu tries to be as small as possible, for this reason we don't have a title
+bar, so themes need to implement "dragable" regions. That way users can
+reposition Zazu if they need to. To define a dragable region you can add some
+CSS to your theme.
+
+~~~ css
+body {
+  -webkit-app-region: drag;
+}
+input {
+  -webkit-app-region: no-drag;
+}
+~~~
