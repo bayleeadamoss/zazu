@@ -129,7 +129,7 @@ app.on('ready', function () {
     logger.log('info', 'showing window from manual trigger')
     let position = screens.getCenterPositionOnCurrentScreen(mainWindow.getSize()[0], mainWindow.getMaximumSize()[1])
     if (position) {
-       mainWindow.setPosition(position.x, position.y)
+      mainWindow.setPosition(position.x, position.y)
     }
     mainWindow.show()
     mainWindow.focus()

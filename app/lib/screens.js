@@ -5,7 +5,7 @@ const configuration = require('../lib/configuration')
 const primaryMonitor = !!configuration.primaryMonitor
 
 class Screens {
-  constructor() {
+  constructor () {
     this.screenModule = electron.screen
     this.screens = {}
 
@@ -16,7 +16,7 @@ class Screens {
     }
   }
 
-  saveWindowPositionOnCurrentScreen(currentWindowPositionX, currentWindowPositionY) {
+  saveWindowPositionOnCurrentScreen (currentWindowPositionX, currentWindowPositionY) {
     if (!primaryMonitor) {
       let currentDisplay = this.getDisplayBelowCursor()
       this.screens[currentDisplay.id].customPosition = {
@@ -25,12 +25,12 @@ class Screens {
       }
     }
   }
-  
-  getCenterPositionOnCurrentScreen(windowWidth, windowMaxHeight) {
+
+  getCenterPositionOnCurrentScreen (windowWidth, windowMaxHeight) {
     if (!primaryMonitor) {
       let currentScreen = this.getCurrentScreen()
-      let centerPosition = { 
-        x: 0, 
+      let centerPosition = {
+        x: 0,
         y: 0,
       }
       if (currentScreen.customPosition) {
@@ -45,14 +45,13 @@ class Screens {
     return null
   }
 
-  getDisplayBelowCursor() {
+  getDisplayBelowCursor () {
     return this.screenModule.getDisplayNearestPoint(this.screenModule.getCursorScreenPoint())
   }
 
-  getCurrentScreen() {
+  getCurrentScreen () {
     return this.screens[this.getDisplayBelowCursor().id]
   }
 }
-
 
 module.exports = Screens
