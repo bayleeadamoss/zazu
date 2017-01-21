@@ -31,7 +31,7 @@ class Screens {
     }
   }
 
-  getCenterPositionOnCurrentScreen (windowWidth, windowMaxHeight) {
+  getCenterPositionOnCurrentScreen (windowWidth) {
     if (!primaryMonitor) {
       let currentScreen = this.getCurrentScreen()
       let centerPosition = {
@@ -43,7 +43,7 @@ class Screens {
         centerPosition.y = currentScreen.customPosition.y
       } else {
         centerPosition.x = Math.ceil(((currentScreen.bounds.x + (currentScreen.bounds.width / 2)) - (windowWidth / 2)))
-        centerPosition.y = Math.ceil(((currentScreen.bounds.y + (currentScreen.bounds.height / 2)) - (windowMaxHeight / 2)))
+        centerPosition.y = Math.ceil(currentScreen.bounds.y + (currentScreen.bounds.height * 0.33))
       }
       return centerPosition
     }

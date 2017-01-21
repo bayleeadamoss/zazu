@@ -120,6 +120,11 @@ app.on('ready', function () {
     }
   })
 
+  mainWindow.on('move', () => {
+    let currentWindowPosition = mainWindow.getPosition()
+    screens.saveWindowPositionOnCurrentScreen(currentWindowPosition[0], currentWindowPosition[1])
+  })
+
   mainWindow.on('moved', () => {
     let currentWindowPosition = mainWindow.getPosition()
     screens.saveWindowPositionOnCurrentScreen(currentWindowPosition[0], currentWindowPosition[1])
@@ -127,7 +132,7 @@ app.on('ready', function () {
 
   globalEmitter.on('showWindow', () => {
     logger.log('info', 'showing window from manual trigger')
-    let position = screens.getCenterPositionOnCurrentScreen(mainWindow.getSize()[0], mainWindow.getMaximumSize()[1])
+    let position = screens.getCenterPositionOnCurrentScreen(mainWindow.getSize()[0])
     if (position) {
       mainWindow.setPosition(position.x, position.y)
     }
