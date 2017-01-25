@@ -26,6 +26,7 @@ twitterUsername: zazuapp
 dribbbleUsername:
 codepenUsername:
 githubUsername: tinytacoteam
+gitterUsername: tinytacoteam/zazu
 
 # Build settings
 permalink: /:year/:month/:title
@@ -34,6 +35,6 @@ include: [_pages, _packages, _documentation]
 exclude: [vendor, _site, CHANGELOG.md, LICENSE, README.md, .ruby-version]
 sass:
   style: compressed
-currentCommitSha: 8160e90334ffb8e43f8dbcb0e4c1dbb4e5cce415
+currentCommitSha: a0fcab7ed2b26ffe5d8d0edd753f7cc6d540168a
 
 currentAppVersion: v0.3.2

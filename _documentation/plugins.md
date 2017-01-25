@@ -11,9 +11,7 @@ title:  "Creating Plugins"
 ### Getting Started
 
 There is a [package boilerplate](https://github.com/tinytacoteam/zazu-template)
-you can start your packages off of. Once you finish, submit it to the [plugin
-page](/plugins/) by making a package file in the
-[documentation](https://github.com/tinytacoteam/zazu/tree/master/docs/_packages).
+you can start your packages off of.
 
 The best development workflow is to start the project on GitHub, install the
 bare plugin inside of Zazu and work in the directory Zazu created itself. For
@@ -184,3 +182,9 @@ module.exports = (pluginContext) => {
   const nativeImage = pluginContext.nativeImage
 }
 ~~~
+
+## Submitting your plugin
+
+Once you finish, submit it to the [plugin page](/plugins/) by making a package
+file in the
+[documentation](https://github.com/tinytacoteam/zazu/tree/master/docs/_packages).
