@@ -33,7 +33,7 @@ class World {
 
   open () {
     return this.app.start().then(() => {
-      const time = this.profileType === 'calculator' ? 15 * 1000 : 5 * 1000
+      const time = this.profileType === 'calculator' ? 25 * 1000 : 5 * 1000
       return wait(time) // give it time to load plugins
     })
   }
