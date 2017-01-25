@@ -99,7 +99,8 @@ app.on('ready', function () {
     },
   })
 
-  let screens = new Screens()
+  let windowWidth = mainWindow.getSize()[0]
+  let screens = new Screens(windowWidth)
 
   if (debug) mainWindow.webContents.toggleDevTools({mode: 'undocked'})
 
@@ -121,18 +122,21 @@ app.on('ready', function () {
   })
 
   mainWindow.on('move', () => {
+    console.log('move')
     let currentWindowPosition = mainWindow.getPosition()
     screens.saveWindowPositionOnCurrentScreen(currentWindowPosition[0], currentWindowPosition[1])
   })
 
   mainWindow.on('moved', () => {
+    console.log('moved')
     let currentWindowPosition = mainWindow.getPosition()
     screens.saveWindowPositionOnCurrentScreen(currentWindowPosition[0], currentWindowPosition[1])
   })
 
   globalEmitter.on('showWindow', () => {
+    console.log(screens.getAllScreens())
     logger.log('info', 'showing window from manual trigger')
-    let position = screens.getCenterPositionOnCurrentScreen(mainWindow.getSize()[0])
+    let position = screens.getCenterPositionOnCurrentScreen()
     if (position) {
       mainWindow.setPosition(position.x, position.y)
     }
