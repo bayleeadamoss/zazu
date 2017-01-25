@@ -1,4 +1,4 @@
-const { dialog, app } = require('electron')
+const { app, clipboard, dialog } = require('electron')
 const env = require('./lib/env')
 
 const items = [
@@ -11,14 +11,19 @@ const items = [
 
 module.exports = {
   show () {
+    const detail = items.map((item) => {
+      return item.name + ': ' + item.value
+    }).join('\n')
     dialog.showMessageBox({
       type: 'info',
       message: 'Zazu App',
-      detail: items.map((item) => {
-        return item.name + ': ' + item.value
-      }).join('\n'),
+      detail,
       defaultId: 0,
-      buttons: ['Ok'],
+      buttons: ['Ok', 'Copy'],
+    }, (index) => {
+      if (index === 1) {
+        clipboard.writeText(detail)
+      }
     })
   },
 }
