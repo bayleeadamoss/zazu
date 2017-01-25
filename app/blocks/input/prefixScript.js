@@ -1,5 +1,4 @@
 const InputBlock = require('../inputBlock')
-const freshRequire = require('../../lib/freshRequire')
 
 const path = require('path')
 
@@ -10,7 +9,7 @@ class PrefixScript extends InputBlock {
     this.args = data.args || this.requiredField('args')
     this.space = !!data.space
     try {
-      const plugin = freshRequire(path.join(data.cwd, data.script))
+      const plugin = require(path.join(data.cwd, data.script))
       const electron = require('electron')
       this.script = plugin({
         console: this.logger,
