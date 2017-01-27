@@ -43,7 +43,11 @@ class RootScript extends InputBlock {
     this.logger.log('verbose', 'Executing Script', { query })
     return this._ensurePromise(this.script.search(query, env)).then((results) => {
       this.logger.log('info', 'Script Results', { results })
-      return this._validateResults(results)
+      return this._validateResults(results.map((result) => {
+        return Object.assign({}, result, {
+          blockRank: 1,
+        })
+      }))
     }).catch((error) => {
       this.logger.log('error', 'Script failed', { query, error })
     })

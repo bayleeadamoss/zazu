@@ -22,6 +22,7 @@ class Keyword extends InputBlock {
     return new Promise((resolve) => {
       resolve([
         {
+          blockRank: 2,
           title: this.title,
           subtitle: this.subtitle,
           value: this.keyword,
