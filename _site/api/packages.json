@@ -2,12 +2,21 @@
   "packages": [
     
       {
+        "top": true,
+        "type": "plugin",
+        "title": "1Password",
+        "image": "/images/package-icons/1password.png",
+        "githuburl": "tinytacoteam/zazu-mac-1password",
+        "description": "A 1password site opener for Mac"
+      },
+    
+      {
         "top": false,
         "type": "plugin",
         "title": "Ascii Search",
         "image": "/images/package-icons/ascii-search.png",
         "githuburl": "tinytacoteam/zazu-ascii-search",
-        "description": "Copy uncommon characters to your clipboard"
+        "description": "Copy uncommon characters to your clipboard."
       },
     
       {
@@ -16,7 +25,7 @@
         "title": "Calculator",
         "image": "/images/package-icons/calculator.png",
         "githuburl": "tinytacoteam/zazu-calculator",
-        "description": "Quick access to advanced calculations"
+        "description": "A basic calculator for Zazu"
       },
     
       {
@@ -25,25 +34,7 @@
         "title": "Chrome Bookmarks",
         "image": "/images/package-icons/chrome.png",
         "githuburl": "tinytacoteam/zazu-chrome-bookmarks",
-        "description": "Search your Google Chrome bookmarks"
-      },
-    
-      {
-        "top": true,
-        "type": "theme",
-        "title": "Clean Dark Theme",
-        "image": "/images/package-icons/clean-dark-theme.png",
-        "githuburl": "singuerinc/zazu-clean-dark-theme",
-        "description": "Dark theme with no logo to get in your way"
-      },
-    
-      {
-        "top": true,
-        "type": "theme",
-        "title": "Clement Theme",
-        "image": "/images/package-icons/clement-theme.png",
-        "githuburl": "Eric-Jackson/zazu-clement-theme",
-        "description": "A simple, spacious and clean theme for Zazu"
+        "description": "Chrome bookmark searcher"
       },
     
       {
@@ -52,7 +43,7 @@
         "title": "Clipboard",
         "image": "/images/package-icons/clipboard.png",
         "githuburl": "tinytacoteam/zazu-clipboard",
-        "description": "An elegant clipboard manager"
+        "description": "A clipboard manager for Zazu"
       },
     
       {
@@ -76,15 +67,6 @@
       {
         "top": true,
         "type": "plugin",
-        "title": "Docker",
-        "image": "/images/package-icons/docker.png",
-        "githuburl": "nantaphop/zazu-docker",
-        "description": "Quickly run Docker commands"
-      },
-    
-      {
-        "top": true,
-        "type": "plugin",
         "title": "Emoj",
         "image": "/images/package-icons/emoj.svg",
         "githuburl": "blakek/zazu-emoj",
@@ -97,7 +79,7 @@
         "title": "Fallback",
         "image": "/images/package-icons/fallback.png",
         "githuburl": "tinytacoteam/zazu-fallback",
-        "description": "Search sites such as Google, DuckDuckGo, GitHub and more!"
+        "description": "Common fallback searches"
       },
     
       {
@@ -106,25 +88,7 @@
         "title": "File Finder",
         "image": "/images/package-icons/file-finder.png",
         "githuburl": "tinytacoteam/zazu-file-finder",
-        "description": "Locate files and apps"
-      },
-    
-      {
-        "top": true,
-        "type": "plugin",
-        "title": "free-shadowsocks",
-        "image": "/images/package-icons/free-shadowsocks.png",
-        "githuburl": "sqlwwx/zazu-free-shadowsocks",
-        "description": "Getting free sock proxies from ishadowsocks"
-      },
-    
-      {
-        "top": true,
-        "type": "plugin",
-        "title": "IP Address",
-        "image": "/images/package-icons/ip-address.svg",
-        "githuburl": "blakek/zazu-ip-address",
-        "description": "Show your internal and external IP address"
+        "description": "The default file finder for Zazu"
       },
     
       {
@@ -134,15 +98,6 @@
         "image": "/images/package-icons/light-theme.png",
         "githuburl": "tinytacoteam/zazu-light-theme",
         "description": "The default theme for Zazu"
-      },
-    
-      {
-        "top": true,
-        "type": "plugin",
-        "title": "Mac 1Password",
-        "image": "/images/package-icons/1password.png",
-        "githuburl": "tinytacoteam/zazu-mac-1password",
-        "description": "Open 1password sites on Mac"
       },
     
       {
@@ -169,7 +124,7 @@
         "title": "Package Manager",
         "image": "/images/package-icons/package-manager.png",
         "githuburl": "tinytacoteam/zazu-package-manager",
-        "description": "A easy to use package manager"
+        "description": "A easy to use package manager for Zazu."
       },
     
       {
@@ -187,7 +142,7 @@
         "title": "Snippets",
         "image": "/images/package-icons/snippets.svg",
         "githuburl": "tinytacoteam/zazu-snippets",
-        "description": "Create and easily access common snippets"
+        "description": "A snippet manager for Zazu"
       },
     
       {
@@ -196,25 +151,7 @@
         "title": "System",
         "image": "/images/package-icons/system.png",
         "githuburl": "tinytacoteam/zazu-system",
-        "description": "Tell your computer to lock, screensaver and more!"
-      },
-    
-      {
-        "top": true,
-        "type": "plugin",
-        "title": "TLDR",
-        "image": "/images/package-icons/tldr.png",
-        "githuburl": "twang2218/zazu-tldr",
-        "description": "Check tldr pages from Zazu"
-      },
-    
-      {
-        "top": true,
-        "type": "plugin",
-        "title": "Weather",
-        "image": "/images/package-icons/weather.png",
-        "githuburl": "blainesch/zazu-weather",
-        "description": "Get weather information from your location and others"
+        "description": "System tasks for zazu."
       }
     
   ]
