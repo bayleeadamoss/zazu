@@ -33,16 +33,25 @@ class PrefixScript extends InputBlock {
       return false
     }
     var regex = ['^']
-    if (!this.isScoped) {
+    if (this.isScoped) {
+      if (this.args.match(/^r/i)) {
+        regex.push('(.+)')
+      } else if (this.args.match(/^o/i)) {
+        regex.push('(.*)')
+      }
+    } else {
       regex.push(this.prefix)
       if (this.space) {
         regex.push(' ')
       }
-    }
-    if (this.args.match(/^r/i)) {
-      regex.push('(.+)')
-    } else if (this.args.match(/^o/i)) {
-      regex.push('(.*)')
+      if (this.args.match(/^r/i)) {
+        regex.push('(.+)')
+      } else if (this.args.match(/^o/i)) {
+        regex.push('(.*)')
+        if (this.space) {
+          regex.push('$|^' + this.prefix)
+        }
+      }
     }
     regex.push('$')
     const respondsTo = input.match(new RegExp(regex.join(''), 'i'))
@@ -52,7 +61,7 @@ class PrefixScript extends InputBlock {
 
   query (input) {
     const respondsTo = this.respondsTo(input)
-    return respondsTo ? respondsTo[1] : ''
+    return respondsTo ? respondsTo[1] || '' : ''
   }
 
   search (input, env = {}) {
