@@ -21,14 +21,27 @@ class Screens {
     })
   }
 
-  saveWindowPositionOnCurrentScreen (currentWindowPositionX, currentWindowPositionY) {
+  saveWindowPositionOnCurrentScreen (currentWindowPositionX, currentWindowPositionY, flag) {
     if (!primaryMonitor) {
-      let currentDisplay = this.getDisplayBelowCursor()
+      let currentDisplay = this.getCurrentScreen()
       if (currentDisplay.id === this.screenModule.getDisplayNearestPoint({x: currentWindowPositionX, y: currentWindowPositionY}).id) {
-        this.screens[currentDisplay.id].customPosition = {
+        // save previous position
+        if (currentDisplay.customPosition) {
+          currentDisplay.lastPosition = currentDisplay.customPosition
+        }
+        currentDisplay.customPosition = {
           x: currentWindowPositionX,
           y: currentWindowPositionY,
+          time: Date.now(),
         }
+      } else {
+        let timeDiff = (Date.now() - currentDisplay.customPosition.time)
+        // if second move event fired in quick succession
+        if (timeDiff < 50) {
+          // replace current position with last to fix linux duplicate 'move' event bug
+          currentDisplay.customPosition = currentDisplay.lastPosition
+        }
+      }
     }
   }
 

@@ -100,7 +100,7 @@ app.on('ready', function () {
   })
 
   let screens = new Screens({
-    windowWidth: mainWindow.getSize()[0]
+    windowWidth: mainWindow.getSize()[0],
   })
 
   if (debug) mainWindow.webContents.toggleDevTools({mode: 'undocked'})
@@ -123,13 +123,11 @@ app.on('ready', function () {
   })
 
   mainWindow.on('move', () => {
-    console.log('move')
     let currentWindowPosition = mainWindow.getPosition()
     screens.saveWindowPositionOnCurrentScreen(currentWindowPosition[0], currentWindowPosition[1])
   })
 
   mainWindow.on('moved', () => {
-    console.log('moved')
     let currentWindowPosition = mainWindow.getPosition()
     screens.saveWindowPositionOnCurrentScreen(currentWindowPosition[0], currentWindowPosition[1])
   })
