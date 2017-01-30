@@ -1,12 +1,3 @@
-// FIXING THIS
-/*
-  Figured out that there's a position saving issue when Zazu is open on one screen
-and then the user tries to close it when the mouse is on a different screen.
-
-Trying to fix this by comparing the screen on which the window is and the screen where the mouse is on save
-If on save there is a difference, do not proceed with updating customPosition
-*/
-
 const electron = require('electron')
 
 const configuration = require('../lib/configuration')
@@ -14,31 +5,30 @@ const configuration = require('../lib/configuration')
 const primaryMonitor = !!configuration.primaryMonitor
 
 class Screens {
-  constructor (windowWidth) {
+  constructor (options) {
     this.screenModule = electron.screen
     if (!primaryMonitor) {
-      this.resetScreens(windowWidth)
+      this.resetScreens(options.windowWidth)
     }
     this.screenModule.on('display-added', () => {
-      this.resetScreens(windowWidth)
+      this.resetScreens(options.windowWidth)
     })
     this.screenModule.on('display-removed', () => {
-      this.resetScreens(windowWidth)
+      this.resetScreens(options.windowWidth)
     })
     this.screenModule.on('display-metrics-changed', () => {
-      this.resetScreens(windowWidth)
+      this.resetScreens(options.windowWidth)
     })
   }
 
   saveWindowPositionOnCurrentScreen (currentWindowPositionX, currentWindowPositionY) {
     if (!primaryMonitor) {
       let currentDisplay = this.getDisplayBelowCursor()
-      if (currentDisplay.id === this.screenModule.getDisplayNearestPoint(currentWindowPositionX, currentWindowPositionY).id) {
+      if (currentDisplay.id === this.screenModule.getDisplayNearestPoint({x: currentWindowPositionX, y: currentWindowPositionY}).id) {
         this.screens[currentDisplay.id].customPosition = {
           x: currentWindowPositionX,
           y: currentWindowPositionY,
         }
-      }
     }
   }
 

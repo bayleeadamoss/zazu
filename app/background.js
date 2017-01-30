@@ -99,8 +99,9 @@ app.on('ready', function () {
     },
   })
 
-  let windowWidth = mainWindow.getSize()[0]
-  let screens = new Screens(windowWidth)
+  let screens = new Screens({
+    windowWidth: mainWindow.getSize()[0]
+  })
 
   if (debug) mainWindow.webContents.toggleDevTools({mode: 'undocked'})
 
@@ -134,7 +135,6 @@ app.on('ready', function () {
   })
 
   globalEmitter.on('showWindow', () => {
-    console.log(screens.getAllScreens())
     logger.log('info', 'showing window from manual trigger')
     let position = screens.getCenterPositionOnCurrentScreen()
     if (position) {
