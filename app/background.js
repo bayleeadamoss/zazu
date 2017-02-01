@@ -1,3 +1,4 @@
+const electron = require('electron')
 const { dialog, app, globalShortcut } = require('electron')
 const path = require('path')
 
@@ -119,6 +120,10 @@ app.on('ready', function () {
 
   globalEmitter.on('showWindow', () => {
     logger.log('info', 'showing window from manual trigger')
+    if (configuration.onMouse) {
+      let {x, y} = electron.screen.getCursorScreenPoint()
+      mainWindow.setPosition(x, y)
+    }
     mainWindow.show()
     mainWindow.focus()
   })

@@ -17,6 +17,7 @@ basic usage.
 {
   "hotkey": "alt+space",
   "theme": "tinytacoteam/dark-theme",
+  "onMouse": true,
   "plugins": []
 }
 ~~~~
@@ -35,6 +36,12 @@ would translate to `https://github.com/tinytacoteam/dark-theme`.
 
 There are a [few themes](/themes) we created that you can pick from, feel free
 to fork them and make your own.
+
+### OnMouse
+
+This should be set to true to enable this option.
+
+With this enabled, Zazu will open below the mouse pointer.
 
 ### Plugins
 
