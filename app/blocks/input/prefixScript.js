@@ -67,7 +67,14 @@ class PrefixScript extends InputBlock {
   search (input, env = {}) {
     const query = this.query(input)
     this.logger.log('verbose', 'Executing Script', { query })
-    return this._ensurePromise(this.script(query, env)).then((results) => {
+    return new Promise((resolve, reject) => {
+      const timeout = setTimeout(() => {
+        timeout === this.timeout ? resolve() : reject('Debounced')
+      }, this.debounce)
+      this.timeout = timeout
+    }).then(() => {
+      return this._ensurePromise(this.script(query, env))
+    }).then((results) => {
       this.logger.log('info', 'Script Results', { results })
       return this._validateResults(results.map((result) => {
         return Object.assign({}, result, {

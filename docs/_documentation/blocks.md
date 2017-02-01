@@ -149,15 +149,18 @@ scripts should be able to handle a [`SIGKILL`](http://www.gnu.org/software/libc/
 
 ### Root Script
 
-This allows you to execute a node script with a prefix.
+This allows you to execute a node script without a prefix.
 
 * `script` *string*: Path to the node file to execute.
+* `debounce` *int*: How long in milliseconds we should wait between calls,
+  useful for resource intensive or slow running plugins. Defaults to `0`.
 
 ~~~ javascript
 [{
   "id": "Calculator",
   "type": "RootScript",
   "script": "calculator.js",
+  "debounce": 100,
   "connections": ["Copy"]
 }]
 ~~~
@@ -211,6 +214,8 @@ This allows you to execute a node script with a prefix.
 * `space` *boolean*: If a space should be between the Prefix and the user input.
 * `args` *string*: Specifies if you want arguments. Possibles values are `Required`, `Optional` and `None`.
 * `script` *string*: Path to the node file to execute.
+* `debounce` *int*: How long in milliseconds we should wait between calls,
+  useful for resource intensive or slow running plugins. Defaults to `0`.
 
 ~~~ json
 [{
@@ -220,6 +225,7 @@ This allows you to execute a node script with a prefix.
   "space": true,
   "args": "Required",
   "script": "calculator.js",
+  "debounce": 100,
   "connections": ["Copy"]
 }]
 ~~~~

@@ -7,6 +7,7 @@ class InputBlock extends Block {
     super(data)
     this.pluginId = data.pluginId
     this.isScoped = null
+    this.debounce = data.debounce || 0
   }
 
   isActive () {
