@@ -35,6 +35,7 @@ class Configuration {
       this.plugins = data.plugins
       this.theme = data.theme
       this.hotkey = data.hotkey
+      this.primaryMonitor = data.primaryMonitor
       this.disableAnalytics = data.disableAnalytics
       this.debug = data.debug
       this.loaded = true
