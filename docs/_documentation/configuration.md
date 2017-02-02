@@ -17,8 +17,8 @@ basic usage.
 {
   "hotkey": "alt+space",
   "theme": "tinytacoteam/dark-theme",
-  "plugins": [],
-  "primaryMonitor": false
+  "displayOn": "detect",
+  "plugins": []
 }
 ~~~~
 
@@ -71,22 +71,23 @@ you can use to configure it's behavior.
 }
 ~~~~
 
-### Primary Monitor
+### Display On
 
-This determines whether Zazu opens in the center of the primary display each 
-time it is toggled. 
+This determines whether Zazu opens in the center of the primary display each
+time it is toggled, or if Zazu will display on the screen you are currently
+working on.
 
-`true` means Zazu will open in the center of the primary display the first 
-time it is toggled after launching the application. Any update to Zazu's 
-screen position will be saved and Zazu will open at the new position each 
-time it is toggled.
+`detect`, the default behavior,  means Zazu will open at the center of any
+screen that the cursor is hovering over. Any updates to Zazu's position will be
+saved for that particular screen but not the others. Each screen's custom Zazu
+position will be used to position Zazu on that screen in subsequent toggles.
 
-`false` means Zazu will open at the center of any screen that the cursor is
-hovering over. Any updates to Zazu's position will be saved for that
-particular screen but not the others. Each screen's custom Zazu position
-will be used to position Zazu on that screen in subsequent toggles.
+`primary` means Zazu will open in the center of the primary display the first
+time it is toggled after launching the application. Any update to Zazu's screen
+position will be saved and Zazu will open at the new position each time it is
+toggled.
 
-Primary Monitor is `false` by default.
+Set to `detect` by default.
 
 ### Analytics
 

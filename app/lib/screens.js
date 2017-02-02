@@ -2,12 +2,11 @@ const electron = require('electron')
 
 const configuration = require('../lib/configuration')
 
-const primaryMonitor = !!configuration.primaryMonitor
-
 class Screens {
   constructor (options) {
     this.screenModule = electron.screen
-    if (!primaryMonitor) {
+    this.displayOn = configuration.displayOn
+    if (this.displayOn === 'detect') {
       this.resetScreens(options.windowWidth)
     }
     this.screenModule.on('display-added', () => {
@@ -22,7 +21,7 @@ class Screens {
   }
 
   saveWindowPositionOnCurrentScreen (currentWindowPositionX, currentWindowPositionY, flag) {
-    if (!primaryMonitor) {
+    if (this.displayOn === 'detect') {
       let currentDisplay = this.getCurrentScreen()
       if (currentDisplay.id === this.screenModule.getDisplayNearestPoint({x: currentWindowPositionX, y: currentWindowPositionY}).id) {
         // save previous position
@@ -46,7 +45,7 @@ class Screens {
   }
 
   getCenterPositionOnCurrentScreen () {
-    if (!primaryMonitor) {
+    if (this.displayOn === 'detect') {
       let currentScreen = this.getCurrentScreen()
       let centerPosition = {
         x: currentScreen.customPosition.x,
