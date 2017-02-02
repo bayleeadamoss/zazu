@@ -164,7 +164,7 @@ class Plugin extends Package {
               return results.map((result) => {
                 const icon = result.icon || this.plugin.icon || 'fa-bolt'
                 const isFontAwesome = icon.indexOf('fa-') === 0 && icon.indexOf('.') === -1
-                result.icon = isFontAwesome ? icon : path.join(this.path, icon)
+                result.icon = isFontAwesome ? icon : (icon.indexOf(this.path) === 0 ? icon : path.join(this.path, icon))
                 result.previewCss = this.plugin.css
                 result.pluginName = this.url
                 result.blockId = input.id
