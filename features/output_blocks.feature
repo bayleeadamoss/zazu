@@ -1,4 +1,4 @@
-Feature: Input Blocks
+Feature: Output Blocks
   As a user of Zazu
   I want to use all the available block types
   So I can be more productive
