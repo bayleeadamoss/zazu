@@ -163,13 +163,16 @@ class Plugin extends Package {
             .then((results = []) => {
               return results.map((result) => {
                 const icon = result.icon || this.plugin.icon || 'fa-bolt'
-                const isFontAwesome = icon.indexOf('fa-') === 0 && icon.indexOf('.') === -1
-                result.icon = isFontAwesome ? icon : (icon.indexOf(this.path) === 0 ? icon : path.join(this.path, icon))
-                result.previewCss = this.plugin.css
-                result.pluginName = this.url
-                result.blockId = input.id
-                result.next = this.next.bind(this, result)
-                return result
+                const isFontAwesome = (icon.indexOf('fa-') === 0 && icon.indexOf('.') === -1)
+                const isAbsolutePath = (icon.indexOf('/') === 0 || icon.indexOf(this.path) === 0)
+                const finalResult = Object.assign({}, result, {
+                  icon: (isFontAwesome || isAbsolutePath) ? icon : path.join(this.path, icon),
+                  previewCss: this.plugin.css,
+                  pluginName: this.url,
+                  blockId: input.id,
+                })
+                finalResult.next = this.next.bind(this, finalResult)
+                return finalResult
               })
             })
             .then(tracer.complete)
