@@ -1,4 +1,4 @@
-const exec = require('child_process').execFile
+const { execFile, execFileSync } = require('child_process')
 const which = require('which')
 const retry = require('./retry')
 const installStatus = require('./installStatus')
@@ -8,10 +8,18 @@ const path = require('path')
 
 const git = (args, options) => {
   return new Promise((resolve, reject) => {
-    exec(gitPath(), args, options || {}, (err) => {
+    execFile(gitPath(), args, options || {}, (err) => {
       err && reject(err) || resolve()
     })
   })
+}
+
+const gitSync = (args) => {
+  try {
+    return execFileSync(gitPath(), args).toString()
+  } catch (e) {
+    return false
+  }
 }
 
 const pull = (name, packagePath) => {
@@ -70,7 +78,7 @@ const gitPath = () => {
 
 const isInstalled = () => {
   try {
-    return gitPath()
+    return gitPath() && !!gitSync(['--version'])
   } catch (e) {
     return false
   }
