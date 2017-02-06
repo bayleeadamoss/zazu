@@ -4,6 +4,7 @@ const SendNotification = require('./output/sendNotification')
 const UserScript = require('./output/userScript')
 const ShowFile = require('./output/showFile')
 const OpenFile = require('./output/openFile')
+const ReloadConfig = require('./output/reloadConfig')
 
 module.exports = {
   CopyToClipboard,
@@ -12,4 +13,5 @@ module.exports = {
   UserScript,
   OpenFile,
   ShowFile,
+  ReloadConfig,
 }

@@ -401,3 +401,15 @@ module.exports = (pluginContext) => {
   }
 }
 ~~~
+
+### Reload Config
+
+If a plugin is changing values inside of the `~/.zazurc.json` file, it can often
+be useful to tell Zazu to reload this configuration.
+
+~~~ json
+[{
+  "id": "Reload",
+  "type": "ReloadConfig"
+}]
+~~~
