@@ -19,17 +19,15 @@ class Keyword extends InputBlock {
 
   search (input, env = {}) {
     this.logger.log('info', 'Rendering keyword', { input })
-    return new Promise((resolve) => {
-      resolve([
-        {
-          blockRank: 2,
-          title: this.title,
-          subtitle: this.subtitle,
-          value: this.keyword,
-          icon: this.icon,
-        },
-      ])
-    })
+    return Promise.resolve([
+      {
+        blockRank: 2,
+        title: this.title,
+        subtitle: this.subtitle,
+        value: this.keyword,
+        icon: this.icon,
+      },
+    ])
   }
 }
 
