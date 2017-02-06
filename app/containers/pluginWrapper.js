@@ -7,6 +7,7 @@ const globalEmitter = require('../lib/globalEmitter')
 const notification = require('../lib/notification')
 const DatabaseWrapper = require('./databaseWrapper')
 const LoadingSpinner = require('../components/loadingSpinner.js')
+const NoPlugins = require('../components/noplugins.js')
 
 const PluginWrapper = React.createClass({
   getInitialState () {
@@ -80,6 +81,11 @@ const PluginWrapper = React.createClass({
         title: 'Plugins loaded',
         message: 'Your plugins have been loaded',
       })
+    }).catch(() => {
+      notification.push({
+        title: 'No Plugins',
+        message: 'There are no plugins to load',
+      })
     })
   },
 
@@ -105,6 +111,10 @@ const PluginWrapper = React.createClass({
       }
     })
     this.setState({ plugins, loaded: 0 })
+    if (plugins.length === 0) {
+      this.context.logger.log('info', 'no plugins to load')
+      throw new Error('no plugins to load')
+    }
     return Promise.all(plugins.map((pluginObj) => {
       return pluginObj.load().then(() => {
         const loaded = this.state.loaded + 1
@@ -192,11 +202,17 @@ const PluginWrapper = React.createClass({
     const { query, theme, results } = this.state
     const noPlugins = this.state.plugins.length === 0
     const stillLoading = this.state.loaded !== this.state.plugins.length
-    if (stillLoading || noPlugins) {
+    if (stillLoading) {
       return (
         <LoadingSpinner
           loaded={this.state.loaded}
           total={this.state.plugins.length}/>
+      )
+    }
+
+    if (noPlugins) {
+      return (
+        <NoPlugins/>
       )
     }
 
