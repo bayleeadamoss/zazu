@@ -30,9 +30,6 @@ class InputBlock extends Block {
       if (!keys.includes('title')) {
         this.logger.log('error', 'result must contain a title', { result })
       }
-      if (!keys.includes('value')) {
-        this.logger.log('error', 'result must contain a value', { result })
-      }
     })
     return results
   }

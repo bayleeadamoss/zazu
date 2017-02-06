@@ -33,11 +33,7 @@ class PrefixScript extends InputBlock {
     }
     var regex = ['^']
     if (this.isScoped) {
-      if (this.args.match(/^r/i)) {
-        regex.push('(.+)')
-      } else if (this.args.match(/^o/i)) {
-        regex.push('(.*)')
-      }
+      regex.push('(.*)')
     } else {
       regex.push(this.prefix)
       if (this.space) {
@@ -80,6 +76,16 @@ class PrefixScript extends InputBlock {
           blockRank: 3,
         })
       }))
+    }).then((results) => {
+      if (this.isScoped && results.length === 0) {
+        return [
+          {
+            title: this.id + ' is scoped',
+            subtitle: 'Type to see more...',
+          },
+        ]
+      }
+      return results
     }).catch((error) => {
       this.logger.log('error', 'Script failed', { query, error })
     })
