@@ -9,7 +9,7 @@ module.exports = (opts) => {
       'User-Agent': `ZazuApp v${app.getVersion()}`,
     },
   })
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     const lib = opts.https ? https : http
     lib.get(options, (res) => {
       var chunks = []
@@ -20,8 +20,10 @@ module.exports = (opts) => {
         resolve(JSON.parse(chunks.join('')))
       })
       res.on('error', (e) => {
-        throw e
+        reject(e)
       })
+    }).on('error', (e) => {
+      reject(e)
     })
   })
 }
