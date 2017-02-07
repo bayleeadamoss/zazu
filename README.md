@@ -43,3 +43,17 @@ will open by default. You can enable debug mode by adding a `debug` flag to
   "plugins": []
 }
 ~~~
+
+## Deployment
+
+To deploy simple update the version in both `package.json` and
+`app/package.json` (eg `0.3.2`). After comitting you can tag the release, but
+be sure to add the `v` in front (eg `v0.3.2`). Push the commits then the tag.
+
+The CI servers will upload the assets once the tests are done passing, the new
+release should be a draft, so once all assets are published you can publish the
+release on GitHub.
+
+Lastly, you should re-publish the docs. Zazu uses the doc website to see if a
+new release is available so doing a quick release will allow others to download
+the newest version. Simply run `npm run docs:publish`.

@@ -1,12 +1,57 @@
 {
+  "version": "0.4.0",
+  "build": {
+    "productName": "Zazu",
+    "appId": "com.tinytacoteam.zazu",
+    "publish": [
+      "github"
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "resources/windows/icon.ico"
+    },
+    "nsis": {
+      "oneClick": true,
+      "installerHeaderIcon": "resources/windows/setup-icon.ico"
+    },
+    "linux": {
+      "target": [
+        "deb"
+      ]
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "icon": "resources/osx/icon.icns",
+      "category": "public.app-category.productivity"
+    },
+    "dmg": {
+      "icon": "resources/osx/dmg-icon.icns",
+      "background": "resources/osx/dmg-background.png"
+    },
+    "directories": {
+      "buildResources": "resources"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/tinytacoteam/zazu.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tinytacoteam/zazu/issues"
+  },
   "devDependencies": {
     "asar": "^0.10.0",
     "chai": "^3.5.0",
     "cheerio": "^0.20.0",
     "cross-env": "^2.0.0",
     "cucumber": "^1.2.2",
+    "electron": "~1.3.1",
+    "electron-builder": "^11.5.2",
     "electron-mocha": "^1.0.0",
-    "electron-prebuilt": "~1.3.1",
     "eslint": "2.3.0",
     "eslint-config-standard": "5.1.0",
     "eslint-plugin-promise": "1.1.0",
@@ -31,9 +76,8 @@
   "scripts": {
     "prepush": "npm run lint && npm test",
     "postinstall": "cd app && npm install",
-    "dev-release": "gulp release --env=production",
     "prerelease": "npm install",
-    "release": "npm run dev-release",
+    "release": "cross-env DEBUG=electron-builder build --x64 --publish onTag",
     "start": "cross-env NODE_ENV=development electron ./app",
     "test": "cross-env NODE_ENV=test electron-mocha --recursive test/app",
     "cucumber": "cucumberjs",

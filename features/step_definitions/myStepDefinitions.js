@@ -21,7 +21,7 @@ class World {
       jetpack.copy(fallbackProfile, homeProfile, { overwrite: true })
     }
     this.app = new Application({
-      path: require('electron-prebuilt'),
+      path: require('electron'),
       args: [appPath],
       env: {
         NODE_ENV: 'test',

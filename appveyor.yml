@@ -1,5 +1,5 @@
 environment:
-  nodejs_version: "6"
+  nodejs_version: "6.5.0"
 
 os: unstable
 
@@ -12,22 +12,8 @@ install:
 test_script:
   - node --version
   - npm --version
-  - npm run dev-release
   - npm run cucumber
   - npm test
-
-artifacts:
-  - path: releases\*.exe
-    name: ZazuWin
-
-deploy:
-  provider: GitHub
-  auth_token:
-    secure: XJXnzo2BTOVQ/JOyd7ccmoVhucZbl3lEzeKACXgROih54K5JZKGIjAdx1pAX/E+G
-  artifact: ZazuWin
-  draft: false
-  prerelease: false
-  on:
-    appveyor_repo_tag: true
+  - npm run release
 
 build: off
