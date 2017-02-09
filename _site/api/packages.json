@@ -2,6 +2,15 @@
   "packages": [
     
       {
+        "top": true,
+        "type": "theme",
+        "title": "Another Dark Theme",
+        "image": "/images/package-icons/another-dark-theme.png",
+        "githuburl": "iansinnott/zazu-dark-theme",
+        "description": "A simple, dark theme"
+      },
+    
+      {
         "top": false,
         "type": "plugin",
         "title": "Ascii Search",
@@ -17,6 +26,15 @@
         "image": "/images/package-icons/calculator.png",
         "githuburl": "tinytacoteam/zazu-calculator",
         "description": "Quick access to advanced calculations"
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
+        "title": "Can I use",
+        "image": "/images/package-icons/caniuse.png",
+        "githuburl": "gabrielpoca/zazu-caniuse",
+        "description": "Search and open features in caniuse.com"
       },
     
       {
@@ -107,6 +125,15 @@
         "image": "/images/package-icons/emoj.svg",
         "githuburl": "blakek/zazu-emoj",
         "description": "Find relevant emoji"
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
+        "title": "Emoji",
+        "image": "/images/package-icons/zazu-emoji.png",
+        "githuburl": "iansinnott/zazu-emoji",
+        "description": "⚡ Fast, offline emoji search"
       },
     
       {
@@ -242,6 +269,15 @@
         "image": "/images/package-icons/system.png",
         "githuburl": "tinytacoteam/zazu-system",
         "description": "Tell your computer to lock, screensaver and more!"
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
+        "title": "Timezone",
+        "image": "/images/package-icons/timezone.svg",
+        "githuburl": "avaly/zazu-timezone",
+        "description": "Shows what time it is in another timezone."
       },
     
       {
