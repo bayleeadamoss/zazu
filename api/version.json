@@ -2,5 +2,5 @@
 layout: null
 ---
 {
-  "version": "v{{ site.currentAppVersion | default: '0.2.2' }}"
+  "version": "v{{ site.currentAppVersion | default: '0.4.0' }}"
 }
