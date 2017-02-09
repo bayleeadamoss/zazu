@@ -16,7 +16,7 @@ basic usage.
 ~~~ json
 {
   "hotkey": "alt+space",
-  "theme": "tinytacoteam/dark-theme",
+  "theme": "tinytacoteam/zazu-dark-theme",
   "displayOn": "detect",
   "plugins": []
 }
@@ -31,8 +31,8 @@ to you!
 
 ### Theme
 
-This in the format of a relative GitHub URL. For example `tinytacoteam/dark-theme`
-would translate to `https://github.com/tinytacoteam/dark-theme`.
+This in the format of a relative GitHub URL. For example `tinytacoteam/zazu-dark-theme`
+would translate to `https://github.com/tinytacoteam/zazu-dark-theme`.
 
 There are a [few themes](/themes) we created that you can pick from, feel free
 to fork them and make your own.
@@ -40,8 +40,8 @@ to fork them and make your own.
 ### Plugins
 
 Plugins can be in either of two formats. The first is the short GitHub URL
-format for example `tinytacoteam/dark-theme` would translate to
-`https://github.com/tinytacoteam/dark-theme`.
+format for example `tinytacoteam/zazu-dark-theme` would translate to
+`https://github.com/tinytacoteam/zazu-dark-theme`.
 
 ~~~ json
 {
