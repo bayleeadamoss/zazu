@@ -18,7 +18,7 @@ const commitSha = () => {
 
 const setupDynamicConfig = (docsConfigFile) => {
   fs.writeFileSync(docsConfigFile, `currentCommitSha: ${commitSha()}\n`, { flag: 'a' })
-  fs.writeFileSync(docsConfigFile, `currentAppVersion: v${appVersion()}\n`, { flag: 'a' })
+  fs.writeFileSync(docsConfigFile, `currentAppVersion: ${appVersion()}\n`, { flag: 'a' })
 }
 
 const cleanupDynamicConfig = (docsConfigFile) => {
