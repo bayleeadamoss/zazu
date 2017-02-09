@@ -1,3 +1,23 @@
+## 0.3.3
+
+### Bugs
+
+* Better detection if GIT is installed. #200
+* Fix issue with prefix script and optional dependencies. #154
+* Catch http exceptions when not connected to the internet. #211
+
+### Features
+
+* Add ability to be portable. (Thanks [schmic][schmic]!) #164
+* Check for updates every 24 hours, not just once. #170
+* Allow about text to be copy-able. #88
+* Better ranking algorithm based on block type. #176
+* Follow the cursor instead of always being on the primary monitor. (Thanks
+  [eldinoyev][eldinoyev]!) #169
+* Show error screen when no plugins are installed. (Thanks
+  [eldinoyev][eldinoyev]!) #193
+* Add a new block type for reloading configuration. #198
+
 ## 0.3.2
 
 ## Bugs
@@ -88,3 +108,6 @@
 * Scoped blocks now descope when toggling via the menu item. #44
 * Gracefully handle toggling devtools when no window is open. #45
 * Clear results when you close Zazu so they don't clear when you open. #46
+
+[schmic]: https://github.com/schmic
+[eldinoyev]: https://github.com/eldinoyev
