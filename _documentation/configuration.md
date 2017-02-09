@@ -10,9 +10,8 @@ title:  "Personal Configuration"
 
 ## Configuring Zazu
 
-Your personal configuration lives in `~/.zazurc.json` (or
-`C:\Users\YOUR_NAME\.zazurc.json` for Windows). Here is an example of the basic
-usage.
+Your personal configuration lives in `~/.zazurc.json`. Here is an example of the
+basic usage.
 
 ~~~ json
 {
