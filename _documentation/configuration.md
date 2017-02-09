@@ -10,13 +10,15 @@ title:  "Personal Configuration"
 
 ## Configuring Zazu
 
-Your personal configuration lives in `~/.zazurc.json`. Here is an example of the
-basic usage.
+Your personal configuration lives in `~/.zazurc.json` (or
+`C:\Users\YOUR_NAME\.zazurc.json` for Windows). Here is an example of the basic
+usage.
 
 ~~~ json
 {
   "hotkey": "alt+space",
-  "theme": "tinytacoteam/dark-theme",
+  "theme": "tinytacoteam/zazu-dark-theme",
+  "displayOn": "detect",
   "plugins": []
 }
 ~~~~
@@ -30,8 +32,8 @@ to you!
 
 ### Theme
 
-This in the format of a relative GitHub URL. For example `tinytacoteam/dark-theme`
-would translate to `https://github.com/tinytacoteam/dark-theme`.
+This in the format of a relative GitHub URL. For example `tinytacoteam/zazu-dark-theme`
+would translate to `https://github.com/tinytacoteam/zazu-dark-theme`.
 
 There are a [few themes](/themes) we created that you can pick from, feel free
 to fork them and make your own.
@@ -39,8 +41,8 @@ to fork them and make your own.
 ### Plugins
 
 Plugins can be in either of two formats. The first is the short GitHub URL
-format for example `tinytacoteam/dark-theme` would translate to
-`https://github.com/tinytacoteam/dark-theme`.
+format for example `tinytacoteam/zazu-dark-theme` would translate to
+`https://github.com/tinytacoteam/zazu-dark-theme`.
 
 ~~~ json
 {
@@ -69,6 +71,24 @@ you can use to configure it's behavior.
   ]
 }
 ~~~~
+
+### Display On
+
+This determines whether Zazu opens in the center of the primary display each
+time it is toggled, or if Zazu will display on the screen you are currently
+working on.
+
+`detect`, the default behavior,  means Zazu will open at the center of any
+screen that the cursor is hovering over. Any updates to Zazu's position will be
+saved for that particular screen but not the others. Each screen's custom Zazu
+position will be used to position Zazu on that screen in subsequent toggles.
+
+`primary` means Zazu will open in the center of the primary display the first
+time it is toggled after launching the application. Any update to Zazu's screen
+position will be saved and Zazu will open at the new position each time it is
+toggled.
+
+Set to `detect` by default.
 
 ### Analytics
 

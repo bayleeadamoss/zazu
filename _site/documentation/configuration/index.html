@@ -84,19 +84,23 @@
       <li><a href="#hotkey" id="markdown-toc-hotkey">Hotkey</a></li>
       <li><a href="#theme" id="markdown-toc-theme">Theme</a></li>
       <li><a href="#plugins" id="markdown-toc-plugins">Plugins</a></li>
+      <li><a href="#display-on" id="markdown-toc-display-on">Display On</a></li>
       <li><a href="#analytics" id="markdown-toc-analytics">Analytics</a></li>
     </ul>
   </li>
+  <li><a href="#portableMode" id="markdown-toc-portableMode">Portable Mode</a></li>
 </ul>
 
 <h2 id="configuring-zazu">Configuring Zazu</h2>
 
-<p>Your personal configuration lives in <code class="highlighter-rouge">~/.zazurc.json</code>. Here is an example of the
-basic usage.</p>
+<p>Your personal configuration lives in <code class="highlighter-rouge">~/.zazurc.json</code> (or
+<code class="highlighter-rouge">C:\Users\YOUR_NAME\.zazurc.json</code> for Windows). Here is an example of the basic
+usage.</p>
 
 <div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"hotkey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"alt+space"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"theme"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tinytacoteam/dark-theme"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"displayOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"detect"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"plugins"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -106,7 +110,7 @@ basic usage.</p>
 
 <p>This can be any <a href="https://github.com/electron/electron/blob/master/docs/api/accelerator.md">keyboard
 accelerator</a>
-you can think of. We recommend using <code class="highlighter-rouge">alt+space</code> or <code class="highlighter-rouge">Command+space</code>, but it’s up
+you can think of. We recommend using <code class="highlighter-rouge">alt+space</code> or <code class="highlighter-rouge">cmd+space</code>, but it’s up
 to you!</p>
 
 <h3 id="theme">Theme</h3>
@@ -151,11 +155,35 @@ you can use to configure it’s behavior.</p>
 </span></code></pre>
 </div>
 
+<h3 id="display-on">Display On</h3>
+
+<p>This determines whether Zazu opens in the center of the primary display each
+time it is toggled, or if Zazu will display on the screen you are currently
+working on.</p>
+
+<p><code class="highlighter-rouge">detect</code>, the default behavior,  means Zazu will open at the center of any
+screen that the cursor is hovering over. Any updates to Zazu’s position will be
+saved for that particular screen but not the others. Each screen’s custom Zazu
+position will be used to position Zazu on that screen in subsequent toggles.</p>
+
+<p><code class="highlighter-rouge">primary</code> means Zazu will open in the center of the primary display the first
+time it is toggled after launching the application. Any update to Zazu’s screen
+position will be saved and Zazu will open at the new position each time it is
+toggled.</p>
+
+<p>Set to <code class="highlighter-rouge">detect</code> by default.</p>
+
 <h3 id="analytics">Analytics</h3>
 
 <p>We send anonymous usage to <a href="https://newrelic.com/">New Relic</a>. To opt out of
 sending this anonymous data you can set <code class="highlighter-rouge">disableAnalytics</code> to <code class="highlighter-rouge">true</code> in your
 configuration.</p>
+
+<h2 id="portableMode">Portable Mode</h2>
+
+<p>If you want your configuration within your application folder for portability just
+create a <code class="highlighter-rouge">portable</code> directory inside of it. You can copy your configuration files over
+from your home directory if they already exist.</p>
 
 
     </div>
@@ -180,6 +208,7 @@ configuration.</p>
       <a href="https://github.com/tinytacoteam">Github</a>
       
       
+      <a href="https://gitter.im/tinytacoteam/zazu">Gitter Chat</a>
     </p>
   </div>
 </footer>

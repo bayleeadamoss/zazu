@@ -81,6 +81,8 @@
   </li>
   <li><a href="#previewing-your-theme" id="markdown-toc-previewing-your-theme">Previewing your theme</a></li>
   <li><a href="#using-your-theme" id="markdown-toc-using-your-theme">Using your theme</a></li>
+  <li><a href="#dragable-regions" id="markdown-toc-dragable-regions">Dragable Regions</a></li>
+  <li><a href="#submitting-your-theme" id="markdown-toc-submitting-your-theme">Submitting your theme</a></li>
 </ul>
 
 <h2 id="theme-overview">Theme Overview</h2>
@@ -116,6 +118,28 @@ some inspiration.</p>
 <p>Just add your relative path to your GitHub repo inside of your <a href="/documentation/configuration/#theme">personal
 configuration</a>.</p>
 
+<h2 id="dragable-regions">Dragable Regions</h2>
+
+<p>Zazu tries to be as small as possible, for this reason we don’t have a title
+bar, so themes need to implement “dragable” regions. That way users can
+reposition Zazu if they need to. To define a dragable region you can add some
+CSS to your theme.</p>
+
+<div class="language-css highlighter-rouge"><pre class="highlight"><code><span class="nt">body</span> <span class="p">{</span>
+  <span class="nl">-webkit-app-region</span><span class="p">:</span> <span class="n">drag</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">input</span> <span class="p">{</span>
+  <span class="nl">-webkit-app-region</span><span class="p">:</span> <span class="n">no-drag</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h2 id="submitting-your-theme">Submitting your theme</h2>
+
+<p>Once you finish, submit it to the <a href="/themes/">themes page</a> by making a package
+file in the
+<a href="https://github.com/tinytacoteam/zazu/tree/master/docs/_packages">documentation</a></p>
+
 
     </div>
   </div>
@@ -139,6 +163,7 @@ configuration</a>.</p>
       <a href="https://github.com/tinytacoteam">Github</a>
       
       
+      <a href="https://gitter.im/tinytacoteam/zazu">Gitter Chat</a>
     </p>
   </div>
 </footer>
