@@ -47,7 +47,7 @@ format for example `tinytacoteam/zazu-dark-theme` would translate to
 ~~~ json
 {
   "plugins": [
-    "tinytacoteam/calculator"
+    "tinytacoteam/zazu-calculator"
   ]
 }
 ~~~~
@@ -63,7 +63,7 @@ you can use to configure it's behavior.
 {
   "plugins": [
     {
-      "name": "tinytacoteam/calculator",
+      "name": "tinytacoteam/zazu-calculator",
       "variables": {
         "OFFSET": 10
       }
