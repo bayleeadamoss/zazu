@@ -27,7 +27,7 @@ const Search = React.createClass({
   },
 
   handleKeyPress (event) {
-    if (event.keyCode === 13) {
+    if (event.keyCode === 13 && event.keyCode === 27) {
       return false
     }
   },
