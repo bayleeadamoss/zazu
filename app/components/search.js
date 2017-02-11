@@ -26,12 +26,6 @@ const Search = React.createClass({
     }
   },
 
-  handleKeyPress (event) {
-    if (event.keyCode === 13 && event.keyCode === 27) {
-      return false
-    }
-  },
-
   handleQueryChange (event) {
     const query = event.target.value
     this.props.handleQueryChange(query)
@@ -52,7 +46,6 @@ const Search = React.createClass({
         className='mousetrap'
         ref={this.setReference}
         type='text'
-        onKeyPress={this.handleKeyPress}
         onChange={this.handleQueryChange}
         value={value}/>
     )
