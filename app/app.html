@@ -11,6 +11,16 @@
       const track = require('./lib/track')
       const app = require('electron').remote.app
       const env = require('./lib/env')
+
+      // Catch `esc` or `enter` to avoid alert beep.
+      window.addEventListener('load', function() {
+        document.querySelector('body').onkeydown = function(e) {
+          if (e.key === 'Enter' || e.key === 'Escape') {
+            app.hide()
+            return false
+          } else { return true }
+        }
+      })
       track.initialize('search', {
         zazuVersion: app.getVersion(),
         zazuEnvironment: env.name,
