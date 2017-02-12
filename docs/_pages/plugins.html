@@ -7,7 +7,11 @@ permalink: /plugins/
 {% for package in site.packages %}
     {% if package.type == "plugin" %}
         <a class="package {{ package.type }}" href="https://github.com/{{ package.githuburl }}">
-            <img src="{{ package.image }}" alt="{{ package.title }} Logo" />
+            {% if package.icon %}
+                <i class="fa {{ package.icon }}" aria-hidden="true"></i>
+            {% else %}
+                <img src="{{ package.image }}" alt="{{ package.title }} Logo" />
+            {% endif %}
             <h2>{{ package.title }}</h2>
             <p>{{ package.description }}</p>
         </a>
