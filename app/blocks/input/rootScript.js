@@ -22,10 +22,7 @@ class RootScript extends InputBlock {
 
   respondsTo (input) {
     if (!this.script) {
-      this.logger.log('error', 'Plugin failed to load', {
-        message: this.loadError.message,
-        stack: this.loadError.stack.split('\n'),
-      })
+      this.logger.error('Plugin failed to load', this.loadError)
       return false
     }
     const respondsTo = this.script.respondsTo(input)
@@ -55,7 +52,7 @@ class RootScript extends InputBlock {
         })
       }))
     }).catch((error) => {
-      this.logger.log('error', 'Script failed', { query, error })
+      this.logger.error('Script failed', { query, error })
     })
   }
 }

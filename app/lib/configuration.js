@@ -41,10 +41,7 @@ class Configuration {
       this.loaded = true
     } catch (e) {
       const logger = require('./logger')
-      logger.log('error', 'Attempted to load an invalid ~/.zazurc.json file', {
-        message: e.message,
-        stack: e.stack,
-      })
+      logger.error('Attempted to load an invalid ~/.zazurc.json file', e)
     }
 
     return this.loaded
