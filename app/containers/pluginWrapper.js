@@ -5,6 +5,7 @@ const Theme = require('../packages/theme')
 const track = require('../lib/track')
 const globalEmitter = require('../lib/globalEmitter')
 const notification = require('../lib/notification')
+const truncateResult = require('../lib/truncateResult')
 const DatabaseWrapper = require('./databaseWrapper')
 const LoadingSpinner = require('../components/loadingSpinner.js')
 const NoPlugins = require('../components/noplugins.js')
@@ -188,7 +189,7 @@ const PluginWrapper = React.createClass({
   },
 
   handleResultClick (result) {
-    this.context.logger.log('info', 'actioned result', result)
+    this.context.logger.log('info', 'actioned result', truncateResult(result))
     const interaction = track.interaction()
     interaction.setName('actioned')
     result.next().then(() => {

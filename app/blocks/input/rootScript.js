@@ -1,6 +1,7 @@
-const InputBlock = require('../inputBlock')
-
 const path = require('path')
+
+const InputBlock = require('../inputBlock')
+const truncateResult = require('../../lib/truncateResult')
 
 class RootScript extends InputBlock {
   constructor (data) {
@@ -45,12 +46,8 @@ class RootScript extends InputBlock {
     }).then(() => {
       return this._ensurePromise(this.script.search(query, env))
     }).then((results) => {
-      this.logger.log('info', 'Script Results', { results })
-      return this._validateResults(results.map((result) => {
-        return Object.assign({}, result, {
-          blockRank: 1,
-        })
-      }))
+      this.logger.log('info', 'Script Results', { results: (Array.isArray(results) ? results.map(truncateResult) : results) })
+      return this._validateResults(results.map((result) => Object.assign({}, result, { blockRank: 1 })))
     }).catch((error) => {
       this.logger.error('Script failed', { query, error })
     })
