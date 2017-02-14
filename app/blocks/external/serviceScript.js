@@ -31,23 +31,18 @@ class ServiceScript extends ExternalBlock {
   start () {
     return new Promise((resolve) => {
       setTimeout(resolve, this.interval)
-    }).then(() => {
-      return this.handle()
-    })
+    }).then(() => this.handle())
   }
 
   handle () {
     if (!this.script) {
-      this.logger.log('error', 'Plugin failed to load', {
-        message: this.loadError.message,
-        stack: this.loadError.stack.split('\n'),
-      })
+      this.logger.error('Plugin failed to load', this.loadError)
       return Promise.resolve()
     }
-    return this._ensurePromise(this.script(this.options)).then(() => {
-      this.start()
-    }).catch((error) => {
-      this.logger.log('error', 'Script failed', { error })
+    return this._ensurePromise(this.script(this.options))
+    .then(() => this.start())
+    .catch((error) => {
+      this.logger.error('Script failed', error)
     })
   }
 }

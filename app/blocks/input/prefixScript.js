@@ -25,10 +25,7 @@ class PrefixScript extends InputBlock {
 
   respondsTo (input) {
     if (!this.script) {
-      this.logger.log('error', 'Plugin failed to load', {
-        message: this.loadError.message,
-        stack: this.loadError.stack.split('\n'),
-      })
+      this.logger.error('Plugin failed to load', this.loadError)
       return false
     }
     var regex = ['^']
@@ -81,7 +78,7 @@ class PrefixScript extends InputBlock {
         })
       }))
     }).catch((error) => {
-      this.logger.log('error', 'Script failed', { query, error })
+      this.logger.error('Script failed', { query, error })
     })
   }
 }

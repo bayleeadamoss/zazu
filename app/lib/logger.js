@@ -1,6 +1,7 @@
 const RotateTransport = require('winston-daily-rotate-file')
 const winston = require('winston')
 const jetpack = require('fs-jetpack')
+const util = require('util')
 
 const configuration = require('./configuration')
 const env = require('./env')
@@ -33,19 +34,14 @@ logger.bindMeta = (data) => {
       logger.log(type, message, mergedOptions)
     },
     error: (message, error) => {
-      logger.log('error', message, {
-        message: error.message,
-        stack: error.stack,
-      })
+      const mergedOptions = Object.assign({}, data, { error: util.inspect(error) })
+      logger.log('error', message, mergedOptions)
     },
   }
 }
 
 logger.error = (message, error) => {
-  logger.log('error', message, {
-    message: error.message,
-    stack: error.stack,
-  })
+  logger.log('error', message, { error: util.inspect(error) })
 }
 
 module.exports = logger
