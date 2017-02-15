@@ -175,15 +175,6 @@
       {
         "top": true,
         "type": "plugin",
-        "title": "Gist",
-        "image": "",
-        "githuburl": "afaur/zazu-gist",
-        "description": "Create gists from your clipboard contents"
-      },
-    
-      {
-        "top": true,
-        "type": "plugin",
         "title": "GitHub repos",
         "image": "/images/package-icons/github-repos.png",
         "githuburl": "gabrielpoca/zazu-github-repos",
@@ -251,6 +242,15 @@
         "image": "/images/package-icons/package-manager.png",
         "githuburl": "tinytacoteam/zazu-package-manager",
         "description": "A easy to use package manager"
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
+        "title": "Pibble",
+        "image": "/images/package-icons/pibble.png",
+        "githuburl": "blainesch/zazu-pibble",
+        "description": "Brighten your day with moar pibbles"
       },
     
       {
