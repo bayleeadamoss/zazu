@@ -50,7 +50,10 @@ const Results = React.createClass({
     })
     Mousetrap.bind('enter', () => {
       const { values, handleResultClick, activeIndex } = this.props
-      handleResultClick(values[activeIndex])
+      const result = values[activeIndex]
+      if (result.value) {
+        handleResultClick(result)
+      }
     })
     Mousetrap.bind('esc', () => {
       globalEmitter.emit('hideWindow')

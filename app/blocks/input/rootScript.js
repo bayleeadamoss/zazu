@@ -51,6 +51,16 @@ class RootScript extends InputBlock {
           blockRank: 1,
         })
       }))
+    }).then((results) => {
+      if (this.isScoped && results.length === 0) {
+        return [
+          {
+            title: this.id + ' is scoped',
+            subtitle: 'Type to see more...',
+          },
+        ]
+      }
+      return results
     }).catch((error) => {
       this.logger.error('Script failed', { query, error })
     })
