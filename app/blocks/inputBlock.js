@@ -1,6 +1,7 @@
 const Block = require('./block')
 
 const globalEmitter = require('../lib/globalEmitter')
+const truncateResult = require('../lib/truncateResult')
 
 class InputBlock extends Block {
   constructor (data) {
@@ -28,10 +29,10 @@ class InputBlock extends Block {
     results.forEach((result) => {
       const keys = Object.keys(result)
       if (!keys.includes('title')) {
-        this.logger.log('error', 'result must contain a title', { result })
+        this.logger.log('error', 'result must contain a title', { result: truncateResult(result) })
       }
       if (!keys.includes('value')) {
-        this.logger.log('error', 'result must contain a value', { result })
+        this.logger.log('error', 'result must contain a value', { result: truncateResult(result) })
       }
     })
     return results
