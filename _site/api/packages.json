@@ -84,6 +84,15 @@
     
       {
         "top": true,
+        "type": "plugin",
+        "title": "Currency Convertor",
+        "image": "/images/package-icons/currency-convertor.svg",
+        "githuburl": "avaly/zazu-currency-convertor",
+        "description": "Converts amounts between currencies."
+      },
+    
+      {
+        "top": true,
         "type": "theme",
         "title": "Dark Theme",
         "image": "/images/package-icons/dark-theme.png",
@@ -175,6 +184,15 @@
       {
         "top": true,
         "type": "plugin",
+        "title": "Gist",
+        "image": "",
+        "githuburl": "afaur/zazu-gist",
+        "description": "Create gists from your clipboard contents"
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
         "title": "GitHub repos",
         "image": "/images/package-icons/github-repos.png",
         "githuburl": "gabrielpoca/zazu-github-repos",
@@ -197,6 +215,15 @@
         "image": "/images/package-icons/ip-address.svg",
         "githuburl": "blakek/zazu-ip-address",
         "description": "Show your internal and external IP address"
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
+        "title": "JS Beautify",
+        "image": "/images/package-icons/js-beautify.png",
+        "githuburl": "blainesch/zazu-js-beautify",
+        "description": "Beautify JavaScript from your clipboard"
       },
     
       {
@@ -238,6 +265,15 @@
       {
         "top": true,
         "type": "plugin",
+        "title": "npms",
+        "image": "/images/package-icons/npms.png",
+        "githuburl": "danielbayerlein/zazu-npms",
+        "description": "Search for npm packages with npms.io"
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
         "title": "Package Manager",
         "image": "/images/package-icons/package-manager.png",
         "githuburl": "tinytacoteam/zazu-package-manager",
@@ -260,6 +296,15 @@
         "image": "/images/package-icons/playful-theme.png",
         "githuburl": "tinytacoteam/zazu-playful-theme",
         "description": "For the young at heart."
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
+        "title": "RubyGems",
+        "image": "/images/package-icons/rubygems.png",
+        "githuburl": "danielbayerlein/zazu-rubygems",
+        "description": "Search for gems with rubygems.org"
       },
     
       {
@@ -296,6 +341,15 @@
         "image": "/images/package-icons/tldr.png",
         "githuburl": "twang2218/zazu-tldr",
         "description": "Check tldr pages from Zazu"
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
+        "title": "Utime",
+        "image": "",
+        "githuburl": "puyt/zazu-utime",
+        "description": "Convert unix timestamps to human-readable dates and vice versa"
       },
     
       {
