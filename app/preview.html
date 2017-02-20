@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Zazu</title>
+    <style>
+      body {
+        border-radius: 5px;
+        background-color: rgba(0, 0, 0, 0.9);
+        margin: 0;
+        padding: 0;
+        color: rgba(255, 255, 255, 0.7);
+      }
+      #resize {
+        box-sizing: border-box;
+        max-width: 700px;
+        max-height: 500px;
+        font-size: 150px;
+        padding: 10px;
+        text-align: center;
+      }
+      p {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="resize"></div>
+    <script>
+      const autoSizeText = () => {
+        const el = document.getElementById('resize')
+        const resizeText = () => {
+          const currentSize = parseInt((el.style.fontSize || '150px').slice(0, -2), 10)
+          const elNewFontSize = (currentSize - 1) + 'px'
+          el.style.fontSize = elNewFontSize
+        }
+        while (el.scrollHeight > el.offsetHeight) resizeText()
+      }
+
+      const electron = require('electron')
+      const currentWindow = electron.remote.getCurrentWindow()
+      document.addEventListener('keydown', () => {
+        currentWindow.close()
+      })
+      document.addEventListener('click', () => {
+        currentWindow.close()
+      })
+      electron.ipcRenderer.on('message', (_, message) => {
+        document.getElementById('resize').innerText = message
+        autoSizeText()
+        currentWindow.show()
+      })
+    </script>
+  </body>
+</html>

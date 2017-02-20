@@ -1,4 +1,5 @@
-const { BrowserWindow } = require('electron')
+const electron = require('electron')
+const { BrowserWindow } = process.type === 'renderer' ? electron.remote : electron
 
 const autoResize = (dynamicWindow) => {
   const defaultSize = {
@@ -16,7 +17,7 @@ const autoResize = (dynamicWindow) => {
 
   dynamicWindow.webContents.on('did-finish-load', () => {
     const updateHeight = () => {
-      if (!dynamicWindow || !dynamicWindow.isVisible()) { return }
+      if (!dynamicWindow) { return }
       dynamicWindow.webContents.executeJavaScript('document.body.children[0].offsetHeight', (mainContentHeight) => {
         resize(mainContentHeight)
       })
