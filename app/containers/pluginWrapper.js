@@ -77,11 +77,6 @@ const PluginWrapper = React.createClass({
   loadPackages () {
     return this.loadTheme().then(() => {
       return this.loadPlugins()
-    }).then(() => {
-      notification.push({
-        title: 'Plugins loaded',
-        message: 'Your plugins have been loaded',
-      })
     }).catch(() => {
       notification.push({
         title: 'No Plugins',
