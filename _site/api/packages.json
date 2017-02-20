@@ -84,6 +84,24 @@
     
       {
         "top": true,
+        "type": "plugin",
+        "title": "Colors",
+        "image": "/images/package-icons/colors.png",
+        "githuburl": "halvves/zazu-colors",
+        "description": "Convert some colors"
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
+        "title": "Currency Convertor",
+        "image": "/images/package-icons/currency-convertor.svg",
+        "githuburl": "avaly/zazu-currency-convertor",
+        "description": "Converts amounts between currencies."
+      },
+    
+      {
+        "top": true,
         "type": "theme",
         "title": "Dark Theme",
         "image": "/images/package-icons/dark-theme.png",
@@ -175,6 +193,15 @@
       {
         "top": true,
         "type": "plugin",
+        "title": "Giphy",
+        "image": "/images/package-icons/giphy.png",
+        "githuburl": "halvves/zazu-giphy",
+        "description": "Gif giving is the greatest love language of all."
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
         "title": "Gist",
         "image": "",
         "githuburl": "afaur/zazu-gist",
@@ -193,6 +220,24 @@
       {
         "top": true,
         "type": "plugin",
+        "title": "GitHub",
+        "image": "/images/package-icons/github.png",
+        "githuburl": "danielbayerlein/zazu-github",
+        "description": "Search for GitHub repositories with github.com"
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
+        "title": "Hacker News",
+        "image": "/images/package-icons/hacker-news.png",
+        "githuburl": "chrishelgert/zazu-hacker-news",
+        "description": "List the latest Hacker News"
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
         "title": "Hash",
         "image": "/images/package-icons/hash.svg",
         "githuburl": "brpaz/zazu-hash",
@@ -206,6 +251,15 @@
         "image": "/images/package-icons/ip-address.svg",
         "githuburl": "blakek/zazu-ip-address",
         "description": "Show your internal and external IP address"
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
+        "title": "JS Beautify",
+        "image": "/images/package-icons/js-beautify.png",
+        "githuburl": "blainesch/zazu-js-beautify",
+        "description": "Beautify JavaScript from your clipboard"
       },
     
       {
@@ -247,10 +301,37 @@
       {
         "top": true,
         "type": "plugin",
+        "title": "npms",
+        "image": "/images/package-icons/npms.png",
+        "githuburl": "danielbayerlein/zazu-npms",
+        "description": "Search for npm packages with npms.io"
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
         "title": "Package Manager",
         "image": "/images/package-icons/package-manager.png",
         "githuburl": "tinytacoteam/zazu-package-manager",
         "description": "A easy to use package manager"
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
+        "title": "Password generator",
+        "image": "/images/package-icons/password.png",
+        "githuburl": "jnstr/zazu-password",
+        "description": "Generate passwords with ease"
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
+        "title": "Pibble",
+        "image": "/images/package-icons/pibble.png",
+        "githuburl": "blainesch/zazu-pibble",
+        "description": "Brighten your day with moar pibbles"
       },
     
       {
@@ -260,6 +341,15 @@
         "image": "/images/package-icons/playful-theme.png",
         "githuburl": "tinytacoteam/zazu-playful-theme",
         "description": "For the young at heart."
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
+        "title": "RubyGems",
+        "image": "/images/package-icons/rubygems.png",
+        "githuburl": "danielbayerlein/zazu-rubygems",
+        "description": "Search for gems with rubygems.org"
       },
     
       {
@@ -296,6 +386,15 @@
         "image": "/images/package-icons/tldr.png",
         "githuburl": "twang2218/zazu-tldr",
         "description": "Check tldr pages from Zazu"
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
+        "title": "Utime",
+        "image": "",
+        "githuburl": "puyt/zazu-utime",
+        "description": "Convert unix timestamps to human-readable dates and vice versa"
       },
     
       {
