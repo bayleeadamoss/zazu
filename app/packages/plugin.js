@@ -136,7 +136,7 @@ class Plugin extends Package {
   respondsTo (inputText) {
     if (!this.loaded || !this.activeState) { return }
     return this.inputs.find((input) => {
-      return input.respondsTo(inputText)
+      return input.respondsTo(inputText, this.options)
     })
   }
 
@@ -156,7 +156,7 @@ class Plugin extends Package {
 
   search (inputText) {
     return this.inputs.reduce((responsePromises, input) => {
-      if (input.isActive() && input.respondsTo(inputText)) {
+      if (input.isActive() && input.respondsTo(inputText, this.options)) {
         const tracer = track.tracer(this.id + '/' + input.id)
         responsePromises.push(
           input.search(inputText, this.options)

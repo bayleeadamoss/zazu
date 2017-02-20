@@ -21,12 +21,12 @@ class RootScript extends InputBlock {
     }
   }
 
-  respondsTo (input) {
+  respondsTo (input, env = {}) {
     if (!this.script) {
       this.logger.error('Plugin failed to load', this.loadError)
       return false
     }
-    const respondsTo = this.script.respondsTo(input)
+    const respondsTo = this.script.respondsTo(input, env)
     this.logger.log('info', 'Responds to input', { input, respondsTo })
     return respondsTo
   }
