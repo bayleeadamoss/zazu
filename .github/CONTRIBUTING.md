@@ -26,7 +26,7 @@ You can find the community and core developers on [Gitter Chat][Gitter Chat].
 
 If you're part of Zazu's core team there are a few guidelines for you as well.
 
-When starting work, please update the [Zazu Project Board][Zazu Project Board]
+When starting work, please update the [Roadmap][Roadmap]
 with your current task. When you create a pull request, add a reviewer who is
 also on the core team.
 
@@ -39,7 +39,7 @@ assign it to yourself and take it from there.
 
 Lastly, if you approve of the change, merge the pull request yourself.
 
-[Zazu Project Board]: https://github.com/orgs/tinytacoteam/projects/1
-[helped wanted tag]: https://github.com/tinytacoteam/zazu/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22
+[Roadmap]: https://github.com/tinytacoteam/zazu/projects/3
+[help wanted tag]: https://github.com/tinytacoteam/zazu/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22
 [plugin page]: http://zazuapp.org/documentation/plugins/
 [Gitter Chat]: https://gitter.im/tinytacoteam/zazu
