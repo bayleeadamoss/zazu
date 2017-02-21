@@ -5,6 +5,7 @@ const UserScript = require('./output/userScript')
 const ShowFile = require('./output/showFile')
 const OpenFile = require('./output/openFile')
 const ReloadConfig = require('./output/reloadConfig')
+const Preview = require('./output/preview')
 
 module.exports = {
   CopyToClipboard,
@@ -14,4 +15,5 @@ module.exports = {
   OpenFile,
   ShowFile,
   ReloadConfig,
+  Preview,
 }

@@ -22,8 +22,7 @@ otherwise.
 
 All blocks can have the following properties:
 
-* `id` *mixed*: Unique identifier of the block, used for logging and
-  connections.
+* `id` *mixed*: Unique identifier of the block, used for logging and connections.
 * `connections` *mixed[]*: Blocks to execute if one of the results are chosen.
 * `type` *string*: Name of the block you wish to use.
 
@@ -345,6 +344,20 @@ Give the user a notification with a title and a message.
   "message": "{value}"
 }]
 ~~~~
+
+### Preview
+
+You can display large text in a preview window.
+
+* `message` *string*: Message to display in the window.
+
+~~~ json
+[{
+  "id": "Display",
+  "type": "Preview",
+  "message": "{value}"
+}]
+~~~
 
 ### Open File
 
