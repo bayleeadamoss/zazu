@@ -96,6 +96,7 @@
       <li><a href="#copy-to-clipboard" id="markdown-toc-copy-to-clipboard">Copy To Clipboard</a></li>
       <li><a href="#open-in-browser" id="markdown-toc-open-in-browser">Open In Browser</a></li>
       <li><a href="#send-notification" id="markdown-toc-send-notification">Send Notification</a></li>
+      <li><a href="#preview" id="markdown-toc-preview">Preview</a></li>
       <li><a href="#open-file" id="markdown-toc-open-file">Open File</a></li>
       <li><a href="#show-file" id="markdown-toc-show-file">Show File</a></li>
       <li><a href="#user-script" id="markdown-toc-user-script">User Script</a></li>
@@ -119,8 +120,7 @@ otherwise.</p>
 <p>All blocks can have the following properties:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">id</code> <em>mixed</em>: Unique identifier of the block, used for logging and
-connections.</li>
+  <li><code class="highlighter-rouge">id</code> <em>mixed</em>: Unique identifier of the block, used for logging and connections.</li>
   <li><code class="highlighter-rouge">connections</code> <em>mixed[]</em>: Blocks to execute if one of the results are chosen.</li>
   <li><code class="highlighter-rouge">type</code> <em>string</em>: Name of the block you wish to use.</li>
 </ul>
@@ -455,6 +455,22 @@ be replaced with the current value of the result being passed around.</p>
   </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Notify"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SendNotification"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello world"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{value}"</span><span class="w">
+</span><span class="p">}]</span><span class="w">
+</span></code></pre>
+</div>
+
+<h3 id="preview">Preview</h3>
+
+<p>You can display large text in a preview window.</p>
+
+<ul>
+  <li><code class="highlighter-rouge">message</code> <em>string</em>: Message to display in the window.</li>
+</ul>
+
+<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">[{</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Display"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Preview"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{value}"</span><span class="w">
 </span><span class="p">}]</span><span class="w">
 </span></code></pre>

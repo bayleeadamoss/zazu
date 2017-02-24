@@ -85,6 +85,15 @@
       {
         "top": true,
         "type": "plugin",
+        "title": "Colors",
+        "image": "/images/package-icons/colors.png",
+        "githuburl": "halvves/zazu-colors",
+        "description": "Convert some colors"
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
         "title": "Currency Convertor",
         "image": "/images/package-icons/currency-convertor.svg",
         "githuburl": "avaly/zazu-currency-convertor",
@@ -107,6 +116,15 @@
         "image": "/images/package-icons/zazu-dev-doc.png",
         "githuburl": "jgoday/zazu-dev-doc",
         "description": "search and go to online development documentation."
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
+        "title": "DevDocs",
+        "image": "/images/package-icons/devdocs.png",
+        "githuburl": "danielbayerlein/zazu-devdocs",
+        "description": "Search for API documentations with devdocs.io"
       },
     
       {
@@ -184,6 +202,15 @@
       {
         "top": true,
         "type": "plugin",
+        "title": "Giphy",
+        "image": "/images/package-icons/giphy.png",
+        "githuburl": "halvves/zazu-giphy",
+        "description": "Gif giving is the greatest love language of all."
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
         "title": "Gist",
         "image": "",
         "githuburl": "afaur/zazu-gist",
@@ -202,6 +229,15 @@
       {
         "top": true,
         "type": "plugin",
+        "title": "GitHub",
+        "image": "/images/package-icons/github.png",
+        "githuburl": "danielbayerlein/zazu-github",
+        "description": "Search for GitHub repositories with github.com"
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
         "title": "Hacker News",
         "image": "/images/package-icons/hacker-news.png",
         "githuburl": "chrishelgert/zazu-hacker-news",
@@ -215,6 +251,15 @@
         "image": "/images/package-icons/hash.svg",
         "githuburl": "brpaz/zazu-hash",
         "description": "generate hashes using common algorithms like md5 or sha1"
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
+        "title": "Homebrew",
+        "image": "/images/package-icons/homebrew.png",
+        "githuburl": "danielbayerlein/zazu-homebrew",
+        "description": "Search for Homebrew formulae with braumeister.org"
       },
     
       {
@@ -301,6 +346,15 @@
       {
         "top": true,
         "type": "plugin",
+        "title": "Password generator",
+        "image": "/images/package-icons/password.png",
+        "githuburl": "jnstr/zazu-password",
+        "description": "Generate passwords with ease"
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
         "title": "Pibble",
         "image": "/images/package-icons/pibble.png",
         "githuburl": "blainesch/zazu-pibble",
@@ -314,6 +368,15 @@
         "image": "/images/package-icons/playful-theme.png",
         "githuburl": "tinytacoteam/zazu-playful-theme",
         "description": "For the young at heart."
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
+        "title": "PyPi",
+        "image": "/images/package-icons/pypi.png",
+        "githuburl": "afaur/zazu-pypi",
+        "description": "Search for your favorite Python packages"
       },
     
       {
@@ -359,6 +422,15 @@
         "image": "/images/package-icons/tldr.png",
         "githuburl": "twang2218/zazu-tldr",
         "description": "Check tldr pages from Zazu"
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
+        "title": "uptime",
+        "image": "/images/package-icons/uptime.png",
+        "githuburl": "danielbayerlein/zazu-uptime",
+        "description": "Shows the system uptime"
       },
     
       {
