@@ -1,8 +1,9 @@
 const path = require('path')
-const npm = require('npm')
 const jetpack = require('fs-jetpack')
 const retry = require('./retry')
 const installStatus = require('./installStatus')
+const { cooldown } = require('./manager')
+const freshRequire = require('./pluginFreshRequire')
 
 /**
  * If successful, will set the `installStatus` to `installed` and return it, to
@@ -11,7 +12,7 @@ const installStatus = require('./installStatus')
  *
  * On failure, returns a rejected promise, so `retry` runs it again.
  */
-const npmInstall = (name, packagePath) => {
+const npmInstall = cooldown((name, packagePath) => {
   return retry(`npm install [${name}]`, () => {
     const packageFile = path.join(packagePath, 'package.json')
     if (!jetpack.exists(packageFile)) {
@@ -27,6 +28,7 @@ const npmInstall = (name, packagePath) => {
       return packageName + '@' + packageVersion
     })
     return new Promise((resolve, reject) => {
+      const npm = require('npm')
       npm.load({}, (npmErr) => {
         if (npmErr) return reject(npmErr)
         npm.commands.install(packagePath, packages, (err) => {
@@ -36,6 +38,8 @@ const npmInstall = (name, packagePath) => {
       })
     })
   })
-}
+}, () => {
+  return freshRequire('npm')
+})
 
 module.exports = npmInstall
