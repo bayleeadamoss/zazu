@@ -99,7 +99,7 @@ app.on('ready', function () {
     },
   })
 
-  let screens = new Screens({
+  const screens = Screens.getInstance({
     windowWidth: mainWindow.getSize()[0],
   })
 
@@ -123,18 +123,18 @@ app.on('ready', function () {
   })
 
   mainWindow.on('move', () => {
-    let currentWindowPosition = mainWindow.getPosition()
+    const currentWindowPosition = mainWindow.getPosition()
     screens.saveWindowPositionOnCurrentScreen(currentWindowPosition[0], currentWindowPosition[1])
   })
 
   mainWindow.on('moved', () => {
-    let currentWindowPosition = mainWindow.getPosition()
+    const currentWindowPosition = mainWindow.getPosition()
     screens.saveWindowPositionOnCurrentScreen(currentWindowPosition[0], currentWindowPosition[1])
   })
 
   globalEmitter.on('showWindow', () => {
     logger.log('info', 'showing window from manual trigger')
-    let position = screens.getCenterPositionOnCurrentScreen()
+    const position = screens.getCenterPositionOnCurrentScreen()
     if (position) {
       mainWindow.setPosition(position.x, position.y)
     }

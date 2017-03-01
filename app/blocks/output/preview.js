@@ -8,7 +8,7 @@ class Preview extends Block {
   constructor (data) {
     super(data)
     this.message = data.message || '{value}'
-    this.screens = new Screens({
+    this.screens = Screens.getInstance({
       windowWidth: 700,
     })
   }
