@@ -33,7 +33,7 @@ class World {
 
   open () {
     return this.app.start().then(() => {
-      const time = this.profileType === 'calculator' ? 25 * 1000 : 5 * 1000
+      const time = this.profileType === 'calculator' ? 50 * 1000 : 5 * 1000
       return wait(time) // give it time to load plugins
     })
   }
@@ -143,7 +143,7 @@ module.exports = function () {
     return Promise.reject('Profile not found')
   })
 
-  this.Given(/^the app is launched$/, {timeout: 35 * 1000}, function () {
+  this.Given(/^the app is launched$/, {timeout: 120 * 1000}, function () {
     return this.open()
   })
 
