@@ -185,7 +185,7 @@ environment variables in the script call.
 // calculator.js
 module.exports = (pluginContext) => {
   return {
-    respondsTo: (query) => {
+    respondsTo: (query, env = {}) => {
       return query.match(/\d/)
     },
     search: (query, env = {}) => {
