@@ -22,7 +22,7 @@ Be sure to check out our amazing [Documentation](http://zazuapp.org).
 
 ### Introduction Video
 
-![docs/images/action-shots/video.png](https://vimeo.com/206729309)
+[![Zazu App - Introduction](docs/images/action-shots/video.png)](https://vimeo.com/206729309)
 
 ### Package Manager
 
