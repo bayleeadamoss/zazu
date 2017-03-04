@@ -20,6 +20,10 @@ Be sure to check out our amazing [Documentation](http://zazuapp.org).
 
 ## Action Shot
 
+### Introduction Video
+
+![docs/images/action-shots/video.png](https://vimeo.com/206729309)
+
 ### Package Manager
 
 Manage your plugins from within Zazu.
