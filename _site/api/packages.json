@@ -409,6 +409,15 @@
       {
         "top": true,
         "type": "plugin",
+        "title": "Timetracker",
+        "image": "/images/package-icons/timetracker.svg",
+        "githuburl": "jnstr/zazu-timetracker",
+        "description": "Track the time you spend on projects"
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
         "title": "Timezone",
         "image": "/images/package-icons/timezone.svg",
         "githuburl": "avaly/zazu-timezone",

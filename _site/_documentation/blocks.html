@@ -284,7 +284,7 @@ environment variables in the script call.</p>
 <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// calculator.js</span>
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">(</span><span class="nx">pluginContext</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="k">return</span> <span class="p">{</span>
-    <span class="na">respondsTo</span><span class="p">:</span> <span class="p">(</span><span class="nx">query</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="na">respondsTo</span><span class="p">:</span> <span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="nx">env</span> <span class="o">=</span> <span class="p">{})</span> <span class="o">=&gt;</span> <span class="p">{</span>
       <span class="k">return</span> <span class="nx">query</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/</span><span class="se">\d</span><span class="sr">/</span><span class="p">)</span>
     <span class="p">},</span>
     <span class="na">search</span><span class="p">:</span> <span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="nx">env</span> <span class="o">=</span> <span class="p">{})</span> <span class="o">=&gt;</span> <span class="p">{</span>
@@ -568,6 +568,12 @@ be useful to tell Zazu to reload this configuration.</p>
     </p>
   </div>
 </footer>
+<script>
+  ((window.gitter = {}).chat = {}).options = {
+    room: 'tinytacoteam/zazu'
+  };
+</script>
+<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
 
     <!-- vendor -->
     <script src="http://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.js"></script>
