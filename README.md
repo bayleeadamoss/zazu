@@ -20,7 +20,42 @@ Be sure to check out our amazing [Documentation](http://zazuapp.org).
 
 ## Action Shot
 
-![Zazu App](docs/images/action-shots/file-finder.png)
+### Package Manager
+
+Manage your plugins from within Zazu.
+
+![Zazu App - Package Manager Plugin](docs/images/action-shots/package-manager.png)
+
+### Calculator
+
+Accepts some common equations for you to copy to your clipboard.
+
+![Zazu App - Calculator Plugin](docs/images/action-shots/calculator.png)
+
+### Clipboard History
+
+Remembers things so you don't have to! Fuzzy search and browser all the things
+you've copied.
+
+![Zazu App - Clipboard History](docs/images/action-shots/clipboard.png)
+
+### File Finder
+
+Find Applications or files deep in your file system.
+
+![Zazu App - File Finder](docs/images/action-shots/file-finder.png)
+
+### System Commands
+
+Switch on your screen saver, lock your computer, and more!
+
+![Zazu App - System](docs/images/action-shots/system.png)
+
+### Build your own!
+
+Zazu is completely open, so build your plugins. You can [get started building
+your plugin](http://zazuapp.org//documentation/plugins/) then head over and
+submit it to the [plugins](http://zazuapp.org/plugins/) gallery!
 
 ## Development
 
