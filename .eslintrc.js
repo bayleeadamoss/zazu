@@ -8,7 +8,6 @@ module.exports = {
         },
     },
     "globals": {
-        "Mousetrap": true,
         "newrelic": true,
         "__nr_require": true,
     },
