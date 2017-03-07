@@ -25,8 +25,8 @@ Feature: Traverse History
     And I type in "food team"
     And I toggle it closed
     And I toggle it open
-    And I hit the hotkey "control+h"
-    And I hit the hotkey "control+h"
+    And I hit the hotkey "control+,"
+    And I hit the hotkey "control+,"
     Then the input is "food taco"
 
   Scenario: Scroll down
@@ -42,9 +42,9 @@ Feature: Traverse History
     And I type in "food team"
     And I toggle it closed
     And I toggle it open
-    And I hit the hotkey "control+h"
-    And I hit the hotkey "control+h"
-    And I hit the hotkey "control+h"
-    And I hit the hotkey "control+l"
-    And I hit the hotkey "control+l"
+    And I hit the hotkey "control+,"
+    And I hit the hotkey "control+,"
+    And I hit the hotkey "control+,"
+    And I hit the hotkey "control+."
+    And I hit the hotkey "control+."
     Then the input is "food team"

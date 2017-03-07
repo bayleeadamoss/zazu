@@ -47,10 +47,10 @@ const Search = React.createClass({
 
   componentDidMount () {
     globalEmitter.on('hideWindow', this.handleSaveQuery)
-    keyboard.bind('search', 'ctrl+h', () => {
+    keyboard.bind('search', 'ctrl+,', () => {
       this.handlePreviousSearch()
     })
-    keyboard.bind('search', 'ctrl+l', () => {
+    keyboard.bind('search', 'ctrl+.', () => {
       this.handleNextSearch()
     })
     this.focus()
