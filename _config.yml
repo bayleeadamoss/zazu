@@ -8,6 +8,8 @@ fixedNav: 'true' # true or false
 themeColor: mint # teal, purple, green, blue, orange, purple, grey
 siteurl: 'http://zazuapp.org'
 branch: gh-pages
+paginate: 5
+paginate_path: "/blog/page:num/"
 
 collections:
   packages:
@@ -18,6 +20,7 @@ collections:
 
 gems:
   - jekyll-github-metadata
+  - jekyll-paginate
   - kramdown
   - rouge
 
@@ -31,10 +34,10 @@ gitterUsername: tinytacoteam/zazu
 # Build settings
 permalink: /:year/:month/:title
 markdown: kramdown
-include: [_pages, _packages, _documentation]
+include: [_pages, _packages, _documentation, _posts]
 exclude: [vendor, _site, CHANGELOG.md, LICENSE, README.md, .ruby-version]
 sass:
   style: compressed
-currentCommitSha: 9a7b57265caf456fd375ee52788c0a71435dc2d9
+currentCommitSha: e6564fd38978cfc515103f54819006cd81ff8e45
 
 currentAppVersion: 0.4.0

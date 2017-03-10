@@ -43,6 +43,17 @@
     z-index: 2;
     display: none;
 
+    img {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+
+    i {
+      margin-right: 10px;
+      font-size: 35px;
+    }
+
     p {
       margin: 0;
     }
@@ -51,20 +62,16 @@
       background-color: darken(white, 2.5%);
     }
 
+    &.posts {
+      border-left: 3px solid $c__purple;
+    }
+
     &.packages {
       border-left: 3px solid $c__orange;
-      img {
-        width: 30px;
-        height: 30px;
-        margin-right: 10px;
-      }
     }
 
     &.docs {
       border-left: 3px solid $c__mint;
-      i {
-        margin-right: 10px;
-      }
     }
   }
 }
