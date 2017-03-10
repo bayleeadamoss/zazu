@@ -15,6 +15,13 @@
           </span>
         {% endif %}
       {% endif %}
+      {% if page.url contains '/blog/' and page.url != '/blog/' %}
+        <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+          <a href="/blog" title="Blog" itemprop="url">
+            <span itemprop="title">Blog</span>
+          </a> &gt;
+        </span>
+      {% endif %}
       <span>{{ page.title }}</span>
     </div>
   {% endif %}

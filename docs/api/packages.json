@@ -9,6 +9,7 @@ layout: null
         "type": "{{ package.type }}",
         "title": "{{ package.title }}",
         "image": "{{ package.image }}",
+        "icon": "{{ package.icon }}",
         "githuburl": "{{ package.githuburl }}",
         "description": "{{ package.description | xml_escape }}"
       }{% if forloop.last == false %},{% endif %}

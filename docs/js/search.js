@@ -5,7 +5,7 @@ function packagesToResults (packages) {
     return {
       title: pack.title,
       url: 'https://github.com/' + pack.githuburl,
-      icon: pack.image,
+      icon: pack.image || pack.icon,
       subtitle: pack.description,
       type: 'packages',
     }
@@ -20,6 +20,18 @@ function docsToResults (docs) {
       icon: doc.icon,
       subtitle: doc.content,
       type: 'docs',
+    }
+  })
+}
+
+function postsToResults (posts) {
+  return posts.map(function postToResult (post) {
+    return {
+      title: post.title,
+      url: post.url,
+      icon: 'fa-newspaper-o',
+      subtitle: post.description,
+      type: 'posts',
     }
   })
 }
@@ -90,6 +102,7 @@ var SearchPage = React.createClass({
     return {
       docs: [],
       packages: [],
+      posts: [],
       query: '',
       fetched: false,
       focused: false,
@@ -105,6 +118,12 @@ var SearchPage = React.createClass({
   handleUpdatePackages: function (packages) {
     this.setState({
       packages: packages,
+    })
+  },
+
+  handleUpdatePosts: function (posts) {
+    this.setState({
+      posts: posts,
     })
   },
 
@@ -130,6 +149,12 @@ var SearchPage = React.createClass({
       }).then(function (response) {
         return response.packages
       }).then(this.handleUpdatePackages)
+
+      fetch('/api/posts.json').then(function (response) {
+        return response.json()
+      }).then(function (response) {
+        return response.posts
+      }).then(this.handleUpdatePosts)
 
       this.setState({
         fetched: true,
@@ -157,7 +182,8 @@ var SearchPage = React.createClass({
     var query = this.state.query
     var docs = docsToResults(this.state.docs)
     var packages = packagesToResults(this.state.packages)
-    var results = query.length > 0 ? docs.concat(packages) : []
+    var posts = postsToResults(this.state.posts)
+    var results = query.length > 0 ? docs.concat(packages).concat(posts) : []
     var filteredResults = fuzzyfind(query, results, {
       accessor: function accessor (el) {
         return el.title + el.subtitle
