@@ -49,6 +49,11 @@ const Debug = React.createClass({
     })
   },
 
+  allowedPlugins () {
+    if (this.state.selectedPlugin === 'Any') return this.state.plugins
+    else return [this.state.selectedPlugin]
+  },
+
   allowedLevels () {
     if (this.state.selectedLevel === 'error') {
       return ['error']
@@ -62,6 +67,7 @@ const Debug = React.createClass({
   },
 
   render () {
+    const allowedPlugins = this.allowedPlugins()
     const allowedLevels = this.allowedLevels()
 
     return (
@@ -83,7 +89,7 @@ const Debug = React.createClass({
 
         <ul>
           {this.state.items.filter((item) => {
-            return allowedLevels.indexOf(item.level) !== -1
+            return allowedPlugins.indexOf(item.plugin) !== -1 && allowedLevels.indexOf(item.level) !== -1
           }).slice(0, 100).map((item, key) => {
             return (
               <li key={key}>
