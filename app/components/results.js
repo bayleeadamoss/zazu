@@ -58,7 +58,7 @@ const Results = React.createClass({
   },
 
   componentWillUnmount () {
-    keyboard.reset('results')
+    keyboard.unbind('results')
   },
 
   renderPreviewFrame () {

@@ -75,7 +75,7 @@ const Search = React.createClass({
 
   componentWillUnmount () {
     globalEmitter.removeListener('hideWindow', this.handleSaveQuery)
-    keyboard.reset('search')
+    keyboard.unbind('search')
   },
 
   componentDidUpdate () {

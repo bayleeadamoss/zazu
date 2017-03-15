@@ -154,10 +154,10 @@ module.exports = function () {
     return this.open()
   })
 
-  this.Given(/^I have "tinytacoteam\/zazu-fallback" installed before mdn support$/, function () {
+  this.Given(/^I have "tinytacoteam\/zazu-fallback" installed before packagist support$/, function () {
     const fallbackDir = path.join(pluginDir, 'tinytacoteam', 'zazu-fallback')
     return clone('tinytacoteam/zazu-fallback', fallbackDir).then(() => {
-      return git(['reset', '--hard', 'aab89b7'], { cwd: fallbackDir })
+      return git(['reset', '--hard', '16e4e50'], { cwd: fallbackDir })
     }).then(() => {
       return this.profile('fallback')
     })
