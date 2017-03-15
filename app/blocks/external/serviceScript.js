@@ -29,9 +29,7 @@ class ServiceScript extends ExternalBlock {
   }
 
   start () {
-    return new Promise((resolve) => {
-      setTimeout(resolve, this.interval)
-    }).then(() => this.handle())
+    return this.handle()
   }
 
   handle () {
@@ -40,10 +38,13 @@ class ServiceScript extends ExternalBlock {
       return Promise.resolve()
     }
     return this._ensurePromise(this.script(this.options))
-    .then(() => this.start())
-    .catch((error) => {
-      this.logger.error('Script failed', error)
-    })
+      .then(() => new Promise((resolve) => {
+        setTimeout(resolve, this.interval)
+      }))
+      .then(() => this.start())
+      .catch((error) => {
+        this.logger.error('Script failed', error)
+      })
   }
 }
 
