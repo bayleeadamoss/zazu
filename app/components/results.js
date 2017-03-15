@@ -1,5 +1,5 @@
 const React = require('react')
-const Mousetrap = require('mousetrap')
+const keyboard = require('../lib/keyboard')
 
 const Result = require('./result')
 const IFrame = require('./iframe')
@@ -42,23 +42,23 @@ const Results = React.createClass({
   },
 
   componentDidMount () {
-    Mousetrap.bind(['ctrl+p', 'ctrl+k', 'up'], () => {
+    keyboard.bind('results', ['ctrl+p', 'ctrl+k', 'up'], () => {
       this.moveUp()
     })
-    Mousetrap.bind(['ctrl+n', 'ctrl+j', 'down'], () => {
+    keyboard.bind('results', ['ctrl+n', 'ctrl+j', 'down'], () => {
       this.moveDown()
     })
-    Mousetrap.bind('enter', () => {
+    keyboard.bind('results', 'enter', () => {
       const { values, handleResultClick, activeIndex } = this.props
       handleResultClick(values[activeIndex])
     })
-    Mousetrap.bind('esc', () => {
+    keyboard.bind('results', 'esc', () => {
       globalEmitter.emit('hideWindow')
     })
   },
 
   componentWillUnmount () {
-    Mousetrap.reset()
+    keyboard.unbind('results')
   },
 
   renderPreviewFrame () {

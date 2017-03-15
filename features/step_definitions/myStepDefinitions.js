@@ -68,8 +68,15 @@ class World {
     return Promise.resolve(this.hitHotkey('space', 'shift'))
   }
 
+  hideWindow () {
+    return Promise.resolve(this.hitHotkey('space', 'shift'))
+  }
+
   hitHotkey (key, modifier) {
-    return Promise.resolve(robot.keyTap(key, modifier))
+    if (modifier) {
+      return Promise.resolve(robot.keyTap(key, modifier))
+    }
+    return Promise.resolve(robot.keyTap(key))
   }
 
   close () {
@@ -147,10 +154,10 @@ module.exports = function () {
     return this.open()
   })
 
-  this.Given(/^I have "tinytacoteam\/zazu-fallback" installed before mdn support$/, function () {
+  this.Given(/^I have "tinytacoteam\/zazu-fallback" installed before packagist support$/, function () {
     const fallbackDir = path.join(pluginDir, 'tinytacoteam', 'zazu-fallback')
     return clone('tinytacoteam/zazu-fallback', fallbackDir).then(() => {
-      return git(['reset', '--hard', 'aab89b7'], { cwd: fallbackDir })
+      return git(['reset', '--hard', '16e4e50'], { cwd: fallbackDir })
     }).then(() => {
       return this.profile('fallback')
     })
@@ -164,10 +171,20 @@ module.exports = function () {
     return this.showWindow()
   })
 
+  this.When(/^I toggle it closed$/, function () {
+    return this.hideWindow()
+  })
+
   // assumes modifier is first
   this.When(/^I hit the hotkey "([^"]*)"$/, function (hotkey) {
     var keys = hotkey.split('+')
     return this.hitHotkey(keys[1], keys[0]).then(() => {
+      return wait(100)
+    })
+  })
+
+  this.When(/^I hit the key "([^"]*)"$/, function (hotkey) {
+    return this.hitHotkey(hotkey).then(() => {
       return wait(100)
     })
   })
@@ -202,6 +219,18 @@ module.exports = function () {
     return eventually(() => {
       return this.getResultItems().then((items) => items.length)
     }, parseInt(expected, 10))
+  })
+
+  this.Then(/^the input is empty$/, function () {
+    return eventually(() => {
+      return this.getQuery()
+    }, '')
+  })
+
+  this.Then(/^the input is "([^"]*)"$/, function (expected) {
+    return eventually(() => {
+      return this.getQuery()
+    }, expected)
   })
 
   this.When(/^I type in "([^"]*)"$/, function (input) {
