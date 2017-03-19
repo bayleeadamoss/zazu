@@ -3,14 +3,14 @@ const notification = require('../../../app/lib/notification')
 const sinon = require('sinon')
 
 describe('Notification', () => {
-  describe('tick', () => {
+  describe('displayFirstNotificationInQueue', () => {
     let noop
 
     beforeEach(() => {
       noop = sinon.stub()
       notification.queue.push(noop)
       expect(notification.queue.length).to.eq(1)
-      notification.tick()
+      notification.displayFirstNotificationInQueue()
     })
 
     it('shifts the queue', () => {
