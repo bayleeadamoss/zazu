@@ -1,3 +1,22 @@
+## 0.5.0
+
+### Bugs
+
+* Fix debugger that would not filter plugin results correctly. (Thanks
+  [nalexander50][nalexander50]!) #272
+* Re-require NPM so updating works correctly. #252
+* Fix screen caching issue that prevented Zazu from opening. #253
+* Truncate logs to avoid overloading io/debugger. #228
+* Remove the beeping sound when toggling Zazu. #217
+* Remove unnecessary intervals that caused idle CPU cycles. (Thanks
+  [jlaffaye][jlaffaye]!) #277 #278
+
+### Features
+
+* Add a Preview block type. #240
+* Pass the environment object to `respondsTo` on root scripts. #244
+* Remove "loaded" notification when Zazu starts up. #234
+
 ## 0.4.0
 
 ### Bugs
@@ -111,3 +130,5 @@
 
 [schmic]: https://github.com/schmic
 [eldinoyev]: https://github.com/eldinoyev
+[nalexander50]: https://github.com/nalexander50
+[jlaffaye]: https://github.com/jlaffaye
