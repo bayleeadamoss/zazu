@@ -15,17 +15,43 @@ const autoResize = (dynamicWindow) => {
     }
   }
 
-  dynamicWindow.webContents.on('did-finish-load', () => {
-    const updateHeight = () => {
-      if (!dynamicWindow) { return }
-      dynamicWindow.webContents.executeJavaScript('document.body.children[0].offsetHeight', (mainContentHeight) => {
-        resize(mainContentHeight)
-      })
-    }
-    const id = setInterval(updateHeight, 125)
-    dynamicWindow.on('closed', () => {
-      clearInterval(id)
+  const updateHeight = () => {
+    if (!dynamicWindow) { return }
+    dynamicWindow.webContents.executeJavaScript('document.body.children[0].offsetHeight', (mainContentHeight) => {
+      resize(mainContentHeight)
     })
+  }
+
+  let updateHeightIntervalId = null
+  const clearUpdateHeightInterval = () => {
+    if (updateHeightIntervalId) {
+      clearInterval(updateHeightIntervalId)
+      updateHeightIntervalId = null
+    }
+  }
+
+  // register updateHeight interval only when dynamicWindow is visible
+  const registerUpdateHeightInterval = () => {
+    clearUpdateHeightInterval()
+    if (dynamicWindow.isVisible()) {
+      // avoid 125ms delay and redraw the window right away
+      updateHeight()
+      updateHeightIntervalId = setInterval(updateHeight, 125)
+    }
+  }
+
+  dynamicWindow.webContents.on('did-finish-load', () => {
+    // remove the interval as soon as the dynamicWindow is not visible or destroyed
+    dynamicWindow.on('closed', clearUpdateHeightInterval)
+    dynamicWindow.on('hide', clearUpdateHeightInterval)
+
+    // reregister the interval as soon as the window is visible
+    dynamicWindow.on('show', () => {
+      registerUpdateHeightInterval()
+    })
+
+    // if the window is already visible, the interval should be set
+    registerUpdateHeightInterval()
   })
 }
 
