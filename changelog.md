@@ -1,3 +1,9 @@
+## 0.5.1
+
+### Bugs
+
+* Fix regression in beep. #279
+
 ## 0.5.0
 
 ### Bugs
