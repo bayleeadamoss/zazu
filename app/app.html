@@ -38,9 +38,9 @@
       )
 
       // Catch `esc` or `enter` to avoid alert beep.
-      document.addEventListener('keydown', (e) => {
+      document.body.onkeydown = (e) => {
         return e.key !== 'Enter' && e.key !== 'Escape'
-      })
+      }
     </script>
   </body>
 </html>
