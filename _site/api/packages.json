@@ -6,6 +6,7 @@
         "type": "theme",
         "title": "Another Dark Theme",
         "image": "/images/package-icons/another-dark-theme.png",
+        "icon": "",
         "githuburl": "iansinnott/zazu-dark-theme",
         "description": "A simple, dark theme"
       },
@@ -15,6 +16,7 @@
         "type": "plugin",
         "title": "Ascii Search",
         "image": "/images/package-icons/ascii-search.png",
+        "icon": "",
         "githuburl": "tinytacoteam/zazu-ascii-search",
         "description": "Copy uncommon characters to your clipboard"
       },
@@ -24,6 +26,7 @@
         "type": "plugin",
         "title": "Calculator",
         "image": "/images/package-icons/calculator.png",
+        "icon": "",
         "githuburl": "tinytacoteam/zazu-calculator",
         "description": "Quick access to advanced calculations"
       },
@@ -33,6 +36,7 @@
         "type": "plugin",
         "title": "Can I use",
         "image": "/images/package-icons/caniuse.png",
+        "icon": "",
         "githuburl": "gabrielpoca/zazu-caniuse",
         "description": "Search and open features in caniuse.com"
       },
@@ -42,6 +46,7 @@
         "type": "theme",
         "title": "Capybara Theme",
         "image": "/images/package-icons/capybara-theme.png",
+        "icon": "",
         "githuburl": "cecoates/zazu-capybara-theme",
         "description": "Bright theme featuring a capybara with a monocle"
       },
@@ -51,6 +56,7 @@
         "type": "plugin",
         "title": "Chrome Bookmarks",
         "image": "/images/package-icons/chrome.png",
+        "icon": "",
         "githuburl": "tinytacoteam/zazu-chrome-bookmarks",
         "description": "Search your Google Chrome bookmarks"
       },
@@ -60,6 +66,7 @@
         "type": "theme",
         "title": "Clean Dark Theme",
         "image": "/images/package-icons/clean-dark-theme.png",
+        "icon": "",
         "githuburl": "singuerinc/zazu-clean-dark-theme",
         "description": "Dark theme with no logo to get in your way"
       },
@@ -69,6 +76,7 @@
         "type": "theme",
         "title": "Clement Theme",
         "image": "/images/package-icons/clement-theme.png",
+        "icon": "",
         "githuburl": "Eric-Jackson/zazu-clement-theme",
         "description": "A simple, spacious and clean theme for Zazu"
       },
@@ -78,6 +86,7 @@
         "type": "plugin",
         "title": "Clipboard",
         "image": "/images/package-icons/clipboard.png",
+        "icon": "",
         "githuburl": "tinytacoteam/zazu-clipboard",
         "description": "An elegant clipboard manager"
       },
@@ -87,6 +96,7 @@
         "type": "plugin",
         "title": "Colors",
         "image": "/images/package-icons/colors.png",
+        "icon": "",
         "githuburl": "halvves/zazu-colors",
         "description": "Convert some colors"
       },
@@ -96,6 +106,7 @@
         "type": "plugin",
         "title": "Currency Convertor",
         "image": "/images/package-icons/currency-convertor.svg",
+        "icon": "",
         "githuburl": "avaly/zazu-currency-convertor",
         "description": "Converts amounts between currencies."
       },
@@ -105,6 +116,7 @@
         "type": "theme",
         "title": "Dark Theme",
         "image": "/images/package-icons/dark-theme.png",
+        "icon": "",
         "githuburl": "tinytacoteam/zazu-dark-theme",
         "description": "The darker side of Zazu"
       },
@@ -114,6 +126,7 @@
         "type": "plugin",
         "title": "Dev Documentation",
         "image": "/images/package-icons/zazu-dev-doc.png",
+        "icon": "",
         "githuburl": "jgoday/zazu-dev-doc",
         "description": "search and go to online development documentation."
       },
@@ -123,6 +136,7 @@
         "type": "plugin",
         "title": "DevDocs",
         "image": "/images/package-icons/devdocs.png",
+        "icon": "",
         "githuburl": "danielbayerlein/zazu-devdocs",
         "description": "Search for API documentations with devdocs.io"
       },
@@ -132,6 +146,7 @@
         "type": "plugin",
         "title": "Dictionary",
         "image": "/images/package-icons/dictionary.png",
+        "icon": "",
         "githuburl": "sagold/zazu-dict",
         "description": "Find synonyms, translate german &lt;-&gt; *"
       },
@@ -141,6 +156,7 @@
         "type": "plugin",
         "title": "Docker",
         "image": "/images/package-icons/docker.png",
+        "icon": "",
         "githuburl": "nantaphop/zazu-docker",
         "description": "Quickly run Docker commands"
       },
@@ -150,6 +166,7 @@
         "type": "plugin",
         "title": "Emoj",
         "image": "/images/package-icons/emoj.svg",
+        "icon": "",
         "githuburl": "blakek/zazu-emoj",
         "description": "Find relevant emoji"
       },
@@ -159,6 +176,7 @@
         "type": "plugin",
         "title": "Emoji",
         "image": "/images/package-icons/zazu-emoji.png",
+        "icon": "",
         "githuburl": "iansinnott/zazu-emoji",
         "description": "⚡ Fast, offline emoji search"
       },
@@ -168,6 +186,7 @@
         "type": "plugin",
         "title": "Encode / Decode",
         "image": "/images/package-icons/encode-decode.svg",
+        "icon": "",
         "githuburl": "brpaz/zazu-encode-decode",
         "description": "Encodes and decodes strings in multiple formats (base64, html, etc)"
       },
@@ -177,6 +196,7 @@
         "type": "plugin",
         "title": "Fallback",
         "image": "/images/package-icons/fallback.png",
+        "icon": "",
         "githuburl": "tinytacoteam/zazu-fallback",
         "description": "Search sites such as Google, DuckDuckGo, GitHub and more!"
       },
@@ -186,6 +206,7 @@
         "type": "plugin",
         "title": "File Finder",
         "image": "/images/package-icons/file-finder.png",
+        "icon": "",
         "githuburl": "tinytacoteam/zazu-file-finder",
         "description": "Locate files and apps"
       },
@@ -193,8 +214,19 @@
       {
         "top": true,
         "type": "plugin",
+        "title": "Fkill",
+        "image": "/images/package-icons/fkill.png",
+        "icon": "",
+        "githuburl": "chrishelgert/zazu-fkill",
+        "description": "Kill processes with fkill"
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
         "title": "free-shadowsocks",
         "image": "/images/package-icons/free-shadowsocks.png",
+        "icon": "",
         "githuburl": "sqlwwx/zazu-free-shadowsocks",
         "description": "Getting free sock proxies from ishadowsocks"
       },
@@ -204,6 +236,7 @@
         "type": "plugin",
         "title": "Giphy",
         "image": "/images/package-icons/giphy.png",
+        "icon": "",
         "githuburl": "halvves/zazu-giphy",
         "description": "Gif giving is the greatest love language of all."
       },
@@ -213,6 +246,7 @@
         "type": "plugin",
         "title": "Gist",
         "image": "",
+        "icon": "fa-github-alt",
         "githuburl": "afaur/zazu-gist",
         "description": "Create gists from your clipboard contents"
       },
@@ -222,6 +256,7 @@
         "type": "plugin",
         "title": "GitHub repos",
         "image": "/images/package-icons/github-repos.png",
+        "icon": "",
         "githuburl": "gabrielpoca/zazu-github-repos",
         "description": "Search and open your GitHub repos"
       },
@@ -231,6 +266,7 @@
         "type": "plugin",
         "title": "GitHub",
         "image": "/images/package-icons/github.png",
+        "icon": "",
         "githuburl": "danielbayerlein/zazu-github",
         "description": "Search for GitHub repositories with github.com"
       },
@@ -240,6 +276,7 @@
         "type": "plugin",
         "title": "Hacker News",
         "image": "/images/package-icons/hacker-news.png",
+        "icon": "",
         "githuburl": "chrishelgert/zazu-hacker-news",
         "description": "List the latest Hacker News"
       },
@@ -249,6 +286,7 @@
         "type": "plugin",
         "title": "Hash",
         "image": "/images/package-icons/hash.svg",
+        "icon": "",
         "githuburl": "brpaz/zazu-hash",
         "description": "generate hashes using common algorithms like md5 or sha1"
       },
@@ -258,6 +296,7 @@
         "type": "plugin",
         "title": "Homebrew",
         "image": "/images/package-icons/homebrew.png",
+        "icon": "",
         "githuburl": "danielbayerlein/zazu-homebrew",
         "description": "Search for Homebrew formulae with braumeister.org"
       },
@@ -267,6 +306,7 @@
         "type": "plugin",
         "title": "IP Address",
         "image": "/images/package-icons/ip-address.svg",
+        "icon": "",
         "githuburl": "blakek/zazu-ip-address",
         "description": "Show your internal and external IP address"
       },
@@ -276,6 +316,7 @@
         "type": "plugin",
         "title": "JS Beautify",
         "image": "/images/package-icons/js-beautify.png",
+        "icon": "",
         "githuburl": "blainesch/zazu-js-beautify",
         "description": "Beautify JavaScript from your clipboard"
       },
@@ -285,6 +326,7 @@
         "type": "theme",
         "title": "Light Theme",
         "image": "/images/package-icons/light-theme.png",
+        "icon": "",
         "githuburl": "tinytacoteam/zazu-light-theme",
         "description": "The default theme for Zazu"
       },
@@ -294,6 +336,7 @@
         "type": "plugin",
         "title": "Mac 1Password",
         "image": "/images/package-icons/1password.png",
+        "icon": "",
         "githuburl": "tinytacoteam/zazu-mac-1password",
         "description": "Open 1password sites on Mac"
       },
@@ -303,6 +346,7 @@
         "type": "plugin",
         "title": "Open Terminal",
         "image": "/images/package-icons/terminal.png",
+        "icon": "",
         "githuburl": "amjith/zazu-mac-open-terminal",
         "description": "Open terminal from the current finder path."
       },
@@ -312,6 +356,7 @@
         "type": "plugin",
         "title": "Toggle VPN",
         "image": "/images/package-icons/vpn.png",
+        "icon": "",
         "githuburl": "amjith/zazu-mac-vpn",
         "description": "Connect/Disconnect VPN connections."
       },
@@ -321,6 +366,7 @@
         "type": "plugin",
         "title": "npms",
         "image": "/images/package-icons/npms.png",
+        "icon": "",
         "githuburl": "danielbayerlein/zazu-npms",
         "description": "Search for npm packages with npms.io"
       },
@@ -330,6 +376,7 @@
         "type": "plugin",
         "title": "Omnifocus",
         "image": "/images/package-icons/omnifocus.png",
+        "icon": "",
         "githuburl": "bookstein/zazu-mac-omnifocus",
         "description": "Create tasks in Omnifocus"
       },
@@ -339,6 +386,7 @@
         "type": "plugin",
         "title": "Package Manager",
         "image": "/images/package-icons/package-manager.png",
+        "icon": "",
         "githuburl": "tinytacoteam/zazu-package-manager",
         "description": "A easy to use package manager"
       },
@@ -346,8 +394,19 @@
       {
         "top": true,
         "type": "plugin",
+        "title": "Packagist",
+        "image": "/images/package-icons/packagist.png",
+        "icon": "",
+        "githuburl": "brpaz/zazu-packagist",
+        "description": "Search composer packages on packagist.org"
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
         "title": "Password generator",
         "image": "/images/package-icons/password.png",
+        "icon": "",
         "githuburl": "jnstr/zazu-password",
         "description": "Generate passwords with ease"
       },
@@ -357,8 +416,19 @@
         "type": "plugin",
         "title": "Pibble",
         "image": "/images/package-icons/pibble.png",
+        "icon": "",
         "githuburl": "blainesch/zazu-pibble",
         "description": "Brighten your day with moar pibbles"
+      },
+    
+      {
+        "top": true,
+        "type": "plugin",
+        "title": "Placehold.it",
+        "image": "/images/package-icons/placehold.png",
+        "icon": "",
+        "githuburl": "brpaz/zazu-placehold.it",
+        "description": "Generates placeholder images using Placehold.it"
       },
     
       {
@@ -366,6 +436,7 @@
         "type": "theme",
         "title": "Playful Theme",
         "image": "/images/package-icons/playful-theme.png",
+        "icon": "",
         "githuburl": "tinytacoteam/zazu-playful-theme",
         "description": "For the young at heart."
       },
@@ -375,6 +446,7 @@
         "type": "plugin",
         "title": "PyPi",
         "image": "/images/package-icons/pypi.png",
+        "icon": "",
         "githuburl": "afaur/zazu-pypi",
         "description": "Search for your favorite Python packages"
       },
@@ -384,8 +456,19 @@
         "type": "plugin",
         "title": "RubyGems",
         "image": "/images/package-icons/rubygems.png",
+        "icon": "",
         "githuburl": "danielbayerlein/zazu-rubygems",
         "description": "Search for gems with rubygems.org"
+      },
+    
+      {
+        "top": true,
+        "type": "theme",
+        "title": "Simple Theme",
+        "image": "/images/package-icons/simple-theme.png",
+        "icon": "",
+        "githuburl": "danielbayerlein/zazu-simple-theme",
+        "description": "A simple theme for Zazu"
       },
     
       {
@@ -393,6 +476,7 @@
         "type": "plugin",
         "title": "Snippets",
         "image": "/images/package-icons/snippets.svg",
+        "icon": "",
         "githuburl": "tinytacoteam/zazu-snippets",
         "description": "Create and easily access common snippets"
       },
@@ -402,6 +486,7 @@
         "type": "plugin",
         "title": "System",
         "image": "/images/package-icons/system.png",
+        "icon": "",
         "githuburl": "tinytacoteam/zazu-system",
         "description": "Tell your computer to lock, screensaver and more!"
       },
@@ -411,6 +496,7 @@
         "type": "plugin",
         "title": "Timetracker",
         "image": "/images/package-icons/timetracker.svg",
+        "icon": "",
         "githuburl": "jnstr/zazu-timetracker",
         "description": "Track the time you spend on projects"
       },
@@ -420,6 +506,7 @@
         "type": "plugin",
         "title": "Timezone",
         "image": "/images/package-icons/timezone.svg",
+        "icon": "",
         "githuburl": "avaly/zazu-timezone",
         "description": "Shows what time it is in another timezone."
       },
@@ -429,6 +516,7 @@
         "type": "plugin",
         "title": "TLDR",
         "image": "/images/package-icons/tldr.png",
+        "icon": "",
         "githuburl": "twang2218/zazu-tldr",
         "description": "Check tldr pages from Zazu"
       },
@@ -438,6 +526,7 @@
         "type": "plugin",
         "title": "uptime",
         "image": "/images/package-icons/uptime.png",
+        "icon": "",
         "githuburl": "danielbayerlein/zazu-uptime",
         "description": "Shows the system uptime"
       },
@@ -447,6 +536,7 @@
         "type": "plugin",
         "title": "Utime",
         "image": "",
+        "icon": "fa-clock-o",
         "githuburl": "puyt/zazu-utime",
         "description": "Convert unix timestamps to human-readable dates and vice versa"
       },
@@ -456,6 +546,7 @@
         "type": "plugin",
         "title": "Weather",
         "image": "/images/package-icons/weather.png",
+        "icon": "",
         "githuburl": "blainesch/zazu-weather",
         "description": "Get weather information from your location and others"
       }
