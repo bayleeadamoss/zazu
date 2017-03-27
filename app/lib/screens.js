@@ -18,12 +18,14 @@ class PrimaryScreens {
 class DetectScreens {
   constructor ({ windowWidth }) {
     this.windowWidth = windowWidth
-    this.positions = {}
-    this.screenModule = electron.screen
-    this.monitorDisplays()
+    this.initialized = false
   }
 
   monitorDisplays () {
+    if (this.initialized) return
+    this.initialized = true
+    this.positions = {}
+    this.screenModule = electron.screen
     this.screenModule.on('display-added', () => {
       this.positions = {}
     })
@@ -69,6 +71,7 @@ class DetectScreens {
   }
 
   getCenterPositionOnCurrentScreen () {
+    this.monitorDisplays()
     const currentScreen = this.getCurrentScreen()
     const position = this.positions[currentScreen.id] || {}
     if (position.customPosition) {
