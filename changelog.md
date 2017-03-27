@@ -2,7 +2,7 @@
 
 ### Bugs
 
-* Fix screen module not being loaded at the correct time.
+* Fix screen module not being loaded at the correct time. #281
 
 ## 0.5.1
 
