@@ -1,3 +1,9 @@
+## 0.5.2
+
+### Bugs
+
+* Fix screen module not being loaded at the correct time.
+
 ## 0.5.1
 
 ### Bugs
