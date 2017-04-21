@@ -22,6 +22,7 @@ class Plugin extends Package {
     this.options = options
     this.loaded = false
     this.activeState = true
+    this.plugin = {}
   }
 
   setActive (activeState) {
@@ -133,13 +134,6 @@ class Plugin extends Package {
     this.blocksById[output.id] = output
   }
 
-  respondsTo (inputText) {
-    if (!this.loaded || !this.activeState) { return }
-    return this.inputs.find((input) => {
-      return input.respondsTo(inputText, this.options)
-    })
-  }
-
   next (state) {
     const previousBlock = this.blocksById[state.blockId]
     const promises = previousBlock.connections.map((blockId) => {
@@ -154,33 +148,46 @@ class Plugin extends Package {
     return Promise.all(promises)
   }
 
+  transformResults (blockId, results = []) {
+    return results.map((result) => {
+      const icon = result.icon || this.plugin.icon || 'fa-bolt'
+      const isFontAwesome = (icon.indexOf('fa-') === 0 && icon.indexOf('.') === -1)
+      const isAbsolutePath = (icon.indexOf('/') === 0 || icon.indexOf(this.path) === 0)
+      const shouldAddPath = !isFontAwesome && !isAbsolutePath
+      const finalResult = Object.assign({}, result, {
+        icon: shouldAddPath ? path.join(this.path, icon) : icon,
+        previewCss: this.plugin.css,
+        pluginName: this.url,
+        blockId,
+      })
+      finalResult.next = this.next.bind(this, finalResult)
+      return finalResult
+    })
+  }
+
+  /**
+   * {
+   *  someInput: <Promise />,
+   *  someOtherInput: <Promise />,
+   * }
+   */
   search (inputText) {
-    return this.inputs.reduce((responsePromises, input) => {
-      if (input.isActive() && input.respondsTo(inputText, this.options)) {
-        const tracer = track.tracer(this.id + '/' + input.id)
-        responsePromises.push(
-          input.search(inputText, this.options)
-            .then((results = []) => {
-              return results.map((result) => {
-                const icon = result.icon || this.plugin.icon || 'fa-bolt'
-                const isFontAwesome = (icon.indexOf('fa-') === 0 && icon.indexOf('.') === -1)
-                const isAbsolutePath = (icon.indexOf('/') === 0 || icon.indexOf(this.path) === 0)
-                const finalResult = Object.assign({}, result, {
-                  icon: (isFontAwesome || isAbsolutePath) ? icon : path.join(this.path, icon),
-                  previewCss: this.plugin.css,
-                  pluginName: this.url,
-                  blockId: input.id,
-                })
-                finalResult.next = this.next.bind(this, finalResult)
-                return finalResult
-              })
-            })
-            .then(tracer.complete)
-            .catch(tracer.error)
-        )
+    if (!this.loaded || !this.activeState) { return {} }
+    return this.inputs.reduce((promiseList, input) => {
+      if (!input.isActive() || !input.respondsTo(inputText, this.options)) {
+        return promiseList
       }
-      return responsePromises
-    }, [])
+      const blockId = input.id
+      const tracer = track.tracer(this.id + '/' + blockId)
+      const inputPromise = input.search(inputText, this.options)
+        .then((results) => {
+          return this.transformResults(blockId, results)
+        })
+        .then(tracer.complete)
+        .catch(tracer.error)
+      promiseList[blockId] = inputPromise
+      return promiseList
+    }, {})
   }
 }
 

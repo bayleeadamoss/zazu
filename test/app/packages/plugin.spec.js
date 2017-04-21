@@ -1,3 +1,4 @@
+const path = require('path')
 const sinon = require('sinon')
 const chai = require('chai')
 const sinonChai = require('sinon-chai')
@@ -17,29 +18,30 @@ const blockFactory = (responds, connections) => {
 }
 
 describe('Plugin', () => {
-  const plugin = new Plugin('tinytacoteam/calculator')
+  let plugin = new Plugin('tinytacoteam/calculator')
 
-  describe('respondsTo', () => {
-    it('says false when no blocks provided', () => {
-      plugin.inputs = []
-      expect(plugin.respondsTo('hello')).to.not.be.okay
+  describe('transformResults', () => {
+    beforeEach(() => {
+      plugin = new Plugin('tinytacoteam/calculator')
     })
-    it('says false when no blocks respond to input', () => {
-      plugin.inputs = [ blockFactory(false) ]
-      expect(plugin.respondsTo('hello')).to.not.be.okay
+
+    describe('give me the default icon', () => {
+      const results = plugin.transformResults(10, [{ icon: '' }])
+      expect(results.length).to.eq(1)
+      expect(results[0].icon).to.eq('fa-bolt')
     })
-    it('says true when a block responds to input', () => {
-      plugin.inputs = [ blockFactory(true) ]
-      expect(plugin.respondsTo('hello')).to.be.okay
+
+    describe('keeps font awesome icon', () => {
+      const results = plugin.transformResults(10, [{ icon: 'fa-wifi' }])
+      expect(results.length).to.eq(1)
+      expect(results[0].icon).to.eq('fa-wifi')
     })
-    describe('when plugin is inactive', () => {
-      beforeEach(() => {
-        plugin.activeState = false
-      })
-      it('says true when a block responds to input', () => {
-        plugin.inputs = [ blockFactory(true) ]
-        expect(plugin.respondsTo('hello')).to.not.be.okay
-      })
+
+    describe('adds the plugin path to the icon', () => {
+      plugin.path = '/abc'
+      const results = plugin.transformResults(10, [{ icon: 'meow' }])
+      expect(results.length).to.eq(1)
+      expect(results[0].icon).to.eq(path.join('/abc', 'meow'))
     })
   })
 
