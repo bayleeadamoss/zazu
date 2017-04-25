@@ -6,6 +6,7 @@ const ShowFile = require('./output/showFile')
 const OpenFile = require('./output/openFile')
 const ReloadConfig = require('./output/reloadConfig')
 const Preview = require('./output/preview')
+const PlaySound = require('./output/playSound')
 
 module.exports = {
   CopyToClipboard,
@@ -16,4 +17,5 @@ module.exports = {
   ShowFile,
   ReloadConfig,
   Preview,
+  PlaySound,
 }

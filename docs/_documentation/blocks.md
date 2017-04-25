@@ -426,3 +426,20 @@ be useful to tell Zazu to reload this configuration.
   "type": "ReloadConfig"
 }]
 ~~~
+
+### Play Sound
+
+Playing a sound to alert the user, or signal an event is sometimes more useful
+then a Notification. This block allows you to play abritrary sounds inside of
+your plugin.
+
+* `file` *string*: Path to the audio file you want Zazu to play. You can also
+  add a `{value}` inside of this string to make it more dynamic.
+
+~~~ json
+[{
+  "id": "Play",
+  "type": "PlaySound",
+  "file": "beep.mp3"
+}]
+~~~
