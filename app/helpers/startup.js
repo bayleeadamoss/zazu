@@ -5,9 +5,7 @@ const path = require('path')
 const env = require('../lib/env')
 const logger = require('../lib/logger')
 
-const alreadyAddedToStartup = (configuration) => {
-  const databasePath = path.join(configuration.databaseDir, 'settings.nedb')
-  const database = new Datastore({ filename: databasePath, autoload: true })
+const alreadyAddedToStartup = (database) => {
   return new Promise((resolve, reject) => {
     database.find({ key: 'addedToStartup' }).exec((err, docs) => {
       if (err) reject(err)
@@ -16,9 +14,7 @@ const alreadyAddedToStartup = (configuration) => {
   })
 }
 
-const markAddedToStartup = (configuration) => {
-  const databasePath = path.join(configuration.databaseDir, 'settings.nedb')
-  const database = new Datastore({ filename: databasePath, autoload: true })
+const markAddedToStartup = (database) => {
   return new Promise((resolve, reject) => {
     database.insert({ key: 'addedToStartup', value: true }, (err) => {
       err ? reject(err) : resolve()
@@ -51,8 +47,10 @@ const addToStartup = () => {
 
 module.exports = (configuration) => {
   if (env.name !== 'production') return
-  return alreadyAddedToStartup(configuration).then((value) => {
+  const databasePath = path.join(configuration.databaseDir, 'settings.nedb')
+  const database = new Datastore({ filename: databasePath, autoload: true })
+  return alreadyAddedToStartup(database).then((value) => {
     if (value) return
-    return markAddedToStartup(configuration).then(addToStartup)
+    return markAddedToStartup(database).then(addToStartup)
   })
 }
