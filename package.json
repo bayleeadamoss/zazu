@@ -46,6 +46,7 @@
   },
   "devDependencies": {
     "asar": "^0.13.0",
+    "babel-eslint": "^7.2.3",
     "chai": "^3.5.0",
     "cheerio": "^0.22.0",
     "cross-env": "^4.0.0",

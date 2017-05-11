@@ -1,64 +1,63 @@
 const React = require('react')
+const PropTypes = require('prop-types')
+
 const globalEmitter = require('../lib/globalEmitter')
 const keyboard = require('../lib/keyboard')
 const mergeUnique = require('../lib/mergeUnique')
 
-const Search = React.createClass({
-  propTypes: {
-    value: React.PropTypes.string.isRequired,
-    handleQueryChange: React.PropTypes.func.isRequired,
-  },
+class Search extends React.Component {
+  constructor (props) {
+    super(props)
 
-  getInitialState () {
-    return {
+    this.state = {
       input: null,
       history: [],
     }
-  },
+  }
 
-  selectAll () {
+  selectAll = () => {
     if (this.state.historyId === -1 || !this.state.input) return
     this.state.input.select()
-  },
+  }
 
-  focus () {
+  focus = () => {
     this.state.input && this.state.input.focus()
-  },
+  }
 
-  handleSaveQuery () {
+  handleSaveQuery = () => {
     if (!this.props.value) return
     const haystack = mergeUnique(this.props.value, this.state.history)
     this.setState({
       historyId: -1,
       history: haystack.slice(0, 10),
     })
-  },
+  }
 
-  canTraverseValue () {
+  canTraverseValue = () => {
     const { input } = this.state
     if (!input) return false
     const hasNoText = input.value.length === 0
     const isFullySelected = input.selectionStart !== input.selectionEnd
     return hasNoText || isFullySelected
-  },
+  }
 
-  handlePreviousSearch () {
+  handlePreviousSearch = () => {
     const historyId = this.state.historyId + 1
     this.props.handleQueryChange(this.state.history[historyId])
     this.setState({
       historyId,
     })
-  },
+  }
 
-  handleNextSearch () {
+  handleNextSearch = () => {
     const historyId = this.state.historyId - 1
     this.props.handleQueryChange(this.state.history[historyId])
     this.setState({
       historyId,
     })
-  },
+  }
 
-  componentDidMount () {
+  componentDidMount = () => {
     globalEmitter.on('hideWindow', this.handleSaveQuery)
     keyboard.bind('search', 'up', () => {
       if (this.canTraverseValue()) {
@@ -71,33 +70,33 @@ const Search = React.createClass({
       }
     })
     this.focus()
-  },
+  }
 
-  componentWillUnmount () {
+  componentWillUnmount = () => {
     globalEmitter.removeListener('hideWindow', this.handleSaveQuery)
     keyboard.unbind('search')
-  },
+  }
 
-  componentDidUpdate () {
+  componentDidUpdate = () => {
     if (this.props.value === '') {
       this.focus()
     }
     this.selectAll()
-  },
+  }
 
-  handleQueryChange (event) {
+  handleQueryChange = (event) => {
     const query = event.target.value
     this.props.handleQueryChange(query)
     this.setState({
       historyId: -1,
     })
-  },
+  }
 
-  setReference (input) {
+  setReference = (input) => {
     this.setState({
       input,
     })
-  },
+  }
 
   render () {
     const { value } = this.props
@@ -111,7 +110,12 @@ const Search = React.createClass({
         onChange={this.handleQueryChange}
         value={value} />
     )
-  },
-})
+  }
+}
+
+Search.propTypes = {
+  value: PropTypes.string.isRequired,
+  handleQueryChange: PropTypes.func.isRequired,
+}
 
 module.exports = Search

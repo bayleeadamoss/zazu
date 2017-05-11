@@ -1,27 +1,20 @@
 const React = require('react')
+const PropTypes = require('prop-types')
 
-const Result = React.createClass({
-
-  propTypes: {
-    active: React.PropTypes.bool.isRequired,
-    value: React.PropTypes.object.isRequired,
-    onClick: React.PropTypes.func.isRequired,
-    handleTab: React.PropTypes.func.isRequired,
-  },
-
-  click () {
+class Result extends React.Component {
+  click = () => {
     this.props.onClick(this.props.value)
-  },
+  }
 
-  handleFocus () {
+  handleFocus = () => {
     this.props.handleTab(this.props.value)
-  },
+  }
 
   shouldComponentUpdate (nextProps) {
     return nextProps.active !== this.props.active ||
       nextProps.value !== this.props.value ||
       nextProps.onClick !== this.props.onClick
-  },
+  }
 
   componentDidUpdate () {
     if (this.props.active) {
@@ -36,13 +29,13 @@ const Result = React.createClass({
         this.el.scrollIntoView(true)
       }
     }
-  },
+  }
 
-  setReference (el) {
+  setReference = (el) => {
     this.el = el
-  },
+  }
 
-  renderIcon () {
+  renderIcon = () => {
     const { value } = this.props
     const isFontAwesome = value.icon.indexOf('fa-') === 0 && value.icon.indexOf('.') === -1
 
@@ -51,7 +44,7 @@ const Result = React.createClass({
     } else {
       return <img className='icon' src={value.icon} role='presentation' alt=''/>
     }
-  },
+  }
 
   render () {
     const { active, value } = this.props
@@ -68,7 +61,14 @@ const Result = React.createClass({
         { value.subtitle && <h3>{value.subtitle}</h3> }
       </li>
     )
-  },
-})
+  }
+}
+
+Result.propTypes = {
+  active: PropTypes.bool.isRequired,
+  value: PropTypes.object.isRequired,
+  onClick: PropTypes.func.isRequired,
+  handleTab: PropTypes.func.isRequired,
+}
 
 module.exports = Result

@@ -2,8 +2,13 @@ const React = require('react')
 const Style = require('./style')
 const {shell} = require('electron')
 
-const NoPlugins = React.createClass({
-  css: `
+class NoPlugins extends React.Component {
+  handleLinkClick = () => {
+    shell.openExternal('http://zazuapp.org/plugins/')
+  }
+
+  render () {
+    let css = `
     body {
       background-color: #5CC7B2;
       margin: 0;
@@ -18,21 +23,16 @@ const NoPlugins = React.createClass({
     a {
       color: #EBEBEB;
     }
-  `,
+    `
 
-  handleLinkClick () {
-    shell.openExternal('http://zazuapp.org/plugins/')
-  },
-
-  render () {
     return (
       <div className='container'>
         <h2 className='loader'>Zazu requires plugins to work!</h2>
         <h3 className='loader'>Have a look at the <a href='#' onClick={this.handleLinkClick}>Zazu Plugins</a> page.</h3>
-        <Style css={this.css}/>
+        <Style css={css}/>
       </div>
     )
-  },
-})
+  }
+}
 
 module.exports = NoPlugins

@@ -35,7 +35,7 @@ var self = {
       }).then((body) => {
         resolve(body.version || app.getVersion())
       }).catch((e) => {
-        reject(`Got error: ${e.message}`)
+        reject(new Error(`Got error: ${e.message}`))
       })
     })
   },

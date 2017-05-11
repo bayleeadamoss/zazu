@@ -1,4 +1,5 @@
 const React = require('react')
+const PropTypes = require('prop-types')
 
 const Style = ({css}) => {
   return React.createElement(
@@ -9,7 +10,7 @@ const Style = ({css}) => {
 }
 
 Style.propTypes = {
-  css: React.PropTypes.string.isRequired,
+  css: PropTypes.string.isRequired,
 }
 
 module.exports = Style

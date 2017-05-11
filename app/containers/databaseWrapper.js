@@ -1,4 +1,6 @@
 const React = require('react')
+const PropTypes = require('prop-types')
+
 const path = require('path')
 const Datastore = require('nedb')
 
@@ -6,29 +8,17 @@ const Zazu = require('./zazu')
 const track = require('../lib/track')
 const resultSorter = require('../transforms/resultSorter')
 
-const DatabaseWrapper = React.createClass({
-  propTypes: {
-    query: React.PropTypes.string.isRequired,
-    theme: React.PropTypes.string.isRequired,
-    results: React.PropTypes.array.isRequired,
-    handleQueryChange: React.PropTypes.func.isRequired,
-    handleResultClick: React.PropTypes.func.isRequired,
-    handleResetQuery: React.PropTypes.func.isRequired,
-    scopeBlock: React.PropTypes.func.isRequired,
-  },
+class DatabaseWrapper extends React.Component {
+  constructor (props, context) {
+    super(props, context)
 
-  contextTypes: {
-    configuration: React.PropTypes.object.isRequired,
-  },
-
-  getInitialState () {
     const { configuration } = this.context
     const databasePath = path.join(configuration.databaseDir, 'track.nedb')
-    return {
+    this.state = {
       clickedResults: [],
       database: new Datastore({ filename: databasePath, autoload: true }),
     }
-  },
+  }
 
   componentWillMount () {
     this.state.database.find({}).exec((err, clickedResults) => {
@@ -37,9 +27,9 @@ const DatabaseWrapper = React.createClass({
         clickedResults,
       })
     })
-  },
+  }
 
-  trackClick (clickedResult) {
+  trackClick = (clickedResult) => {
     track.addPageAction('clickedResult', {
       pluginName: clickedResult.pluginName,
     })
@@ -47,15 +37,15 @@ const DatabaseWrapper = React.createClass({
       clickedResults: [...this.state.clickedResults].concat(clickedResult),
     })
     this.state.database.insert(clickedResult)
-  },
+  }
 
-  handleResultClick (result) {
+  handleResultClick = (result) => {
     this.trackClick({
       id: result.id,
       pluginName: result.pluginName,
     })
     this.props.handleResultClick(result)
-  },
+  }
 
   render () {
     const { handleQueryChange, handleResetQuery, query, theme, results, scopeBlock } = this.props
@@ -70,7 +60,21 @@ const DatabaseWrapper = React.createClass({
         results={resultSorter.sort(results, this.state.clickedResults)}
         />
     )
-  },
-})
+  }
+}
+
+DatabaseWrapper.propTypes = {
+  query: PropTypes.string.isRequired,
+  theme: PropTypes.string.isRequired,
+  results: PropTypes.array.isRequired,
+  handleQueryChange: PropTypes.func.isRequired,
+  handleResultClick: PropTypes.func.isRequired,
+  handleResetQuery: PropTypes.func.isRequired,
+  scopeBlock: PropTypes.func.isRequired,
+}
+
+DatabaseWrapper.contextTypes = {
+  configuration: PropTypes.object.isRequired,
+}
 
 module.exports = DatabaseWrapper

@@ -37,7 +37,7 @@ class Package {
 
   update () {
     if (!jetpack.exists(this.path)) {
-      return Promise.reject('Package' + this.url + ' does not exist')
+      return Promise.reject(new Error('Package' + this.url + ' does not exist'))
     }
     this.logger.log('info', 'pull package')
     return this.pull(this.url, this.path)

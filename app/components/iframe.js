@@ -1,4 +1,5 @@
 const React = require('react')
+const PropTypes = require('prop-types')
 
 const IFrame = ({ css, html, id }) => {
   const content = '<style>' + css + '</style>' + html
@@ -11,9 +12,9 @@ const IFrame = ({ css, html, id }) => {
 }
 
 IFrame.propTypes = {
-  id: React.PropTypes.string.isRequired,
-  css: React.PropTypes.string.isRequired,
-  html: React.PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  css: PropTypes.string.isRequired,
+  html: PropTypes.string.isRequired,
 }
 
 module.exports = IFrame
