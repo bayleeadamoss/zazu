@@ -18,8 +18,7 @@
     },
     "linux": {
       "target": [
-        "deb",
-        "pacman"
+        "deb"
       ]
     },
     "mac": {
@@ -82,6 +81,7 @@
     "postinstall": "cd app && npm install",
     "prerelease": "npm install",
     "build": "cross-env DEBUG=electron-builder build --x64",
+    "build:archlinux": "cross-env DEBUG=electron-builder build --x64 --linux pacman",
     "release": "cross-env DEBUG=electron-builder build --x64 --publish onTag",
     "start": "cross-env NODE_ENV=development electron ./app",
     "test": "cross-env NODE_ENV=test electron-mocha --recursive test/app",
