@@ -23,6 +23,7 @@
     "nedb": "^1.8.0",
     "node-notifier": "^5.1.2",
     "npm": "^4.5.0",
+    "prop-types": "^15.5.9",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "request": "^2.81.0",
