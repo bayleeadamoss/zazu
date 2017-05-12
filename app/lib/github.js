@@ -14,7 +14,7 @@ const currentRemoteVersion = (name) => {
     host: 'api.github.com',
     path: '/repos/' + name + '/commits',
   }).then((response) => {
-    return response[0] && response[0].sha || 'master'
+    return response[0] ? response[0].sha : 'master'
   })
 }
 

@@ -1,4 +1,5 @@
 const React = require('react')
+const PropTypes = require('prop-types')
 
 const Plugin = require('../packages/plugin')
 const Theme = require('../packages/theme')
@@ -10,9 +11,11 @@ const DatabaseWrapper = require('./databaseWrapper')
 const LoadingSpinner = require('../components/loadingSpinner.js')
 const NoPlugins = require('../components/noplugins.js')
 
-const PluginWrapper = React.createClass({
-  getInitialState () {
-    return {
+class PluginWrapper extends React.Component {
+  constructor (props, context) {
+    super(props, context)
+
+    this.state = {
       loaded: 0,
       query: '',
       theme: '',
@@ -21,14 +24,9 @@ const PluginWrapper = React.createClass({
       activePlugin: null,
       activeBlock: null,
     }
-  },
+  }
 
-  contextTypes: {
-    configuration: React.PropTypes.object.isRequired,
-    logger: React.PropTypes.object.isRequired,
-  },
-
-  scopeBlock (activePlugin, activeBlock) {
+  scopeBlock = (activePlugin, activeBlock) => {
     this.context.logger.log('info', 'scoping block', { activePlugin, activeBlock })
     if (!activePlugin) {
       this.state.plugins.forEach((plugin) => {
@@ -39,18 +37,18 @@ const PluginWrapper = React.createClass({
         plugin.setScoped(plugin.id === activePlugin, activeBlock)
       })
     }
-  },
+  }
 
   componentWillMount () {
     globalEmitter.on('updatePlugins', this.updatePackages)
     this.loadPackages()
-  },
+  }
 
   componentWillUnmount () {
     globalEmitter.removeListener('updatePlugins', this.updatePackages)
-  },
+  }
 
-  updatePackages () {
+  updatePackages = () => {
     return this.state.theme.update().then(() => {
       return this.loadTheme()
     }).then(() => {
@@ -65,16 +63,16 @@ const PluginWrapper = React.createClass({
         message: 'Your plugins have been reloaded',
       })
     })
-  },
+  }
 
-  clearResults () {
+  clearResults = () => {
     this.context.logger.log('info', 'clearing results')
     this.setState({
       results: [],
     })
-  },
+  }
 
-  loadPackages () {
+  loadPackages = () => {
     return this.loadTheme().then(() => {
       return this.loadPlugins()
     }).catch(() => {
@@ -83,9 +81,9 @@ const PluginWrapper = React.createClass({
         message: 'There are no plugins to load',
       })
     })
-  },
+  }
 
-  loadTheme () {
+  loadTheme = () => {
     const { configuration } = this.context
     const theme = new Theme(configuration.theme, configuration.pluginDir)
     return theme.load().then(() => {
@@ -95,9 +93,9 @@ const PluginWrapper = React.createClass({
         packageName: theme.url,
       })
     })
-  },
+  }
 
-  loadPlugins () {
+  loadPlugins = () => {
     const { configuration } = this.context
     const plugins = configuration.plugins.map((plugin) => {
       if (typeof plugin === 'object') {
@@ -121,21 +119,25 @@ const PluginWrapper = React.createClass({
           packageType: 'plugin',
           packageName: pluginObj.id,
         })
+      }, reason => {
+        this.context.logger.log('error', 'failed to load plugin', reason)
       })
     })).then(() => {
       this.context.logger.log('info', 'plugins are loaded')
+    }, reason => {
+      this.context.logger.log('error', 'plugins NOT loaded', reason)
     })
-  },
+  }
 
-  handleResetQuery () {
+  handleResetQuery = () => {
     if (this.context.configuration.debug) return
     this.setState({
       query: '',
       results: [],
     })
-  },
+  }
 
-  handleQueryChange (query) {
+  handleQueryChange = (query) => {
     let first = true
     const interaction = track.interaction()
     interaction.setName('search')
@@ -181,9 +183,9 @@ const PluginWrapper = React.createClass({
     this.setState({
       query,
     })
-  },
+  }
 
-  handleResultClick (result) {
+  handleResultClick = (result) => {
     this.context.logger.log('info', 'actioned result', truncateResult(result))
     const interaction = track.interaction()
     interaction.setName('actioned')
@@ -192,7 +194,7 @@ const PluginWrapper = React.createClass({
     }).catch(() => {
       interaction.save()
     })
-  },
+  }
 
   render () {
     const { query, theme, results } = this.state
@@ -222,7 +224,12 @@ const PluginWrapper = React.createClass({
         handleQueryChange={this.handleQueryChange}
         handleResultClick={this.handleResultClick}/>
     )
-  },
-})
+  }
+}
+
+PluginWrapper.contextTypes = {
+  configuration: PropTypes.object.isRequired,
+  logger: PropTypes.object.isRequired,
+}
 
 module.exports = PluginWrapper

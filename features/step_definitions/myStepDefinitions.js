@@ -107,7 +107,6 @@ class World {
   readClipboard () {
     return this.app.electron.clipboard.readText()
   }
-
 }
 
 const wait = (time) => {
@@ -127,7 +126,7 @@ const eventually = (func, expectedValue) => {
     const retry = () => {
       iterations++
       if (iterations >= 30) {
-        reject('Forever is a long time')
+        reject(new Error('Forever is a long time'))
       } else {
         func().then(assert).then(resolve).catch(() => {
           return wait(100).then(retry)
@@ -147,7 +146,7 @@ module.exports = function () {
     } else if (plugin === 'tinytacoteam/zazu-calculator') {
       return this.profile('calculator')
     }
-    return Promise.reject('Profile not found')
+    return Promise.reject(new Error('Profile not found'))
   })
 
   this.Given(/^the app is launched$/, {timeout: 120 * 1000}, function () {

@@ -1,18 +1,20 @@
 const React = require('react')
 const globalEmitter = require('../lib/globalEmitter')
 
-const Debug = React.createClass({
-  getInitialState () {
-    return {
+class Debug extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
       selectedPlugin: 'Any',
       selectedLevel: 'info',
       logTypes: ['verbose', 'info', 'warn', 'error'],
       plugins: [],
       items: [],
     }
-  },
+  }
 
-  log (options) {
+  log = (options) => {
     const items = Object.assign([], this.state.items)
     const plugins = Object.assign([], this.state.plugins)
     items.unshift(Object.assign({}, options, {
@@ -25,36 +27,36 @@ const Debug = React.createClass({
       plugins,
       items,
     })
-  },
+  }
 
   componentDidMount () {
     globalEmitter.on('pluginLog', (options) => {
       this.log(options)
     })
-  },
+  }
 
-  componentWillUnmount () {
+  componentWillUnmount = () => {
     globalEmitter.removeAllListeners('pluginLog')
-  },
+  }
 
-  handleTypeChange (e) {
+  handleTypeChange = (e) => {
     this.setState({
       selectedLevel: e.target.value,
     })
-  },
+  }
 
-  handlePluginChange (e) {
+  handlePluginChange = (e) => {
     this.setState({
       selectedPlugin: e.target.value,
     })
-  },
+  }
 
-  allowedPlugins () {
+  allowedPlugins = () => {
     if (this.state.selectedPlugin === 'Any') return this.state.plugins
     else return [this.state.selectedPlugin]
-  },
+  }
 
-  allowedLevels () {
+  allowedLevels = () => {
     if (this.state.selectedLevel === 'error') {
       return ['error']
     } else if (this.state.selectedLevel === 'warn') {
@@ -64,7 +66,7 @@ const Debug = React.createClass({
     } else if (this.state.selectedLevel === 'verbose') {
       return ['error', 'warn', 'info', 'verbose']
     }
-  },
+  }
 
   render () {
     const allowedPlugins = this.allowedPlugins()
@@ -104,7 +106,7 @@ const Debug = React.createClass({
         </ul>
       </ul>
     )
-  },
-})
+  }
+}
 
 module.exports = Debug

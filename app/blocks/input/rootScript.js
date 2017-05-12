@@ -40,7 +40,7 @@ class RootScript extends InputBlock {
     this.logger.log('verbose', 'Executing Script', { query })
     return new Promise((resolve, reject) => {
       const timeout = setTimeout(() => {
-        timeout === this.timeout ? resolve() : reject('Debounced')
+        timeout === this.timeout ? resolve() : reject(new Error('Debounced'))
       }, this.debounce)
       this.timeout = timeout
     }).then(() => {

@@ -1,4 +1,6 @@
 const React = require('react')
+const PropTypes = require('prop-types')
+
 const Style = require('./style')
 
 const LoadingSpinner = ({ loaded, total }) => {
@@ -26,8 +28,8 @@ const LoadingSpinner = ({ loaded, total }) => {
 }
 
 LoadingSpinner.propTypes = {
-  loaded: React.PropTypes.number.isRequired,
-  total: React.PropTypes.number.isRequired,
+  loaded: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
 }
 
 module.exports = LoadingSpinner

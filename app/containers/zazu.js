@@ -1,66 +1,59 @@
 const React = require('react')
+const PropTypes = require('prop-types')
 
 const Style = require('../components/style')
 const Search = require('../components/search')
 const Results = require('../components/results')
 const globalEmitter = require('../lib/globalEmitter')
 
-const Zazu = React.createClass({
-  propTypes: {
-    query: React.PropTypes.string.isRequired,
-    theme: React.PropTypes.string.isRequired,
-    results: React.PropTypes.array.isRequired,
-    handleResetQuery: React.PropTypes.func.isRequired,
-    handleResultClick: React.PropTypes.func.isRequired,
-    handleQueryChange: React.PropTypes.func.isRequired,
-    scopeBlock: React.PropTypes.func.isRequired,
-  },
+class Zazu extends React.Component {
+  constructor (props) {
+    super(props)
 
-  getInitialState () {
-    return {
+    this.state = {
       activeIndex: 0,
     }
-  },
+  }
 
   componentDidMount () {
     globalEmitter.on('hideWindow', this.handleResetQuery)
     globalEmitter.on('showWindow', this.sendEmptyQuery)
-  },
+  }
 
   componentWillUnmount () {
     globalEmitter.removeListener('hideWindow', this.handleResetQuery)
     globalEmitter.removeListener('showWindow', this.sendEmptyQuery)
-  },
+  }
 
-  sendEmptyQuery (activePlugin, activeBlock) {
+  sendEmptyQuery = (activePlugin, activeBlock) => {
     this.props.scopeBlock(activePlugin, activeBlock)
     this.props.handleQueryChange('')
     this.setState({
       activeIndex: 0,
     })
-  },
+  }
 
-  handleResetQuery () {
+  handleResetQuery = () => {
     this.props.handleResetQuery()
-  },
+  }
 
-  handleUpdateActiveIndex (index) {
+  handleUpdateActiveIndex = (index) => {
     this.setState({
       activeIndex: index,
     })
-  },
+  }
 
-  handleResultClick (result) {
+  handleResultClick = (result) => {
     globalEmitter.emit('hideWindow')
     this.props.handleResultClick(result)
-  },
+  }
 
-  handleQueryChange (query) {
+  handleQueryChange = (query) => {
     this.props.handleQueryChange(query)
     this.setState({
       activeIndex: 0,
     })
-  },
+  }
 
   render () {
     const { query, results, theme } = this.props
@@ -80,7 +73,17 @@ const Zazu = React.createClass({
           />
       </div>
     )
-  },
-})
+  }
+}
+
+Zazu.propTypes = {
+  query: PropTypes.string.isRequired,
+  theme: PropTypes.string.isRequired,
+  results: PropTypes.array.isRequired,
+  handleResetQuery: PropTypes.func.isRequired,
+  handleResultClick: PropTypes.func.isRequired,
+  handleQueryChange: PropTypes.func.isRequired,
+  scopeBlock: PropTypes.func.isRequired,
+}
 
 module.exports = Zazu

@@ -9,7 +9,7 @@ const path = require('path')
 const git = (args, options) => {
   return new Promise((resolve, reject) => {
     execFile(gitPath(), args, options || {}, (err) => {
-      err && reject(err) || resolve()
+      err ? reject(err) : resolve()
     })
   })
 }
@@ -54,7 +54,7 @@ const clone = (name, packagePath) => {
       }).then(() => {
         return git(['clone', packageUrl, packagePath]).catch((err) => {
           if (err.message.match(/already exists/i)) {
-            return // futher promises will resolve
+            return true// futher promises will resolve
           } else if (err.message.match(/Repository not found/i)) {
             throw new Error('Package "' + name + '" does not exist on github')
           } else {

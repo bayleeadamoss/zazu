@@ -44,7 +44,6 @@ class InputBlock extends Block {
     })
     return Promise.resolve()
   }
-
 }
 
 module.exports = InputBlock

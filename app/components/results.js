@@ -5,41 +5,30 @@ const Result = require('./result')
 const IFrame = require('./iframe')
 const globalEmitter = require('../lib/globalEmitter')
 
-const { PropTypes } = React
+const PropTypes = require('prop-types')
 
-const Results = React.createClass({
-  propTypes: {
-    activeIndex: PropTypes.number.isRequired,
-    values: PropTypes.array.isRequired,
-    handleResultClick: PropTypes.func.isRequired,
-    handleUpdateActiveIndex: PropTypes.func.isRequired,
-  },
-
-  contextTypes: {
-    logger: React.PropTypes.object.isRequired,
-  },
-
-  moveUp () {
+class Results extends React.Component {
+  moveUp = () => {
     const { values, activeIndex } = this.props
     const prevIndex = activeIndex - 1
     const lastIndex = values.length - 1
     const index = prevIndex < 0 ? lastIndex : prevIndex
     this.context.logger.log('info', 'move up', { index, activeIndex })
     this.props.handleUpdateActiveIndex(index)
-  },
+  }
 
-  moveDown () {
+  moveDown = () => {
     const { values, activeIndex } = this.props
     const nextIndex = activeIndex + 1
     const index = nextIndex >= values.length ? 0 : nextIndex
     this.context.logger.log('info', 'move down', { index, activeIndex })
     this.props.handleUpdateActiveIndex(index)
-  },
+  }
 
-  handleTab (result) {
+  handleTab = (result) => {
     const index = this.props.values.indexOf(result)
     this.props.handleUpdateActiveIndex(index)
-  },
+  }
 
   componentDidMount () {
     keyboard.bind('results', ['ctrl+p', 'ctrl+k', 'up'], () => {
@@ -55,13 +44,13 @@ const Results = React.createClass({
     keyboard.bind('results', 'esc', () => {
       globalEmitter.emit('hideWindow')
     })
-  },
+  }
 
   componentWillUnmount () {
     keyboard.unbind('results')
-  },
+  }
 
-  renderPreviewFrame () {
+  renderPreviewFrame = () => {
     const { values, activeIndex } = this.props
     var activeResult = values.find((result, i) => i === activeIndex && result.preview)
     if (!activeResult) return
@@ -73,7 +62,7 @@ const Results = React.createClass({
         css={activeResult.previewCss}
         html={activeResult.preview}/>
     )
-  },
+  }
 
   render () {
     const { values, handleResultClick, activeIndex } = this.props
@@ -96,8 +85,18 @@ const Results = React.createClass({
         {this.renderPreviewFrame()}
       </div>
     )
-  },
+  }
+}
 
-})
+Results.propTypes = {
+  activeIndex: PropTypes.number.isRequired,
+  values: PropTypes.array.isRequired,
+  handleResultClick: PropTypes.func.isRequired,
+  handleUpdateActiveIndex: PropTypes.func.isRequired,
+}
+
+Results.contextTypes = {
+  logger: PropTypes.object.isRequired,
+}
 
 module.exports = Results
