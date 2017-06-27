@@ -20,6 +20,7 @@ class Configuration {
     this.theme = ''
     this.hotkey = ''
     this.debug = false
+    this.height = 700
   }
 
   load () {
