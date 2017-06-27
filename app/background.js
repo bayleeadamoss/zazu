@@ -79,11 +79,12 @@ app.on('ready', function () {
   const debug = !!configuration.debug
   if (debug) logger.log('verbose', 'debug mode is on')
 
+  const windowHeight = configuration.height
   const isWindows = process.platform === 'win32'
   const mainWindow = windowHelper('main', {
     width: 600,
-    height: 400,
-    maxHeight: 400,
+    height: windowHeight,
+    maxHeight: windowHeight,
     show: false,
     frame: false,
     resizable: false,
