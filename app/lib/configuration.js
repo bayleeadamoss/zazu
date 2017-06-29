@@ -40,6 +40,7 @@ class Configuration {
       this.disableAnalytics = data.disableAnalytics
       this.debug = data.debug
       this.loaded = true
+      this.height = 700
     } catch (e) {
       const logger = require('./logger')
       logger.error('Attempted to load an invalid ~/.zazurc.json file', e)
