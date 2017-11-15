@@ -1,8 +1,8 @@
 ---
 top:         true
 type:        theme
-title:       "Dark Solarized Theme"
+title:       "Solarized Dark Theme"
 image:       /images/package-icons/dark-solarized-theme.png
-githuburl:   marcpaul/zazu-solarized
+githuburl:   marcpaul/zazu-solarized-dark-theme
 description: "A solarized inspired theme"
 ---
