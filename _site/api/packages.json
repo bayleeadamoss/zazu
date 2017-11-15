@@ -124,6 +124,16 @@
       {
         "top": true,
         "type": "theme",
+        "title": "Dark Solarized Theme",
+        "image": "/images/package-icons/dark-solarized-theme.png",
+        "icon": "",
+        "githuburl": "marcpaul/zazu-solarized",
+        "description": "A solarized inspired theme"
+      },
+    
+      {
+        "top": true,
+        "type": "theme",
         "title": "Dark Theme",
         "image": "/images/package-icons/dark-theme.png",
         "icon": "",
@@ -499,16 +509,6 @@
         "icon": "",
         "githuburl": "tinytacoteam/zazu-snippets",
         "description": "Create and easily access common snippets"
-      },
-    
-      {
-        "top": true,
-        "type": "theme",
-        "title": "Solarized Theme",
-        "image": "/images/package-icons/solarized-theme.png",
-        "icon": "",
-        "githuburl": "marcpaul/zazu-solarized",
-        "description": "A solarized inspired theme"
       },
     
       {
