@@ -58,7 +58,7 @@ class DatabaseWrapper extends React.Component {
         handleQueryChange={handleQueryChange}
         handleResultClick={this.handleResultClick}
         results={resultSorter.sort(results, this.state.clickedResults)}
-        />
+      />
     )
   }
 }
