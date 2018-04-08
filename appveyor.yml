@@ -1,13 +1,28 @@
 environment:
-  nodejs_version: "6.5.0"
+  nodejs_version: "9"
 
-os: unstable
+image:
+  - Visual Studio 2015
+  - Ubuntu
 
-install:
-  - ps: Install-Product node $env:nodejs_version
-  - ps: $env:Path += ";C:\Program Files (x86)\NSIS"
-  - choco install nsis -pre -y
-  - npm install
+for:
+-
+  matrix:
+    only:
+      - image: Ubuntu
+
+  install:
+    - npm install
+-
+  matrix:
+    only:
+      - image: Visual Studio 2015
+
+  install:
+    - ps: Install-Product node $env:nodejs_version
+    - ps: $env:Path += ";C:\Program Files (x86)\NSIS"
+    - choco install nsis -pre -y
+    - npm install
 
 test_script:
   - node --version
