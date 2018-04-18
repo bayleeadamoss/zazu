@@ -15,12 +15,15 @@ const menu = Menu.buildFromTemplate(menuTemplate)
 const css = `
   .menu-toggle {
     position: absolute;
-    top: 3px;
+    bottom: 3px;
     right: 4px;
     padding: 0;
     background: transparent;
     border: none;
     color: #545454;
+  }
+  .menu-toggle::before {
+    cursor: pointer;
   }
 `
 
