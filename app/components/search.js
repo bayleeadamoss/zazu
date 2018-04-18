@@ -13,7 +13,10 @@ const Style = require('./style')
 const menu = Menu.buildFromTemplate(menuTemplate)
 
 const css = `
-  .menu-toggle {
+  .searchInputWrapper {
+    position: relative;
+  }
+  .menuToggle {
     position: absolute;
     bottom: 3px;
     right: 4px;
@@ -22,7 +25,7 @@ const css = `
     border: none;
     color: #545454;
   }
-  .menu-toggle::before {
+  .menuToggle::before {
     cursor: pointer;
   }
 `
@@ -125,14 +128,14 @@ class Search extends React.Component {
   }
 
   renderMenuToggle = () => (
-    <button onClick={this.openMenu} className='menu-toggle fa fa-cog' />
+    <button onClick={this.openMenu} className='menuToggle fa fa-cog' />
   )
 
   render () {
     const { value } = this.props
 
     return (
-      <div>
+      <div className="searchInputWrapper">
         <input
           title='Search Zazu'
           className='mousetrap'
