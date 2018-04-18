@@ -1,6 +1,7 @@
 const { app, BrowserWindow, dialog, Menu, Tray } = require('electron')
 const path = require('path')
 
+const configuration = require('../lib/configuration')
 const globalEmitter = require('../lib/globalEmitter')
 const Update = require('../lib/update')
 
@@ -111,11 +112,16 @@ const trayTemplate = [
 ]
 
 let tray
-module.exports = () => {
-  if (app.dock) app.dock.hide()
-  const iconPath = path.join(app.getAppPath(), 'assets', 'images', 'iconTemplate.png')
-  tray = new Tray(iconPath)
-  tray.setToolTip('Toggle Zazu')
-  tray.setContextMenu(Menu.buildFromTemplate(trayTemplate))
-  Menu.setApplicationMenu(Menu.buildFromTemplate(appTemplate))
+module.exports = {
+  createMenu: () => {
+    if (app.dock) app.dock.hide()
+    if (!configuration.hideTrayItem) {
+      const iconPath = path.join(app.getAppPath(), 'assets', 'images', 'iconTemplate.png')
+      tray = new Tray(iconPath)
+      tray.setToolTip('Toggle Zazu')
+      tray.setContextMenu(Menu.buildFromTemplate(trayTemplate))
+    }
+    Menu.setApplicationMenu(Menu.buildFromTemplate(appTemplate))
+  },
+  menuTemplate: trayTemplate,
 }

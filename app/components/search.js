@@ -1,9 +1,28 @@
 const React = require('react')
 const PropTypes = require('prop-types')
+const { remote } = require('electron')
+const { Menu } = remote
 
+const configuration = require('../lib/configuration')
 const globalEmitter = require('../lib/globalEmitter')
 const keyboard = require('../lib/keyboard')
 const mergeUnique = require('../lib/mergeUnique')
+const { menuTemplate } = require('../helpers/menu')
+const Style = require('./style')
+
+const menu = Menu.buildFromTemplate(menuTemplate)
+
+const css = `
+  .menu-toggle {
+    position: absolute;
+    top: 3px;
+    right: 4px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    color: #545454;
+  }
+`
 
 class Search extends React.Component {
   constructor (props) {
@@ -98,17 +117,29 @@ class Search extends React.Component {
     })
   }
 
+  openMenu = () => {
+    menu.popup()
+  }
+
+  renderMenuToggle = () => (
+    <button onClick={this.openMenu} className='menu-toggle fa fa-cog' />
+  )
+
   render () {
     const { value } = this.props
 
     return (
-      <input
-        title='Search Zazu'
-        className='mousetrap'
-        ref={this.setReference}
-        type='text'
-        onChange={this.handleQueryChange}
-        value={value} />
+      <div>
+        <input
+          title='Search Zazu'
+          className='mousetrap'
+          ref={this.setReference}
+          type='text'
+          onChange={this.handleQueryChange}
+          value={value} />
+        {configuration.hideTrayItem ? this.renderMenuToggle() : null}
+        <Style css={css} />
+      </div>
     )
   }
 }

@@ -10,7 +10,7 @@ const logger = require('./lib/logger')
 const { windowHelper, openCount } = require('./helpers/window')
 const forceSingleInstance = require('./helpers/singleInstance')
 const addToStartup = require('./helpers/startup')
-const createMenu = require('./helpers/menu')
+const { createMenu } = require('./helpers/menu')
 const about = require('./about')
 
 globalEmitter.on('showDebug', (message) => {
