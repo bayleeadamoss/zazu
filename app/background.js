@@ -34,6 +34,8 @@ globalEmitter.on('reloadConfig', (message) => {
   app.exit()
 })
 
+globalEmitter.on('quit', () => app.quit())
+
 app.on('ready', function () {
   if (!configuration.load()) {
     return dialog.showMessageBox({

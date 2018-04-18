@@ -106,10 +106,13 @@ const trayTemplate = [
     label: 'Quit',
     accelerator: 'CmdOrCtrl+Q',
     click: () => {
-      app.quit()
+      globalEmitter.emit('quit')
     },
   },
 ]
+
+// Remove "Toggle Zazu" for the exposed menu template
+const menuTemplate = trayTemplate.slice(2)
 
 let tray
 module.exports = {
@@ -123,5 +126,5 @@ module.exports = {
     }
     Menu.setApplicationMenu(Menu.buildFromTemplate(appTemplate))
   },
-  menuTemplate: trayTemplate,
+  menuTemplate,
 }
