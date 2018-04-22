@@ -21,6 +21,7 @@ class Configuration {
     this.hotkey = ''
     this.debug = false
     this.height = 400
+    this.hideTrayItem = false
   }
 
   load () {
@@ -39,6 +40,7 @@ class Configuration {
       this.displayOn = data.displayOn !== 'primary' ? 'detect' : 'primary'
       this.disableAnalytics = data.disableAnalytics
       this.debug = data.debug
+      this.hideTrayItem = data.hideTrayItem
       this.loaded = true
       this.height = data.height || this.height
     } catch (e) {
