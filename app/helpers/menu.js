@@ -1,6 +1,7 @@
 const { app, BrowserWindow, dialog, Menu, Tray } = require('electron')
 const path = require('path')
 
+const configuration = require('../lib/configuration')
 const globalEmitter = require('../lib/globalEmitter')
 const Update = require('../lib/update')
 
@@ -105,17 +106,25 @@ const trayTemplate = [
     label: 'Quit',
     accelerator: 'CmdOrCtrl+Q',
     click: () => {
-      app.quit()
+      globalEmitter.emit('quit')
     },
   },
 ]
 
+// Remove "Toggle Zazu" for the exposed menu template
+const menuTemplate = trayTemplate.slice(2)
+
 let tray
-module.exports = () => {
-  if (app.dock) app.dock.hide()
-  const iconPath = path.join(app.getAppPath(), 'assets', 'images', 'iconTemplate.png')
-  tray = new Tray(iconPath)
-  tray.setToolTip('Toggle Zazu')
-  tray.setContextMenu(Menu.buildFromTemplate(trayTemplate))
-  Menu.setApplicationMenu(Menu.buildFromTemplate(appTemplate))
+module.exports = {
+  createMenu: () => {
+    if (app.dock) app.dock.hide()
+    if (!configuration.hideTrayItem) {
+      const iconPath = path.join(app.getAppPath(), 'assets', 'images', 'iconTemplate.png')
+      tray = new Tray(iconPath)
+      tray.setToolTip('Toggle Zazu')
+      tray.setContextMenu(Menu.buildFromTemplate(trayTemplate))
+    }
+    Menu.setApplicationMenu(Menu.buildFromTemplate(appTemplate))
+  },
+  menuTemplate,
 }

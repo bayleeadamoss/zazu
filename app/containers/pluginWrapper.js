@@ -138,49 +138,39 @@ class PluginWrapper extends React.Component {
   }
 
   handleQueryChange = (query) => {
-    let first = true
-    const interaction = track.interaction()
-    interaction.setName('search')
-    interaction.setAttribute('queryLength', query.length)
-    this.context.logger.log('info', `Updating query to "${query}"`)
+    const newResults = this.state.plugins.reduce((oldResults, plugin) => {
+      const pluginName = plugin.id
+      const searchResults = plugin.search(query)
+      const respondedBlocks = Object.keys(searchResults)
 
-    const promises = this.state.plugins.filter((plugin) => {
-      return plugin.respondsTo(query)
-    }).reduce((memo, plugin) => {
-      const tracer = track.tracer(plugin.id)
-      const pluginPromises = plugin.search(query)
-      Promise.all(pluginPromises).then(tracer.complete).catch(tracer.error)
-      return memo.concat(pluginPromises)
-    }, [])
+      // 1. when input resolves replace it's results
+      respondedBlocks.map((blockId) => {
+        const inputPromise = searchResults[blockId]
+        return inputPromise.then((results = []) => {
+          if (query !== this.state.query) return
+          // 2. Remove old block results
+          const filteredResults = this.state.results.filter((result) => {
+            const isPlugin = result.pluginName === pluginName
+            const isBlock = result.blockId === blockId
+            return !(isPlugin && isBlock)
+          })
 
-    promises.map((promise) => {
-      return promise.then((results = []) => {
-        if (query === this.state.query) {
-          if (first) {
-            first = false
-            this.setState({
-              results,
-            })
-          } else {
-            this.setState({
-              results: [...this.state.results].concat(results),
-            })
-          }
-        }
+          // 3. Add new block results
+          this.setState({
+            results: filteredResults.concat(results),
+          })
+        })
       })
-    })
 
-    Promise.all(promises).then(() => {
-      interaction.save()
-    }).catch(() => {
-      interaction.save()
-    })
-
-    if (promises.length === 0) {
-      this.clearResults()
-    }
+      // 4. delete inputs that didn't respond
+      return oldResults.filter((result) => {
+        if (result.pluginName !== pluginName) return true
+        return respondedBlocks.includes(result.blockId)
+      })
+    }, this.state.results)
 
     this.setState({
+      results: newResults,
       query,
     })
   }
