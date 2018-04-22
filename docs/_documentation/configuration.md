@@ -101,3 +101,8 @@ configuration.
 If you want your configuration within your application folder for portability just
 create a `portable` directory inside of it. You can copy your configuration files over
 from your home directory if they already exist.
+
+## Hide Tray Item
+
+The tray item can be hidden by setting `hideTrayItem` to `true` in your configuration.
+When hidden, the menu will instead be accessible via a small cog on the search bar.

@@ -20,6 +20,7 @@ class Configuration {
     this.theme = ''
     this.hotkey = ''
     this.debug = false
+    this.hideTrayItem = false
   }
 
   load () {
@@ -38,6 +39,7 @@ class Configuration {
       this.displayOn = data.displayOn !== 'primary' ? 'detect' : 'primary'
       this.disableAnalytics = data.disableAnalytics
       this.debug = data.debug
+      this.hideTrayItem = data.hideTrayItem
       this.loaded = true
     } catch (e) {
       const logger = require('./logger')
