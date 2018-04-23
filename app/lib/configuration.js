@@ -21,6 +21,7 @@ class Configuration {
     this.hotkey = ''
     this.debug = false
     this.hideTrayItem = false
+    this.height = 400
   }
 
   load () {
@@ -41,6 +42,7 @@ class Configuration {
       this.debug = data.debug
       this.hideTrayItem = data.hideTrayItem
       this.loaded = true
+      this.height = data.height || this.height
     } catch (e) {
       const logger = require('./logger')
       logger.error('Attempted to load an invalid ~/.zazurc.json file', e)
