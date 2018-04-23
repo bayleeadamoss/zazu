@@ -64,13 +64,13 @@ class Zazu extends React.Component {
         <Search
           handleQueryChange={this.handleQueryChange}
           value={query}
-          />
+        />
         <Results
           values={results}
           activeIndex={this.state.activeIndex}
           handleResultClick={this.handleResultClick}
           handleUpdateActiveIndex={this.handleUpdateActiveIndex}
-          />
+        />
       </div>
     )
   }

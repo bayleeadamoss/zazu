@@ -10,7 +10,7 @@ const logger = require('./lib/logger')
 const { windowHelper, openCount } = require('./helpers/window')
 const forceSingleInstance = require('./helpers/singleInstance')
 const addToStartup = require('./helpers/startup')
-const createMenu = require('./helpers/menu')
+const { createMenu } = require('./helpers/menu')
 const about = require('./about')
 
 globalEmitter.on('showDebug', (message) => {
@@ -33,6 +33,8 @@ globalEmitter.on('reloadConfig', (message) => {
   app.relaunch()
   app.exit()
 })
+
+globalEmitter.on('quit', () => app.quit())
 
 app.on('ready', function () {
   if (!configuration.load()) {
@@ -77,11 +79,12 @@ app.on('ready', function () {
   const debug = !!configuration.debug
   if (debug) logger.log('verbose', 'debug mode is on')
 
+  const windowHeight = configuration.height
   const isWindows = process.platform === 'win32'
   const mainWindow = windowHelper('main', {
     width: 600,
-    height: 400,
-    maxHeight: 400,
+    height: windowHeight,
+    maxHeight: windowHeight,
     show: false,
     frame: false,
     resizable: false,

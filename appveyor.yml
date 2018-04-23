@@ -3,16 +3,8 @@ environment:
 
 image:
   - Visual Studio 2015
-  - Ubuntu
 
 for:
--
-  matrix:
-    only:
-      - image: Ubuntu
-
-  install:
-    - npm install
 -
   matrix:
     only:
