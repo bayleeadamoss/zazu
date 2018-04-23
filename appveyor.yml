@@ -1,26 +1,18 @@
 environment:
   nodejs_version: "9"
 
-image:
-  - Visual Studio 2015
+os: unstable
 
-for:
--
-  matrix:
-    only:
-      - image: Visual Studio 2015
-
-  install:
-    - ps: Install-Product node $env:nodejs_version
-    - ps: $env:Path += ";C:\Program Files (x86)\NSIS"
-    - choco install nsis -pre -y
-    - npm install
+install:
+  - ps: Install-Product node $env:nodejs_version
+  - ps: $env:Path += ";C:\Program Files (x86)\NSIS"
+  - choco install nsis -pre -y
+  - npm install
 
 test_script:
   - node --version
   - npm --version
   - npm run cucumber
   - npm test
-  - npm run release
 
 build: off
