@@ -9,6 +9,7 @@ const keyboard = require('../lib/keyboard')
 const mergeUnique = require('../lib/mergeUnique')
 const { menuTemplate } = require('../helpers/menu')
 const Style = require('./style')
+const successive = require('../lib/successive')
 
 const menu = Menu.buildFromTemplate(menuTemplate)
 
@@ -33,21 +34,15 @@ const css = `
 class Search extends React.Component {
   constructor (props) {
     super(props)
-
-    this.state = {
-      input: null,
-      history: [],
-    }
+    this.state = { input: null, searchQuery: '', history: [] }
   }
 
-  selectAll = () => {
+  selectAll = _ => {
     if (this.state.historyId === -1 || !this.state.input) return
     this.state.input.select()
   }
 
-  focus = () => {
-    this.state.input && this.state.input.focus()
-  }
+  focus = _ => this.state.input && this.state.input.focus()
 
   handleSaveQuery = () => {
     if (!this.props.value) return
@@ -69,17 +64,13 @@ class Search extends React.Component {
   handlePreviousSearch = () => {
     const historyId = this.state.historyId + 1
     this.props.handleQueryChange(this.state.history[historyId])
-    this.setState({
-      historyId,
-    })
+    this.setState({ historyId })
   }
 
   handleNextSearch = () => {
     const historyId = this.state.historyId - 1
     this.props.handleQueryChange(this.state.history[historyId])
-    this.setState({
-      historyId,
-    })
+    this.setState({ historyId })
   }
 
   componentDidMount = () => {
@@ -94,46 +85,32 @@ class Search extends React.Component {
         this.handleNextSearch()
       }
     })
+
+    // https://stackoverflow.com/questions/23123138/perform-debounce-in-react-js#answer-24679479
+    this.handleQueryChange = t => successive.deflect(_ => t.props.handleQueryChange(t.state.searchQuery), 100)
+    this.onChange = event => {
+      if (event.target) {
+        const searchQuery = event.target.value || ''
+        this.setState({ searchQuery })
+        this.handleQueryChange(this)
+      }
+    }
+
     this.focus()
   }
 
-  componentWillUnmount = () => {
+  componentWillUnmount = _ => {
     globalEmitter.removeListener('hideWindow', this.handleSaveQuery)
     keyboard.unbind('search')
   }
 
-  componentDidUpdate = () => {
-    if (this.props.value === '') {
-      this.focus()
-    }
-    this.selectAll()
-  }
+  componentDidUpdate = _ => this.state.searchQuery === '' && this.focus()
 
-  handleQueryChange = (event) => {
-    const query = event.target.value
-    this.props.handleQueryChange(query)
-    this.setState({
-      historyId: -1,
-    })
-  }
-
-  setReference = (input) => {
-    this.setState({
-      input,
-    })
-  }
-
-  openMenu = () => {
-    menu.popup()
-  }
-
-  renderMenuToggle = () => (
-    <button onClick={this.openMenu} className='menuToggle fa fa-cog' />
-  )
+  setReference       = input => this.setState({ input })
+  openMenu           = _ => menu.popup()
+  renderMenuToggle = _ => <button onClick={this.openMenu} className='menuToggle fa fa-cog' />
 
   render () {
-    const { value } = this.props
-
     return (
       <div className="searchInputWrapper">
         <input
@@ -141,8 +118,8 @@ class Search extends React.Component {
           className='mousetrap'
           ref={this.setReference}
           type='text'
-          onChange={this.handleQueryChange}
-          value={value} />
+          onChange={this.onChange}
+        />
         {configuration.hideTrayItem ? this.renderMenuToggle() : null}
         <Style css={css} />
       </div>
@@ -150,9 +127,6 @@ class Search extends React.Component {
   }
 }
 
-Search.propTypes = {
-  value: PropTypes.string.isRequired,
-  handleQueryChange: PropTypes.func.isRequired,
-}
+Search.propTypes = { value: PropTypes.string.isRequired, handleQueryChange: PropTypes.func.isRequired, }
 
 module.exports = Search
