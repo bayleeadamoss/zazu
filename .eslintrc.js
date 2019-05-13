@@ -10,7 +10,7 @@ module.exports = {
   },
   "settings": {
     "react": {
-      "version": "15.5.4",
+      "version": "16.8.6",
     },
   },
   "globals": {
