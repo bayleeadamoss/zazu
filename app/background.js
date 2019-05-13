@@ -21,6 +21,9 @@ globalEmitter.on('showDebug', (message) => {
     resizable: true,
     title: 'Debug Zazu',
     url: path.join('file://', __dirname, '/debug.html'),
+    webPreferences: {
+      nodeIntegration: true,
+    },
   })
 })
 
@@ -99,6 +102,7 @@ app.on('ready', function () {
     url: path.join('file://', __dirname, '/app.html'),
     webPreferences: {
       backgroundThrottling: false,
+      nodeIntegration: true,
     },
   })
 
