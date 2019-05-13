@@ -21,7 +21,7 @@ if (env.isRenderer) {
   transports.push(new PluginTransport({}))
 }
 
-const logger = new winston.Logger({
+const logger = winston.createLogger({
   level: 'debug',
   exitOnError: false,
   transports,
