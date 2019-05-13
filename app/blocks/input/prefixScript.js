@@ -75,7 +75,11 @@ class PrefixScript extends InputBlock {
       this.logger.log('info', 'Script Results', { results: (Array.isArray(results) ? results.map(truncateResult) : results) })
       return this._validateResults(results.map((result) => Object.assign({}, result, { blockRank: 3 })))
     }).catch((error) => {
-      this.logger.error('Script failed', { query, error })
+      if (error.message === 'Debounced') {
+        this.logger.log('info', error.text, { query, error })
+      } else {
+        this.logger.error('Script failed', { query, error })
+      }
     })
   }
 }
