@@ -1,5 +1,5 @@
 const path = require('path')
-const robot = require('robotjs')
+const ks = require('node-key-sender')
 const Application = require('spectron').Application
 const $ = require('cheerio')
 const jetpack = require('fs-jetpack')
@@ -74,9 +74,9 @@ class World {
 
   hitHotkey (key, modifier) {
     if (modifier) {
-      return Promise.resolve(robot.keyTap(key, modifier))
+      return ks.sendCombination([modifier, key])
     }
-    return Promise.resolve(robot.keyTap(key))
+    return ks.sendKey(key)
   }
 
   close () {
