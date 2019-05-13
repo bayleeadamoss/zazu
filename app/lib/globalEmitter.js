@@ -32,10 +32,14 @@ class RendererEmitter extends MyEmitter {
 
   emit (eventName, ...args) {
     super.emit(eventName, ...args)
+    // this takes 3% of time
     this.ipc.send(eventName, ...args)
+    // this takes 43% of time
     const currentWindow = electron.remote.getCurrentWindow()
+    // getAllWindows() takes 10% of time
     electron.remote.BrowserWindow.getAllWindows().forEach((window) => {
       if (window !== currentWindow) {
+        // this takes 42% of time
         window.webContents.send(eventName, ...args)
       }
     })
