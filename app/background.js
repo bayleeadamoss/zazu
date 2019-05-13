@@ -13,7 +13,7 @@ const addToStartup = require('./helpers/startup')
 const { createMenu } = require('./helpers/menu')
 const about = require('./about')
 
-globalEmitter.on('showDebug', (message) => {
+globalEmitter.on('showDebug', message => {
   logger.log('info', 'opening debug page')
   windowHelper('debug', {
     width: 600,
@@ -27,12 +27,12 @@ globalEmitter.on('showDebug', (message) => {
   })
 })
 
-globalEmitter.on('showAbout', (message) => {
+globalEmitter.on('showAbout', message => {
   logger.log('info', 'opening about page')
   about.show()
 })
 
-globalEmitter.on('reloadConfig', (message) => {
+globalEmitter.on('reloadConfig', message => {
   app.relaunch()
   app.exit()
 })
@@ -41,15 +41,18 @@ globalEmitter.on('quit', () => app.quit())
 
 app.on('ready', function () {
   if (!configuration.load()) {
-    return dialog.showMessageBox({
-      type: 'error',
-      message: 'You have an invalid ~/.zazurc.json file.',
-      detail: 'Please edit your ~/.zazurc.json file and try loading Zazu again.',
-      defaultId: 0,
-      buttons: ['Ok'],
-    }, () => {
-      app.quit()
-    })
+    return dialog.showMessageBox(
+      {
+        type: 'error',
+        message: 'You have an invalid ~/.zazurc.json file.',
+        detail: 'Please edit your ~/.zazurc.json file and try loading Zazu again.',
+        defaultId: 0,
+        buttons: ['Ok'],
+      },
+      () => {
+        app.quit()
+      }
+    )
   }
   logger.debug('app is ready', {
     version: app.getVersion(),
@@ -59,7 +62,7 @@ app.on('ready', function () {
   forceSingleInstance()
   addToStartup(configuration)
 
-  globalEmitter.on('registerHotkey', (accelerator) => {
+  globalEmitter.on('registerHotkey', accelerator => {
     if (!globalShortcut.isRegistered(accelerator)) {
       logger.log('verbose', 'registered a hotkey', { hotkey: accelerator })
       try {
@@ -110,7 +113,7 @@ app.on('ready', function () {
     windowWidth: mainWindow.getSize()[0],
   })
 
-  if (debug) mainWindow.webContents.toggleDevTools({mode: 'undocked'})
+  if (debug) mainWindow.webContents.toggleDevTools({ mode: 'undocked' })
 
   mainWindow.on('blur', () => {
     logger.log('verbose', 'sending hide event signal from blur event')

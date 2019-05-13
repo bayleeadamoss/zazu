@@ -99,7 +99,7 @@ class World {
   }
 
   getResultItems () {
-    return this.app.client.getHTML('.results').then((results) => {
+    return this.app.client.getHTML('.results').then(results => {
       return $(results).find('li')
     })
   }
@@ -109,14 +109,14 @@ class World {
   }
 }
 
-const wait = (time) => {
-  return new Promise((resolve) => {
+const wait = time => {
+  return new Promise(resolve => {
     setTimeout(resolve, time)
   })
 }
 
 const eventually = (func, expectedValue) => {
-  const assert = (actualValue) => {
+  const assert = actualValue => {
     if (actualValue !== expectedValue) {
       throw new Error('Values didnt match')
     }
@@ -128,9 +128,12 @@ const eventually = (func, expectedValue) => {
       if (iterations >= 50) {
         reject(new Error('Forever is a long time'))
       } else {
-        func().then(assert).then(resolve).catch(() => {
-          return wait(100).then(retry)
-        })
+        func()
+          .then(assert)
+          .then(resolve)
+          .catch(() => {
+            return wait(100).then(retry)
+          })
       }
     }
     retry()
@@ -149,20 +152,22 @@ module.exports = function () {
     return Promise.reject(new Error('Profile not found'))
   })
 
-  this.Given(/^the app is launched$/, {timeout: 120 * 1000}, function () {
+  this.Given(/^the app is launched$/, { timeout: 120 * 1000 }, function () {
     return this.open()
   })
 
   this.Given(/^I have "tinytacoteam\/zazu-fallback" installed before packagist support$/, function () {
     const fallbackDir = path.join(pluginDir, 'tinytacoteam', 'zazu-fallback')
-    return clone('tinytacoteam/zazu-fallback', fallbackDir).then(() => {
-      return git(['reset', '--hard', '16e4e50'], { cwd: fallbackDir })
-    }).then(() => {
-      return this.profile('fallback')
-    })
+    return clone('tinytacoteam/zazu-fallback', fallbackDir)
+      .then(() => {
+        return git(['reset', '--hard', '16e4e50'], { cwd: fallbackDir })
+      })
+      .then(() => {
+        return this.profile('fallback')
+      })
   })
 
-  this.Given(/^I update the plugins$/, {timeout: 15 * 1000}, function () {
+  this.Given(/^I update the plugins$/, { timeout: 15 * 1000 }, function () {
     return this.updatePlugins()
   })
 
@@ -189,15 +194,17 @@ module.exports = function () {
   })
 
   this.When(/^I eventually click on the active result$/, function () {
-    return eventually(() => this.hasResults(), true).then(() => {
-      return wait(100)
-    }).then(() => {
-      return this.clickActiveResult()
-    })
+    return eventually(() => this.hasResults(), true)
+      .then(() => {
+        return wait(100)
+      })
+      .then(() => {
+        return this.clickActiveResult()
+      })
   })
 
   this.Then(/^my clipboard contains "([^"]*)"$/, function (expected, callback) {
-    this.readClipboard().then((actual) => {
+    this.readClipboard().then(actual => {
       if (actual === expected) {
         callback()
       } else {
@@ -216,7 +223,7 @@ module.exports = function () {
 
   this.Then(/^I have (\d+) results?$/, function (expected) {
     return eventually(() => {
-      return this.getResultItems().then((items) => items.length)
+      return this.getResultItems().then(items => items.length)
     }, parseInt(expected, 10))
   })
 
@@ -244,15 +251,17 @@ module.exports = function () {
   })
 
   this.Then(/^the active result contains "([^"]*)"$/, function (header) {
-    return eventually(() => this.hasResults(), true).then(() => {
-      return wait(100)
-    }).then(() => {
-      return eventually(() => this.getActiveHeader(), header)
-    })
+    return eventually(() => this.hasResults(), true)
+      .then(() => {
+        return wait(100)
+      })
+      .then(() => {
+        return eventually(() => this.getActiveHeader(), header)
+      })
   })
 
   this.Then(/^I have no accessibility warnings$/, function () {
-    return this.accessibility().then((response) => {
+    return this.accessibility().then(response => {
       if (response.results.length !== 0) {
         throw new Error('You have accessibility issues')
       }
@@ -260,7 +269,7 @@ module.exports = function () {
   })
 
   this.Then(/^the results contain "([^"]*)"$/, function (subset, callback) {
-    this.getResults().then((resultText) => {
+    this.getResults().then(resultText => {
       if (resultText.match(subset)) {
         callback()
       } else {

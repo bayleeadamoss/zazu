@@ -1,12 +1,8 @@
 const React = require('react')
 const PropTypes = require('prop-types')
 
-const Style = ({css}) => {
-  return React.createElement(
-    'style',
-    null,
-    css
-  )
+const Style = ({ css }) => {
+  return React.createElement('style', null, css)
 }
 
 Style.propTypes = {
