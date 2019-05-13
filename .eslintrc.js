@@ -8,6 +8,11 @@ module.exports = {
       "jsx": true,
     },
   },
+  "settings": {
+    "react": {
+      "version": "detect",
+    },
+  },
   "globals": {
     "newrelic": true,
     "__nr_require": true,
