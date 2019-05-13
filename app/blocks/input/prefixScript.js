@@ -52,7 +52,7 @@ class PrefixScript extends InputBlock {
     }
     regex.push('$')
     const respondsTo = input.match(new RegExp(regex.join(''), 'i')) || false
-    this.logger.log('info', 'respondsTo', { input, respondsTo })
+    this.logger.log('verbose', 'respondsTo', { input, respondsTo })
     return respondsTo
   }
 
