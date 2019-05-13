@@ -1,4 +1,5 @@
 const electron = require('electron')
+const globalEmitter = require('../lib/globalEmitter')
 const { BrowserWindow } = process.type === 'renderer' ? electron.remote : electron
 
 const autoResize = (dynamicWindow) => {
@@ -81,6 +82,7 @@ const windowHelper = (name, options) => {
 
   namedWindows[name].on('closed', () => {
     namedWindows[name] = null
+    globalEmitter.emit('debuggerClosed')
   })
 
   namedWindows[name].loadURL(options.url)

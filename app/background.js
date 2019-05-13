@@ -25,6 +25,7 @@ globalEmitter.on('showDebug', message => {
       nodeIntegration: true,
     },
   })
+  globalEmitter.emit('debuggerOpened')
 })
 
 globalEmitter.on('showAbout', message => {
