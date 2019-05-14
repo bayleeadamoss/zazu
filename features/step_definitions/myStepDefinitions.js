@@ -3,7 +3,6 @@ const path = require('path')
 const os = require('os')
 const childProcess = require('child_process')
 const { promisify } = require('util')
-const ks = require('node-key-sender')
 const isTravis = require('is-travis')
 const Application = require('spectron').Application
 const $ = require('cheerio')
@@ -95,10 +94,11 @@ class World {
           osascript -e "$Script"`)
       }
     }
+    const robot = require('robotjs')
     if (modifier) {
-      return ks.sendCombination([modifier, key])
+      return Promise.resolve(robot.keyTap(key, modifier))
     } else {
-      return ks.sendKey(key)
+      return Promise.resolve(robot.keyTap(key))
     }
   }
 

@@ -4,7 +4,6 @@ node_js:
 os:
   - linux
   - osx
-osx_image: xcode10.2
 
 matrix:
   fast_finish: true
