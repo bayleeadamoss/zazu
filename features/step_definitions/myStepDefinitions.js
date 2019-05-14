@@ -1,3 +1,4 @@
+const { setWorldConstructor, Given, When, Then } = require('cucumber')
 const path = require('path')
 const ks = require('node-key-sender')
 const Application = require('spectron').Application
@@ -140,141 +141,139 @@ const eventually = (func, expectedValue) => {
   })
 }
 
-module.exports = function () {
-  this.World = World
+setWorldConstructor(World)
 
-  this.Given(/^I have "([^"]*)" as a plugin$/, function (plugin) {
-    if (plugin === 'tinytacoteam/zazu-fixture') {
-      return this.profile('default')
-    } else if (plugin === 'tinytacoteam/zazu-calculator') {
-      return this.profile('calculator')
+Given('I have {string} as a plugin', function (plugin) {
+  if (plugin === 'tinytacoteam/zazu-fixture') {
+    return this.profile('default')
+  } else if (plugin === 'tinytacoteam/zazu-calculator') {
+    return this.profile('calculator')
+  }
+  return Promise.reject(new Error('Profile not found'))
+})
+
+Given('the app is launched', { timeout: 120 * 1000 }, function () {
+  return this.open()
+})
+
+Given('I have {string} installed before packagist support', function (plugin) {
+  const fallbackDir = path.join(pluginDir, plugin)
+  return clone(plugin, fallbackDir)
+    .then(() => {
+      return git(['reset', '--hard', '16e4e50'], { cwd: fallbackDir })
+    })
+    .then(() => {
+      return this.profile('fallback')
+    })
+})
+
+Given('I update the plugins', { timeout: 15 * 1000 }, function () {
+  return this.updatePlugins()
+})
+
+When('I toggle it open', function () {
+  return this.showWindow()
+})
+
+When('I toggle it closed', function () {
+  return this.hideWindow()
+})
+
+// assumes modifier is first
+When('I hit the hotkey {string}', function (hotkey) {
+  var keys = hotkey.split('+')
+  return this.hitHotkey(keys[1], keys[0]).then(() => {
+    return wait(100)
+  })
+})
+
+When('I hit the key {string}', function (hotkey) {
+  return this.hitHotkey(hotkey).then(() => {
+    return wait(100)
+  })
+})
+
+When('I eventually click on the active result', function () {
+  return eventually(() => this.hasResults(), true)
+    .then(() => {
+      return wait(100)
+    })
+    .then(() => {
+      return this.clickActiveResult()
+    })
+})
+
+Then('my clipboard contains {string}', function (expected, callback) {
+  this.readClipboard().then(actual => {
+    if (actual === expected) {
+      callback()
+    } else {
+      callback(new Error('Expected "' + expected + '" to be in your clipbaord but found "' + actual + '"'))
     }
-    return Promise.reject(new Error('Profile not found'))
   })
+})
 
-  this.Given(/^the app is launched$/, { timeout: 120 * 1000 }, function () {
-    return this.open()
-  })
+Then('the search window is not visible', function () {
+  return eventually(() => this.isWindowVisible(), false)
+})
 
-  this.Given(/^I have "tinytacoteam\/zazu-fallback" installed before packagist support$/, function () {
-    const fallbackDir = path.join(pluginDir, 'tinytacoteam', 'zazu-fallback')
-    return clone('tinytacoteam/zazu-fallback', fallbackDir)
-      .then(() => {
-        return git(['reset', '--hard', '16e4e50'], { cwd: fallbackDir })
-      })
-      .then(() => {
-        return this.profile('fallback')
-      })
-  })
+Then('the search window is visible', function () {
+  return eventually(() => this.isWindowVisible(), true)
+})
 
-  this.Given(/^I update the plugins$/, { timeout: 15 * 1000 }, function () {
-    return this.updatePlugins()
-  })
+Then('I have {int} result(s)', function (expected) {
+  return eventually(() => {
+    return this.getResultItems().then(items => items.length)
+  }, parseInt(expected, 10))
+})
 
-  this.When(/^I toggle it open$/, function () {
-    return this.showWindow()
-  })
+Then('the input is empty', function () {
+  return eventually(() => {
+    return this.getQuery()
+  }, '')
+})
 
-  this.When(/^I toggle it closed$/, function () {
-    return this.hideWindow()
-  })
+Then('the input is {string}', function (expected) {
+  return eventually(() => {
+    return this.getQuery()
+  }, expected)
+})
 
-  // assumes modifier is first
-  this.When(/^I hit the hotkey "([^"]*)"$/, function (hotkey) {
-    var keys = hotkey.split('+')
-    return this.hitHotkey(keys[1], keys[0]).then(() => {
+When('I type in {string}', function (input) {
+  this.type(input)
+  return eventually(() => {
+    return this.getQuery()
+  }, input)
+})
+
+Then('I have no results', function () {
+  return eventually(() => this.hasResults(), false)
+})
+
+Then('the active result contains {string}', function (header) {
+  return eventually(() => this.hasResults(), true)
+    .then(() => {
       return wait(100)
     })
-  })
-
-  this.When(/^I hit the key "([^"]*)"$/, function (hotkey) {
-    return this.hitHotkey(hotkey).then(() => {
-      return wait(100)
+    .then(() => {
+      return eventually(() => this.getActiveHeader(), header)
     })
-  })
+})
 
-  this.When(/^I eventually click on the active result$/, function () {
-    return eventually(() => this.hasResults(), true)
-      .then(() => {
-        return wait(100)
-      })
-      .then(() => {
-        return this.clickActiveResult()
-      })
+Then('I have no accessibility warnings', function () {
+  return this.accessibility().then(response => {
+    if (response.results.length !== 0) {
+      throw new Error('You have accessibility issues')
+    }
   })
+})
 
-  this.Then(/^my clipboard contains "([^"]*)"$/, function (expected, callback) {
-    this.readClipboard().then(actual => {
-      if (actual === expected) {
-        callback()
-      } else {
-        callback(new Error('Expected "' + expected + '" to be in your clipbaord but found "' + actual + '"'))
-      }
-    })
+Then('the results contain {string}', function (subset, callback) {
+  this.getResults().then(resultText => {
+    if (resultText.match(subset)) {
+      callback()
+    } else {
+      callback(new Error('Expected results to contain "' + subset + '"'))
+    }
   })
-
-  this.Then(/^the search window is not visible$/, function () {
-    return eventually(() => this.isWindowVisible(), false)
-  })
-
-  this.Then(/^the search window is visible$/, function () {
-    return eventually(() => this.isWindowVisible(), true)
-  })
-
-  this.Then(/^I have (\d+) results?$/, function (expected) {
-    return eventually(() => {
-      return this.getResultItems().then(items => items.length)
-    }, parseInt(expected, 10))
-  })
-
-  this.Then(/^the input is empty$/, function () {
-    return eventually(() => {
-      return this.getQuery()
-    }, '')
-  })
-
-  this.Then(/^the input is "([^"]*)"$/, function (expected) {
-    return eventually(() => {
-      return this.getQuery()
-    }, expected)
-  })
-
-  this.When(/^I type in "([^"]*)"$/, function (input) {
-    this.type(input)
-    return eventually(() => {
-      return this.getQuery()
-    }, input)
-  })
-
-  this.Then(/^I have no results$/, function () {
-    return eventually(() => this.hasResults(), false)
-  })
-
-  this.Then(/^the active result contains "([^"]*)"$/, function (header) {
-    return eventually(() => this.hasResults(), true)
-      .then(() => {
-        return wait(100)
-      })
-      .then(() => {
-        return eventually(() => this.getActiveHeader(), header)
-      })
-  })
-
-  this.Then(/^I have no accessibility warnings$/, function () {
-    return this.accessibility().then(response => {
-      if (response.results.length !== 0) {
-        throw new Error('You have accessibility issues')
-      }
-    })
-  })
-
-  this.Then(/^the results contain "([^"]*)"$/, function (subset, callback) {
-    this.getResults().then(resultText => {
-      if (resultText.match(subset)) {
-        callback()
-      } else {
-        callback(new Error('Expected results to contain "' + subset + '"'))
-      }
-    })
-  })
-}
+})
