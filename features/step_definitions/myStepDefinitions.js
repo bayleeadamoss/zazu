@@ -1,10 +1,14 @@
 const { setWorldConstructor, Given, When, Then } = require('cucumber')
 const path = require('path')
+const os = require('os')
+const childProcess = require('child_process')
+const { promisify } = require('util')
 const ks = require('node-key-sender')
 const Application = require('spectron').Application
 const $ = require('cheerio')
 const jetpack = require('fs-jetpack')
 const { git, clone } = require('../../app/lib/git')
+const exec = promisify(childProcess.exec)
 
 const appPath = path.join(__dirname, '../../app')
 const homeDir = path.join(__dirname, '../../test/fixtures/home')
@@ -74,10 +78,21 @@ class World {
   }
 
   hitHotkey (key, modifier) {
-    if (modifier) {
-      return ks.sendCombination([modifier, key])
+    if (os.type() === 'Darwin') {
+      if (modifier) {
+        return exec(`Script="tell app \\"System Events\\" to keystroke ${key} using ${modifier} down"
+        osascript -e "$Script"`)
+      } else {
+        return exec(`Script="tell app \\"System Events\\" to keystroke ${key}"
+        osascript -e "$Script"`)
+      }
+    } else {
+      if (modifier) {
+        return ks.sendCombination([modifier, key])
+      } else {
+        return ks.sendKey(key)
+      }
     }
-    return ks.sendKey(key)
   }
 
   close () {
