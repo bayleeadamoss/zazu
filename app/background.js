@@ -77,7 +77,7 @@ app.on('ready', function () {
     }
   })
 
-  logger.log('verbose', 'registering zazu hotkey', { hotkey: configuration.hotkey })
+  logger.log('verbose', `registering zazu hotkey: ${configuration.hotkey}`)
   globalShortcut.register(configuration.hotkey, () => {
     logger.log('info', 'triggered zazu hotkey')
     globalEmitter.emit('toggleWindow')
