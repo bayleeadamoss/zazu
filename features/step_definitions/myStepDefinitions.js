@@ -85,20 +85,22 @@ class World {
   hitKey (key, modifier) {
     if (os.type() === 'Darwin') {
       const keyForAppleScript = key.length === 1 ? `\\"${key}\\"` : key
-      if (modifier) {
-        const modifierForAppleScript = modifier.replace('alt', 'option')
-        return exec(`Script="tell app \\"System Events\\" to keystroke ${keyForAppleScript} using ${modifierForAppleScript} down"
-        osascript -e "$Script"`)
-      } else {
-        return exec(`Script="tell app \\"System Events\\" to keystroke ${keyForAppleScript}"
-        osascript -e "$Script"`)
-      }
+      // locally, use appleScript, but travis CI don't allow appleScript so we fallback to other methods
+      try {
+        if (modifier) {
+          const modifierForAppleScript = modifier.replace('alt', 'option')
+          return exec(`Script="tell app \\"System Events\\" to keystroke ${keyForAppleScript} using ${modifierForAppleScript} down"
+          osascript -e "$Script"`)
+        } else {
+          return exec(`Script="tell app \\"System Events\\" to keystroke ${keyForAppleScript}"
+          osascript -e "$Script"`)
+        }
+      } catch {}
+    }
+    if (modifier) {
+      return ks.sendCombination([modifier, key])
     } else {
-      if (modifier) {
-        return ks.sendCombination([modifier, key])
-      } else {
-        return ks.sendKey(key)
-      }
+      return ks.sendKey(key)
     }
   }
 
