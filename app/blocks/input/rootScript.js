@@ -26,7 +26,7 @@ class RootScript extends InputBlock {
       this.logger.error('Plugin failed to load', this.loadError)
       return false
     }
-    const respondsTo = this.script.respondsTo(input, env)
+    const respondsTo = !!this.script.respondsTo(input, env)
     this.logger.log('info', 'Responds to input', { input, respondsTo })
     return respondsTo
   }
