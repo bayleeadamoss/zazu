@@ -98,6 +98,12 @@ class World {
     if (modifier) {
       return Promise.resolve(robot.keyTap(key, modifier))
     } else {
+      // * will becomes 8, see https://github.com/octalmage/robotjs/issues/285
+      const robotjsBadChars = /[~!@#$%^&*()_+{}|:"<>?]/
+      let match = key.match(robotjsBadChars)
+      if (match) {
+        return Promise.resolve(robot.keyTap(key, 'shift'))
+      }
       return Promise.resolve(robot.keyTap(key))
     }
   }
