@@ -2,6 +2,7 @@
   "hotkey": "shift+space",
   "theme": "tinytacoteam/zazu-fixture",
   "disableAnalytics": true,
+  "debug": true,
   "plugins": [
     "tinytacoteam/zazu-calculator"
   ],
