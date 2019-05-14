@@ -65,19 +65,21 @@ class World {
     return this.app.client.getValue('input')
   }
 
-  type (input) {
-    this.app.client.setValue('input', input)
+  async type (input) {
+    for (const char of input) {
+      await this.hitKey(char)
+    }
   }
 
   showWindow () {
-    return this.hitHotkey('space', 'shift')
+    return this.hitKey('space', 'shift')
   }
 
   hideWindow () {
-    return this.hitHotkey('space', 'shift')
+    return this.hitKey('space', 'shift')
   }
 
-  hitHotkey (key, modifier) {
+  hitKey (key, modifier) {
     if (os.type() === 'Darwin') {
       const keyForAppleScript = key.length === 1 ? `\\"${key}\\"` : key
       if (modifier) {
@@ -199,13 +201,13 @@ When('I toggle it closed', function () {
 // assumes modifier is first
 When('I hit the hotkey {string}', function (hotkey) {
   var keys = hotkey.split('+')
-  return this.hitHotkey(keys[1], keys[0]).then(() => {
+  return this.hitKey(keys[1], keys[0]).then(() => {
     return wait(100)
   })
 })
 
 When('I hit the key {string}', function (hotkey) {
-  return this.hitHotkey(hotkey).then(() => {
+  return this.hitKey(hotkey).then(() => {
     return wait(100)
   })
 })
@@ -257,10 +259,11 @@ Then('the input is {string}', function (expected) {
 })
 
 When('I type in {string}', function (input) {
-  this.type(input)
-  return eventually(() => {
-    return this.getQuery()
-  }, input)
+  return this.type(input).then(() =>
+    eventually(() => {
+      return this.getQuery()
+    }, input)
+  )
 })
 
 Then('I have no results', function () {
