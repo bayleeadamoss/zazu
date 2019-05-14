@@ -1,4 +1,4 @@
-const { setWorldConstructor, Given, When, Then } = require('cucumber')
+const { setWorldConstructor, setDefaultTimeout, Given, When, Then } = require('cucumber')
 const path = require('path')
 const os = require('os')
 const childProcess = require('child_process')
@@ -16,6 +16,8 @@ const pluginDir = path.join(homeDir, '.zazu/plugins')
 const calcProfile = path.join(homeDir, '.calculator.zazurc.json')
 const fallbackProfile = path.join(homeDir, '.fallback.zazurc.json')
 const homeProfile = path.join(homeDir, '.zazurc.json')
+
+setDefaultTimeout(60 * 1000)
 
 class World {
   profile (name) {
