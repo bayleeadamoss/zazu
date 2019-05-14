@@ -4,6 +4,7 @@ const os = require('os')
 const childProcess = require('child_process')
 const { promisify } = require('util')
 const ks = require('node-key-sender')
+const isTravis = require('is-travis')
 const Application = require('spectron').Application
 const $ = require('cheerio')
 const jetpack = require('fs-jetpack')
@@ -83,19 +84,16 @@ class World {
   }
 
   hitKey (key, modifier) {
-    if (os.type() === 'Darwin') {
+    if (os.type() === 'Darwin' && !isTravis) {
       const keyForAppleScript = key.length === 1 ? `\\"${key}\\"` : key
-      // locally, use appleScript, but travis CI don't allow appleScript so we fallback to other methods
-      try {
-        if (modifier) {
-          const modifierForAppleScript = modifier.replace('alt', 'option')
-          return exec(`Script="tell app \\"System Events\\" to keystroke ${keyForAppleScript} using ${modifierForAppleScript} down"
+      if (modifier) {
+        const modifierForAppleScript = modifier.replace('alt', 'option')
+        return exec(`Script="tell app \\"System Events\\" to keystroke ${keyForAppleScript} using ${modifierForAppleScript} down"
           osascript -e "$Script"`)
-        } else {
-          return exec(`Script="tell app \\"System Events\\" to keystroke ${keyForAppleScript}"
+      } else {
+        return exec(`Script="tell app \\"System Events\\" to keystroke ${keyForAppleScript}"
           osascript -e "$Script"`)
-        }
-      } catch {}
+      }
     }
     if (modifier) {
       return ks.sendCombination([modifier, key])
