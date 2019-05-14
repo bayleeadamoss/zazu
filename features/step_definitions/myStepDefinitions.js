@@ -80,8 +80,8 @@ class World {
   hitHotkey (key, modifier) {
     if (os.type() === 'Darwin') {
       const keyForAppleScript = key.length === 1 ? `\\"${key}\\"` : key
-      const modifierForAppleScript = modifier.replace('alt', 'option')
       if (modifier) {
+        const modifierForAppleScript = modifier.replace('alt', 'option')
         return exec(`Script="tell app \\"System Events\\" to keystroke ${keyForAppleScript} using ${modifierForAppleScript} down"
         osascript -e "$Script"`)
       } else {
