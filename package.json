@@ -47,7 +47,7 @@
     "asar": "^0.14.2",
     "babel-eslint": "^8.2.1",
     "chai": "^4.2.0",
-    "cheerio": "^0.22.0",
+    "cheerio": "^1.0.0-rc.3",
     "cross-env": "^5.2.0",
     "cucumber": "^5.1.0",
     "electron": "^5.0.1",
