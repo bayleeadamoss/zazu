@@ -69,6 +69,7 @@ class World {
     for (const char of input) {
       await this.hitKey(char)
     }
+    await wait(500)
   }
 
   showWindow () {
