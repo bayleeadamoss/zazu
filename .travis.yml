@@ -1,9 +1,10 @@
 language: node_js
 node_js:
-  - '12.2.0'
+  - 'stable'
 os:
   - linux
   - osx
+osx_image: xcode10.2
 
 matrix:
   fast_finish: true
