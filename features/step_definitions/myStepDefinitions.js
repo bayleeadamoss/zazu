@@ -96,9 +96,9 @@ class World {
     }
     const robot = require('robotjs')
     if (modifier) {
-      return wait(10).then(() => robot.keyTap(key, modifier))
+      return Promise.resolve(robot.keyTap(key, modifier))
     } else {
-      return wait(10).then(() => robot.keyTap(key))
+      return Promise.resolve(robot.keyTap(key))
     }
   }
 
