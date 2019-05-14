@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - 'lts/10'
+  - 'lts'
 os:
   - linux
   - osx
