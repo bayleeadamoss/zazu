@@ -18,17 +18,21 @@ class SimpleFormatter extends ProgressFormatter {
       files.map(file => {
         const logFile = path.join(logDir, file)
         console.log(`\n---logs---\n${file}\n`)
-        jetpack
-          .read(logFile)
-          .split('\n')
-          .map(logLine => {
-            try {
-              return JSON.stringify(JSON.parse(logLine), null, '  ')
-            } catch {
-              return logLine
-            }
-          })
-          .forEach(line => console.log(line))
+        try {
+          jetpack
+            .read(logFile)
+            .split('\n')
+            .map(logLine => {
+              try {
+                return JSON.stringify(JSON.parse(logLine), null, '  ')
+              } catch {
+                return logLine
+              }
+            })
+            .forEach(line => console.log(line))
+        } catch (error) {
+          console.error('Error loading logs', error)
+        }
       })
       console.log('\n')
     }
