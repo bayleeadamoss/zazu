@@ -66,11 +66,11 @@ class World {
   }
 
   showWindow () {
-    return Promise.resolve(this.hitHotkey('space', 'shift'))
+    return this.hitHotkey('space', 'shift')
   }
 
   hideWindow () {
-    return Promise.resolve(this.hitHotkey('space', 'shift'))
+    return this.hitHotkey('space', 'shift')
   }
 
   hitHotkey (key, modifier) {
