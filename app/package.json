@@ -14,7 +14,6 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.24.1",
-    "babelify": "^7.3.0",
     "cuid": "^1.3.8",
     "decompress": "^4.2.0",
     "fs-jetpack": "^2.2.2",
