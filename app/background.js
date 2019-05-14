@@ -118,7 +118,7 @@ app.on('ready', function () {
 
   mainWindow.on('blur', () => {
     logger.log('verbose', 'sending hide event signal from blur event')
-    if (mainWindow.isVisible()) globalEmitter.emit('hideWindow')
+    if (configuration.blur !== false && mainWindow.isVisible()) globalEmitter.emit('hideWindow')
   })
 
   globalEmitter.on('hideWindow', () => {
