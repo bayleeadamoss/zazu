@@ -1,18 +1,20 @@
 environment:
   nodejs_version: "stable"
+  JAVA_HOME: C:\Program Files\Java\jdk12
 
 os: unstable
 
 install:
   - ps: Install-Product node $env:nodejs_version
-  - ps: $env:Path += ";C:\Program Files (x86)\NSIS"
+  - ps: $env:Path += ";C:\Program Files (x86)\NSIS;%JAVA_HOME%"
   - choco install nsis -pre -y
   - npm install
 
 test_script:
   - node --version
   - npm --version
+  - java -version
   - npm run cucumber
   - npm test
 
-build: off
+build: "off"
