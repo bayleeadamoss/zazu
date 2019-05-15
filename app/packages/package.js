@@ -16,7 +16,7 @@ class Package {
     this.logger = logger.bindMeta({ plugin: this.url })
   }
 
-  load = () => {
+  load () {
     return this.download()
       .then(this.check)
       .then(async () => {
