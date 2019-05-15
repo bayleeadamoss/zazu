@@ -27,7 +27,7 @@ class RootScript extends InputBlock {
       return false
     }
     const respondsTo = !!this.script.respondsTo(input, env)
-    this.logger.log('verbose', 'Responds to input', { input, respondsTo })
+    this.logger.log('verbose', `${respondsTo ? 'r' : 'notR'}espondsTo`, { input, respondsTo })
     return respondsTo
   }
 
