@@ -52,7 +52,7 @@
     "cucumber": "^5.1.0",
     "electron": "^5.0.1",
     "electron-builder": "^20.40.2",
-    "electron-mocha": "^8.0.1",
+    "electron-mocha": "^8.0.2",
     "eslint": "^5.16.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.17.2",
