@@ -10,7 +10,7 @@
     "build:archlinux": "cross-env DEBUG=electron-builder ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES=true build --x64 --linux pacman",
     "release": "cross-env DEBUG=electron-builder ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES=true build --x64 --publish onTag",
     "start": "cross-env NODE_ENV=development electron -r @babel/register ./app/background.js",
-    "test": "cross-env NODE_ENV=test electron-mocha --recursive test/app",
+    "test": "cross-env NODE_ENV=test electron-mocha -r @babel/register --recursive test/app",
     "cucumber": "cucumber-js --format ./features/support/custom_formattor.js",
     "lint": "eslint .",
     "docs:publish": "gulp ghpages"
