@@ -117,9 +117,9 @@ const menuTemplate = trayTemplate.slice(2)
 let tray
 module.exports = {
   createMenu: () => {
-    if (app.dock) app.dock.hide()
+    // if (app.dock) app.dock.hide()
     if (!configuration.hideTrayItem) {
-      const iconPath = path.join(app.getAppPath(), 'assets', 'images', 'iconTemplate.png')
+      const iconPath = path.join(__dirname, '..', 'assets', 'images', 'iconTemplate.png')
       tray = new Tray(iconPath)
       tray.setToolTip('Toggle Zazu')
       tray.setContextMenu(Menu.buildFromTemplate(trayTemplate))

@@ -1,5 +1,20 @@
 {
+  "name": "zazu",
   "version": "0.6.0",
+  "description": "A cross platform productivity application.",
+  "main": "app/background.js",
+  "scripts": {
+    "prepush": "npm run lint && npm test",
+    "prerelease": "npm install",
+    "build": "cross-env DEBUG=electron-builder build --x64",
+    "build:archlinux": "cross-env DEBUG=electron-builder build --x64 --linux pacman",
+    "release": "cross-env DEBUG=electron-builder build --x64 --publish onTag",
+    "start": "cross-env NODE_ENV=development electron -r @babel/register ./app/background.js",
+    "test": "cross-env NODE_ENV=test electron-mocha --recursive test/app",
+    "cucumber": "cucumber-js --format ./features/support/custom_formattor.js",
+    "lint": "eslint .",
+    "docs:publish": "gulp ghpages"
+  },
   "build": {
     "productName": "Zazu",
     "appId": "com.tinytacoteam.zazu",
@@ -36,12 +51,47 @@
       "buildResources": "resources"
     }
   },
+  "browserslist": "electron 5.0",
+  "email": "zazu-app@googlegroups.com",
+  "author": "Tiny Taco Team <zazu-app@googlegroups.com>",
+  "homepage": "http://zazuapp.org",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/tinytacoteam/zazu.git"
   },
   "bugs": {
     "url": "https://github.com/tinytacoteam/zazu/issues"
+  },
+  "dependencies": {
+    "auto-launch": "^5.0.5",
+    "@babel/core": "^7.4.4",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/plugin-transform-react-constant-elements": "^7.2.0",
+    "@babel/plugin-transform-react-inline-elements": "^7.2.0",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.4.4",
+    "@babel/runtime": "^7.4.4",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "babel-plugin-dynamic-import-node-babel-7": "^2.0.7",
+    "babel-plugin-closure-elimination": "^1.3.0",
+    "babel-plugin-macros": "^2.5.1",
+    "cuid": "^2.1.6",
+    "decompress": "^4.2.0",
+    "fs-jetpack": "^2.2.2",
+    "mkdirp": "^0.5.1",
+    "mousetrap": "^1.6.3",
+    "nedb": "^1.8.0",
+    "node-notifier": "^5.4.0",
+    "npm": "^6.9.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "request": "^2.88.0",
+    "semver": "^6.0.0",
+    "winston": "^3.2.1",
+    "winston-daily-rotate-file": "^3.9.0"
   },
   "devDependencies": {
     "asar": "^2.0.1",
@@ -76,19 +126,5 @@
     "appdmg": "^0.5.2",
     "robotjs": "^0.5.1",
     "rcedit": "^1.1.2"
-  },
-  "scripts": {
-    "prepush": "npm run lint && npm test",
-    "postinstall": "cd app && npm install",
-    "prerelease": "npm install",
-    "build": "cross-env DEBUG=electron-builder build --x64",
-    "build:archlinux": "cross-env DEBUG=electron-builder build --x64 --linux pacman",
-    "release": "cross-env DEBUG=electron-builder build --x64 --publish onTag",
-    "start": "cross-env NODE_ENV=development electron ./app",
-    "test": "cross-env NODE_ENV=test electron-mocha --recursive test/app",
-    "cucumber": "cucumber-js --format ./features/support/custom_formattor.js",
-    "lint": "eslint .",
-    "install-native": "node ./tasks/install_native_module",
-    "docs:publish": "gulp ghpages"
   }
 }
