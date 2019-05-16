@@ -10,7 +10,7 @@ const jetpack = require('fs-jetpack')
 const { git, clone } = require('../../app/lib/git')
 const exec = promisify(childProcess.exec)
 
-const appPath = path.join(__dirname, '../../app')
+const appPath = path.join(__dirname, '../../')
 const homeDir = path.join(__dirname, '../../test/fixtures/home')
 const pluginDir = path.join(homeDir, '.zazu/plugins')
 const calcProfile = path.join(homeDir, '.calculator.zazurc.json')
