@@ -10,7 +10,7 @@ const jetpack = require('fs-jetpack')
 const { git, clone } = require('../../app/lib/git')
 const exec = promisify(childProcess.exec)
 
-const appPath = path.join(__dirname, '../../')
+const appPath = path.join(__dirname, '../../', 'app/background.js')
 const homeDir = path.join(__dirname, '../../test/fixtures/home')
 const pluginDir = path.join(homeDir, '.zazu/plugins')
 const calcProfile = path.join(homeDir, '.calculator.zazurc.json')
@@ -29,17 +29,19 @@ class World {
     }
     this.app = new Application({
       path: require('electron'),
-      args: ['-r @babel/register', appPath],
+      args: [appPath],
       env: {
         NODE_ENV: 'test',
         ZAZU_HOME: homeDir,
       },
     })
+    console.log('starts', appPath)
     return Promise.resolve()
   }
 
   open () {
     return this.app.start().then(() => {
+      console.log('starting', this.profileType)
       const time = this.profileType === 'calculator' ? 50 * 1000 : 5 * 1000
       return wait(time) // give it time to load plugins
     })
