@@ -6,9 +6,9 @@
   "scripts": {
     "prepush": "npm run lint && npm test",
     "prerelease": "npm install",
-    "build": "cross-env DEBUG=electron-builder build --x64",
-    "build:archlinux": "cross-env DEBUG=electron-builder build --x64 --linux pacman",
-    "release": "cross-env DEBUG=electron-builder build --x64 --publish onTag",
+    "build": "cross-env DEBUG=electron-builder ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES=true build --x64",
+    "build:archlinux": "cross-env DEBUG=electron-builder ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES=true build --x64 --linux pacman",
+    "release": "cross-env DEBUG=electron-builder ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES=true build --x64 --publish onTag",
     "start": "cross-env NODE_ENV=development electron -r @babel/register ./app/background.js",
     "test": "cross-env NODE_ENV=test electron-mocha --recursive test/app",
     "cucumber": "cucumber-js --format ./features/support/custom_formattor.js",
@@ -121,6 +121,9 @@
     "sinon": "^7.3.2",
     "sinon-chai": "^3.3.0",
     "spectron": "^5.0.0"
+  },
+  "peerDependencies": {
+    "fs-xattr": "^0.3.0"
   },
   "optionalDependencies": {
     "appdmg": "^0.5.2",
