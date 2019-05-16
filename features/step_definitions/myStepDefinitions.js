@@ -41,7 +41,6 @@ class World {
   async open () {
     await this.app.start()
     const time = this.profileType === 'calculator' ? 50 * 1000 : 5 * 1000
-    console.log('time to wait', time)
     return wait(time) // give it time to load plugins
   }
 
@@ -182,8 +181,9 @@ Given('I have {string} as a plugin', function (plugin) {
 })
 
 Given('the app is launched', { timeout: 120 * 1000 }, async function () {
-  console.log('this.open', this.open, typeof this.open)
+  console.log('opening')
   await this.open()
+  console.log('opened')
 })
 
 Given('I have {string} installed before packagist support', function (plugin) {

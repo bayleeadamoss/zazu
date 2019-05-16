@@ -2,7 +2,6 @@
   "hotkey": "shift+space",
   "theme": "tinytacoteam/zazu-fixture",
   "disableAnalytics": true,
-  "blur": false,
   "plugins": [
     "tinytacoteam/zazu-fallback"
   ],
