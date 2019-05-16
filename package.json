@@ -140,10 +140,8 @@
     "webpack-cli": "^3.3.2",
     "webpack-merge": "^4.2.1"
   },
-  "peerDependencies": {
-    "fs-xattr": "^0.3.0"
-  },
   "optionalDependencies": {
+    "fs-xattr": "^0.3.0",
     "appdmg": "^0.5.2",
     "robotjs": "^0.5.1",
     "rcedit": "^1.1.2"
