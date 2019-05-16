@@ -20,6 +20,7 @@ class Configuration {
     this.theme = ''
     this.hotkey = ''
     this.debug = false
+    this.blur = false
     this.hideTrayItem = false
     this.height = 400
   }
@@ -42,6 +43,7 @@ class Configuration {
       this.debug = data.debug
       this.hideTrayItem = data.hideTrayItem
       this.loaded = true
+      this.blur = data.blur
       this.height = data.height || this.height
     } catch (e) {
       const logger = require('./logger')
