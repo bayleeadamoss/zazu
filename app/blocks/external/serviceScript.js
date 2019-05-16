@@ -16,7 +16,7 @@ class ServiceScript extends ExternalBlock {
     }
     try {
       const plugin = electron.remote.require(path.join(this.cwd, data.script))
-      
+
       this.script = plugin({
         console: this.logger,
         cwd: this.cwd,

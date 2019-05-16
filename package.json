@@ -16,6 +16,7 @@
     "test": "cross-env NODE_ENV=test electron-mocha -r @babel/register --recursive test/app",
     "cucumber": "cucumber-js --format ./features/support/custom_formattor.js",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "docs:publish": "gulp ghpages"
   },
   "main": "app/dist/background.prod.js",
