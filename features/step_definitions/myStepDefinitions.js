@@ -29,7 +29,7 @@ class World {
     }
     this.app = new Application({
       path: require('electron'),
-      args: [appPath],
+      args: ['-r @babel/register', appPath],
       env: {
         NODE_ENV: 'test',
         ZAZU_HOME: homeDir,
