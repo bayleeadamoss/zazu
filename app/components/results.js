@@ -7,8 +7,6 @@ const globalEmitter = require('../lib/globalEmitter')
 
 const PropTypes = require('prop-types')
 
-const ulStyle = { maxHeight: 'inherit' }
-
 class Results extends React.Component {
   moveUp = () => {
     const { values, activeIndex } = this.props
@@ -71,8 +69,8 @@ class Results extends React.Component {
     if (values.length === 0) { return null }
 
     return (
-      <div className='results'>
-        <ul style={ulStyle}>
+      <div className='results' style={{ overflowY: 'auto' }}>
+        <ul style={{ maxHeight: 'inherit' }}>
           {values.map((result, i) => {
             return (
               <Result

@@ -59,7 +59,7 @@ class Zazu extends React.Component {
     const { query, results, theme } = this.props
 
     return (
-      <div>
+      <div style={{ maxHeight: 400, display: 'flex', flexDirection: 'column' }}>
         <Style css={theme}/>
         <Search
           handleQueryChange={this.handleQueryChange}
