@@ -23,6 +23,7 @@
   "build": {
     "productName": "Zazu",
     "appId": "com.tinytacoteam.zazu",
+    "npmRebuild": false,
     "files": [
       "app",
       "package.json"
@@ -141,6 +142,7 @@
     "webpack-merge": "^4.2.1"
   },
   "optionalDependencies": {
+    "fs-xattr": "^0.3.0",
     "appdmg": "^0.5.2",
     "robotjs": "^0.5.1",
     "rcedit": "^1.1.2"
