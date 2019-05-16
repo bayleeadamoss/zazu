@@ -33,7 +33,7 @@ class Configuration {
     }
 
     try {
-      const data = require(this.profilePath)
+      const data = jetpack.read(this.profilePath, 'json')
       this.plugins = data.plugins
       this.theme = data.theme
       this.hotkey = data.hotkey

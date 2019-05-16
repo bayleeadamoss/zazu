@@ -1,33 +1,9 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Zazu</title>
     <script>
-      require('@babel/register')({
-        ignore: [/\/(node_modules)\//],
-        presets: [
-          [
-            '@babel/preset-env',
-            {
-              targets: {
-                electron: '5',
-              },
-            },
-          ],
-          '@babel/preset-react',
-        ],
-        plugins: [
-          'babel-plugin-macros',
-          '@babel/plugin-syntax-dynamic-import',
-          'dynamic-import-node-babel-7',
-          '@babel/plugin-proposal-class-properties',
-          '@babel/plugin-transform-react-constant-elements',
-          '@babel/plugin-transform-react-inline-elements',
-          'babel-plugin-closure-elimination',
-        ],
-      })
-
       const track = require('./lib/track')
       const app = require('electron').remote.app
       const env = require('./lib/env')
@@ -36,22 +12,19 @@
         zazuEnvironment: env.name,
       })
     </script>
-    <link href="assets/stylesheets/debug.css" rel="stylesheet">
-    <link href="assets/stylesheets/font-awesome.min.css" rel="stylesheet">
-    <link href="http://fonts.googleapis.com/css?family=Roboto:400,400italic,700|Roboto+Mono:400,500" rel="stylesheet">
+    <link href="assets/stylesheets/debug.css" rel="stylesheet" />
+    <link href="assets/stylesheets/font-awesome.min.css" rel="stylesheet" />
+    <link href="http://fonts.googleapis.com/css?family=Roboto:400,400italic,700|Roboto+Mono:400,500" rel="stylesheet" />
   </head>
   <body>
     <ul id="debug"></ul>
     <script>
-      const ReactDOM = require('react-dom')
-      const React = require('react')
-
-      const Debug = require('./components/debug')
-
-      ReactDOM.render(
-        React.createElement(Debug),
-        document.getElementById('debug')
-      )
+      if (process.env.NODE_ENV === 'development') {
+        require('./registBabel.js')
+        require('./debug.js')
+      } else {
+        require('./dist/renderer.debug.prod.js')
+      }
     </script>
   </body>
 </html>

@@ -20,7 +20,7 @@ globalEmitter.on('showDebug', message => {
     height: 400,
     resizable: true,
     title: 'Debug Zazu',
-    url: path.join('file://', __dirname, '/debug.html'),
+    url: path.join('file://', __dirname, process.env.NODE_ENV === 'development' ? '' : '..', '/debug.html'),
     webPreferences: {
       nodeIntegration: true,
     },
@@ -103,7 +103,7 @@ app.on('ready', function () {
     fullscreenable: false,
     title: 'Zazu',
     autoResize: true,
-    url: path.join('file://', __dirname, '/app.html'),
+    url: path.join('file://', __dirname, process.env.NODE_ENV === 'development' ? '' : '..', '/app.html'),
     webPreferences: {
       backgroundThrottling: false,
       nodeIntegration: true,

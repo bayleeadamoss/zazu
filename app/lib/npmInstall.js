@@ -18,7 +18,7 @@ const npmInstall = cooldown((name, packagePath) => {
     if (!jetpack.exists(packageFile)) {
       return installStatus.set(name, 'nopackage')
     }
-    const pkg = require(packageFile)
+    const pkg = jetpack.read(packageFile, 'json')
     const dependencies = pkg.dependencies
     if (!dependencies) {
       return installStatus.set(name, 'nodeps')
