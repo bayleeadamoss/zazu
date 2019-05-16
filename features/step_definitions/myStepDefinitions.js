@@ -67,6 +67,7 @@ class World {
   }
 
   async type (input) {
+    await wait(500)
     for (const char of input) {
       await this.hitKey(char)
     }
@@ -181,9 +182,7 @@ Given('I have {string} as a plugin', function (plugin) {
 })
 
 Given('the app is launched', { timeout: 120 * 1000 }, async function () {
-  console.log('opening')
   await this.open()
-  console.log('opened')
 })
 
 Given('I have {string} installed before packagist support', function (plugin) {
@@ -201,8 +200,9 @@ Given('I update the plugins', { timeout: 15 * 1000 }, function () {
   return this.updatePlugins()
 })
 
-When('I toggle it open', function () {
-  return this.showWindow()
+When('I toggle it open', async function () {
+  await this.showWindow()
+  await wait(100)
 })
 
 When('I toggle it closed', function () {
@@ -269,12 +269,11 @@ Then('the input is {string}', function (expected) {
   }, expected)
 })
 
-When('I type in {string}', function (input) {
-  return this.type(input).then(() =>
-    eventually(() => {
-      return this.getQuery()
-    }, input)
-  )
+When('I type in {string}', async function (input) {
+  await this.type(input)
+  await eventually(() => {
+    return this.getQuery()
+  }, input)
 })
 
 Then('I have no results', function () {
