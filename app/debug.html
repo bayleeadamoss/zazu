@@ -19,7 +19,7 @@
   <body>
     <ul id="debug"></ul>
     <script>
-      if (process.env.NODE_ENV.match(/(development|test)/)) {
+      if (process.env.NODE_ENV && process.env.NODE_ENV.match(/(development|test)/)) {
         require('./registBabel.js')
         require('./debug.js')
       } else {
