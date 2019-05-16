@@ -38,12 +38,11 @@ class World {
     return Promise.resolve()
   }
 
-  open () {
-    return this.app.start().then(() => {
-      const time = this.profileType === 'calculator' ? 50 * 1000 : 5 * 1000
-      console.log('time to wait', time)
-      return wait(time) // give it time to load plugins
-    })
+  async open () {
+    await this.app.start()
+    const time = this.profileType === 'calculator' ? 50 * 1000 : 5 * 1000
+    console.log('time to wait', time)
+    return wait(time) // give it time to load plugins
   }
 
   isWindowVisible () {
@@ -75,8 +74,9 @@ class World {
     await wait(500)
   }
 
-  showWindow () {
-    return this.hitKey('space', 'shift')
+  async showWindow () {
+    await this.hitKey('space', 'shift')
+    await wait(500)
   }
 
   hideWindow () {
@@ -140,10 +140,7 @@ class World {
 }
 
 const wait = time => {
-  console.log('starting waiting')
-  
   return new Promise(resolve => {
-    console.log('inside Promise')
     setTimeout(resolve, time)
   })
 }
@@ -151,7 +148,7 @@ const wait = time => {
 const eventually = (func, expectedValue) => {
   const assert = actualValue => {
     if (actualValue !== expectedValue) {
-      throw new Error('Values didnt match')
+      throw new Error(`Values didn't match`)
     }
   }
   return new Promise((resolve, reject) => {
@@ -184,9 +181,9 @@ Given('I have {string} as a plugin', function (plugin) {
   return Promise.reject(new Error('Profile not found'))
 })
 
-Given('the app is launched', { timeout: 120 * 1000 }, function () {
+Given('the app is launched', { timeout: 120 * 1000 }, async function () {
   console.log('this.open', this.open, typeof this.open)
-  return this.open()
+  await this.open()
 })
 
 Given('I have {string} installed before packagist support', function (plugin) {
