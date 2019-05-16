@@ -1,13 +1,13 @@
-const Block = require('../block')
-
 const path = require('path')
+const electron = require('electron')
+
+const Block = require('../block')
 
 class UserScript extends Block {
   constructor (data) {
     super(data)
     try {
-      const plugin = require(path.join(data.cwd, data.script))
-      const electron = require('electron')
+      const plugin = electron.remote.require(path.join(data.cwd, data.script))
       this.script = plugin({
         console: this.logger,
         cwd: data.cwd,

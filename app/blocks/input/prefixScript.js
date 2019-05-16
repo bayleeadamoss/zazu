@@ -1,4 +1,5 @@
 const path = require('path')
+const electron = require('electron')
 
 const InputBlock = require('../inputBlock')
 const truncateResult = require('../../lib/truncateResult')
@@ -10,8 +11,7 @@ class PrefixScript extends InputBlock {
     this.args = data.args || this.requiredField('args')
     this.space = !!data.space
     try {
-      const plugin = require(path.join(data.cwd, data.script))
-      const electron = require('electron')
+      const plugin = electron.remote.require(path.join(data.cwd, data.script))
       this.script = plugin({
         console: this.logger,
         cwd: data.cwd,
