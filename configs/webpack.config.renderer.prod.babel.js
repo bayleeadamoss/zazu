@@ -23,7 +23,7 @@ export default merge.smart(baseConfig, {
   output: {
     path: path.join(__dirname, '..', 'app/dist'),
     publicPath: './dist/',
-    filename: 'renderer.prod.js',
+    filename: 'app.prod.js',
   },
 
   module: {
