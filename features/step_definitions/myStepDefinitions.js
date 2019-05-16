@@ -35,14 +35,13 @@ class World {
         ZAZU_HOME: homeDir,
       },
     })
-    console.log('starts', appPath)
     return Promise.resolve()
   }
 
   open () {
     return this.app.start().then(() => {
-      console.log('starting', this.profileType)
       const time = this.profileType === 'calculator' ? 50 * 1000 : 5 * 1000
+      console.log('time to wait', time)
       return wait(time) // give it time to load plugins
     })
   }
@@ -141,7 +140,10 @@ class World {
 }
 
 const wait = time => {
+  console.log('starting waiting')
+  
   return new Promise(resolve => {
+    console.log('inside Promise')
     setTimeout(resolve, time)
   })
 }
@@ -183,6 +185,7 @@ Given('I have {string} as a plugin', function (plugin) {
 })
 
 Given('the app is launched', { timeout: 120 * 1000 }, function () {
+  console.log('this.open', this.open, typeof this.open)
   return this.open()
 })
 
