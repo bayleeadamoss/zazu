@@ -70,7 +70,6 @@ class World {
     await wait(500)
     for (const char of input) {
       await this.hitKey(char)
-      await wait(110)
     }
     await wait(500)
   }
