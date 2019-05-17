@@ -128,7 +128,7 @@ class Search extends React.Component {
   }
 
   renderMenuToggle = () => (
-    <button onClick={this.openMenu} className='menuToggle fa fa-cog' />
+    <button key="button" onClick={this.openMenu} className='menuToggle fa fa-cog' />
   )
 
   render () {
@@ -137,6 +137,7 @@ class Search extends React.Component {
     return (
       <div className="searchInputWrapper">
         <input
+          key="input"
           title='Search Zazu'
           className='mousetrap'
           ref={this.setReference}

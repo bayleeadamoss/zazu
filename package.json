@@ -78,6 +78,7 @@
     "cuid": "^2.1.6",
     "decompress": "^4.2.0",
     "fs-jetpack": "^2.2.2",
+    "interweave": "^11.1.0",
     "mkdirp": "^0.5.1",
     "mousetrap": "^1.6.3",
     "nestdb": "^2.0.0",
