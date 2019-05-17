@@ -95,7 +95,7 @@ app.on('ready', function () {
     show: false,
     frame: false,
     resizable: false,
-    transparent: !isWindows,
+    transparent: true,
     minimizable: false,
     maximizable: false,
     alwaysOnTop: true,
