@@ -11,7 +11,7 @@ class UserScript extends Block {
       this.script = plugin({
         console: this.logger,
         cwd: data.cwd,
-        clipboard: electron.clipboard,
+        ...electron.remote,
         nativeImage: electron.nativeImage,
       })
     } catch (e) {
