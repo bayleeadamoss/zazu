@@ -153,7 +153,8 @@ class Plugin extends Package {
       const icon = result.icon || this.plugin.icon || 'fa-bolt'
       const isFontAwesome = (icon.indexOf('fa-') === 0 && icon.indexOf('.') === -1)
       const isAbsolutePath = (icon.indexOf('/') === 0 || icon.indexOf(this.path) === 0)
-      const shouldAddPath = !isFontAwesome && !isAbsolutePath
+      const isResource = icon.startsWith('http') || icon.startsWith('data:image')
+      const shouldAddPath = !isFontAwesome && !isAbsolutePath && !isResource
       const finalResult = Object.assign({}, result, {
         icon: shouldAddPath ? path.join(this.path, icon) : icon,
         previewCss: this.plugin.css,
