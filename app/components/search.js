@@ -68,7 +68,7 @@ class Search extends React.Component {
 
   handlePreviousSearch = () => {
     const historyId = this.state.historyId + 1
-    this.props.handleQueryChange(this.state.history[historyId])
+    this.props.handleQueryChange(this.state.history[historyId] || '')
     this.setState({
       historyId,
     })
@@ -76,7 +76,7 @@ class Search extends React.Component {
 
   handleNextSearch = () => {
     const historyId = this.state.historyId - 1
-    this.props.handleQueryChange(this.state.history[historyId])
+    this.props.handleQueryChange(this.state.history[historyId] || '')
     this.setState({
       historyId,
     })

@@ -12,6 +12,7 @@ class Zazu extends React.Component {
 
     this.state = {
       activeIndex: 0,
+      previousQuery: null,
     }
   }
 
@@ -37,34 +38,31 @@ class Zazu extends React.Component {
     this.props.handleResetQuery()
   }
 
-  handleUpdateActiveIndex = (index) => {
+  handleUpdateActiveIndex = index => {
     this.setState({
       activeIndex: index,
     })
   }
 
-  handleResultClick = (result) => {
+  handleResultClick = result => {
     globalEmitter.emit('hideWindow')
     this.props.handleResultClick(result)
   }
 
-  handleQueryChange = (query) => {
+  handleQueryChange = query => {
     this.props.handleQueryChange(query)
-    this.setState({
-      activeIndex: 0,
-    })
+    this.setState(({ previousQuery, activeIndex }) => ({
+      activeIndex: previousQuery === query ? activeIndex : 0,
+      previousQuery: query,
+    }))
   }
 
   render () {
     const { query, results, theme } = this.props
-
     return (
       <div style={{ maxHeight: 400, display: 'flex', flexDirection: 'column' }}>
-        <Style css={theme}/>
-        <Search
-          handleQueryChange={this.handleQueryChange}
-          value={query}
-        />
+        <Style css={theme} />
+        <Search handleQueryChange={this.handleQueryChange} value={query} />
         <Results
           values={results}
           activeIndex={this.state.activeIndex}
