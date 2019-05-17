@@ -6,6 +6,7 @@ const configuration = require('./lib/configuration')
 const update = require('./lib/update')
 const globalEmitter = require('./lib/globalEmitter')
 const logger = require('./lib/logger')
+const pluginFreshRequire = require('./lib/pluginFreshRequire')
 
 const { windowHelper, openCount } = require('./helpers/window')
 const forceSingleInstance = require('./helpers/singleInstance')
@@ -36,6 +37,10 @@ globalEmitter.on('showAbout', message => {
 globalEmitter.on('reloadConfig', message => {
   app.relaunch()
   app.exit()
+})
+
+globalEmitter.on('pluginFreshRequire', pluginPath => {
+  pluginFreshRequire(pluginPath)
 })
 
 globalEmitter.on('quit', () => app.quit())
