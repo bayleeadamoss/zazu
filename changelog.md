@@ -7,6 +7,10 @@
 - Upgrade all minor dependencies
 - Make default debounce 100ms, and only generate plugin log if devtool is open, for better performance
 
+### Breaking Changes
+
+- `pluginContext` now only provides `console` and `cwd`, other electron based deps should be required by plugin directly
+
 ## 0.5.2
 
 ### Bugs
