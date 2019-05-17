@@ -117,8 +117,11 @@ app.on('ready', function () {
   if (debug) mainWindow.webContents.toggleDevTools({ mode: 'undocked' })
 
   mainWindow.on('blur', () => {
-    logger.log('verbose', 'sending hide event signal from blur event')
-    if (configuration.blur !== false && mainWindow.isVisible()) globalEmitter.emit('hideWindow')
+    logger.log('verbose', 'receiving blur event')
+    if (configuration.blur !== false && mainWindow.isVisible()) {
+      logger.log('verbose', 'sending hide event signal from blur event')
+      globalEmitter.emit('hideWindow')
+    }
   })
 
   globalEmitter.on('hideWindow', () => {
