@@ -80,7 +80,7 @@
     "fs-jetpack": "^2.2.2",
     "mkdirp": "^0.5.1",
     "mousetrap": "^1.6.3",
-    "nedb": "^1.8.0",
+    "nestdb": "^2.0.0",
     "node-notifier": "^5.4.0",
     "npm": "^6.9.0",
     "prop-types": "^15.7.2",

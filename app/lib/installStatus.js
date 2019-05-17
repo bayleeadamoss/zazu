@@ -1,5 +1,5 @@
 const configuration = require('./configuration')
-const Datastore = require('nedb')
+const Datastore = require('nestdb')
 const path = require('path')
 
 const database = new Datastore({
