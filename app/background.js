@@ -100,6 +100,7 @@ app.on('ready', function () {
     frame: false,
     resizable: false,
     transparent: true,
+    vibrancy: 'light',
     minimizable: false,
     maximizable: false,
     alwaysOnTop: true,
