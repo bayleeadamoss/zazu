@@ -50,7 +50,7 @@ class PrefixScript extends InputBlock {
     }
     regex.push('$')
     const respondsTo = input.match(new RegExp(regex.join(''), 'i')) || false
-    this.logger.log('info', 'respondsTo', { input, respondsTo })
+    this.logger.log('verbose', `${respondsTo ? 'r' : 'notR'}espondsTo`, { input, respondsTo })
     return respondsTo
   }
 
@@ -67,14 +67,23 @@ class PrefixScript extends InputBlock {
         timeout === this.timeout ? resolve() : reject(new Error('Debounced'))
       }, this.debounce)
       this.timeout = timeout
-    }).then(() => {
-      return this._ensurePromise(this.script(query, env))
-    }).then((results) => {
-      this.logger.log('info', 'Script Results', { results: (Array.isArray(results) ? results.map(truncateResult) : results) })
-      return this._validateResults(results.map((result) => Object.assign({}, result, { blockRank: 3 })))
-    }).catch((error) => {
-      this.logger.error('Script failed', { query, error })
     })
+      .then(() => {
+        return this._ensurePromise(this.script(query, env))
+      })
+      .then(results => {
+        this.logger.log('info', 'Script Results', {
+          results: Array.isArray(results) ? results.map(truncateResult) : results,
+        })
+        return this._validateResults(results.map(result => Object.assign({}, result, { blockRank: 3 })))
+      })
+      .catch(error => {
+        if (error.message === 'Debounced') {
+          this.logger.log('verbose', error.message, { query, error })
+        } else {
+          this.logger.error('Script failed', { query, error })
+        }
+      })
   }
 }
 
