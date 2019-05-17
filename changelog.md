@@ -2,10 +2,15 @@
 
 ### Features
 
-- Upgrade to Electron v5.0.1, Node Version: 12.0.0, Chrome Version: 73.0.3683.121
-- Upgrade babel to v7
-- Upgrade all minor dependencies
-- Make default debounce 100ms, and only generate plugin log if devtool is open, for better performance
+- Upgrade to Electron v5.0.1, Node Version: 12.0.0, Chrome Version: 73.0.3683.121 #341
+- Upgrade babel to v7 #341
+- Upgrade all minor dependencies #341
+- Make default debounce 100ms, and only generate plugin log if devtool is open, for better performance #341
+
+### Bugs
+
+- Fix [operations of zazu-clipboard](https://github.com/tinytacoteam/zazu-clipboard/issues/18)
+- Icon not loading #335
 
 ### Breaking Changes
 
