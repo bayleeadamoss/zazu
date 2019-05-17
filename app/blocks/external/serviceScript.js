@@ -20,8 +20,6 @@ class ServiceScript extends ExternalBlock {
       this.script = plugin({
         console: this.logger,
         cwd: this.cwd,
-        clipboard: electron.clipboard,
-        nativeImage: electron.nativeImage,
       })
     } catch (e) {
       this.script = false

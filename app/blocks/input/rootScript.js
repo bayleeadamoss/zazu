@@ -12,8 +12,6 @@ class RootScript extends InputBlock {
       this.script = plugin({
         console: this.logger,
         cwd: data.cwd,
-        clipboard: electron.clipboard,
-        nativeImage: electron.nativeImage,
       })
     } catch (e) {
       this.script = false
