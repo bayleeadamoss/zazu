@@ -15,7 +15,7 @@ class PrefixScript extends InputBlock {
       this.script = plugin({
         console: this.logger,
         cwd: data.cwd,
-        ...electron.remote,
+        clipboard: electron.clipboard,
         nativeImage: electron.nativeImage,
       })
     } catch (e) {
