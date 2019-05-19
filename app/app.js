@@ -5,7 +5,9 @@ const ConfigWrapper = require('./containers/configWrapper')
 const PluginWrapper = require('./containers/pluginWrapper')
 
 ReactDOM.render(
-  React.createElement(ConfigWrapper, {}, React.createElement(PluginWrapper)),
+  <ConfigWrapper>
+    <PluginWrapper />
+  </ConfigWrapper>,
   document.getElementById('zazu')
 )
 

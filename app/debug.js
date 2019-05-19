@@ -3,4 +3,4 @@ const React = require('react')
 
 const Debug = require('./components/debug')
 
-ReactDOM.render(React.createElement(Debug), document.getElementById('debug'))
+ReactDOM.render(<Debug />, document.getElementById('debug'))
