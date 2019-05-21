@@ -16,7 +16,7 @@ class OpenInBrowser extends Block {
     const url = Template.compile(this.url, {
       value: String(state.value),
     })
-    const command = `${getOpenFileShellCommand()} ${url}`
+    const command = `${getOpenFileShellCommand()} "${url}"`
     this.logger.log('info', 'Opening in browser', { url, command })
     return exec(command)
       .catch(error => {
