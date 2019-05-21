@@ -40,7 +40,7 @@ class Result extends React.Component {
     const isFontAwesome = value.icon.indexOf('fa-') === 0 && value.icon.indexOf('.') === -1
 
     if (isFontAwesome) {
-      return <i className={`icon fa ${value.icon}`} aria-hidden='true'/>
+      return <i className={`icon fab ${value.icon}`} aria-hidden='true'/>
     } else {
       return <img className='icon' src={value.icon} role='presentation' alt=''/>
     }
