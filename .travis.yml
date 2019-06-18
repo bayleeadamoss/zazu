@@ -12,12 +12,6 @@ services:
   - xvfb
   - docker
 
-cache:
-  directories:
-    - node_modules
-    - $HOME/.cache/electron
-    - $HOME/.cache/electron-builder
-
 before_install:
   - if [ $TRAVIS_OS_NAME == "linux" ]; then
       export DISPLAY=:99.0;
