@@ -55,20 +55,18 @@ class Results extends React.Component {
     const activeResult = values.find((result, i) => i === activeIndex && typeof result.preview === 'string')
     if (!activeResult) return
     const style = activeResult.previewCss ? `<style>${activeResult.previewCss}</style>` : ''
-    return (
-      <>
-        <Style
-          key="preview-style"
-          css={`
-            div.results blockquote {
-              max-width: 70%;
-              overflow: auto;
-            }
-          `}
-        />
-        <Markup tagName="blockquote" id="preview" key="preview" content={`${style}${activeResult.preview}`} />
-      </>
-    )
+    return [
+      <Style
+        key="preview-style"
+        css={`
+          div.results blockquote {
+            max-width: 70%;
+            overflow: auto;
+          }
+        `}
+      />,
+      <Markup tagName="blockquote" id="preview" key="preview" content={`${style}${activeResult.preview}`} />,
+    ]
   }
 
   render () {
@@ -79,7 +77,7 @@ class Results extends React.Component {
 
     return (
       <div className="results" style={{ overflowY: 'auto' }}>
-        <ul style={{ maxHeight: 'inherit' }}>
+        <ul style={{ maxHeight: 'inherit' }} key="result-list">
           {values.map((result, i) => {
             return (
               <Result
@@ -87,7 +85,7 @@ class Results extends React.Component {
                 value={result}
                 onClick={handleResultClick}
                 handleTab={this.handleTab}
-                key={i}
+                key={JSON.stringify(result) + i}
               />
             )
           })}
