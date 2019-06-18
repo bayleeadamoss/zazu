@@ -7,7 +7,7 @@ const Result = require('./result')
 const globalEmitter = require('../lib/globalEmitter')
 const Style = require('./style')
 
-class Results extends React.Component {
+class Results extends React.PureComponent {
   moveUp = () => {
     const { values, activeIndex } = this.props
     const prevIndex = activeIndex - 1

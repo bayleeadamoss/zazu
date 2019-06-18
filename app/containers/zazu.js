@@ -50,11 +50,13 @@ class Zazu extends React.Component {
   }
 
   handleQueryChange = query => {
-    this.props.handleQueryChange(query)
-    this.setState(({ previousQuery, activeIndex }) => ({
-      activeIndex: previousQuery === query ? activeIndex : 0,
-      previousQuery: query,
-    }))
+    const queryNotChanged = query !== this.state.previousQuery
+    const activeIndex = queryNotChanged ? 0 : this.state.activeIndex
+    if (query !== this.state.previousQuery) {
+      this.props.handleQueryChange(query)
+      this.setState({ previousQuery: query })
+    }
+    this.setState({ activeIndex })
   }
 
   render () {
