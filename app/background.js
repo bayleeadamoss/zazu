@@ -35,7 +35,7 @@ globalEmitter.on('showAbout', message => {
 })
 
 globalEmitter.on('openConfig', message => {
-  shell.openExternal(`file://${configuration.profilePath}`)
+  shell.openItem(configuration.profilePath)
 })
 globalEmitter.on('reloadConfig', message => {
   app.relaunch()
