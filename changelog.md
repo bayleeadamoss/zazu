@@ -10,6 +10,7 @@
 - Add "Open Config" to menu
 - Enable vibrancy background effect in MacOS
 - Support json with comment in config file
+- New config option "blur" if set to false can prevent close on blur
 
 ### Bugs
 
