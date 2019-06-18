@@ -1,5 +1,6 @@
 const jetpack = require('fs-jetpack')
 const path = require('path')
+const { parse } = require('relaxed-json')
 
 class Configuration {
   constructor () {
@@ -34,7 +35,7 @@ class Configuration {
     }
 
     try {
-      const data = jetpack.read(this.profilePath, 'json')
+      const data = parse(jetpack.read(this.profilePath))
       this.plugins = data.plugins
       this.theme = data.theme
       this.hotkey = data.hotkey

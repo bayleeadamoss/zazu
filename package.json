@@ -87,6 +87,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "relaxed-json": "^1.0.3",
     "request": "^2.88.0",
     "semver": "^6.1.1",
     "winston": "^3.2.1",
