@@ -4,6 +4,10 @@ environment:
 
 os: unstable
 
+cache:
+  - node_modules
+  - '%USERPROFILE%\.electron'
+
 install:
   - ps: Install-Product node $env:nodejs_version
   - ps: $env:Path += ";C:\Program Files (x86)\NSIS;%JAVA_HOME%"
