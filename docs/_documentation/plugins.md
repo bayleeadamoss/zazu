@@ -94,7 +94,7 @@ provided it will fallback tot he icon for your project.
 * `title` *string*: Larger text you see in a result.
 * `subtitle` *string*: Optional. Smaller text under the title.
 * `preview` *string*: Optional. HTML that shows up next to an active result.
-  This will be in an iframe and include any `stylesheet` for styling.
+* `previewCss` *string*: Optional. A css string to style preview.
 * `value` *mixed*: Value is the what is passed from block to block to make your
 plugin run. In this case the value `42` as a number would be passed to whatever
 the connection block is, which could be to

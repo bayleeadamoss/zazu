@@ -1,4 +1,5 @@
 const path = require('path')
+const electron = require('electron')
 
 const InputBlock = require('../inputBlock')
 const truncateResult = require('../../lib/truncateResult')
@@ -10,13 +11,10 @@ class PrefixScript extends InputBlock {
     this.args = data.args || this.requiredField('args')
     this.space = !!data.space
     try {
-      const plugin = require(path.join(data.cwd, data.script))
-      const electron = require('electron')
+      const plugin = electron.remote.require(path.join(data.cwd, data.script))
       this.script = plugin({
         console: this.logger,
         cwd: data.cwd,
-        clipboard: electron.clipboard,
-        nativeImage: electron.nativeImage,
       })
     } catch (e) {
       this.script = false
@@ -51,8 +49,8 @@ class PrefixScript extends InputBlock {
       }
     }
     regex.push('$')
-    const respondsTo = input.match(new RegExp(regex.join(''), 'i'))
-    this.logger.log('info', 'respondsTo', { input, respondsTo })
+    const respondsTo = input.match(new RegExp(regex.join(''), 'i')) || false
+    this.logger.log('verbose', `${respondsTo ? 'r' : 'notR'}espondsTo`, { input, respondsTo })
     return respondsTo
   }
 
@@ -69,14 +67,23 @@ class PrefixScript extends InputBlock {
         timeout === this.timeout ? resolve() : reject(new Error('Debounced'))
       }, this.debounce)
       this.timeout = timeout
-    }).then(() => {
-      return this._ensurePromise(this.script(query, env))
-    }).then((results) => {
-      this.logger.log('info', 'Script Results', { results: (Array.isArray(results) ? results.map(truncateResult) : results) })
-      return this._validateResults(results.map((result) => Object.assign({}, result, { blockRank: 3 })))
-    }).catch((error) => {
-      this.logger.error('Script failed', { query, error })
     })
+      .then(() => {
+        return this._ensurePromise(this.script(query, env))
+      })
+      .then(results => {
+        this.logger.log('info', 'Script Results', {
+          results: Array.isArray(results) ? results.map(truncateResult) : results,
+        })
+        return this._validateResults(results.map(result => Object.assign({}, result, { blockRank: 3 })))
+      })
+      .catch(error => {
+        if (error.message === 'Debounced') {
+          this.logger.log('verbose', error.message, { query, error })
+        } else {
+          this.logger.error('Script failed', { query, error })
+        }
+      })
   }
 }
 

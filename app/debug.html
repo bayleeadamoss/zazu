@@ -1,11 +1,9 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Zazu</title>
     <script>
-      require('babel-register')
-
       const track = require('./lib/track')
       const app = require('electron').remote.app
       const env = require('./lib/env')
@@ -14,22 +12,19 @@
         zazuEnvironment: env.name,
       })
     </script>
-    <link href="assets/stylesheets/debug.css" rel="stylesheet">
-    <link href="assets/stylesheets/font-awesome.min.css" rel="stylesheet">
-    <link href="http://fonts.googleapis.com/css?family=Roboto:400,400italic,700|Roboto+Mono:400,500" rel="stylesheet">
+    <link href="assets/stylesheets/debug.css" rel="stylesheet" />
+    <link href="assets/stylesheets/font-awesome.min.css" rel="stylesheet" />
+    <link href="http://fonts.googleapis.com/css?family=Roboto:400,400italic,700|Roboto+Mono:400,500" rel="stylesheet" />
   </head>
   <body>
     <ul id="debug"></ul>
     <script>
-      const ReactDOM = require('react-dom')
-      const React = require('react')
-
-      const Debug = require('./components/debug')
-
-      ReactDOM.render(
-        React.createElement(Debug),
-        document.getElementById('debug')
-      )
+      if (process.env.NODE_ENV && process.env.NODE_ENV.match(/(development|test)/)) {
+        require('./registBabel.js')
+        require('./debug.js')
+      } else {
+        require('./dist/debug.prod.js')
+      }
     </script>
   </body>
 </html>

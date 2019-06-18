@@ -59,7 +59,7 @@ describe('Plugin', () => {
       plugin.addInput(blockFactory(true))
 
       // Execution
-      let state = {blockId: plugin.inputs[0].id}
+      let state = { blockId: plugin.inputs[0].id }
       plugin.next(state)
 
       // Assertion
@@ -70,12 +70,10 @@ describe('Plugin', () => {
       // Setup
       plugin.addOutput(blockFactory(true))
       plugin.addOutput(blockFactory(true))
-      plugin.addInput(blockFactory(true, [
-        plugin.outputs[0].id,
-      ]))
+      plugin.addInput(blockFactory(true, [plugin.outputs[0].id]))
 
       // Execution
-      let state = {blockId: plugin.inputs[0].id}
+      let state = { blockId: plugin.inputs[0].id }
       plugin.next(state)
 
       // Assertion
@@ -86,13 +84,10 @@ describe('Plugin', () => {
       // Setup
       plugin.addOutput(blockFactory(true))
       plugin.addOutput(blockFactory(true))
-      plugin.addInput(blockFactory(true, [
-        plugin.outputs[0].id,
-        plugin.outputs[1].id,
-      ]))
+      plugin.addInput(blockFactory(true, [plugin.outputs[0].id, plugin.outputs[1].id]))
 
       // Execution
-      let state = {blockId: plugin.inputs[0].id}
+      let state = { blockId: plugin.inputs[0].id }
       plugin.next(state)
 
       // Assertion
@@ -103,16 +98,11 @@ describe('Plugin', () => {
       // Setup
       plugin.addOutput(blockFactory(true))
       plugin.addOutput(blockFactory(true))
-      plugin.addOutput(blockFactory(true, [
-        plugin.outputs[0].id,
-      ]))
-      plugin.addInput(blockFactory(true, [
-        plugin.outputs[1].id,
-        plugin.outputs[2].id,
-      ]))
+      plugin.addOutput(blockFactory(true, [plugin.outputs[0].id]))
+      plugin.addInput(blockFactory(true, [plugin.outputs[1].id, plugin.outputs[2].id]))
 
       // Execution
-      let state = {blockId: plugin.inputs[0].id}
+      let state = { blockId: plugin.inputs[0].id }
       plugin.next(state)
 
       // Assertion

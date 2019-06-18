@@ -2,7 +2,7 @@ const React = require('react')
 const PropTypes = require('prop-types')
 
 const path = require('path')
-const Datastore = require('nedb')
+const Datastore = require('nestdb')
 
 const Zazu = require('./zazu')
 const track = require('../lib/track')

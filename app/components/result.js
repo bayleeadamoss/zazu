@@ -37,7 +37,7 @@ class Result extends React.Component {
 
   renderIcon = () => {
     const { value } = this.props
-    const isFontAwesome = value.icon.indexOf('fa-') === 0 && value.icon.indexOf('.') === -1
+    const isFontAwesome = value.icon.startsWith('fa') && value.icon.indexOf('.') === -1
 
     if (isFontAwesome) {
       return <i className={`icon fa ${value.icon}`} aria-hidden='true'/>

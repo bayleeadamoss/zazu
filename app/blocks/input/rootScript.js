@@ -1,4 +1,5 @@
 const path = require('path')
+const electron = require('electron')
 
 const InputBlock = require('../inputBlock')
 const truncateResult = require('../../lib/truncateResult')
@@ -7,13 +8,10 @@ class RootScript extends InputBlock {
   constructor (data) {
     super(data)
     try {
-      const plugin = require(path.join(data.cwd, data.script))
-      const electron = require('electron')
+      const plugin = electron.remote.require(path.join(data.cwd, data.script))
       this.script = plugin({
         console: this.logger,
         cwd: data.cwd,
-        clipboard: electron.clipboard,
-        nativeImage: electron.nativeImage,
       })
     } catch (e) {
       this.script = false
@@ -26,8 +24,8 @@ class RootScript extends InputBlock {
       this.logger.error('Plugin failed to load', this.loadError)
       return false
     }
-    const respondsTo = this.script.respondsTo(input, env)
-    this.logger.log('info', 'Responds to input', { input, respondsTo })
+    const respondsTo = !!this.script.respondsTo(input, env)
+    this.logger.log('verbose', `${respondsTo ? 'r' : 'notR'}espondsTo`, { input, respondsTo })
     return respondsTo
   }
 
@@ -49,7 +47,11 @@ class RootScript extends InputBlock {
       this.logger.log('info', 'Script Results', { results: (Array.isArray(results) ? results.map(truncateResult) : results) })
       return this._validateResults(results.map((result) => Object.assign({}, result, { blockRank: 1 })))
     }).catch((error) => {
-      this.logger.error('Script failed', { query, error })
+      if (error.message === 'Debounced') {
+        this.logger.log('verbose', error.message, { query, error })
+      } else {
+        this.logger.error('Script failed', { query, error })
+      }
     })
   }
 }

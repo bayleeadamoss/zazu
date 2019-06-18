@@ -2,11 +2,11 @@ const { app } = require('electron')
 const globalEmitter = require('../lib/globalEmitter')
 
 module.exports = () => {
-  const shouldQuit = app.makeSingleInstance((commandLine, workingDirectory) => {
-    globalEmitter.emit('showWindow')
-  })
+  const gotTheLock = app.requestSingleInstanceLock()
 
-  if (shouldQuit) {
+  if (!gotTheLock) {
     app.quit()
+  } else {
+    globalEmitter.emit('showWindow')
   }
 }

@@ -1,5 +1,6 @@
 const jetpack = require('fs-jetpack')
 const path = require('path')
+const { parse } = require('relaxed-json')
 
 class Configuration {
   constructor () {
@@ -20,6 +21,7 @@ class Configuration {
     this.theme = ''
     this.hotkey = ''
     this.debug = false
+    this.blur = false
     this.hideTrayItem = false
     this.height = 400
   }
@@ -33,7 +35,7 @@ class Configuration {
     }
 
     try {
-      const data = require(this.profilePath)
+      const data = parse(jetpack.read(this.profilePath))
       this.plugins = data.plugins
       this.theme = data.theme
       this.hotkey = data.hotkey
@@ -42,6 +44,7 @@ class Configuration {
       this.debug = data.debug
       this.hideTrayItem = data.hideTrayItem
       this.loaded = true
+      this.blur = data.blur
       this.height = data.height || this.height
     } catch (e) {
       const logger = require('./logger')

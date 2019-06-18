@@ -8,7 +8,7 @@ const External = require('../blocks/external')
 const npmInstall = require('../lib/npmInstall')
 const notification = require('../lib/notification')
 const track = require('../lib/track')
-const pluginFreshRequire = require('../lib/pluginFreshRequire')
+const globalEmitter = require('../lib/globalEmitter')
 
 const Package = require('./package')
 
@@ -43,10 +43,10 @@ class Plugin extends Package {
 
   update () {
     return super.update().then(() => {
-      this.logger.log('info', 'npm install')
+      this.logger.log('info', 'npm install for update')
       return npmInstall(this.url, this.path)
     }).then(() => {
-      return pluginFreshRequire(this.path)
+      globalEmitter.emit('pluginFreshRequire', this.path)
     }).catch((error) => {
       this.logger.error('failed to install plugin', error)
       notification.push({
@@ -59,7 +59,7 @@ class Plugin extends Package {
   download () {
     return super.download().then((action) => {
       if (action === 'cloned') {
-        this.logger.log('verbose', 'npm install')
+        this.logger.log('verbose', 'npm install for download')
         return npmInstall(this.url, this.path)
       } else {
         return Promise.resolve()
@@ -153,7 +153,8 @@ class Plugin extends Package {
       const icon = result.icon || this.plugin.icon || 'fa-bolt'
       const isFontAwesome = (icon.indexOf('fa-') === 0 && icon.indexOf('.') === -1)
       const isAbsolutePath = (icon.indexOf('/') === 0 || icon.indexOf(this.path) === 0)
-      const shouldAddPath = !isFontAwesome && !isAbsolutePath
+      const isResource = icon.startsWith('http') || icon.startsWith('data:image')
+      const shouldAddPath = !isFontAwesome && !isAbsolutePath && !isResource
       const finalResult = Object.assign({}, result, {
         icon: shouldAddPath ? path.join(this.path, icon) : icon,
         previewCss: this.plugin.css,

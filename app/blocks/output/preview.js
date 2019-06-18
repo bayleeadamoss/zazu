@@ -25,6 +25,9 @@ class Preview extends Block {
       skipTaskbar: true,
       title: 'Large Type',
       url: path.join('file://', path.dirname(path.dirname(__dirname)), '/preview.html'),
+      webPreferences: {
+        nodeIntegration: true,
+      },
     })
     const position = this.screens.getCenterPositionOnCurrentScreen()
     if (position) {

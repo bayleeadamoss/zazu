@@ -1,16 +1,23 @@
+const { setWorldConstructor, setDefaultTimeout, Given, When, Then } = require('cucumber')
 const path = require('path')
-const robot = require('robotjs')
+const os = require('os')
+const childProcess = require('child_process')
+const { promisify } = require('util')
+const isTravis = require('is-travis')
 const Application = require('spectron').Application
 const $ = require('cheerio')
 const jetpack = require('fs-jetpack')
 const { git, clone } = require('../../app/lib/git')
+const exec = promisify(childProcess.exec)
 
-const appPath = path.join(__dirname, '../../app')
+const appPath = path.join(__dirname, '../../', 'app/background.js')
 const homeDir = path.join(__dirname, '../../test/fixtures/home')
 const pluginDir = path.join(homeDir, '.zazu/plugins')
 const calcProfile = path.join(homeDir, '.calculator.zazurc.json')
 const fallbackProfile = path.join(homeDir, '.fallback.zazurc.json')
 const homeProfile = path.join(homeDir, '.zazurc.json')
+
+setDefaultTimeout(60 * 1000)
 
 class World {
   profile (name) {
@@ -31,11 +38,10 @@ class World {
     return Promise.resolve()
   }
 
-  open () {
-    return this.app.start().then(() => {
-      const time = this.profileType === 'calculator' ? 50 * 1000 : 5 * 1000
-      return wait(time) // give it time to load plugins
-    })
+  async open () {
+    await this.app.start()
+    const time = this.profileType === 'calculator' ? 50 * 1000 : 5 * 1000
+    return wait(time) // give it time to load plugins
   }
 
   isWindowVisible () {
@@ -60,23 +66,47 @@ class World {
     return this.app.client.getValue('input')
   }
 
-  type (input) {
-    this.app.client.setValue('input', input)
+  async type (input) {
+    await wait(500)
+    for (const char of input) {
+      await this.hitKey(char)
+    }
+    await wait(500)
   }
 
-  showWindow () {
-    return Promise.resolve(this.hitHotkey('space', 'shift'))
+  async showWindow () {
+    await this.hitKey('space', 'shift')
+    await wait(500)
   }
 
   hideWindow () {
-    return Promise.resolve(this.hitHotkey('space', 'shift'))
+    return this.hitKey('space', 'shift')
   }
 
-  hitHotkey (key, modifier) {
+  hitKey (key, modifier) {
+    if (os.type() === 'Darwin' && !isTravis) {
+      const keyForAppleScript = key.length === 1 ? `\\"${key}\\"` : key
+      if (modifier) {
+        const modifierForAppleScript = modifier.replace('alt', 'option')
+        return exec(`Script="tell app \\"System Events\\" to keystroke ${keyForAppleScript} using ${modifierForAppleScript} down"
+          osascript -e "$Script"`)
+      } else {
+        return exec(`Script="tell app \\"System Events\\" to keystroke ${keyForAppleScript}"
+          osascript -e "$Script"`)
+      }
+    }
+    const robot = require('robotjs')
     if (modifier) {
       return Promise.resolve(robot.keyTap(key, modifier))
+    } else {
+      // * will becomes 8, see https://github.com/octalmage/robotjs/issues/285
+      const robotjsBadChars = /[~!@#$%^&*()_+{}|:"<>?]/
+      let match = key.match(robotjsBadChars)
+      if (match) {
+        return Promise.resolve(robot.keyTap(key, 'shift'))
+      }
+      return Promise.resolve(robot.keyTap(key))
     }
-    return Promise.resolve(robot.keyTap(key))
   }
 
   close () {
@@ -99,7 +129,7 @@ class World {
   }
 
   getResultItems () {
-    return this.app.client.getHTML('.results').then((results) => {
+    return this.app.client.getHTML('.results').then(results => {
       return $(results).find('li')
     })
   }
@@ -109,16 +139,16 @@ class World {
   }
 }
 
-const wait = (time) => {
-  return new Promise((resolve) => {
+const wait = time => {
+  return new Promise(resolve => {
     setTimeout(resolve, time)
   })
 }
 
 const eventually = (func, expectedValue) => {
-  const assert = (actualValue) => {
+  const assert = actualValue => {
     if (actualValue !== expectedValue) {
-      throw new Error('Values didnt match')
+      throw new Error(`Values didn't match`)
     }
   }
   return new Promise((resolve, reject) => {
@@ -128,144 +158,152 @@ const eventually = (func, expectedValue) => {
       if (iterations >= 50) {
         reject(new Error('Forever is a long time'))
       } else {
-        func().then(assert).then(resolve).catch(() => {
-          return wait(100).then(retry)
-        })
+        func()
+          .then(assert)
+          .then(resolve)
+          .catch(() => {
+            return wait(100).then(retry)
+          })
       }
     }
     retry()
   })
 }
 
-module.exports = function () {
-  this.World = World
+setWorldConstructor(World)
 
-  this.Given(/^I have "([^"]*)" as a plugin$/, function (plugin) {
-    if (plugin === 'tinytacoteam/zazu-fixture') {
-      return this.profile('default')
-    } else if (plugin === 'tinytacoteam/zazu-calculator') {
-      return this.profile('calculator')
-    }
-    return Promise.reject(new Error('Profile not found'))
-  })
+Given('I have {string} as a plugin', function (plugin) {
+  if (plugin === 'tinytacoteam/zazu-fixture') {
+    return this.profile('default')
+  } else if (plugin === 'tinytacoteam/zazu-calculator') {
+    return this.profile('calculator')
+  }
+  return Promise.reject(new Error('Profile not found'))
+})
 
-  this.Given(/^the app is launched$/, {timeout: 120 * 1000}, function () {
-    return this.open()
-  })
+Given('the app is launched', { timeout: 120 * 1000 }, async function () {
+  await this.open()
+})
 
-  this.Given(/^I have "tinytacoteam\/zazu-fallback" installed before packagist support$/, function () {
-    const fallbackDir = path.join(pluginDir, 'tinytacoteam', 'zazu-fallback')
-    return clone('tinytacoteam/zazu-fallback', fallbackDir).then(() => {
+Given('I have {string} installed before packagist support', function (plugin) {
+  const fallbackDir = path.join(pluginDir, plugin)
+  return clone(plugin, fallbackDir)
+    .then(() => {
       return git(['reset', '--hard', '16e4e50'], { cwd: fallbackDir })
-    }).then(() => {
+    })
+    .then(() => {
       return this.profile('fallback')
     })
-  })
+})
 
-  this.Given(/^I update the plugins$/, {timeout: 15 * 1000}, function () {
-    return this.updatePlugins()
-  })
+Given('I update the plugins', { timeout: 15 * 1000 }, function () {
+  return this.updatePlugins()
+})
 
-  this.When(/^I toggle it open$/, function () {
-    return this.showWindow()
-  })
+When('I toggle it open', async function () {
+  await this.showWindow()
+  await wait(100)
+})
 
-  this.When(/^I toggle it closed$/, function () {
-    return this.hideWindow()
-  })
+When('I toggle it closed', function () {
+  return this.hideWindow()
+})
 
-  // assumes modifier is first
-  this.When(/^I hit the hotkey "([^"]*)"$/, function (hotkey) {
-    var keys = hotkey.split('+')
-    return this.hitHotkey(keys[1], keys[0]).then(() => {
+// assumes modifier is first
+When('I hit the hotkey {string}', function (hotkey) {
+  var keys = hotkey.split('+')
+  return this.hitKey(keys[1], keys[0]).then(() => {
+    return wait(100)
+  })
+})
+
+When('I hit the key {string}', function (hotkey) {
+  return this.hitKey(hotkey).then(() => {
+    return wait(100)
+  })
+})
+
+When('I eventually click on the active result', function () {
+  return eventually(() => this.hasResults(), true)
+    .then(() => {
       return wait(100)
     })
-  })
-
-  this.When(/^I hit the key "([^"]*)"$/, function (hotkey) {
-    return this.hitHotkey(hotkey).then(() => {
-      return wait(100)
-    })
-  })
-
-  this.When(/^I eventually click on the active result$/, function () {
-    return eventually(() => this.hasResults(), true).then(() => {
-      return wait(100)
-    }).then(() => {
+    .then(() => {
       return this.clickActiveResult()
     })
-  })
+})
 
-  this.Then(/^my clipboard contains "([^"]*)"$/, function (expected, callback) {
-    this.readClipboard().then((actual) => {
-      if (actual === expected) {
-        callback()
-      } else {
-        callback(new Error('Expected "' + expected + '" to be in your clipbaord but found "' + actual + '"'))
-      }
-    })
+Then('my clipboard contains {string}', function (expected, callback) {
+  this.readClipboard().then(actual => {
+    if (actual === expected) {
+      callback()
+    } else {
+      callback(new Error('Expected "' + expected + '" to be in your clipbaord but found "' + actual + '"'))
+    }
   })
+})
 
-  this.Then(/^the search window is not visible$/, function () {
-    return eventually(() => this.isWindowVisible(), false)
-  })
+Then('the search window is not visible', function () {
+  return eventually(() => this.isWindowVisible(), false)
+})
 
-  this.Then(/^the search window is visible$/, function () {
-    return eventually(() => this.isWindowVisible(), true)
-  })
+Then('the search window is visible', function () {
+  return eventually(() => this.isWindowVisible(), true)
+})
 
-  this.Then(/^I have (\d+) results?$/, function (expected) {
-    return eventually(() => {
-      return this.getResultItems().then((items) => items.length)
-    }, parseInt(expected, 10))
-  })
+Then('I have {int} result(s)', function (expected) {
+  return eventually(() => {
+    return this.getResultItems().then(items => items.length)
+  }, parseInt(expected, 10))
+})
 
-  this.Then(/^the input is empty$/, function () {
-    return eventually(() => {
-      return this.getQuery()
-    }, '')
-  })
+Then('the input is empty', function () {
+  return eventually(() => {
+    return this.getQuery()
+  }, '')
+})
 
-  this.Then(/^the input is "([^"]*)"$/, function (expected) {
-    return eventually(() => {
-      return this.getQuery()
-    }, expected)
-  })
+Then('the input is {string}', function (expected) {
+  return eventually(() => {
+    return this.getQuery()
+  }, expected)
+})
 
-  this.When(/^I type in "([^"]*)"$/, function (input) {
-    this.type(input)
-    return eventually(() => {
-      return this.getQuery()
-    }, input)
-  })
+When('I type in {string}', async function (input) {
+  await this.type(input)
+  await eventually(() => {
+    return this.getQuery()
+  }, input)
+})
 
-  this.Then(/^I have no results$/, function () {
-    return eventually(() => this.hasResults(), false)
-  })
+Then('I have no results', function () {
+  return eventually(() => this.hasResults(), false)
+})
 
-  this.Then(/^the active result contains "([^"]*)"$/, function (header) {
-    return eventually(() => this.hasResults(), true).then(() => {
+Then('the active result contains {string}', function (header) {
+  return eventually(() => this.hasResults(), true)
+    .then(() => {
       return wait(100)
-    }).then(() => {
+    })
+    .then(() => {
       return eventually(() => this.getActiveHeader(), header)
     })
-  })
+})
 
-  this.Then(/^I have no accessibility warnings$/, function () {
-    return this.accessibility().then((response) => {
-      if (response.results.length !== 0) {
-        throw new Error('You have accessibility issues')
-      }
-    })
+Then('I have no accessibility warnings', function () {
+  return this.accessibility().then(response => {
+    if (response.results.length !== 0) {
+      throw new Error('You have accessibility issues')
+    }
   })
+})
 
-  this.Then(/^the results contain "([^"]*)"$/, function (subset, callback) {
-    this.getResults().then((resultText) => {
-      if (resultText.match(subset)) {
-        callback()
-      } else {
-        callback(new Error('Expected results to contain "' + subset + '"'))
-      }
-    })
+Then('the results contain {string}', function (subset, callback) {
+  this.getResults().then(resultText => {
+    if (resultText.match(subset)) {
+      callback()
+    } else {
+      callback(new Error('Expected results to contain "' + subset + '"'))
+    }
   })
-}
+})

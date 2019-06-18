@@ -1,5 +1,5 @@
 const AutoLaunch = require('auto-launch')
-const Datastore = require('nedb')
+const Datastore = require('nestdb')
 const { app } = require('electron')
 const path = require('path')
 const env = require('../lib/env')
