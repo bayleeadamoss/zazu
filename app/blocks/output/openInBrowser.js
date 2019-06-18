@@ -1,9 +1,6 @@
-const childProcess = require('child_process')
-const { promisify } = require('util')
-const exec = promisify(childProcess.exec)
+const { shell } = require('electron')
 
 const Template = require('../../lib/template')
-const getOpenFileShellCommand = require('../../lib/getOpenFileShellCommand')
 const Block = require('../block')
 
 class OpenInBrowser extends Block {
@@ -16,15 +13,9 @@ class OpenInBrowser extends Block {
     const url = Template.compile(this.url, {
       value: String(state.value),
     })
-    const command = `${getOpenFileShellCommand()} "${url}"`
-    this.logger.log('info', 'Opening in browser', { url, command })
-    return exec(command)
-      .catch(error => {
-        this.logger.info('error', 'Opening in browser', { command, error, errorString: String(error) })
-      })
-      .then(() => {
-        return state.next()
-      })
+    this.logger.log('info', 'Opening in browser', { url })
+    shell.openExternal(url)
+    return state.next()
   }
 }
 
