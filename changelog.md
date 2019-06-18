@@ -2,11 +2,14 @@
 
 ### Features
 
-- Upgrade to Electron v5.0.1, Node Version: 12.0.0, Chrome Version: 73.0.3683.121 #341
+- Upgrade to Electron v5.0.4, Node Version: 12.0.0, Chrome Version: 73.0.3683.121 #341
 - Upgrade babel to v7 #341
 - Upgrade all minor dependencies #341
 - Make default debounce 100ms, and only generate plugin log if devtool is open, for better performance #341
 - Upgrade build-in Font-Awesome to 5.8.2, you can use brand icons likes `"icon": "fa-firefox fab"` in your result item now
+- Add "Open Config" to menu
+- Enable vibrancy background effect in MacOS
+- Support json with comment in config file
 
 ### Bugs
 
