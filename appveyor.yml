@@ -16,4 +16,6 @@ test_script:
   - java -version
   - npm run cucumber
   - npm test
+
+build_script:
   - npm run release
