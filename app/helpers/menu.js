@@ -96,6 +96,12 @@ const trayTemplate = [
     },
   },
   {
+    label: 'Open Config',
+    click: () => {
+      globalEmitter.emit('openConfig')
+    },
+  },
+  {
     label: 'Reload Config',
     click: () => {
       globalEmitter.emit('reloadConfig')

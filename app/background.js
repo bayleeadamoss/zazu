@@ -1,4 +1,4 @@
-const { dialog, app, globalShortcut } = require('electron')
+const { dialog, app, globalShortcut, shell } = require('electron')
 const path = require('path')
 
 const Screens = require('./lib/screens')
@@ -34,6 +34,9 @@ globalEmitter.on('showAbout', message => {
   about.show()
 })
 
+globalEmitter.on('openConfig', message => {
+  shell.openExternal(`file://${configuration.profilePath}`)
+})
 globalEmitter.on('reloadConfig', message => {
   app.relaunch()
   app.exit()
