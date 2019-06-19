@@ -119,6 +119,16 @@ support adjusting the height of Zazu.
 }
 ~~~~
 
+### Blur
+
+By default, Zazu will close when It loose focus, for example, clicking on other applications. You can disable "close on blur" by adding `false` to `blur`.
+
+~~~ json
+{
+  "blur": false
+}
+~~~~
+
 ### Analytics
 
 We send anonymous usage to [New Relic](https://newrelic.com/). To opt out of
