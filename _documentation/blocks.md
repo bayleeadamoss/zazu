@@ -152,7 +152,7 @@ This allows you to execute a node script without a prefix.
 
 * `script` *string*: Path to the node file to execute.
 * `debounce` *int*: How long in milliseconds we should wait between calls,
-  useful for resource intensive or slow running plugins. Defaults to `0`.
+  useful for resource intensive or slow running plugins. Defaults to `100`.
 
 ~~~ javascript
 [{

@@ -30,6 +30,12 @@ accelerator](https://github.com/electron/electron/blob/master/docs/api/accelerat
 you can think of. We recommend using `alt+space` or `cmd+space`, but it's up
 to you!
 
+~~~ json
+{
+  "hotkey": "cmd+space"
+}
+~~~~
+
 ### Theme
 
 This in the format of a relative GitHub URL. For example `tinytacoteam/zazu-dark-theme`
@@ -37,6 +43,12 @@ would translate to `https://github.com/tinytacoteam/zazu-dark-theme`.
 
 There are a [few themes](/themes) we created that you can pick from, feel free
 to fork them and make your own.
+
+~~~ json
+{
+  "theme": "tinytacoteam/zazu-dark-theme"
+}
+~~~~
 
 ### Plugins
 
@@ -90,14 +102,42 @@ toggled.
 
 Set to `detect` by default.
 
+~~~ json
+{
+  "displayOn": "primary"
+}
+~~~~
+
+### Height
+
+You can adjust the height of Zazu. It's worth mentioning that not all themes
+support adjusting the height of Zazu.
+
+~~~ json
+{
+  "height": 700
+}
+~~~~
+
 ### Analytics
 
 We send anonymous usage to [New Relic](https://newrelic.com/). To opt out of
 sending this anonymous data you can set `disableAnalytics` to `true` in your
 configuration.
 
+~~~ json
+{
+  "disableAnalytics": false
+}
+~~~~
+
 ## Portable Mode {#portableMode}
 
 If you want your configuration within your application folder for portability just
 create a `portable` directory inside of it. You can copy your configuration files over
 from your home directory if they already exist.
+
+## Hide Tray Item
+
+The tray item can be hidden by setting `hideTrayItem` to `true` in your configuration.
+When hidden, the menu will instead be accessible via a small cog on the search bar.
