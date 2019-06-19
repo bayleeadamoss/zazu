@@ -22,4 +22,4 @@ test_script:
   - npm test
 
 build_script:
-  - npm run release
+  - npm run release:win
