@@ -11,8 +11,13 @@ matrix:
 services:
   - xvfb
 
+addons:
+  apt:
+    update: true
+
 before_install:
   - if [ $TRAVIS_OS_NAME == "linux" ]; then
+      sudo apt-get install -y wine;
       export DISPLAY=:99.0;
     fi
 
