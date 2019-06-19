@@ -16,10 +16,13 @@
 
 - Fix [operations of zazu-clipboard](https://github.com/tinytacoteam/zazu-clipboard/issues/18)
 - Icon not loading #335
+- Frequent React reRender when pressing arrow keys
 
 ### Breaking Changes
 
 - `pluginContext` now only provides `console` and `cwd`, other electron based deps should be required by plugin directly
+- `debounce` of input block and prefixScript are 100 to improve performance
+- Debounce and some other logs is now in `Verbose` level instead of `Info`
 
 ## 0.5.2
 
