@@ -25,5 +25,5 @@ build_script:
   - npm run release:win
 
 artifacts:
-  - path: 'C:\projects\zazu\dist\*.exe'
+  - path: 'dist\*.exe'
     name: Zazu
