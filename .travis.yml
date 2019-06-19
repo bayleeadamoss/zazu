@@ -14,12 +14,10 @@ matrix:
 
     - os: linux
       services:
-        - docker
         - xvfb
 
 cache:
   directories:
-  - $HOME/.npm
   - $HOME/.cache/electron
   - $HOME/.cache/electron-builder
 
