@@ -23,3 +23,7 @@ test_script:
 
 build_script:
   - npm run release:win
+
+artifacts:
+  - path: 'C:\projects\zazu\dist\*.exe'
+    name: Zazu
